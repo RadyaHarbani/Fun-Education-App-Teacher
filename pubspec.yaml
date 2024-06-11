@@ -14,6 +14,8 @@ dependencies:
   get: ^4.6.6
   google_fonts: ^6.2.1
   shared_preferences: ^2.2.3
+  auto_size_text: ^3.0.0
+  flutter_svg: null
 
 dev_dependencies:
   flutter_test:
