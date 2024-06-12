@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/bottomsheet_edit_catatan_darurat.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class DashboardComponentTwo extends StatelessWidget {
@@ -45,10 +46,20 @@ class DashboardComponentTwo extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(
-                    'assets/icons/lets-icons_edit.svg',
-                    color: blackColor,
-                    width: 25,
+                  InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => BottomsheetEditCatatanDarurat(),
+                        isScrollControlled: true,
+                        backgroundColor: whiteColor,
+                      );
+                    },
+                    child: SvgPicture.asset(
+                      'assets/icons/lets-icons_edit.svg',
+                      color: blackColor,
+                      width: 25,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Icon(CupertinoIcons.trash, color: redColor, size: 23),
@@ -56,12 +67,24 @@ class DashboardComponentTwo extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 8),
-          Text('Catatan Darurat', style: tsBodySmallRegular(blackColor)),
-          SizedBox(height: 15),
-          Text("Hari Ini Libur sampai 21 Juni 2024",
-              style: tsBodyMediumSemibold(blackColor)),
-          SizedBox(height: 24),
+          SizedBox(height: 3),
+          AutoSizeText.rich(
+            group: AutoSizeGroup(),
+            maxLines: 2,
+            TextSpan(
+              text: 'Catatan Darurat\n',
+              style: tsBodySmallRegular(blackColor).copyWith(
+                height: 2.6,
+              ),
+              children: [
+                TextSpan(
+                  text: 'Hari Ini Libur sampai 21 Juni 2024',
+                  style: tsBodyMediumSemibold(blackColor),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 7),
           Container(
             margin: EdgeInsets.only(top: height * 0.02),
             padding: EdgeInsets.symmetric(
