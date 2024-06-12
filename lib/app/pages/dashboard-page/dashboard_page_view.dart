@@ -4,9 +4,12 @@ import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/das
 import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/dashboard_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/dashboard_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/dashboard_component_three.dart';
+import 'package:fun_education_app_teacher/app/pages/dashboard-page/dashboard_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_view.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class DashboardPageView extends StatelessWidget {
+class DashboardPageView extends GetView<DashboardPageController> {
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
@@ -14,7 +17,9 @@ class DashboardPageView extends StatelessWidget {
     final double height = mediaQuery.height;
 
     return Scaffold(
+      key: controller.scaffoldKey,
       backgroundColor: backgroundColor,
+      drawer: ProfileDrawerView(),
       body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: SafeArea(
@@ -26,7 +31,7 @@ class DashboardPageView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DashboardComponentOne(),
+                  DashboardComponentOne(openDrawer: controller.openDrawer),
                   SizedBox(height: 20),
                   DashboardComponentTwo(),
                   SizedBox(height: 30),
