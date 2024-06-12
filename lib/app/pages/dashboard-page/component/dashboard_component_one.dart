@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
@@ -15,12 +16,21 @@ class DashboardComponentOne extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Senin, 25 November 2024", style: tsBodySmallRegular(greyColor)),
-            Text("Halo, Tuti Caidah", style: tsTitleSmallSemibold(blackColor)),
-          ],
+        AutoSizeText.rich(
+          textAlign: TextAlign.start,
+          TextSpan(
+            text: 'Senin, 25 November 2024\n',
+            style: tsBodySmallRegular(greyColor).copyWith(
+              height: 1.3,
+            ),
+            children: [
+              TextSpan(
+                text: 'Halo, Tuti Caidah',
+                style: tsTitleSmallSemibold(blackColor),
+              ),
+            ],
+          ),
+          maxLines: 2,
         ),
         GestureDetector(
           onTap: openDrawer,

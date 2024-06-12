@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
@@ -22,11 +23,13 @@ class StudentCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 20,
-            child: Text(initials, style: tsBodyMediumSemibold(whiteColor)),
+            child: AutoSizeText.rich(TextSpan(
+                text: initials, style: tsBodyMediumSemibold(whiteColor))),
             backgroundColor: greenColor,
           ),
           SizedBox(width: 16),
-          Text(name, style: tsBodySmallSemibold(blackColor)),
+          AutoSizeText.rich(
+              TextSpan(text: name, style: tsBodySmallSemibold(blackColor))),
           Spacer(),
           Icon(Icons.arrow_forward_ios, size: 15, color: blackColor),
         ],

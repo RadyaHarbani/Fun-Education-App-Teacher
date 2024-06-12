@@ -59,10 +59,10 @@ class DashboardComponentThree extends StatelessWidget {
                 maxLines: 1,
                 style: tsBodySmallMedium(whiteColor),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: 9),
               Icon(
                 Icons.add,
-                size: 12,
+                size: 14,
                 color: whiteColor,
               )
             ],
