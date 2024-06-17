@@ -7,13 +7,14 @@ class CustomRadioButton extends StatelessWidget {
   final String groupValue;
   final Function(String) onChanged;
   final TextStyle? style;
+  final Color? color;
 
   CustomRadioButton({
     required this.title,
     required this.value,
     required this.groupValue,
     required this.onChanged,
-    this.style,
+    this.style, this.color,
   });
 
   @override
@@ -24,7 +25,7 @@ class CustomRadioButton extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 8.0),
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: color ?? whiteColor,
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Row(
