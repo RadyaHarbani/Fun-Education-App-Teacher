@@ -2,11 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
-class BottomsheetEditCatatanDarurat extends StatelessWidget {
-  const BottomsheetEditCatatanDarurat({super.key});
+class BottomsheetTambahCatatanDarurat extends StatelessWidget {
+  const BottomsheetTambahCatatanDarurat({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +78,32 @@ class BottomsheetEditCatatanDarurat extends StatelessWidget {
                     ),
                   )),
             ),
-            CommonButton(
-              text: 'Simpan Perubahan',
-              onPressed: () => Navigator.pop(context),
-              color: blackColor,
+            InkWell(
+              // onTap: onPressed,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                width: width,
+                height: height * 0.07,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: blackColor,
+                ),
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AutoSizeText.rich(TextSpan(
+                        text: 'Tambah Catatan',
+                        style: tsBodyMediumSemibold(whiteColor))),
+                    SizedBox(width: 10),
+                    SvgPicture.asset(
+                      'assets/icons/icon-add-notes.svg',
+                      color: whiteColor,
+                      width: 22,
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),

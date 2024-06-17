@@ -13,7 +13,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ADD_SISWA_PAGE;
+  static const INITIAL = Routes.DASHBOARD_PAGE;
 
   static final routes = [
     GetPage(
