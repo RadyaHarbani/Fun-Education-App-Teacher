@@ -39,7 +39,7 @@ class CustomRadioButton extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(5.0),
               decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: opacityGreyColor),
+                  shape: BoxShape.circle, color: primaryColor.withOpacity(0.1),),
               child: Container(
                 width: 21.0,
                 height: 21.0,

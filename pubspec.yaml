@@ -7,15 +7,15 @@ environment:
   sdk: '>=3.3.4 <4.0.0'
 
 dependencies:
+  auto_size_text: ^3.0.0
   cupertino_icons: ^1.0.6
   dio: ^5.4.3+1
   flutter:
     sdk: flutter
+  flutter_svg: ^2.0.10+1
   get: ^4.6.6
   google_fonts: ^6.2.1
   shared_preferences: ^2.2.3
-  auto_size_text: ^3.0.0
-  flutter_svg: null
 
 dev_dependencies:
   flutter_test:

@@ -61,7 +61,7 @@ class DashboardComponentTwo extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 10),
-                  Icon(CupertinoIcons.trash, color: redColor, size: 23),
+                  Icon(CupertinoIcons.trash, color: dangerColor, size: 23),
                 ],
               ),
             ],

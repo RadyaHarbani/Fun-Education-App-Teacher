@@ -26,7 +26,7 @@ class DashboardComponentThree extends StatelessWidget {
               children: [
                 TextSpan(
                   text: 'Fun Education',
-                  style: tsTitleSmallSemibold(secondaryColor),
+                  style: tsTitleSmallSemibold(blackColor),
                 ),
               ],
             ),

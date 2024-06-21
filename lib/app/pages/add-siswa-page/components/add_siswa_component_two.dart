@@ -15,7 +15,7 @@ class AddSiswaComponentTwo extends StatelessWidget {
         SizedBox(height: 20),
         CommonWarning(
             backColor: Colors.amber,
-            icon: Icons.info_outline,
+    
             text: 'Buatkan Kata sandi untuk siswa agar bisa login aplikasi'),
         SizedBox(height: 10),
         CommonTextField(obscureText: false, hintText: 'Kata Sandi'),
