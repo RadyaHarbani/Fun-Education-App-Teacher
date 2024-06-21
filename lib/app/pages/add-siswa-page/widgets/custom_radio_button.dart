@@ -14,42 +14,59 @@ class CustomRadioButton extends StatelessWidget {
     required this.value,
     required this.groupValue,
     required this.onChanged,
-    this.style, this.color,
+    this.style,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onChanged(value),
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8.0),
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        decoration: BoxDecoration(
-          color: color ?? whiteColor,
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: style ?? tsBodyMediumSemibold(blackColor),
-            ),
-            Container(
-              padding: EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: primaryColor.withOpacity(0.1),),
-              child: Container(
-                width: 21.0,
-                height: 21.0,
+    final Size mediaQuery = MediaQuery.of(context).size;
+    final double width = mediaQuery.width;
+    final double height = mediaQuery.height;
+    return Padding(
+      padding: EdgeInsets.only(bottom: height * 0.01),
+      child: GestureDetector(
+        onTap: () => onChanged(value),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: height * 0.02,
+            horizontal: width * 0.05,
+          ),
+          decoration: BoxDecoration(
+            color: color ?? whiteColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: style ?? tsBodySmallSemibold(blackColor),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: height * 0.005,
+                  horizontal: width * 0.015,
+                ),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: groupValue == value ? primaryColor : transparentColor,
+                  color: greyColor.withOpacity(0.1),
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: height * 0.008,
+                    horizontal: width * 0.018,
+                  ),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color:
+                        groupValue == value ? primaryColor : transparentColor,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

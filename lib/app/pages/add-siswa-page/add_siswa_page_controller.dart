@@ -6,6 +6,7 @@ class AddSiswaPageController extends GetxController {
   final tempatLahirController = TextEditingController();
   final alamatLengkapController = TextEditingController();
 
+  RxBool isObsecure = false.obs;
   var selectedOption = ''.obs;
 
   void selectTime(String option) {

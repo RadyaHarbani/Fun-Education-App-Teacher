@@ -15,27 +15,23 @@ class AddSiswaPageView extends GetView<AddSiswaPageController> {
     final double height = mediaQuery.height;
 
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * 0.07),
-        child: AppBar(
-          backgroundColor: Colors.grey[200],
-          elevation: 0,
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios_new_rounded,
-              size: 20,
-            ),
-            onPressed: () {
-              Get.back();
-            },
+      backgroundColor: backgroundColor,
+      appBar: AppBar(
+        backgroundColor: backgroundColor,
+        elevation: 0,
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_rounded,
+            size: 15,
           ),
-          title: Text(
-            'Tambah Siswa',
-            style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: Text(
+          'Tambah Siswa',
+          style: tsBodyMediumSemibold(blackColor),
         ),
       ),
       body: SingleChildScrollView(
@@ -55,10 +51,11 @@ class AddSiswaPageView extends GetView<AddSiswaPageController> {
                 AddSiswaComponentThree(),
                 SizedBox(height: 60),
                 CommonButton(
-                    text: 'Tambah Siswa',
-                    color: primaryColor,
-                    onPressed: () {},
-                    icon: Icons.add),
+                  text: 'Tambah Siswa',
+                  color: blackColor,
+                  onPressed: () {},
+                  icon: Icons.add,
+                ),
               ],
             ),
           ),
