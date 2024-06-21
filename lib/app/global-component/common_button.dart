@@ -4,15 +4,15 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class CommonButton extends StatelessWidget {
   final String text;
-  final VoidCallback? onPressed;
   final Color color;
+  final VoidCallback? onPressed;
   final IconData? icon;
 
   CommonButton({
     Key? key,
     required this.text,
-    this.onPressed,
     required this.color,
+    this.onPressed,
     this.icon,
   }) : super(key: key);
 
@@ -26,9 +26,9 @@ class CommonButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 15),
         width: width,
-        height: height * 0.07,
+        height: height * 0.075,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(15),
           color: color,
         ),
         alignment: Alignment.center,
@@ -36,7 +36,11 @@ class CommonButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AutoSizeText.rich(
-                TextSpan(text: text, style: tsBodyMediumSemibold(whiteColor))),
+              TextSpan(
+                text: text,
+                style: tsBodyMediumSemibold(whiteColor),
+              ),
+            ),
             if (icon != null) ...[
               SizedBox(width: 10),
               Icon(

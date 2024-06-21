@@ -28,7 +28,7 @@ class BottomsheetEditCatatanDarurat extends StatelessWidget {
               width: width * 0.15,
               height: height * 0.008,
               decoration: BoxDecoration(
-                color: opacity20GreyColor,
+                color: greyColor.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
@@ -67,7 +67,7 @@ class BottomsheetEditCatatanDarurat extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: height * 0.03),
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                      color: opacity5PrimaryColor,
+                      color: greyColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10)),
                   child: Flexible(
                     child: AutoSizeText(

@@ -2,28 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // COLORS
-const Color primaryColor = Color(0xFFEF564B);
+const Color transparentColor = Colors.transparent;
 const Color backgroundColor = Color(0xFFF5F6FB);
 const Color blackColor = Color(0xFF313131);
+const Color primaryColor = Color(0xFFFF7E5B);
 const Color whiteColor = Color(0xFFFFFFFF);
-const Color secondaryColor = Color(0xFF0C276A);
-const Color greyColor = Color(0xFF7B7B7B);
 const Color warningColor = Color(0xFFFFBE30);
-const Color opacityPrimaryColor = Color(0x20EF564B);
-const Color opacityGreyColor = Color(0x107B7B7B);
-const Color opacitySecondaryColor = Color(0x200C276A);
-const Color opacityWhiteColor = Color(0x20FFFFFF);
-const Color opacity5SecondaryColor = Color(0x0D0C276A);
-const Color greenColor = Color(0xFF0CD644);
-const Color blueColor = Color(0xFF00B5C0);
-const Color opacity20GreyColor = Color(0x207B7B7B);
-const Color opacity5PrimaryColor = Color(0x0DEF564B);
-const Color opacityBlackColor = Color(0x0D313131);
-const Color opacity50GreyColor = Color(0x507B7B7B);
-const Color redColor = Color(0xFFE13F3F);
-const Color transparentColor = Colors.transparent;
+const Color greyColor = Color(0xFF7B7B7B);
+const Color successColor = Color(0xFF0CD644);
+const Color blueColor = Color(0xFF2BC7FA);
 const Color dangerColor = Color(0xFFE13F3F);
-const Color opacity5GreyColor = Color(0x0D7B7B7B);
+const Color greenColor = Color(0xFF69BE47);
+const Color goldColor = Color(0xFFF9C105);
+const Color silverColor = Color(0xFFD8D8D8);
+const Color bronzeColor = Color(0xFFC58D5B);
 
 //BOX SHADOW
 BoxShadow shadowBlackBlur15Color5 = BoxShadow(
@@ -42,13 +34,6 @@ BoxShadow shadowBlackBlur10Color5 = BoxShadow(
 
 //BORDER RADIUS
 final BorderRadius defaulBorderRadius = BorderRadius.circular(15);
-
-//LOGO
-const String logo = 'assets/logo.svg';
-const String iconChat = 'assets/icons/chat.svg';
-const String iconDocument = 'assets/icons/document.svg';
-const String iconTravelCase = 'assets/icons/icTravelCase.svg';
-const String iconSPP = 'assets/icons/icSPP.svg';
 
 // FONT SIZES
 figmaFontsize(int fontSize) {

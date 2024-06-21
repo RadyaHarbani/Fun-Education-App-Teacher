@@ -5,13 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CommonWarning extends StatelessWidget {
   final Color backColor;
-  final IconData? icon;
   final String text;
 
   CommonWarning({
     Key? key,
     required this.backColor,
-    this.icon,
     required this.text,
   }) : super(key: key);
 
@@ -26,28 +24,22 @@ class CommonWarning extends StatelessWidget {
         vertical: height * 0.015,
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         color: backColor,
       ),
       child: Row(
         children: [
-          if (icon != null) // Check if icon is provided
-            Icon(
-              icon,
-              color: whiteColor,
-              size: 25,
-            ),
-          if (icon != null) // Check if icon is provided
-            SizedBox(width: width * 0.025),
+          Icon(
+            Icons.info_outline_rounded,
+            color: whiteColor,
+            size: width * 0.06,
+          ),
+          SizedBox(width: width * 0.025),
           Flexible(
             child: AutoSizeText(
               text,
-              maxLines: 5,
-              style: GoogleFonts.poppins(
-                color: whiteColor,
-                fontWeight: FontWeight.w600,
-                fontSize: figmaFontsize(11),
-              ),
+              maxLines: 2,
+              style: tsBodySmallMedium(whiteColor),
             ),
           ),
         ],

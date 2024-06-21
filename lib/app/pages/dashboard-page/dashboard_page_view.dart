@@ -38,7 +38,6 @@ class DashboardPageView extends GetView<DashboardPageController> {
                   DashboardComponentThree(),
                   SizedBox(height: 20),
                   CommonWarning(
-                      icon: Icons.info_outline,
                       backColor: warningColor,
                       text:
                           'Cek detail siswa untuk melihat informasi secara keseluruhan'),

@@ -33,7 +33,7 @@ class ProfileDrawerView extends StatelessWidget {
                 height: 40.0,
                 width: 40.0,
                 decoration: BoxDecoration(
-                  border: Border.all(color: opacity20GreyColor, width: 1),
+                  border: Border.all(color: greyColor, width: 1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: IconButton(
