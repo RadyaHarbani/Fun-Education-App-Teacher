@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/add_siswa_page_controller.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/components/add_siswa_component_one.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/components/add_siswa_component_three.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/components/add_siswa_component_two.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/components/add_student_page_component_one.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/components/add_student_page_component_three.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/components/add_student_page_component_two.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
-class AddSiswaPageView extends GetView<AddSiswaPageController> {
+class AddStudentPageView extends GetView<AddStudentPageController> {
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
@@ -44,11 +44,11 @@ class AddSiswaPageView extends GetView<AddSiswaPageController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AddSiswaComponentOne(),
+                AddStudentPageComponentOne(),
                 SizedBox(height: 50),
-                AddSiswaComponentTwo(),
+                AddStudentComponentTwo(),
                 SizedBox(height: 50),
-                AddSiswaComponentThree(),
+                AddStudentComponentThree(),
                 SizedBox(height: 60),
                 CommonButton(
                   text: 'Tambah Siswa',
