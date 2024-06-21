@@ -1,5 +1,5 @@
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/add_siswa_page_binding.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/add_siswa_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/dashboard-page/dashboard_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/dashboard-page/dashboard_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-kelas-page/detail_kelas_page_binding.dart';
@@ -17,7 +17,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ADD_SISWA_PAGE;
+  static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
@@ -42,8 +42,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADD_SISWA_PAGE,
-      page: () => AddSiswaPageView(),
-      binding: AddSiswaPageBinding(),
+      page: () => AddStudentPageView(),
+      binding: AddStudentPageBinding(),
     ),
     GetPage(
       name: _Paths.DETAIL_KELAS_PAGE,

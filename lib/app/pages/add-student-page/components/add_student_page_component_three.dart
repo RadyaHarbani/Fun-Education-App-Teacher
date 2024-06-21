@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/add_siswa_page_controller.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/widgets/custom_radio_button.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/widgets/custom_radio_button.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
-class AddSiswaComponentThree extends GetView<AddSiswaPageController> {
-  const AddSiswaComponentThree({super.key});
+class AddStudentComponentThree extends GetView<AddStudentPageController> {
+  const AddStudentComponentThree({super.key});
 
   @override
   Widget build(BuildContext context) {

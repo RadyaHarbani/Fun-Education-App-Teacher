@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddSiswaPageController extends GetxController {
+class AddStudentPageController extends GetxController {
   final namaLengkapController = TextEditingController();
   final tempatLahirController = TextEditingController();
   final alamatLengkapController = TextEditingController();

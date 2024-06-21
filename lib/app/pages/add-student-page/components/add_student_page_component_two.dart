@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/add_siswa_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
-class AddSiswaComponentTwo extends GetView<AddSiswaPageController> {
-  const AddSiswaComponentTwo({super.key});
+class AddStudentComponentTwo extends GetView<AddStudentPageController> {
+  const AddStudentComponentTwo({super.key});
 
   @override
   Widget build(BuildContext context) {

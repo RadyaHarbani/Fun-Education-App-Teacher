@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
-import 'package:fun_education_app_teacher/app/pages/add-siswa-page/widgets/custom_radio_button.dart';
+import 'package:fun_education_app_teacher/app/pages/add-student-page/widgets/custom_radio_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-kelas-page/detail_kelas_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
