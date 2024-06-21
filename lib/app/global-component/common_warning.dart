@@ -20,7 +20,7 @@ class CommonWarning extends StatelessWidget {
     final double height = mediaQuery.height;
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: width * 0.035,
+        horizontal: width * 0.04,
         vertical: height * 0.015,
       ),
       decoration: BoxDecoration(

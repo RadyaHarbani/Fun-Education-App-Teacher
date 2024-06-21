@@ -26,7 +26,7 @@ class CommonButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 15),
         width: width,
-        height: height * 0.075,
+        height: height * 0.07,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: color,
@@ -38,7 +38,7 @@ class CommonButton extends StatelessWidget {
             AutoSizeText.rich(
               TextSpan(
                 text: text,
-                style: tsBodyMediumSemibold(whiteColor),
+                style: tsBodySmallSemibold(whiteColor),
               ),
             ),
             if (icon != null) ...[
@@ -46,7 +46,7 @@ class CommonButton extends StatelessWidget {
               Icon(
                 icon,
                 color: whiteColor,
-                size: 22,
+                size: 18,
               ),
             ],
           ],

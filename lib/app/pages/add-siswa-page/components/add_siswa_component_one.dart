@@ -9,22 +9,37 @@ class AddSiswaComponentOne extends GetView<AddSiswaPageController> {
 
   @override
   Widget build(BuildContext context) {
+    final Size mediaQuery = MediaQuery.of(context).size;
+    final double width = mediaQuery.width;
+    final double height = mediaQuery.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Data Diri Siswa', style: tsBodyLargeRegular(blackColor)),
-        SizedBox(height: 20),
+        SizedBox(height: height * 0.02),
         CommonTextField(
           obscureText: false,
           hintText: "Nama Lengkap",
           fieldController: controller.namaLengkapController,
         ),
-        SizedBox(height: 10),
+        SizedBox(height: height * 0.01),
+        CommonTextField(
+          obscureText: false,
+          hintText: "Nama Panggilan",
+          fieldController: controller.namaLengkapController,
+        ),
+        SizedBox(height: height * 0.01),
+        CommonTextField(
+          obscureText: false,
+          hintText: "Jenis Kelamain",
+          fieldController: controller.namaLengkapController,
+        ),
+        SizedBox(height: height * 0.01),
         CommonTextField(
             obscureText: false,
             hintText: 'Tempat, Tanggal Lahir',
             fieldController: controller.tempatLahirController),
-        SizedBox(height: 10),
+        SizedBox(height: height * 0.01),
         CommonTextField(
             obscureText: false,
             hintText: 'Alamat Lengkap',
