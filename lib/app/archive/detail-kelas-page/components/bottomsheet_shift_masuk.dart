@@ -16,6 +16,7 @@ class BottomsheetShiftMasuk extends GetView<DetailKelasPageController> {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
+    
     return SizedBox(
       height: height * 0.7,
       child: Padding(
