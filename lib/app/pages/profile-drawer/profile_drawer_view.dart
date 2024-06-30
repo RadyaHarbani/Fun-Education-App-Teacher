@@ -14,30 +14,32 @@ class ProfileDrawerView extends StatelessWidget {
     return Drawer(
       backgroundColor: backgroundColor,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-        topRight: Radius.circular(30),
-        bottomRight: Radius.circular(30),
-      )),
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+      ),
       child: Padding(
-        padding: const EdgeInsets.only(
-          left: 26,
-          top: 39,
-          bottom: 35,
-          right: 26,
+        padding: EdgeInsets.symmetric(
+          horizontal: width * 0.05,
+          vertical: height * 0.04,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 40.0), // Space from top
+            SizedBox(height: height * 0.03),
             Container(
-                height: 40.0,
-                width: 40.0,
-                decoration: BoxDecoration(
-                  border: Border.all(color: greyColor, width: 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                    onPressed: () {}, icon: Icon(Icons.person, size: 20))),
+              height: height * 0.05,
+              width: width * 0.11,
+              decoration: BoxDecoration(
+                border: Border.all(color: greyColor, width: 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.close, size: 20),
+              ),
+            ),
             SizedBox(height: 20.0),
             Row(
               children: [
@@ -53,19 +55,25 @@ class ProfileDrawerView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Tuti Caidah',
-                        style: tsBodyMediumSemibold(blackColor)),
-                    Text('Guru', style: tsBodySmallRegular(blackColor)),
+                    Text(
+                      'Tuti Caidah',
+                      style: tsBodyMediumSemibold(blackColor),
+                    ),
+                    Text(
+                      'Guru',
+                      style: tsBodySmallRegular(blackColor),
+                    ),
                   ],
                 ),
               ],
             ),
-            Spacer(), // Push the logout button to the bottom
+            Spacer(),
             CommonButton(
-                text: 'Logout',
-                icon: Icons.logout,
-                color: dangerColor,
-                onPressed: () {}),
+              text: 'Logout',
+              icon: Icons.logout,
+              color: dangerColor,
+              onPressed: () {},
+            ),
           ],
         ),
       ),

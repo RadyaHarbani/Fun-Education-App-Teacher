@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
-import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/dashboard_component_four.dart';
-import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/dashboard_component_one.dart';
-import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/dashboard_component_two.dart';
-import 'package:fun_education_app_teacher/app/pages/dashboard-page/component/dashboard_component_three.dart';
-import 'package:fun_education_app_teacher/app/pages/dashboard-page/dashboard_page_controller.dart';
+import 'package:fun_education_app_teacher/app/archive/dashboard-page/component/dashboard_component_four.dart';
+import 'package:fun_education_app_teacher/app/archive/dashboard-page/component/dashboard_component_one.dart';
+import 'package:fun_education_app_teacher/app/archive/dashboard-page/component/dashboard_component_two.dart';
+import 'package:fun_education_app_teacher/app/archive/dashboard-page/component/dashboard_component_three.dart';
+import 'package:fun_education_app_teacher/app/archive/dashboard-page/dashboard_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_view.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
