@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/pages/home-page/components/emergency-note/if_contain_emergency_note.dart';
+import 'package:fun_education_app_teacher/app/pages/home-page/components/bottomsheet-component/bottomsheet_edit_emergency_note.dart';
+import 'package:fun_education_app_teacher/app/pages/home-page/widget/emergency-note-widget/if_contain_emergency_note.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/components/home_page_appbar_component.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/components/home_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/components/home_page_component_two.dart';
@@ -37,7 +38,14 @@ class HomePageView extends GetView<HomePageController> {
               IfContainEmergencyNote(
                 emergencyNote:
                     'Hari ini hujan deras jangan lupa membawa payung',
-                onTapEdit: () {},
+                onTapEdit: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => BottomsheetEditEmergencyNote(),
+                    isScrollControlled: true,
+                    backgroundColor: whiteColor,
+                  );
+                },
                 onTapDelete: () {},
               ),
               SizedBox(height: height * 0.03),
