@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fun_education_app_teacher/app/archive/dashboard-page/component/bottomsheet_edit_catatan_darurat.dart';
-import 'package:fun_education_app_teacher/app/archive/dashboard-page/component/bottomsheet_tambah_catatan_darurat.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class DashboardComponentTwo extends StatelessWidget {
@@ -55,7 +54,7 @@ class DashboardComponentTwo extends StatelessWidget {
                       );
                     },
                     child: SvgPicture.asset(
-                      'assets/icons/lets-icons_edit.svg',
+                      'assets/icons/icClass.svg',
                       color: blackColor,
                       width: 25,
                     ),

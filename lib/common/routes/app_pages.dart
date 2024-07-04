@@ -24,7 +24,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH_SCREEN;
+  static const INITIAL = Routes.DETAIL_CLASS_PAGE;
 
   static final routes = [
     GetPage(
@@ -37,7 +37,6 @@ class AppPages {
       page: () => LoginPageView(),
       binding: LoginPageBinding(),
     ),
-
     GetPage(
       name: _Paths.PROFILE_DRAWER,
       page: () => ProfileDrawerView(),
