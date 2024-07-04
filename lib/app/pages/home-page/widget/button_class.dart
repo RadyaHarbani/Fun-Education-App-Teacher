@@ -15,12 +15,11 @@ class ButtonClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size mediaQuery = MediaQuery.of(context).size;
-    final double height = mediaQuery.height;
+
+    
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: height * 0.12,
         decoration: BoxDecoration(
           color: greyColor.withOpacity(0.05),
           borderRadius: BorderRadius.circular(15),

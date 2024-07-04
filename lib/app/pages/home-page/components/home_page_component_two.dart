@@ -6,41 +6,21 @@ class HomePageComponentTwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size mediaQuery = MediaQuery.of(context).size;
-    final double width = mediaQuery.width;
-    final double height = mediaQuery.height;
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: ButtonClass(shiftTime: '08.00 - 10.00', onTap: () {}),
-            ),
-            SizedBox(width: width * 0.02),
-            Expanded(
-              child: ButtonClass(shiftTime: '10.00 - 11.30', onTap: () {}),
-            ),
-          ],
-        ),
-        SizedBox(height: height * 0.01),
-        Row(
-          children: [
-            Expanded(
-              child: ButtonClass(shiftTime: '11.30 - 13.00', onTap: () {}),
-            ),
-            SizedBox(width: width * 0.02),
-            Expanded(
-              child: ButtonClass(shiftTime: '13.00 - 14.00', onTap: () {}),
-            )
-          ],
-        ),
-        SizedBox(height: height * 0.01),
-        Row(
-          children: [
-            Expanded(
-              child: ButtonClass(shiftTime: '14.00 - 15.00', onTap: () {}),
-            ),
-          ],
+        GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 1.7,
+          ),
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return ButtonClass(shiftTime: '08.00 - 10.00', onTap: () {});
+          },
         ),
       ],
     );
