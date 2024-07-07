@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/components/detail_class_component_four.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/components/detail_class_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/components/detail_class_component_three.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/components/detail_class_component_two.dart';
@@ -75,9 +76,7 @@ class DetailClassPageView extends GetView<DetailClassPageController> {
                   children: [
                     DetailClassComponentTwo(),
                     DetailClassComponentThree(),
-                    Center(
-                      child: Text('Peringkat'),
-                    ),
+                    DetailClassComponentFour(),
                   ],
                 ),
               )

@@ -7,13 +7,13 @@ import 'package:image_picker/image_picker.dart';
 class AddTaskPageController extends GetxController {
   TextEditingController taskNameController = TextEditingController();
   TextEditingController taskDescriptionController = TextEditingController();
-  var selectedOption = ''.obs;
+  var selectedType = ''.obs;
   final ImagePicker imagePicker = ImagePicker();
   var imageFileList = <XFile>[].obs;
   var selectedDateTime = DateTime.now().obs;
 
   void selectType(String option) {
-    selectedOption.value = option;
+    selectedType.value = option;
   }
 
   void selectImage() async {
