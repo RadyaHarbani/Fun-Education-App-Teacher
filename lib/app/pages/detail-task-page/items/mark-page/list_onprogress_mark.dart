@@ -17,33 +17,32 @@ class ListOnprogressMark extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/icons/icListTask.svg',
-                          ),
-                          SizedBox(width: width * 0.02),
-                          AutoSizeText(
-                            'Dikumpulkan',
-                            group: AutoSizeGroup(),
-                            maxLines: 1,
-                            style: tsBodyMediumSemibold(blackColor),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: height * 0.02),
-                      ListView.builder(
-                          itemCount: 3,
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return MarkStudentItem(
-                              studentName: 'Radya',
-                              date:
-                                  '${DateFormat('EEEE, dd MMMM').format(DateTime.now())}',
-                              index: index,
-                              mark: '0',
-                            );
-                          }),
+          children: [
+            SvgPicture.asset(
+              'assets/icons/icDocument.svg',
+            ),
+            SizedBox(width: width * 0.02),
+            AutoSizeText(
+              'Dikumpulkan',
+              group: AutoSizeGroup(),
+              maxLines: 1,
+              style: tsBodyMediumSemibold(blackColor),
+            ),
+          ],
+        ),
+        SizedBox(height: height * 0.02),
+        ListView.builder(
+            itemCount: 3,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return MarkStudentItem(
+                studentName: 'Radya',
+                date: '${DateFormat('EEEE, dd MMMM').format(DateTime.now())}',
+                index: index,
+                mark: '0',
+              );
+            }),
       ],
     );
   }
