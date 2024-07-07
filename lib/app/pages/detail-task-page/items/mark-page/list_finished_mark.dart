@@ -19,7 +19,7 @@ class ListFinishedMark extends StatelessWidget {
         Row(
           children: [
             SvgPicture.asset(
-              'assets/icons/icListTask.svg',
+              'assets/icons/icDocument.svg',
             ),
             SizedBox(width: width * 0.02),
             AutoSizeText(

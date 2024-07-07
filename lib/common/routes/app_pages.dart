@@ -6,6 +6,8 @@ import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-mark-page/detail_mark_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-mark-page/detail_mark_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_binding.dart';
@@ -25,7 +27,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DETAIL_TASK_PAGE;
+  static const INITIAL = Routes.DETAIL_MARK_PAGE;
 
   static final routes = [
     GetPage(
@@ -77,6 +79,11 @@ class AppPages {
       name: _Paths.DASHBOARD_PAGE,
       page: () => DashboardPageView(),
       binding: DashboardPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_MARK_PAGE,
+      page: () => DetailMarkPageView(),
+      binding: DetailMarkPageBinding(),
     ),
   ];
 }
