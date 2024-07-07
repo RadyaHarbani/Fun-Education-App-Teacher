@@ -9,10 +9,12 @@ class CommonGridImageItem extends StatelessWidget {
   const CommonGridImageItem({
     Key? key,
     required this.imagePath,
-    required this.deleteFunction,
+    required this.isDelete,
+    this.deleteFunction,
   }) : super(key: key);
   final String imagePath;
-  final VoidCallback deleteFunction;
+  final bool isDelete;
+  final VoidCallback? deleteFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class CommonGridImageItem extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(15),
       ),
-      child: InkWell(
+      child: isDelete == true ? InkWell(
         onTap: deleteFunction,
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -49,7 +51,7 @@ class CommonGridImageItem extends StatelessWidget {
             size: 20,
           ),
         ),
-      ),
+      ) : Container(height: 0, width: 0,),
     );
   }
 }
