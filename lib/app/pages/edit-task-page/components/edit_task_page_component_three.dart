@@ -58,6 +58,7 @@ class EditTaskPageComponentThree extends GetView<EditTaskPageController> {
                 },
                 child: CommonGridImageItem(
                   imagePath: controller.imageFileList[index].path,
+                  isDelete: true,
                   deleteFunction: () {
                     controller.deleteImage(index);
                   },

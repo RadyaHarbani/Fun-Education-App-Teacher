@@ -1,26 +1,32 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-class-page/widget/task-widget/task_archive_item.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-class-page/widget/task-widget/task_close_item.dart';
+
+import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-task-page/widgets/task_widget/detail_task_archive_item.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-task-page/widgets/task_widget/detail_task_close_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
-class TaskItem extends StatelessWidget {
-  const TaskItem({
+class DetailTaskItem extends StatelessWidget {
+  const DetailTaskItem({
     Key? key,
     required this.type,
     required this.title,
+    required this.description,
     required this.madeIn,
     required this.deadline,
     required this.status,
-    this.widget,
+    this.function1,
+    this.function2,
   }) : super(key: key);
   final String type;
   final String title;
+  final String description;
   final String madeIn;
   final String deadline;
   final String status;
-  final Widget? widget;
+  final VoidCallback? function1;
+  final VoidCallback? function2;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +34,27 @@ class TaskItem extends StatelessWidget {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return status == 'Diarsipkan'
-        ? TaskArchiveItem(type: type, title: title, madeIn: madeIn, deadline: deadline, status: status, widget: widget!,)
+        ? DetailTaskArchiveItem(
+            type: type,
+            title: title,
+            description: description,
+            madeIn: madeIn,
+            deadline: deadline,
+            status: status,
+            function1: function1!,
+            function2: function2!,
+          )
         : status == 'Ditutup'
-            ? TaskCloseItem(type: type, title: title, madeIn: madeIn, deadline: deadline, status: status)
+            ? DetailTaskCloseItem(
+                type: type,
+                title: title,
+                description: description,
+                madeIn: madeIn,
+                deadline: deadline,
+                status: status,
+                function2: function2!,
+              )
             : Container(
-                margin: EdgeInsets.only(bottom: height * 0.02),
                 decoration: BoxDecoration(
                   color: type == 'Dikte & Menulis'
                       ? blueColor.withOpacity(0.1)
@@ -41,14 +63,14 @@ class TaskItem extends StatelessWidget {
                           : type == 'Membaca'
                               ? greenColor.withOpacity(0.1)
                               : warningColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(
-                    top: height * 0.02,
+                    top: height * 0.03,
                     bottom: height * 0.03,
-                    left: width * 0.05,
-                    right: width * 0.05,
+                    left: width * 0.06,
+                    right: width * 0.06,
                   ),
                   child: Column(
                     children: [
@@ -79,7 +101,6 @@ class TaskItem extends StatelessWidget {
                               ),
                             ),
                           ),
-                          widget!,
                         ],
                       ),
                       SizedBox(height: height * 0.025),
@@ -89,11 +110,6 @@ class TaskItem extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: tsBodyMediumSemibold(blackColor),
-                      ),
-                      SizedBox(height: height * 0.02),
-                      Divider(
-                        color: greyColor.withOpacity(0.1),
-                        thickness: 1.5,
                       ),
                       SizedBox(height: height * 0.02),
                       Row(
@@ -165,6 +181,70 @@ class TaskItem extends StatelessWidget {
                             ],
                           ),
                         ],
+                      ),
+                      SizedBox(height: height * 0.02),
+                      Divider(
+                        color: greyColor.withOpacity(0.1),
+                        thickness: 1.5,
+                      ),
+                      SizedBox(height: height * 0.02),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AutoSizeText(
+                            'Deskripsi :',
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            style: tsBodyMediumSemibold(blackColor),
+                          ),
+                          SizedBox(height: height * 0.02),
+                          // GridView.builder(
+                          //   shrinkWrap: true,
+                          //   physics: NeverScrollableScrollPhysics(),
+                          //   itemCount: controller.imageFileList.length,
+                          //   gridDelegate:
+                          //       SliverGridDelegateWithFixedCrossAxisCount(
+                          //     crossAxisCount: 3,
+                          //     crossAxisSpacing: width * 0.02,
+                          //     mainAxisSpacing: height * 0.01,
+                          //     childAspectRatio: 1.4,
+                          //   ),
+                          //   itemBuilder: (context, index) {
+                          //     return InkWell(
+                          //       onTap: () {
+                          //         Get.to(() => CommonDetailImagePage(
+                          //               imageFile:
+                          //                   controller.imageFileList[index],
+                          //             ));
+                          //       },
+                          //       child: CommonGridImageItem(
+                          //         imagePath:
+                          //             controller.imageFileList[index].path,
+                          //         isDelete: false,
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
+                          AutoSizeText(
+                            '$description',
+                            group: AutoSizeGroup(),
+                            style: tsBodySmallRegular(blackColor),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: height * 0.03),
+                      CommonButton(
+                        text: 'Edit Tugas',
+                        backgroundColor: greyColor.withOpacity(0.1),
+                        textColor: blackColor,
+                        onPressed: function1,
+                      ),
+                      SizedBox(height: height * 0.01),
+                      CommonButton(
+                        text: 'Hapus Tugas',
+                        backgroundColor: dangerColor,
+                        textColor: whiteColor,
+                        onPressed: function2,
                       ),
                     ],
                   ),

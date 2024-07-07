@@ -6,6 +6,7 @@ import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_view.dart';
@@ -24,7 +25,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DETAIL_CLASS_PAGE;
+  static const INITIAL = Routes.DETAIL_TASK_PAGE;
 
   static final routes = [
     GetPage(
@@ -65,7 +66,7 @@ class AppPages {
     GetPage(
       name: _Paths.DETAIL_TASK_PAGE,
       page: () => DetailTaskPageView(),
-      binding: DetailClassPageBinding(),
+      binding: DetailTaskPageBinding(),
     ),
     GetPage(
       name: _Paths.EDIT_TASK_PAGE,
