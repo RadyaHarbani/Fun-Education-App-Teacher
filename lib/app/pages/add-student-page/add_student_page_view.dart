@@ -45,16 +45,18 @@ class AddStudentPageView extends GetView<AddStudentPageController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AddStudentPageComponentOne(),
-                SizedBox(height: 50),
+                SizedBox(height: height * 0.02),
                 AddStudentComponentTwo(),
-                SizedBox(height: 50),
+                SizedBox(height: height * 0.02),
                 AddStudentComponentThree(),
-                SizedBox(height: 60),
+                SizedBox(height: height * 0.025),
                 CommonButton(
                   text: 'Tambah Siswa',
-                  color: blackColor,
-                  onPressed: () {},
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
                   icon: Icons.add,
+                  onPressed: () {},
+                  
                 ),
               ],
             ),

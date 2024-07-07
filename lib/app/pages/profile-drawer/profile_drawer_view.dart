@@ -71,7 +71,8 @@ class ProfileDrawerView extends StatelessWidget {
             CommonButton(
               text: 'Logout',
               icon: Icons.logout,
-              color: dangerColor,
+              backgroundColor: dangerColor,
+              textColor: whiteColor,
               onPressed: () {},
             ),
           ],

@@ -34,7 +34,8 @@ class IfEmptyEmergencyNote extends StatelessWidget {
         SizedBox(height: height * 0.03),
         CommonButton(
           text: 'Buat Catatan',
-          color: primaryColor,
+          backgroundColor: primaryColor,
+          textColor: whiteColor,
           onPressed: () {},
         ),
       ],

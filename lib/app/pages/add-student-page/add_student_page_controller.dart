@@ -9,7 +9,7 @@ class AddStudentPageController extends GetxController {
   RxBool isObsecure = false.obs;
   var selectedOption = ''.obs;
 
-  void selectTime(String option) {
+  void selectShift(String option) {
     selectedOption.value = option;
   }
 }

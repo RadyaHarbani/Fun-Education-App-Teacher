@@ -79,8 +79,10 @@ class BottomsheetDetailEmergencyNote extends StatelessWidget {
             ),
             CommonButton(
               text: 'Tutup',
+              backgroundColor: blackColor,
+              textColor: whiteColor,
               onPressed: () => Navigator.pop(context),
-              color: blackColor,
+              
             ),
           ],
         ),
