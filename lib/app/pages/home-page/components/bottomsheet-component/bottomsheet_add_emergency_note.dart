@@ -98,8 +98,10 @@ class BottomsheetEditEmergencyNote extends StatelessWidget {
             SizedBox(height: height * 0.03),
             CommonButton(
               text: 'Tambah Catatan',
+              backgroundColor: blackColor,
+              textColor: whiteColor,
               onPressed: () => Navigator.pop(context),
-              color: blackColor,
+              
             ),
           ],
         ),

@@ -96,8 +96,9 @@ class BottomsheetAlurBelajar extends GetView<DetailKelasPageController> {
             ),
             CommonButton(
                 text: 'Tingkatkan',
-                color: blackColor,
-                onPressed: () => Navigator.pop(context))
+                backgroundColor: blackColor,
+                textColor: whiteColor,
+                onPressed: () => Navigator.pop(context),),
           ],
         ),
       ),

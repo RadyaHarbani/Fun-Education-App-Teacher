@@ -104,7 +104,12 @@ class LoginPageView extends GetView<LoginPageController> {
                   ],
                 ),
                 SizedBox(height: height * 0.03),
-                CommonButton(text: 'Masuk', color: blackColor)
+                CommonButton(
+                  text: 'Masuk',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () {},
+                ),
               ],
             ),
           ),

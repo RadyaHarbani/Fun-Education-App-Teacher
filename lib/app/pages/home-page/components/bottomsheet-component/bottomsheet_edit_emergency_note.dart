@@ -92,17 +92,15 @@ class BottomsheetEditEmergencyNote extends StatelessWidget {
                     width: 1.5,
                   ),
                 ),
-
               ),
-              onChanged: (value) {
-                
-              },
+              onChanged: (value) {},
             ),
             SizedBox(height: height * 0.03),
             CommonButton(
-              text: 'Tutup',
+              text: 'Simpan Perubahan',
+              backgroundColor: blackColor,
+              textColor: whiteColor,
               onPressed: () => Navigator.pop(context),
-              color: blackColor,
             ),
           ],
         ),

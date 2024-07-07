@@ -80,7 +80,8 @@ class BottomsheetEditCatatanDarurat extends StatelessWidget {
             CommonButton(
               text: 'Simpan Perubahan',
               onPressed: () => Navigator.pop(context),
-              color: blackColor,
+              backgroundColor: blackColor,
+              textColor: whiteColor,
             )
           ],
         ),
