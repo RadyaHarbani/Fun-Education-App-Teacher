@@ -13,6 +13,7 @@ abstract class Routes {
   static const EDIT_TASK_PAGE = _Paths.EDIT_TASK_PAGE;
   static const DASHBOARD_PAGE = _Paths.DASHBOARD_PAGE;
   static const DETAIL_MARK_PAGE = _Paths.DETAIL_MARK_PAGE;
+  static const ADD_REPORT_PAGE = _Paths.ADD_REPORT_PAGE;
 }
 
 abstract class _Paths {
@@ -28,4 +29,5 @@ abstract class _Paths {
   static const EDIT_TASK_PAGE = '/edit-task-page';
   static const DASHBOARD_PAGE = '/dashboard-page';
   static const DETAIL_MARK_PAGE = '/detail-mark-page';
+  static const ADD_REPORT_PAGE = '/add-report-page';
 }

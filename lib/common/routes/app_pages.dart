@@ -1,5 +1,7 @@
 import 'package:fun_education_app_teacher/app/archive/dashboard-page/dashboard_page_binding.dart';
 import 'package:fun_education_app_teacher/app/archive/dashboard-page/dashboard_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_binding.dart';
@@ -27,7 +29,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DETAIL_MARK_PAGE;
+  static const INITIAL = Routes.ADD_REPORT_PAGE;
 
   static final routes = [
     GetPage(
@@ -84,6 +86,11 @@ class AppPages {
       name: _Paths.DETAIL_MARK_PAGE,
       page: () => DetailMarkPageView(),
       binding: DetailMarkPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_REPORT_PAGE,
+      page: () => AddReportPageView(),
+      binding: AddReportPageBinding(),
     ),
   ];
 }
