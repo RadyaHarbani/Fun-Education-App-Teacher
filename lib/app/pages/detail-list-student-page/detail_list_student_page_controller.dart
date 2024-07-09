@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class DetailListStudentPageController extends GetxController
     with SingleGetTickerProviderMixin {
   TabController? tabControllerAll;
+  var selectedLearningFlow = 'A'.obs;
 
   @override
   void onInit() {
