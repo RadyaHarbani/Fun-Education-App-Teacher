@@ -26,6 +26,8 @@ import 'package:fun_education_app_teacher/app/pages/home-saving-page/home_saving
 import 'package:fun_education_app_teacher/app/pages/home-saving-page/home_saving_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/list-detail-saving-page/list_detail_saving_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/list-detail-saving-page/list_detail_saving_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_binding.dart';
@@ -40,7 +42,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.TRANSACTION_HISTORY_PAGE;
+  static const INITIAL = Routes.LIST_STUDENT_PAGE;
 
   static final routes = [
     GetPage(
@@ -132,6 +134,11 @@ class AppPages {
       name: _Paths.TRANSACTION_HISTORY_PAGE,
       page: () => TransactionHistoryPageView(),
       binding: TransactionHistoryPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIST_STUDENT_PAGE,
+      page: () => ListStudentPageView(),
+      binding: ListStudentPageBinding(),
     ),
   ];
 }
