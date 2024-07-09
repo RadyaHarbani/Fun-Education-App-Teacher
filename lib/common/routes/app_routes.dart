@@ -15,6 +15,7 @@ abstract class Routes {
   static const DETAIL_MARK_PAGE = _Paths.DETAIL_MARK_PAGE;
   static const ADD_REPORT_PAGE = _Paths.ADD_REPORT_PAGE;
   static const EDIT_REPORT_PAGE = _Paths.EDIT_REPORT_PAGE;
+  static const DETAIL_REPORT_PAGE = _Paths.DETAIL_REPORT_PAGE;
 }
 
 abstract class _Paths {
@@ -32,4 +33,5 @@ abstract class _Paths {
   static const DETAIL_MARK_PAGE = '/detail-mark-page';
   static const ADD_REPORT_PAGE = '/add-report-page';
   static const EDIT_REPORT_PAGE = '/edit-report-page';
+  static const DETAIL_REPORT_PAGE = '/detail-report-page';  
 }
