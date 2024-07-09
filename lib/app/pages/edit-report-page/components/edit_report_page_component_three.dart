@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/widgets/select_point_item.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_controller.dart';
 import 'package:get/get.dart';
 
-class AddReportPageComponentTwo extends GetView<AddReportPageController> {
-  const AddReportPageComponentTwo({super.key});
+class EditReportPageComponentThree extends GetView<EditReportPageController> {
+  const EditReportPageComponentThree({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,8 @@ class AddReportPageComponentTwo extends GetView<AddReportPageController> {
               selectedPointType: controller.points[index].value,
               onChanged: (value) {
                 controller.points[index].value = value;
-              }, pointType: controller.pointType,
+              },
+              pointType: controller.pointType,
             ),
           ),
         ),
