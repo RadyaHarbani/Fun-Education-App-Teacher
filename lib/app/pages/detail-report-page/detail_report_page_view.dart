@@ -1,17 +1,12 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_four.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_three.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_controller.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-report-page/widgets/report_list_item.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-report-page/widgets/total_point_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class DetailReportPageView extends GetView<DetailReportPageController> {
   const DetailReportPageView({super.key});
