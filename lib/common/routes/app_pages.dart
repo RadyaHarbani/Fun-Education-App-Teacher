@@ -32,13 +32,15 @@ import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawe
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_view.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_view.dart';
+import 'package:fun_education_app_teacher/app/pages/transaction-history-page/transaction_history_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/transaction-history-page/transaction_history_page_view.dart';
 import 'package:get/get.dart';
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DETAIL_SAVING_PAGE;
+  static const INITIAL = Routes.TRANSACTION_HISTORY_PAGE;
 
   static final routes = [
     GetPage(
@@ -125,6 +127,11 @@ class AppPages {
       name: _Paths.DETAIL_SAVING_PAGE,
       page: () => DetailSavingPageView(),
       binding: DetailSavingPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRANSACTION_HISTORY_PAGE,
+      page: () => TransactionHistoryPageView(),
+      binding: TransactionHistoryPageBinding(),
     ),
   ];
 }

@@ -1,6 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class CustomRadioButtonPeriod extends StatelessWidget {
