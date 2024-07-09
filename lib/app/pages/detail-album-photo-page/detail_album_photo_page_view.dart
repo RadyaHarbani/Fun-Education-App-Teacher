@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/components/detail_album_photo_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/components/detail_album_photo_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_controller.dart';

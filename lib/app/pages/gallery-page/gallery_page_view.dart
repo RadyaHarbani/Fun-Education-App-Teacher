@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/gallery-page/components/bottomsheet_select_upload_method.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/components/gallery_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/components/gallery_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_controller.dart';
@@ -51,7 +52,14 @@ class GalleryPageView extends GetView<GalleryPageController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: whiteColor,
+            builder: (context) => BottomSheetSelectUploadMethod(),
+          );
+        },
         child: Icon(
           Icons.add_rounded,
           color: whiteColor,
