@@ -54,7 +54,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.UPLOAD_PHOTO_PAGE;
+  static const INITIAL = Routes.UPLOAD_ALBUM_PAGE;
 
   static final routes = [
     GetPage(
