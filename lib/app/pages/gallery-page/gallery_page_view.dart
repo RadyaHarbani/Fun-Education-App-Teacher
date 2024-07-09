@@ -50,6 +50,14 @@ class GalleryPageView extends GetView<GalleryPageController> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(
+          Icons.add_rounded,
+          color: whiteColor,
+        ),
+        backgroundColor: primaryColor,
+      ),
     );
   }
 }

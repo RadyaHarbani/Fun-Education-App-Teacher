@@ -6,6 +6,8 @@ import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student
 import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_binding.dart';
@@ -48,7 +50,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.GALLERY_PAGE;
+  static const INITIAL = Routes.DETAIL_ALBUM_PHOTO_PAGE;
 
   static final routes = [
     GetPage(
@@ -160,6 +162,11 @@ class AppPages {
       name: _Paths.GALLERY_PAGE,
       page: () => GalleryPageView(),
       binding: GalleryPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_ALBUM_PHOTO_PAGE,
+      page: () => DetailAlbumPhotoPageView(),
+      binding: DetailAlbumPhotoPageBinding(),
     ),
   ];
 }
