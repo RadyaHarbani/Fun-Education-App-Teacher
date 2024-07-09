@@ -22,6 +22,7 @@ abstract class Routes {
   static const TRANSACTION_HISTORY_PAGE = _Paths.TRANSACTION_HISTORY_PAGE;
   static const LIST_STUDENT_PAGE = _Paths.LIST_STUDENT_PAGE;
   static const DETAIL_LIST_STUDENT_PAGE = _Paths.DETAIL_LIST_STUDENT_PAGE;
+  static const EDIT_INFORMATION_STUDENT_PAGE = _Paths.EDIT_INFORMATION_STUDENT_PAGE;
 }
 
 abstract class _Paths {
@@ -46,4 +47,5 @@ abstract class _Paths {
   static const TRANSACTION_HISTORY_PAGE = '/transaction-history-page';
   static const LIST_STUDENT_PAGE = '/list-student-page';
   static const DETAIL_LIST_STUDENT_PAGE = '/detail-list-student-page';
+  static const EDIT_INFORMATION_STUDENT_PAGE = '/edit-information-student-page';
 }

@@ -18,6 +18,8 @@ import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/edit_information_student_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/edit_information_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_binding.dart';
@@ -44,7 +46,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DETAIL_LIST_STUDENT_PAGE;
+  static const INITIAL = Routes.EDIT_INFORMATION_STUDENT_PAGE;
 
   static final routes = [
     GetPage(
@@ -146,6 +148,11 @@ class AppPages {
       name: _Paths.DETAIL_LIST_STUDENT_PAGE,
       page: () => DetailListStudentPageView(),
       binding: DetailListStudentPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_INFORMATION_STUDENT_PAGE,
+      page: () => EditInformationStudentPageView(),
+      binding: EditInformationStudentPageBinding(),
     ),
   ];
 }
