@@ -19,6 +19,7 @@ abstract class Routes {
   static const HOME_SAVING_PAGE = _Paths.HOME_SAVING_PAGE;
   static const LIST_DETAIL_SAVING_PAGE = _Paths.LIST_DETAIL_SAVING_PAGE;
   static const DETAIL_SAVING_PAGE = _Paths.DETAIL_SAVING_PAGE;
+  static const TRANSACTION_HISTORY_PAGE = _Paths.TRANSACTION_HISTORY_PAGE;
 }
 
 abstract class _Paths {
@@ -40,4 +41,5 @@ abstract class _Paths {
   static const HOME_SAVING_PAGE = '/home-saving-page';
   static const LIST_DETAIL_SAVING_PAGE = '/list-detail-saving-page';
   static const DETAIL_SAVING_PAGE = '/detail-saving-page';
+  static const TRANSACTION_HISTORY_PAGE = '/transaction-history-page';
 }
