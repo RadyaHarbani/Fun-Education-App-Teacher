@@ -14,6 +14,8 @@ import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_re
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_binding.dart';
@@ -36,7 +38,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LIST_DETAIL_SAVING_PAGE;
+  static const INITIAL = Routes.DETAIL_SAVING_PAGE;
 
   static final routes = [
     GetPage(
@@ -118,6 +120,11 @@ class AppPages {
       name: _Paths.LIST_DETAIL_SAVING_PAGE,
       page: () => ListDetailSavingPageView(),
       binding: ListDetailSavingPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_SAVING_PAGE,
+      page: () => DetailSavingPageView(),
+      binding: DetailSavingPageBinding(),
     ),
   ];
 }
