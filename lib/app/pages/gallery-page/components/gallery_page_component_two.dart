@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/gallery-page/components/bottomsheet_detail_photo.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,14 @@ class GalleryPageComponentTwo extends GetView<GalleryPageController> {
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: () {},
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: whiteColor,
+                  builder: (context) => BottomsheetDetailPhoto(),
+                );
+              },
               child: Container(
                 decoration: BoxDecoration(
                   color: whiteColor,

@@ -25,6 +25,8 @@ abstract class Routes {
   static const EDIT_INFORMATION_STUDENT_PAGE = _Paths.EDIT_INFORMATION_STUDENT_PAGE;
   static const GALLERY_PAGE = _Paths.GALLERY_PAGE;
   static const DETAIL_ALBUM_PHOTO_PAGE = _Paths.DETAIL_ALBUM_PHOTO_PAGE;
+  static const UPLOAD_PHOTO_PAGE = _Paths.UPLOAD_PHOTO_PAGE;
+  static const UPLOAD_ALBUM_PAGE = _Paths.UPLOAD_ALBUM_PAGE;
 }
 
 abstract class _Paths {
@@ -52,4 +54,6 @@ abstract class _Paths {
   static const EDIT_INFORMATION_STUDENT_PAGE = '/edit-information-student-page';
   static const GALLERY_PAGE = '/gallery-page';
   static const DETAIL_ALBUM_PHOTO_PAGE = '/detail-album-photo-page';
+  static const UPLOAD_PHOTO_PAGE = '/upload-photo-page';
+  static const UPLOAD_ALBUM_PAGE = '/upload-album-page';
 }

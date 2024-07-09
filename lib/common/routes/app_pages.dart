@@ -44,13 +44,17 @@ import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_view.dart';
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/transaction_history_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/transaction_history_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/upload-album-page/upload_album_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/upload-album-page/upload_album_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/upload-photo-page/upload_photo_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/upload-photo-page/upload_photo_page_view.dart';
 import 'package:get/get.dart';
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DETAIL_ALBUM_PHOTO_PAGE;
+  static const INITIAL = Routes.UPLOAD_PHOTO_PAGE;
 
   static final routes = [
     GetPage(
@@ -167,6 +171,16 @@ class AppPages {
       name: _Paths.DETAIL_ALBUM_PHOTO_PAGE,
       page: () => DetailAlbumPhotoPageView(),
       binding: DetailAlbumPhotoPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPLOAD_PHOTO_PAGE,
+      page: () => UploadPhotoPageView(),
+      binding: UploadPhotoPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPLOAD_ALBUM_PAGE,
+      page: () => UploadAlbumPageView(),
+      binding: UploadAlbumPageBinding(),
     ),
   ];
 }
