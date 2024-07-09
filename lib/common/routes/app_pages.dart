@@ -22,6 +22,8 @@ import 'package:fun_education_app_teacher/app/pages/home-page/home_page_binding.
 import 'package:fun_education_app_teacher/app/pages/home-page/home_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/home-saving-page/home_saving_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/home-saving-page/home_saving_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/list-detail-saving-page/list_detail_saving_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/list-detail-saving-page/list_detail_saving_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_binding.dart';
@@ -34,7 +36,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME_SAVING_PAGE;
+  static const INITIAL = Routes.LIST_DETAIL_SAVING_PAGE;
 
   static final routes = [
     GetPage(
@@ -111,6 +113,11 @@ class AppPages {
       name: _Paths.HOME_SAVING_PAGE,
       page: () => HomeSavingPageView(),
       binding: HomeSavingPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIST_DETAIL_SAVING_PAGE,
+      page: () => ListDetailSavingPageView(),
+      binding: ListDetailSavingPageBinding(),
     ),
   ];
 }
