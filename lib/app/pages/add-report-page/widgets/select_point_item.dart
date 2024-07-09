@@ -9,11 +9,13 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 class SelectPointItem extends GetView<AddReportPageController> {
   SelectPointItem({
     required this.pointName,
+    required this.pointType,
     required this.selectedPointType,
     required this.onChanged,
   });
 
   final String pointName;
+  final List pointType;
   final String selectedPointType;
   final Function(String) onChanged;
 
@@ -52,7 +54,7 @@ class SelectPointItem extends GetView<AddReportPageController> {
               height: 0,
             ),
             value: selectedPointType,
-            items: controller.pointType
+            items: pointType
                 .map((data) => DropdownMenuItem<String>(
                       value: data,
                       child: AutoSizeText(
