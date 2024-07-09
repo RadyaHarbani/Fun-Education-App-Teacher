@@ -24,6 +24,8 @@ import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/home_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/home_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/home-saving-page/home_saving_page_binding.dart';
@@ -46,7 +48,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.EDIT_INFORMATION_STUDENT_PAGE;
+  static const INITIAL = Routes.GALLERY_PAGE;
 
   static final routes = [
     GetPage(
@@ -153,6 +155,11 @@ class AppPages {
       name: _Paths.EDIT_INFORMATION_STUDENT_PAGE,
       page: () => EditInformationStudentPageView(),
       binding: EditInformationStudentPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.GALLERY_PAGE,
+      page: () => GalleryPageView(),
+      binding: GalleryPageBinding(),
     ),
   ];
 }
