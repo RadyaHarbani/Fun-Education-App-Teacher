@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_detail_image_page.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_grid_image_item.dart';
-import 'package:fun_education_app_teacher/app/pages/upload-photo-page/upload_photo_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/upload-album-page/upload_album_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
-class UploadPhotoPageComponentTwo extends GetView<UploadPhotoPageController> {
-  const UploadPhotoPageComponentTwo({super.key});
+class UploadAlbumPageComponentThree extends GetView<UploadAlbumPageController> {
+  const UploadAlbumPageComponentThree({super.key});
 
   @override
   Widget build(BuildContext context) {
