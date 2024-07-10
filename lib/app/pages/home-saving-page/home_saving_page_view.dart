@@ -14,6 +14,7 @@ class HomeSavingPageView extends GetView<HomeSavingPageController> {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -41,7 +42,10 @@ class HomeSavingPageView extends GetView<HomeSavingPageController> {
                 ),
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return ButtonClass(shiftTime: '08.00 - 10.00', onTap: () {});
+                  return ButtonClass(
+                    shiftTime: '08.00 - 10.00',
+                    onTap: () {},
+                  );
                 },
               ),
             ],

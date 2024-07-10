@@ -38,6 +38,8 @@ import 'package:fun_education_app_teacher/app/pages/list-student-page/list_stude
 import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_view.dart';
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_view.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_binding.dart';
@@ -54,9 +56,19 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.UPLOAD_ALBUM_PAGE;
+  static const INITIAL = Routes.NAVBAR_MAIN;
 
   static final routes = [
+    GetPage(
+      name: _Paths.NAVBAR_MAIN,
+      page: () => NavbarMainView(),
+      bindings: [
+        NavbarMainBinding(),
+        HomePageBinding(),
+        HomeSavingPageBinding(),
+        GalleryPageBinding(),
+      ],
+    ),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
       page: () => SplashScreenView(),
