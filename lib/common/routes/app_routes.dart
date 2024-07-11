@@ -2,6 +2,7 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
+  static const NAVBAR_MAIN = _Paths.NAVBAR_MAIN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
   static const PROFILE_DRAWER = _Paths.PROFILE_DRAWER;
@@ -31,6 +32,7 @@ abstract class Routes {
 
 abstract class _Paths {
   _Paths._();
+  static const NAVBAR_MAIN = '/navbar-main';
   static const SPLASH_SCREEN = '/splash-screen';
   static const LOGIN_PAGE = '/login-page';
   static const PROFILE_DRAWER = '/profile-drawer';

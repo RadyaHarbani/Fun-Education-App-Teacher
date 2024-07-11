@@ -33,20 +33,21 @@ class HomePageAppbarComponent extends GetView<HomePageController> {
               style: tsBodySmallRegular(blackColor),
             ),
             SizedBox(height: height * 0.002),
-            AutoSizeText.rich(
-              group: AutoSizeGroup(),
-              maxLines: 1,
-              TextSpan(
-                text: 'Halo, ',
-                style: tsTitleSmallRegular(blackColor),
-                children: [
+            Obx(() => AutoSizeText.rich(
+                  group: AutoSizeGroup(),
+                  maxLines: 1,
                   TextSpan(
-                    text: 'Tuti Caidah',
-                    style: tsTitleSmallSemibold(blackColor),
+                    text: 'Halo, ',
+                    style: tsTitleSmallRegular(blackColor),
+                    children: [
+                      TextSpan(
+                        text:
+                            '${controller.showCurrentUserModel.value.nickname}',
+                        style: tsTitleSmallSemibold(blackColor),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                )),
           ],
         ),
       ),

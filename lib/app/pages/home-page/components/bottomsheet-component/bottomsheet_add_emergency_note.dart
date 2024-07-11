@@ -1,10 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_multiline_text_field.dart';
+import 'package:fun_education_app_teacher/app/pages/home-page/home_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class BottomsheetEditEmergencyNote extends StatelessWidget {
-  const BottomsheetEditEmergencyNote({super.key});
+class BottomsheetAddEmergencyNote extends GetView<HomePageController> {
+  const BottomsheetAddEmergencyNote({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,46 +66,20 @@ class BottomsheetEditEmergencyNote extends StatelessWidget {
               ],
             ),
             SizedBox(height: height * 0.03),
-            TextFormField(
-              minLines: 12,
-              maxLines: 12,
-              keyboardType: TextInputType.multiline,
-              obscureText: false,
-              cursorColor: blackColor,
-              style: tsBodySmallMedium(blackColor),
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: height * 0.02,
-                  horizontal: width * 0.05,
-                ),
-                filled: true,
-                fillColor: greyColor.withOpacity(0.1),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                  ),
-                  borderRadius: defaulBorderRadius,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: defaulBorderRadius,
-                  borderSide: BorderSide(
-                    color: transparentColor,
-                    width: 1.5,
-                  ),
-                ),
+            Expanded(
+              child: CommonMultilineTextfield(
+                maxlines: 12,
+                hintText: 'Masukkan Catatan',
+                onChanged: (value) {},
+                controller: controller.addEmergencyNoteController,
               ),
-              onChanged: (value) {},
             ),
             SizedBox(height: height * 0.03),
             CommonButton(
               text: 'Tambah Catatan',
               backgroundColor: blackColor,
               textColor: whiteColor,
-              onPressed: () => Navigator.pop(context),
-              
+              onPressed: () => controller.storeEmergencyNoteByAdmin(),
             ),
           ],
         ),
