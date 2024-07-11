@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class CommonButton extends StatelessWidget {
@@ -8,6 +10,7 @@ class CommonButton extends StatelessWidget {
   final Color textColor;
   final VoidCallback? onPressed;
   final IconData? icon;
+  final bool? isLoading;
 
   CommonButton({
     Key? key,
@@ -16,6 +19,7 @@ class CommonButton extends StatelessWidget {
     required this.textColor,
     this.onPressed,
     this.icon,
+    this.isLoading,
   }) : super(key: key);
 
   @override
@@ -37,12 +41,25 @@ class CommonButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AutoSizeText.rich(
-              TextSpan(
-                text: text,
-                style: tsBodySmallSemibold(textColor),
-              ),
-            ),
+            isLoading == true
+                ? SizedBox(
+                    child: CircularProgressIndicator(
+                      color: whiteColor,
+                    ),
+                  )
+                : isLoading == null
+                    ? AutoSizeText.rich(
+                        TextSpan(
+                          text: text,
+                          style: tsBodySmallSemibold(textColor),
+                        ),
+                      )
+                    : AutoSizeText.rich(
+                        TextSpan(
+                          text: text,
+                          style: tsBodySmallSemibold(textColor),
+                        ),
+                      ),
             if (icon != null) ...[
               SizedBox(width: 10),
               Icon(

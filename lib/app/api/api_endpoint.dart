@@ -26,6 +26,9 @@ class ApiEndPoint {
 
   //Catatan Darurat
   static String showLatestCatatanDarurat = '$baseUrlCatatanDarurat/show';
+  static String storeEmergencyNoteByAdmin = '$baseUrlCatatanDarurat/store';
+  static String updateEmergencyNoteByAdmin = '$baseUrlCatatanDarurat/update/';
+  static String deleteEmergencyNoteByAdmin = '$baseUrlCatatanDarurat/delete/';
 
   //Laporan Harian
   static String showCurrentLaporanHarian = '$baseUrlLaporanHarian/show-current';

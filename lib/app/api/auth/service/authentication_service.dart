@@ -4,12 +4,11 @@ import 'package:fun_education_app_teacher/app/api/dio_instance.dart';
 class AuthenticationService {
   final DioInstance _dioInstance = DioInstance();
 
-  Future<Response> login(String username, String password) async {
+  Future<Response> login(String nickname, String password) async {
     try {
       final response = await _dioInstance.postRequest(
           endpoint: ApiEndPoint.login,
-          data: {'username': username, 'password': password});
-
+          data: {'nickname': nickname, 'password': password});
       return response;
     } catch (e) {
       throw Exception(e);
@@ -22,8 +21,7 @@ class AuthenticationService {
           endpoint: ApiEndPoint.logout,
           isAuthorize: true
       );
-
-       return response;
+      return response;
     } catch (e) {
       throw Exception(e);
     }

@@ -22,91 +22,92 @@ class IfContainEmergencyNote extends StatelessWidget {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
-    return InkWell(
-      onTap: (){
-        showModalBottomSheet(
-          context: context,
-          builder: (context) => BottomsheetDetailEmergencyNote(),
-          isScrollControlled: true,
-          backgroundColor: whiteColor,
-        );
-      },
-      child: Container(
-        width: width,
-        decoration: BoxDecoration(
-          color: primaryColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(15),
+    return Container(
+      width: width,
+      decoration: BoxDecoration(
+        color: primaryColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: width * 0.05,
+          vertical: height * 0.025,
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: width * 0.05,
-            vertical: height * 0.025,
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: width * 0.015,
-                            vertical: height * 0.008,
-                          ),
-                          child: Icon(
-                            Icons.access_time_filled,
-                            color: whiteColor,
-                            size: 24,
-                          ),
-                        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      SizedBox(width: width * 0.03),
-                      AutoSizeText(
-                        'Catatan Darurat',
-                        group: AutoSizeGroup(),
-                        maxLines: 1,
-                        style: tsBodySmallRegular(blackColor),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: onTapEdit,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: width * 0.015,
+                          vertical: height * 0.008,
+                        ),
                         child: Icon(
-                          Icons.edit_rounded,
-                          color: primaryColor,
+                          Icons.access_time_filled,
+                          color: whiteColor,
                           size: 24,
                         ),
                       ),
-                      SizedBox(width: width * 0.03),
-                      InkWell(
-                        onTap: onTapDelete,
-                        child: Icon(
-                          Icons.delete_rounded,
-                          color: primaryColor,
-                          size: 24,
-                        ),
+                    ),
+                    SizedBox(width: width * 0.03),
+                    AutoSizeText(
+                      'Catatan Darurat',
+                      group: AutoSizeGroup(),
+                      maxLines: 1,
+                      style: tsBodySmallRegular(blackColor),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: onTapEdit,
+                      child: Icon(
+                        Icons.edit_rounded,
+                        color: primaryColor,
+                        size: 24,
                       ),
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(height: height * 0.02),
-              AutoSizeText(
+                    ),
+                    SizedBox(width: width * 0.03),
+                    InkWell(
+                      onTap: onTapDelete,
+                      child: Icon(
+                        Icons.delete_rounded,
+                        color: primaryColor,
+                        size: 24,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            SizedBox(height: height * 0.02),
+            InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => BottomsheetDetailEmergencyNote(),
+                  isScrollControlled: true,
+                  backgroundColor: whiteColor,
+                );
+              },
+              child: AutoSizeText(
                 '$emergencyNote',
                 group: AutoSizeGroup(),
                 maxLines: 2,
                 style: tsBodySmallSemibold(blackColor),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

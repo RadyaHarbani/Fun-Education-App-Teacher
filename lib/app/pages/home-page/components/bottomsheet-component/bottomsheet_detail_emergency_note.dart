@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
+import 'package:fun_education_app_teacher/app/pages/home-page/home_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class BottomsheetDetailEmergencyNote extends StatelessWidget {
+class BottomsheetDetailEmergencyNote extends GetView<HomePageController> {
   const BottomsheetDetailEmergencyNote({super.key});
 
   @override
@@ -65,6 +67,7 @@ class BottomsheetDetailEmergencyNote extends StatelessWidget {
             ),
             Expanded(
               child: Container(
+                  width: width,
                   margin: EdgeInsets.symmetric(vertical: height * 0.03),
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -72,7 +75,7 @@ class BottomsheetDetailEmergencyNote extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: AutoSizeText(
-                    'Untuk saat ini ananda masuk pada pukul 08.00 - 10.00, Shift masuk akan berganti sesuai dengan perkembangan anak.',
+                    '${controller.showLatestEmergencyNoteModel.value.catatan}',
                     maxLines: 10,
                     style: tsBodySmallMedium(blackColor),
                   )),
@@ -82,7 +85,6 @@ class BottomsheetDetailEmergencyNote extends StatelessWidget {
               backgroundColor: blackColor,
               textColor: whiteColor,
               onPressed: () => Navigator.pop(context),
-              
             ),
           ],
         ),

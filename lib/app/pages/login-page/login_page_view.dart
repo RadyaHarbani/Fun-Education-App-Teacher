@@ -76,6 +76,7 @@ class LoginPageView extends GetView<LoginPageController> {
                 Column(
                   children: [
                     CommonTextField(
+                      fieldController: controller.usernameController,
                       obscureText: false,
                       hintText: 'Nama Panggilan',
                       keyboardType: TextInputType.name,
@@ -83,6 +84,7 @@ class LoginPageView extends GetView<LoginPageController> {
                     SizedBox(height: height * 0.01),
                     Obx(
                       () => CommonTextField(
+                        fieldController: controller.passwordController,
                         obscureText: controller.isObsecure.value,
                         hintText: 'Kata Sandi',
                         keyboardType: TextInputType.name,
@@ -104,12 +106,15 @@ class LoginPageView extends GetView<LoginPageController> {
                   ],
                 ),
                 SizedBox(height: height * 0.03),
-                CommonButton(
-                  text: 'Masuk',
-                  backgroundColor: blackColor,
-                  textColor: whiteColor,
-                  onPressed: () {},
-                ),
+                Obx(() => CommonButton(
+                      isLoading: controller.isLoading.value,
+                      text: 'Masuk',
+                      backgroundColor: blackColor,
+                      textColor: whiteColor,
+                      onPressed: () {
+                        controller.login();
+                      },
+                    )),
               ],
             ),
           ),
