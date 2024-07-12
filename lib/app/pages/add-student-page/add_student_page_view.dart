@@ -55,8 +55,9 @@ class AddStudentPageView extends GetView<AddStudentPageController> {
                   backgroundColor: blackColor,
                   textColor: whiteColor,
                   icon: Icons.add,
-                  onPressed: () {},
-                  
+                  onPressed: () {
+                    controller.register();
+                  },
                 ),
               ],
             ),

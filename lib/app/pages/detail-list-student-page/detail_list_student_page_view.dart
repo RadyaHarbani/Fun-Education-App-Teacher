@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/components/detail_list_student_page_component_one.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/components/detail_list_student_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class DetailListStudentPageView
     extends GetView<DetailListStudentPageController> {
-  const DetailListStudentPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +84,7 @@ class DetailListStudentPageView
                 physics: NeverScrollableScrollPhysics(),
                 children: [
                   DetailListStudentPageComponentOne(),
-                  Center(
-                    child: Text('Statistik'),
-                  ),
+                  DetailListStudentPageComponentTwo(),
                 ],
               ),
             )

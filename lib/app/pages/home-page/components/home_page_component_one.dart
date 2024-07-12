@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
+import 'package:get/get.dart';
 
 class HomePageComponentOne extends StatelessWidget {
   const HomePageComponentOne({super.key});
@@ -31,7 +33,9 @@ class HomePageComponentOne extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            Get.toNamed(Routes.ADD_STUDENT_PAGE);
+          },
           child: Container(
             padding: EdgeInsets.symmetric(
               vertical: height * 0.012,

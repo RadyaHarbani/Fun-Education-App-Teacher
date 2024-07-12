@@ -10,7 +10,6 @@ class DetailListStudentPageComponentOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
-
     final double height = mediaQuery.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

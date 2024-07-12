@@ -7,7 +7,7 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class TransactionBarChart extends GetView<TransactionHistoryPageController> {
-  const TransactionBarChart({super.key});
+  final TransactionTitleChart transactionTitleChart = TransactionTitleChart();
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +106,11 @@ class TransactionBarChart extends GetView<TransactionHistoryPageController> {
                       bottomTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
-                          reservedSize: 42, // Add margin to push the text up
+                          reservedSize: 42,
                           getTitlesWidget:
                               controller.selectedPeriod.value == 'Mingguan'
-                                  ? TransactionTitleChart().mingguanTitles
-                                  : TransactionTitleChart().bulananTitles,
+                                  ? transactionTitleChart.weeklyTitles
+                                  : transactionTitleChart.monthlyTitles,
                         ),
                       ),
                       rightTitles: AxisTitles(
@@ -132,7 +132,6 @@ class TransactionBarChart extends GetView<TransactionHistoryPageController> {
                               group.barRods[0].toY.toInt().toString();
                           String pemasukanValue =
                               group.barRods[1].toY.toInt().toString();
-
                           return BarTooltipItem(
                             '${controller.selectedPeriod.value == 'Mingguan' ? controller.getWeekDay(group.x.toInt()) : controller.getWeekNumber(group.x.toInt())}\n',
                             tsBodySmallSemibold(whiteColor),
