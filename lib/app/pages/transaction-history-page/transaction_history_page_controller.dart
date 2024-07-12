@@ -9,20 +9,20 @@ class TransactionHistoryPageController extends GetxController {
   var selectedMonth = 'Januari'.obs;
 
   final List<BarChartGroupData> mingguanData = [
-    TransactionValueChart.makeGroupData(0, 200000, 500000),
-    TransactionValueChart.makeGroupData(1, 100000, 1000000),
-    TransactionValueChart.makeGroupData(2, 150000, 500000),
-    TransactionValueChart.makeGroupData(3, 30000, 1000000),
-    TransactionValueChart.makeGroupData(4, 230000, 500000),
-    TransactionValueChart.makeGroupData(5, 1000000, 500000),
-    TransactionValueChart.makeGroupData(6, 310000, 500000),
+    TransactionValueChart.makeGroupDataTransaction(0, 200000, 500000),
+    TransactionValueChart.makeGroupDataTransaction(1, 100000, 1000000),
+    TransactionValueChart.makeGroupDataTransaction(2, 150000, 500000),
+    TransactionValueChart.makeGroupDataTransaction(3, 30000, 1000000),
+    TransactionValueChart.makeGroupDataTransaction(4, 230000, 500000),
+    TransactionValueChart.makeGroupDataTransaction(5, 1000000, 500000),
+    TransactionValueChart.makeGroupDataTransaction(6, 310000, 500000),
   ];
 
   final List<BarChartGroupData> bulananData = [
-    TransactionValueChart.makeGroupData(0, 200, 500),
-    TransactionValueChart.makeGroupData(1, 100, 1000),
-    TransactionValueChart.makeGroupData(2, 150, 500),
-    TransactionValueChart.makeGroupData(3, 30, 1000),
+    TransactionValueChart.makeGroupDataTransaction(0, 200, 500),
+    TransactionValueChart.makeGroupDataTransaction(1, 100, 1000),
+    TransactionValueChart.makeGroupDataTransaction(2, 150, 500),
+    TransactionValueChart.makeGroupDataTransaction(3, 30, 1000),
   ];
 
   String getWeekDay(int value) {

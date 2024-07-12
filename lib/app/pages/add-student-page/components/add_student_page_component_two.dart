@@ -29,6 +29,7 @@ class AddStudentComponentTwo extends GetView<AddStudentPageController> {
             obscureText: controller.isObsecure.value,
             hintText: 'Kata Sandi',
             keyboardType: TextInputType.name,
+            fieldController: controller.passwordStudentController,
             suffixIcon: IconButton(
               onPressed: () {
                 controller.isObsecure.value = !controller.isObsecure.value;

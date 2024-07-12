@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/components/bottomsheet_edit_learing_flow.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/components/bottomsheet_edit_learning_flow.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/learning_flow_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 

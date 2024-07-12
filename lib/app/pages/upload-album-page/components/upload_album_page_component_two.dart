@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/pages/upload-album-page/upload_album_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -12,7 +11,6 @@ class UploadAlbumPageComponentTwo extends GetView<UploadAlbumPageController> {
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double height = mediaQuery.height;
-    final double width = mediaQuery.width;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

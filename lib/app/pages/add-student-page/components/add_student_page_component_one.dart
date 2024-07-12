@@ -19,30 +19,32 @@ class AddStudentPageComponentOne extends GetView<AddStudentPageController> {
         CommonTextField(
           obscureText: false,
           hintText: "Nama Lengkap",
-          fieldController: controller.namaLengkapController,
+          fieldController: controller.fullNameController,
         ),
         SizedBox(height: height * 0.01),
         CommonTextField(
           obscureText: false,
           hintText: "Nama Panggilan",
-          fieldController: controller.namaLengkapController,
+          fieldController: controller.shortNameController,
         ),
         SizedBox(height: height * 0.01),
         CommonTextField(
           obscureText: false,
           hintText: "Jenis Kelamain",
-          fieldController: controller.namaLengkapController,
+          fieldController: controller.genderController,
         ),
         SizedBox(height: height * 0.01),
         CommonTextField(
-            obscureText: false,
-            hintText: 'Tempat, Tanggal Lahir',
-            fieldController: controller.tempatLahirController),
+          obscureText: false,
+          hintText: 'Tempat, Tanggal Lahir',
+          fieldController: controller.birthPlaceController,
+        ),
         SizedBox(height: height * 0.01),
         CommonTextField(
-            obscureText: false,
-            hintText: 'Alamat Lengkap',
-            fieldController: controller.alamatLengkapController),
+          obscureText: false,
+          hintText: 'Alamat Lengkap',
+          fieldController: controller.addressController,
+        ),
       ],
     );
   }

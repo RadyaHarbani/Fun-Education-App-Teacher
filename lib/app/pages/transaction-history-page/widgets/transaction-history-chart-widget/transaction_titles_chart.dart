@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class TransactionTitleChart {
-  Widget mingguanTitles(double value, TitleMeta meta) {
+  Widget weeklyTitles(double value, TitleMeta meta) {
     final List<String> weekdays = ['S', 'S', 'R', 'K', 'J', 'S', 'M'];
 
     if (value >= 0 && value < weekdays.length) {
@@ -13,15 +13,14 @@ class TransactionTitleChart {
         style: tsBodyMediumSemibold(blackColor),
       );
     } else {
-      return SizedBox.shrink(); 
+      return SizedBox.shrink();
     }
   }
 
-  Widget bulananTitles(double value, TitleMeta meta) {
-    final style = tsBodyMediumSemibold(blackColor);
+  Widget monthlyTitles(double value, TitleMeta meta) {
+    final style = tsBodySmallSemibold(blackColor);
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      // space: 16,
       child: AutoSizeText.rich(
         TextSpan(
           text: 'Minggu\n',
