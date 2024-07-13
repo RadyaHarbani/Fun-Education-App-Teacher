@@ -25,7 +25,18 @@ class DetailClassPageView extends GetView<DetailClassPageController> {
             right: width * 0.05,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: Icon(
+                  Icons.arrow_back_ios_rounded,
+                  size: 15,
+                ),
+              ),
+              SizedBox(height: height * 0.025),
               DetailClassComponentOne(),
               SizedBox(height: height * 0.02),
               Container(

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/emergency-note/models/show_latest_emergency_note_model.dart';
 import 'package:fun_education_app_teacher/app/api/emergency-note/models/show_latest_emergency_note_response.dart';
 import 'package:fun_education_app_teacher/app/api/emergency-note/service/emergency_note_service.dart';
-import 'package:fun_education_app_teacher/app/api/users/models/show_current_user_model.dart';
-import 'package:fun_education_app_teacher/app/api/users/models/show_current_user_response.dart';
-import 'package:fun_education_app_teacher/app/api/users/service/user_service.dart';
+import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-all-incoming-shift/show_all_incoming_shift_model.dart';
+import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-all-incoming-shift/show_all_incoming_shift_response.dart';
+import 'package:fun_education_app_teacher/app/api/incoming-shift/service/incoming_shift_service.dart';
+import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
+import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_response.dart';
+import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
 import 'package:get/get.dart';
 
 class HomePageController extends GetxController {
@@ -21,18 +24,24 @@ class HomePageController extends GetxController {
   Rx<ShowLatestEmergencyNoteModel> showLatestEmergencyNoteModel =
       ShowLatestEmergencyNoteModel().obs;
 
+  IncomingShiftService incomingShiftService = IncomingShiftService();
+  ShowAllIncomingShiftResponse? showAllIncomingShiftResponse;
+  RxList<ShowAllIncomingShiftModel> showAllIncomingShiftModel =
+      <ShowAllIncomingShiftModel>[].obs;
+
   @override
   void onInit() {
     super.onInit();
     addEmergencyNoteController = TextEditingController();
     editEmergencyNoteController = TextEditingController();
-    showCurrentUser();
+    showAllIncomingShift();
+    showCurrentUserTeacher();
     showLatestEmergencyNote();
   }
 
-  Future showCurrentUser() async {
+  Future showCurrentUserTeacher() async {
     try {
-      final response = await userService.getShowCurrentUser();
+      final response = await userService.getShowCurrentUserTeacher();
       showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
       showCurrentUserModel.value = showCurrentUserResponse!.data;
       // isLoading.value = false;
@@ -90,6 +99,18 @@ class HomePageController extends GetxController {
       showLatestEmergencyNoteModel.value = ShowLatestEmergencyNoteModel();
       update();
       Get.back();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future showAllIncomingShift() async {
+    try {
+      final response = await incomingShiftService.getShowAllIncomingShift();
+      showAllIncomingShiftResponse =
+          ShowAllIncomingShiftResponse.fromJson(response.data);
+      showAllIncomingShiftModel.value = showAllIncomingShiftResponse!.data;
+      update();
     } catch (e) {
       print(e);
     }

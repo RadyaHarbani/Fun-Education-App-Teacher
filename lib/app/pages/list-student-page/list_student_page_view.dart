@@ -38,20 +38,22 @@ class ListStudentPageView extends GetView<ListStudentPageController> {
             horizontal: width * 0.05,
             vertical: height * 0.02,
           ),
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {},
-                child: ReportItem(
-                  name: 'Syahran Fadhil',
-                  image: 'https://i.pravatar.cc/50?u=$index',
-                ),
-              );
-            },
-          ),
+          child: Obx(() => ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: controller.showCurrentUserModel.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {},
+                    child: ReportItem(
+                      name:
+                          '${controller.showCurrentUserModel[index].fullName}',
+                      image:
+                          '${controller.showCurrentUserModel[index].profilePicture}',
+                    ),
+                  );
+                },
+              )),
         ),
       ),
     );

@@ -24,7 +24,7 @@ class AuthenticationService {
           'address': address,
           'shift': shift,
           'password': password,
-          'gender' : gender
+          'gender': gender
         },
       );
       return response;
@@ -36,8 +36,12 @@ class AuthenticationService {
   Future<Response> login(String nickname, String password) async {
     try {
       final response = await _dioInstance.postRequest(
-          endpoint: ApiEndPoint.login,
-          data: {'nickname': nickname, 'password': password});
+        endpoint: ApiEndPoint.login,
+        data: {
+          'nickname': nickname,
+          'password': password,
+        },
+      );
       return response;
     } catch (e) {
       throw Exception(e);
@@ -47,7 +51,10 @@ class AuthenticationService {
   Future<Response> logout() async {
     try {
       final response = await _dioInstance.deleteRequest(
-          endpoint: ApiEndPoint.logout, isAuthorize: true);
+        endpoint: ApiEndPoint.logout,
+        isAuthorize: true,
+        tokenType: 'teacher',
+      );
       return response;
     } catch (e) {
       throw Exception(e);

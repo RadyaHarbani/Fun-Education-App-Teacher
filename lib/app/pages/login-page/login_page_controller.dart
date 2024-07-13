@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fun_education_app_teacher/app/api/auth/service/authentication_service.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageController extends GetxController {
-  
-  late TextEditingController usernameController;
-  late TextEditingController passwordController;
+  // late TextEditingController usernameController;
+  // late TextEditingController passwordController;
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   late AuthenticationService authenticationService;
   RxBool isObsecure = true.obs;
   RxBool isLoading = false.obs;
@@ -15,8 +17,8 @@ class LoginPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    usernameController = TextEditingController();
-    passwordController = TextEditingController();
+    usernameController.text = 'Tuti Caidah';
+    passwordController.text = 'tuticaidahguru1';
     authenticationService = AuthenticationService();
   }
 
@@ -24,11 +26,13 @@ class LoginPageController extends GetxController {
     try {
       isLoading(true);
       final response = await authenticationService.login(
-          usernameController.text, passwordController.text);
+        usernameController.text,
+        passwordController.text,
+      );
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('teachersToken', response.data['token']);
 
-      prefs.setString('token', response.data['token']);
       Get.snackbar("Login Success", "Welcome Back!");
       Get.offAllNamed(Routes.NAVBAR_MAIN);
     } catch (e) {
