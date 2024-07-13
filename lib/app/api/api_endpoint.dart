@@ -20,9 +20,13 @@ class ApiEndPoint {
 
   //Shift Masuk
   static String showCurrentShiftMasuk = '$baseUrlShiftMasuk/show-current';
+  static String storeIncomingShiftByAdmin = '$baseUrlShiftMasuk/store';
+  static String showAllIncomingShift = '$baseUrlShiftMasuk/index';
+  static String showByIdIncomingShift = '$baseUrlShiftMasuk/show/';
 
   //User
   static String showCurrentUser = '$baseUrlAuth/show-current';
+  static String showAllUserByIncomingShift = '$baseUrlAuth/index?shift=';
 
   //Catatan Darurat
   static String showLatestCatatanDarurat = '$baseUrlCatatanDarurat/show';

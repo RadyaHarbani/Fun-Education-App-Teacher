@@ -20,6 +20,7 @@ class EmergencyNoteService {
     try {
       final response = await _dioInstance.postRequest(
         isAuthorize: true,
+        tokenType: 'teacher',
         endpoint: ApiEndPoint.storeEmergencyNoteByAdmin,
         data: {
           'catatan': emergencyNote,
@@ -36,6 +37,7 @@ class EmergencyNoteService {
     try {
       final response = await _dioInstance.putRequest(
         isAuthorize: true,
+        tokenType: 'teacher',
         endpoint: '${ApiEndPoint.updateEmergencyNoteByAdmin}$id',
         data: {
           'catatan': emergencyNote,
@@ -51,6 +53,7 @@ class EmergencyNoteService {
     try {
       final response = await _dioInstance.deleteRequest(
         isAuthorize: true,
+        tokenType: 'teacher',
         endpoint: '${ApiEndPoint.deleteEmergencyNoteByAdmin}$id',
       );
       return response;
