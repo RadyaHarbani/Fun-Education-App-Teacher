@@ -17,7 +17,7 @@ class LoginPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    usernameController.text = 'Tuti Caidah';
+    usernameController.text = 'Tuti';
     passwordController.text = 'tuticaidahguru1';
     authenticationService = AuthenticationService();
   }

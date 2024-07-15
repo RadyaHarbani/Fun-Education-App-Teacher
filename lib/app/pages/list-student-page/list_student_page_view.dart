@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/widget/report-widget/report_item.dart';
 import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class ListStudentPageView extends GetView<ListStudentPageController> {
@@ -44,7 +45,12 @@ class ListStudentPageView extends GetView<ListStudentPageController> {
                 itemCount: controller.showCurrentUserModel.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(
+                        Routes.DETAIL_LIST_STUDENT_PAGE,
+                        arguments: controller.showCurrentUserModel[index].id,
+                      );
+                    },
                     child: ReportItem(
                       name:
                           '${controller.showCurrentUserModel[index].fullName}',

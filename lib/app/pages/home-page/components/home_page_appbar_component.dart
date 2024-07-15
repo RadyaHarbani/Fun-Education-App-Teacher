@@ -42,7 +42,7 @@ class HomePageAppbarComponent extends GetView<HomePageController> {
                     children: [
                       TextSpan(
                         text:
-                            '${controller.showCurrentUserModel.value.nickname}',
+                            '${controller.showCurrentUserModel.value.fullName}',
                         style: tsTitleSmallSemibold(blackColor),
                       ),
                     ],

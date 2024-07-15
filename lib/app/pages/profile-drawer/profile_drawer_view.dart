@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
+import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
 class ProfileDrawerView extends StatelessWidget {
-  const ProfileDrawerView({super.key});
+  final ProfileDrawerController controller = Get.put(ProfileDrawerController());
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class ProfileDrawerView extends StatelessWidget {
 
     return Drawer(
       backgroundColor: backgroundColor,
+      surfaceTintColor: backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(30),
@@ -36,11 +39,13 @@ class ProfileDrawerView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.back();
+                },
                 icon: Icon(Icons.close, size: 20),
               ),
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: height * 0.03),
             Row(
               children: [
                 Container(
@@ -51,7 +56,7 @@ class ProfileDrawerView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                SizedBox(width: 16.0),
+                SizedBox(width: width * 0.03),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -73,7 +78,9 @@ class ProfileDrawerView extends StatelessWidget {
               icon: Icons.logout,
               backgroundColor: dangerColor,
               textColor: whiteColor,
-              onPressed: () {},
+              onPressed: () {
+                controller.logout();
+              },
             ),
           ],
         ),
