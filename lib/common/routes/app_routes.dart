@@ -5,7 +5,6 @@ abstract class Routes {
   static const NAVBAR_MAIN = _Paths.NAVBAR_MAIN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
-  static const PROFILE_DRAWER = _Paths.PROFILE_DRAWER;
   static const ADD_STUDENT_PAGE = _Paths.ADD_STUDENT_PAGE;
   static const DETAIL_CLASS_PAGE = _Paths.DETAIL_CLASS_PAGE;
   static const HOME_PAGE = _Paths.HOME_PAGE;
@@ -23,7 +22,8 @@ abstract class Routes {
   static const TRANSACTION_HISTORY_PAGE = _Paths.TRANSACTION_HISTORY_PAGE;
   static const LIST_STUDENT_PAGE = _Paths.LIST_STUDENT_PAGE;
   static const DETAIL_LIST_STUDENT_PAGE = _Paths.DETAIL_LIST_STUDENT_PAGE;
-  static const EDIT_INFORMATION_STUDENT_PAGE = _Paths.EDIT_INFORMATION_STUDENT_PAGE;
+  static const EDIT_INFORMATION_STUDENT_PAGE =
+      _Paths.EDIT_INFORMATION_STUDENT_PAGE;
   static const GALLERY_PAGE = _Paths.GALLERY_PAGE;
   static const DETAIL_ALBUM_PHOTO_PAGE = _Paths.DETAIL_ALBUM_PHOTO_PAGE;
   static const UPLOAD_PHOTO_PAGE = _Paths.UPLOAD_PHOTO_PAGE;
@@ -35,7 +35,6 @@ abstract class _Paths {
   static const NAVBAR_MAIN = '/navbar-main';
   static const SPLASH_SCREEN = '/splash-screen';
   static const LOGIN_PAGE = '/login-page';
-  static const PROFILE_DRAWER = '/profile-drawer';
   static const ADD_STUDENT_PAGE = '/add-student-page';
   static const DETAIL_CLASS_PAGE = '/detail-class-page';
   static const HOME_PAGE = '/home-page';
@@ -46,7 +45,7 @@ abstract class _Paths {
   static const DETAIL_MARK_PAGE = '/detail-mark-page';
   static const ADD_REPORT_PAGE = '/add-report-page';
   static const EDIT_REPORT_PAGE = '/edit-report-page';
-  static const DETAIL_REPORT_PAGE = '/detail-report-page';  
+  static const DETAIL_REPORT_PAGE = '/detail-report-page';
   static const HOME_SAVING_PAGE = '/home-saving-page';
   static const LIST_DETAIL_SAVING_PAGE = '/list-detail-saving-page';
   static const DETAIL_SAVING_PAGE = '/detail-saving-page';

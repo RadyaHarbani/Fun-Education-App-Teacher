@@ -40,8 +40,6 @@ import 'package:fun_education_app_teacher/app/pages/login-page/login_page_bindin
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_view.dart';
-import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_binding.dart';
-import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_view.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_view.dart';
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/transaction_history_page_binding.dart';
@@ -78,11 +76,6 @@ class AppPages {
       name: _Paths.LOGIN_PAGE,
       page: () => LoginPageView(),
       binding: LoginPageBinding(),
-    ),
-    GetPage(
-      name: _Paths.PROFILE_DRAWER,
-      page: () => ProfileDrawerView(),
-      binding: ProfileDrawerBinding(),
     ),
     GetPage(
       name: _Paths.ADD_STUDENT_PAGE,

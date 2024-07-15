@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
@@ -44,10 +46,10 @@ class DetailClassComponentOne extends GetView<DetailClassPageController> {
             children: [
               Container(
                 height: height * 0.0435,
-                width: width * 0.4,
+                width: width * 0.35,
                 child: Obx(() => OverlapStack.builder(
-                      leadIndex: 4,
-                      itemLimit: 5,
+                      leadIndex: 7,
+                      itemLimit: min(controller.showCurrentUserModel.length, 5),
                       itemCount: controller.showCurrentUserModel.length,
                       align: OverlapStackAlign.start,
                       itemBuilder: (context, i) {

@@ -18,19 +18,6 @@ class UserService {
     }
   }
 
-  Future<Response> getShowCurrentUserStudent() async {
-    try {
-      final response = await _dioInstance.getRequest(
-        endpoint: ApiEndPoint.showCurrentUser,
-        isAuthorize: true,
-        tokenType: 'student',
-      );
-      return response;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
   Future<Response> getShowAllUsersByIncomingShift(String shift) async {
     try {
       final response = await _dioInstance.getRequest(

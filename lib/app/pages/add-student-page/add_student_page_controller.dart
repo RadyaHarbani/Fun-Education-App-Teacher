@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/auth/service/authentication_service.dart';
-import 'package:fun_education_app_teacher/app/api/incoming-shift/service/incoming_shift_service.dart';
-import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
-import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_response.dart';
-import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AddStudentPageController extends GetxController {
   AuthenticationService authenticationService = AuthenticationService();
-  IncomingShiftService incomingShiftService = IncomingShiftService();
-  UserService userService = UserService();
-  ShowCurrentUserResponse? showCurrentUserResponse;
-  Rx<ShowCurrentUserModel> showCurrentUserModel = ShowCurrentUserModel().obs;
   late TextEditingController fullNameController;
   late TextEditingController shortNameController;
   late TextEditingController genderController;
@@ -26,7 +18,6 @@ class AddStudentPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
     fullNameController = TextEditingController();
     shortNameController = TextEditingController();
     genderController = TextEditingController();
@@ -35,21 +26,7 @@ class AddStudentPageController extends GetxController {
     passwordStudentController = TextEditingController();
   }
 
-  Future showCurrentUserStudent() async {
-    try {
-      final response = await userService.getShowCurrentUserStudent();
-      if (response.data != null) {
-        showCurrentUserResponse =
-            ShowCurrentUserResponse.fromJson(response.data);
-        showCurrentUserModel.value = showCurrentUserResponse!.data;
-        update();
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future register() async {
+  Future<void> register() async {
     try {
       final response = await authenticationService.register(
         fullNameController.text,
@@ -60,43 +37,30 @@ class AddStudentPageController extends GetxController {
         passwordStudentController.text,
         genderController.text,
       );
-
-      if (response.data != null && response.data['token'] != null) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString('studentsToken', response.data['token']);
-
-        await showCurrentUserStudent();
-
-        if (showCurrentUserModel.value.id != null &&
-            showCurrentUserModel.value.shift != null) {
-          await incomingShiftService.postStoreIncomingShiftByAdmin(
-            showCurrentUserModel.value.id!,
-            showCurrentUserModel.value.shift,
-          );
-        }
-
-        // fullNameController.clear();
-        // shortNameController.clear();
-        // birthPlaceController.clear();
-        // addressController.clear();
-        // selectedOption.value = '';
-        // passwordStudentController.clear();
-        // genderController.clear();
-
-        update();
+      if (response.statusCode == 201) {
+        print("Registrasi berhasil");
         Get.snackbar(
           'Berhasil',
-          'Data siswa berhasil ditambahkan',
+          'Registrasi berhasil',
           backgroundColor: successColor,
           colorText: whiteColor,
         );
-        Get.back();
+        Get.offAllNamed(Routes.NAVBAR_MAIN);
       } else {
-        throw Exception("Token tidak tersedia dalam response.");
+        Get.snackbar(
+          'Gagal',
+          'Registrasi gagal. Status kode: ${response.statusCode}',
+          backgroundColor: dangerColor,
+          colorText: whiteColor,
+        );
       }
     } catch (e) {
-      Get.snackbar('Gagal', '$e',
-          backgroundColor: dangerColor, colorText: whiteColor);
+      Get.snackbar(
+        'Gagal',
+        'Terjadi kesalahan: $e',
+        backgroundColor: dangerColor,
+        colorText: whiteColor,
+      );
       print(e);
     }
   }
