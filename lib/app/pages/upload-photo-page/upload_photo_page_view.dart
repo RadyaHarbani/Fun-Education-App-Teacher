@@ -53,7 +53,9 @@ class UploadPhotoPageView extends GetView<UploadPhotoPageController> {
                   text: 'Unggah Foto',
                   backgroundColor: blackColor,
                   textColor: whiteColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.storePhotoByAdmin();
+                  },
                 ),
               ],
             ),

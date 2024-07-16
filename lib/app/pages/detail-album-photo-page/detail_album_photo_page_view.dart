@@ -7,6 +7,8 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class DetailAlbumPhotoPageView extends GetView<DetailAlbumPhotoPageController> {
+  final argument = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
@@ -23,7 +25,7 @@ class DetailAlbumPhotoPageView extends GetView<DetailAlbumPhotoPageController> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios_new_rounded,
-              size: 20,
+              size: 15,
             ),
             onPressed: () {
               Get.back();
@@ -33,7 +35,7 @@ class DetailAlbumPhotoPageView extends GetView<DetailAlbumPhotoPageController> {
             group: AutoSizeGroup(),
             maxLines: 1,
             'Detail Album',
-            style: tsBodyLargeSemibold(blackColor),
+            style: tsBodyMediumSemibold(blackColor),
           ),
         ),
       ),
@@ -48,9 +50,9 @@ class DetailAlbumPhotoPageView extends GetView<DetailAlbumPhotoPageController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DetailAlbumPhotoPageComponentOne(),
+              DetailAlbumPhotoPageComponentOne(arguments: argument,),
               SizedBox(height: height * 0.03),
-              DetailAlbumPhotoPageComponentTwo(),
+              DetailAlbumPhotoPageComponentTwo(arguments: argument,),
             ],
           ),
         ),

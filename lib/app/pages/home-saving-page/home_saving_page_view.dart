@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/widget/button_class.dart';
 import 'package:fun_education_app_teacher/app/pages/home-saving-page/home_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class HomeSavingPageView extends GetView<HomeSavingPageController> {
@@ -31,23 +32,30 @@ class HomeSavingPageView extends GetView<HomeSavingPageController> {
                 style: tsTitleSmallSemibold(blackColor),
               ),
               SizedBox(height: height * 0.03),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 1,
-                ),
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return ButtonClass(
-                    shiftTime: '08.00 - 10.00',
-                    onTap: () {},
-                  );
-                },
-              ),
+              Obx(() => GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1,
+                    ),
+                    itemCount: controller.showAllIncomingShiftModel.length,
+                    itemBuilder: (context, index) {
+                      return ButtonClass(
+                        shiftTime:
+                            '${controller.showAllIncomingShiftModel[index].shiftMasuk}',
+                        onTap: () {
+                          Get.toNamed(
+                            Routes.LIST_DETAIL_SAVING_PAGE,
+                            arguments: controller
+                                .showAllIncomingShiftModel[index].shiftMasuk,
+                          );
+                        },
+                      );
+                    },
+                  )),
             ],
           ),
         ),

@@ -8,10 +8,10 @@ class ApiEndPoint {
   static String baseUrlTabungan = '$baseUrl/tabungan';
   static String baseUrlTransaksi = '$baseUrl/transaksi';
   static String baseUrlAlurBelajar = '$baseUrl/alur-belajar';
-  static String baseUrlAllPhotos = '$baseUrl/gallery';
+  static String baseUrlPhotos = '$baseUrl/gallery';
   static String baseUrlMinimumPengajuan = '$baseUrl/minimum-pengajuan';
   static String baseUrlPengajuanTabungan = '$baseUrl/pengajuan-tabungan';
-  static String baseUrlAllAlbumPhotos = '$baseUrl/album';
+  static String baseUrlAlbums = '$baseUrl/album';
 
   //Auth
   static String login = '$baseUrlAuth/login';
@@ -50,8 +50,15 @@ class ApiEndPoint {
   //Alur Belajar
   static String showCurrentAlurBelajar = '$baseUrlAlurBelajar/show-current';
 
-  //Show All Photos
-  static String showAllPhotos = '$baseUrlAllPhotos/index';
+  //Photos
+  static String showAllPhotos = '$baseUrlPhotos/index';
+  static String deletePhotoByAdmin = '$baseUrlPhotos/delete/';
+  static String storePhotoByAdmin = '$baseUrlPhotos/store';
+
+  //Albums
+  static String showAllAlbums = '$baseUrlAlbums/index';
+  static String storeAlbumByAdmin = '$baseUrlAlbums/store';
+  static String deleteAlbumByAdmin = '$baseUrlAlbums/delete/';
 
   //Minimum Pengajuan
   static String showCurrentMinimumPengajuan =
@@ -59,6 +66,5 @@ class ApiEndPoint {
 
   //Pengajuan Tabungan
   static String storePengajuanTabungan = '$baseUrlPengajuanTabungan/store';
-  //Show All Photos
-  static String showAllAlbumPhotos = '$baseUrlAllAlbumPhotos/index';
+  
 }
