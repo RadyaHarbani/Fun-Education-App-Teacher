@@ -1,10 +1,15 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
+import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class BottomsheetDetailPhoto extends StatelessWidget {
-  const BottomsheetDetailPhoto({super.key});
+class BottomsheetDetailPhoto extends GetView<GalleryPageController> {
+  const BottomsheetDetailPhoto({super.key, this.arguments});
+
+  final arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class BottomsheetDetailPhoto extends StatelessWidget {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.65,
+      height: height * 0.8,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -34,6 +39,7 @@ class BottomsheetDetailPhoto extends StatelessWidget {
             SizedBox(height: height * 0.03),
             Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                     width: width,
@@ -43,7 +49,7 @@ class BottomsheetDetailPhoto extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                       image: DecorationImage(
                         image: NetworkImage(
-                          'https://i.pravatar.cc/50?u=1',
+                          '${arguments.image}',
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -60,7 +66,7 @@ class BottomsheetDetailPhoto extends StatelessWidget {
                       ),
                       SizedBox(width: width * 0.02),
                       AutoSizeText(
-                        'Rabu, 12 Agustus 2021',
+                        '${DateFormat('EEEE, dd MMMM yyyy').format(arguments.createdAt)}',
                         group: AutoSizeGroup(),
                         maxLines: 1,
                         style: tsBodySmallRegular(blackColor),
@@ -72,14 +78,14 @@ class BottomsheetDetailPhoto extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AutoSizeText(
-                        'Outbound - Salatiga',
+                        '${arguments.title}',
                         group: AutoSizeGroup(),
                         maxLines: 1,
                         style: tsBodyMediumSemibold(blackColor),
                       ),
                       SizedBox(height: height * 0.01),
                       AutoSizeText(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Donec nec nunc nec nunc.',
+                        '${arguments.description}',
                         group: AutoSizeGroup(),
                         maxLines: 3,
                         style: tsBodySmallRegular(blackColor),
@@ -95,7 +101,21 @@ class BottomsheetDetailPhoto extends StatelessWidget {
               backgroundColor: blackColor,
               textColor: whiteColor,
               icon: Icons.file_download_rounded,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                controller.savePhotoToGallery(arguments.image);
+                Navigator.pop(context);
+              },
+            ),
+            SizedBox(height: height * 0.005),
+            CommonButton(
+              text: 'Hapus Foto',
+              backgroundColor: dangerColor,
+              textColor: whiteColor,
+              onPressed: () {
+                controller.deletePhotoByAdmin(
+                  arguments.id.toString(),
+                );
+              },
             ),
           ],
         ),

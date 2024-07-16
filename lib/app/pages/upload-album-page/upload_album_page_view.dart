@@ -56,7 +56,9 @@ class UploadAlbumPageView extends GetView<UploadAlbumPageController> {
                   text: 'Buat Album',
                   backgroundColor: blackColor,
                   textColor: whiteColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.storeAlbumByAdmin();
+                  },
                 ),
               ],
             ),

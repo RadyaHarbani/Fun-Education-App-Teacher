@@ -1,9 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class DetailAlbumPhotoPageComponentOne extends StatelessWidget {
-  const DetailAlbumPhotoPageComponentOne({super.key});
+class DetailAlbumPhotoPageComponentOne
+    extends GetView<DetailAlbumPhotoPageController> {
+  const DetailAlbumPhotoPageComponentOne({super.key, this.arguments});
+
+  final arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class DetailAlbumPhotoPageComponentOne extends StatelessWidget {
         vertical: height * 0.02,
       ),
       decoration: BoxDecoration(
-        color: primaryColor,
+        color: greyColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
@@ -49,16 +54,32 @@ class DetailAlbumPhotoPageComponentOne extends StatelessWidget {
                     'Album',
                     group: AutoSizeGroup(),
                     maxLines: 1,
-                    style: tsBodySmallRegular(whiteColor),
+                    style: tsBodySmallRegular(blackColor),
                   ),
-                  AutoSizeText(
-                    'Outbound - Salatiga',
-                    group: AutoSizeGroup(),
-                    maxLines: 2,
-                    style: tsBodyMediumSemibold(whiteColor),
+                  Container(
+                    width: width * 0.45,
+                    child: AutoSizeText(
+                      '${arguments.name}',
+                      group: AutoSizeGroup(),
+                      maxLines: 2,
+                      style: tsBodyMediumSemibold(blackColor).copyWith(
+                        height: 1.2,
+                      ),
+                    ),
                   ),
                 ],
               ),
+              Spacer(),
+              InkWell(
+                onTap: () {
+                  controller.deleteAlbumByAdmin(arguments.id);
+                },
+                child: Icon(
+                  Icons.delete_rounded,
+                  color: dangerColor,
+                  size: 30,
+                ),
+              )
             ],
           ),
           SizedBox(height: height * 0.02),
@@ -81,12 +102,17 @@ class DetailAlbumPhotoPageComponentOne extends StatelessWidget {
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
-                SizedBox(width: width * 0.03),
-                AutoSizeText(
-                  'Rekreasi ke tempat bermain di salatiga',
-                  group: AutoSizeGroup(),
-                  maxLines: 3,
-                  style: tsBodySmallRegular(whiteColor),
+                SizedBox(width: width * 0.02),
+                Container(
+                  width: width * 0.7,
+                  child: AutoSizeText(
+                    '${arguments.desc}',
+                    group: AutoSizeGroup(),
+                    maxLines: 3,
+                    style: tsBodySmallRegular(whiteColor).copyWith(
+                      height: 1.3,
+                    ),
+                  ),
                 ),
               ],
             ),

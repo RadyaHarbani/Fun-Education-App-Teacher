@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/widgets/upload_method_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
+import 'package:get/get.dart';
 
 class BottomSheetSelectUploadMethod extends StatelessWidget {
   const BottomSheetSelectUploadMethod({super.key});
@@ -67,7 +69,9 @@ class BottomSheetSelectUploadMethod extends StatelessWidget {
               child: Column(
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.UPLOAD_PHOTO_PAGE);
+                    },
                     child: UploadMethodItem(
                       title: 'Unggah Foto',
                       description: 'Tidak Pengelompokan, Minimal 1 Foto',
@@ -75,7 +79,9 @@ class BottomSheetSelectUploadMethod extends StatelessWidget {
                   ),
                   SizedBox(height: height * 0.01),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.UPLOAD_ALBUM_PAGE);
+                    },
                     child: UploadMethodItem(
                       title: 'Buat Album',
                       description: 'Pengelompokan, Minimal 5 Foto',

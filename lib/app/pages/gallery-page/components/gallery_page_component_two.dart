@@ -23,40 +23,44 @@ class GalleryPageComponentTwo extends GetView<GalleryPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
         SizedBox(height: height * 0.02),
-        GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: width * 0.01,
-            mainAxisSpacing: height * 0.005,
-            childAspectRatio: 1,
-          ),
-          itemCount: 5,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: whiteColor,
-                  builder: (context) => BottomsheetDetailPhoto(),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: whiteColor,
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      'https://i.pravatar.cc/50?u=$index',
+        Obx(
+          () => GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: width * 0.01,
+              mainAxisSpacing: height * 0.005,
+              childAspectRatio: 1,
+            ),
+            itemCount: controller.showAllPhotosModel.length,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: whiteColor,
+                    builder: (context) => BottomsheetDetailPhoto(
+                      arguments: controller.showAllPhotosModel[index],
                     ),
-                    fit: BoxFit.cover,
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: whiteColor,
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        controller.showAllPhotosModel[index].image!,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ],
     );
