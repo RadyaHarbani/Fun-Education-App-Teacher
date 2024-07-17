@@ -39,7 +39,8 @@ class GalleryPageComponentOne extends GetView<GalleryPageController> {
                 onTap: () {
                   Get.toNamed(
                     Routes.DETAIL_ALBUM_PHOTO_PAGE,
-                    arguments: controller.showAllAlbumsModel[index],
+                    arguments:
+                        controller.showAllAlbumsModel[index].id!.toString(),
                   );
                 },
                 child: Container(

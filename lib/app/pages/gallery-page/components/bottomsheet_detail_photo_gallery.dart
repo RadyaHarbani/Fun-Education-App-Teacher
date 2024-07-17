@@ -6,8 +6,8 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class BottomsheetDetailPhoto extends GetView<GalleryPageController> {
-  const BottomsheetDetailPhoto({super.key, this.arguments});
+class BottomsheetDetailPhotoGallery extends GetView<GalleryPageController> {
+  const BottomsheetDetailPhotoGallery({super.key, this.arguments});
 
   final arguments;
 

@@ -67,6 +67,17 @@ class AlbumsService {
     }
   }
 
+  Future<Response> getShowByIdAlbum(String albumId) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: '${ApiEndPoint.showByIdAlbum}$albumId',
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<Response> deleteAlbumByAdmin(String albumId) async {
     try {
       final response = await _dioInstance.deleteRequest(
