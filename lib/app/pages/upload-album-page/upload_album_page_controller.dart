@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/api/gallery/albums/models/show_all_albums_model.dart';
-import 'package:fun_education_app_teacher/app/api/gallery/albums/models/show_all_albums_response.dart';
+import 'package:fun_education_app_teacher/app/api/gallery/albums/models/show-all-albums/show_all_albums_model.dart';
+import 'package:fun_education_app_teacher/app/api/gallery/albums/models/show-all-albums/show_all_albums_response.dart';
 import 'package:fun_education_app_teacher/app/api/gallery/albums/service/albums_service.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';

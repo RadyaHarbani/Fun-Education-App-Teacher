@@ -58,6 +58,7 @@ class ApiEndPoint {
   //Albums
   static String showAllAlbums = '$baseUrlAlbums/index';
   static String storeAlbumByAdmin = '$baseUrlAlbums/store';
+  static String showByIdAlbum = '$baseUrlAlbums/show/';
   static String deleteAlbumByAdmin = '$baseUrlAlbums/delete/';
 
   //Minimum Pengajuan

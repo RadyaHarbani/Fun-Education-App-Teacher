@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
-import 'package:fun_education_app_teacher/app/api/gallery/albums/models/show_all_albums_model.dart';
-import 'package:fun_education_app_teacher/app/api/gallery/albums/models/show_all_albums_response.dart';
+import 'package:fun_education_app_teacher/app/api/gallery/albums/models/show-all-albums/show_all_albums_model.dart';
+import 'package:fun_education_app_teacher/app/api/gallery/albums/models/show-all-albums/show_all_albums_response.dart';
 import 'package:fun_education_app_teacher/app/api/gallery/albums/service/albums_service.dart';
 import 'package:fun_education_app_teacher/app/api/gallery/photos/models/show_all_photos_model.dart';
 import 'package:fun_education_app_teacher/app/api/gallery/photos/models/show_all_photos_response.dart';
@@ -88,6 +88,8 @@ class GalleryPageController extends GetxController {
       final response = await photosService.deletePhotoByAdmin(idPhoto);
       print(response.data);
       showAllPhotos();
+      showAllAlbums();
+      update();
       Get.back();
     } catch (e) {
       print(e);

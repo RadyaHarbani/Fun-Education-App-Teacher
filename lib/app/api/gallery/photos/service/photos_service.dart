@@ -18,15 +18,18 @@ class PhotosService {
   }
 
   Future<Response> postStorePhotoByAdmin(
+    bool isAlbum,
     File image,
     String title,
     String description,
+    String? albumId,
   ) async {
     try {
       FormData formData = FormData.fromMap({
         'image': await MultipartFile.fromFile(image.path),
         'title': title,
         'description': description,
+        if (isAlbum == true) 'album_id': albumId,
       });
 
       final response = await _dioInstance.postRequest(

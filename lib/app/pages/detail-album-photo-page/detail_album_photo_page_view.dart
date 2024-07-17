@@ -7,8 +7,6 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class DetailAlbumPhotoPageView extends GetView<DetailAlbumPhotoPageController> {
-  final argument = Get.arguments;
-
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
@@ -50,9 +48,9 @@ class DetailAlbumPhotoPageView extends GetView<DetailAlbumPhotoPageController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DetailAlbumPhotoPageComponentOne(arguments: argument,),
+              DetailAlbumPhotoPageComponentOne(),
               SizedBox(height: height * 0.03),
-              DetailAlbumPhotoPageComponentTwo(arguments: argument,),
+              DetailAlbumPhotoPageComponentTwo(),
             ],
           ),
         ),

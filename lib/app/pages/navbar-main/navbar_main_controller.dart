@@ -6,13 +6,22 @@ import 'package:get/get.dart';
 
 class NavbarMainController extends GetxController {
   var currentIndex = 0.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    if (Get.arguments != null) {
+      currentIndex.value = Get.arguments;
+    }
+  }
+
   final List<Widget> pages = [
     HomePageView(),
     HomeSavingPageView(),
     GalleryPageView(),
   ];
 
-  void selectedPage (int index) {
+  void selectedPage(int index) {
     currentIndex.value = index;
   }
 }

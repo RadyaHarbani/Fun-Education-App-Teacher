@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/upload-photo-page/components/upload_photo_page_component_one.dart';
+import 'package:fun_education_app_teacher/app/pages/upload-photo-page/components/upload_photo_page_component_three.dart';
 import 'package:fun_education_app_teacher/app/pages/upload-photo-page/components/upload_photo_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/upload-photo-page/upload_photo_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -48,12 +49,15 @@ class UploadPhotoPageView extends GetView<UploadPhotoPageController> {
                 UploadPhotoPageComponentOne(),
                 SizedBox(height: height * 0.03),
                 UploadPhotoPageComponentTwo(),
+                SizedBox(height: height * 0.03),
+                UploadPhotoPageComponentThree(),
                 SizedBox(height: height * 0.05),
                 CommonButton(
                   text: 'Unggah Foto',
                   backgroundColor: blackColor,
                   textColor: whiteColor,
                   onPressed: () {
+                    print('album id : ${controller.albumId.value}');
                     controller.storePhotoByAdmin();
                   },
                 ),
