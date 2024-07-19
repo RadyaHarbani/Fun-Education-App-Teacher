@@ -84,7 +84,7 @@ class UploadAlbumPageController extends GetxController {
         colorText: whiteColor,
       );
       showAllAlbums();
-      Get.offAllNamed(Routes.GALLERY_PAGE);
+      Get.offAllNamed(Routes.NAVBAR_MAIN, arguments: 2);
     } catch (e) {
       Get.snackbar(
         'Upload Failed',

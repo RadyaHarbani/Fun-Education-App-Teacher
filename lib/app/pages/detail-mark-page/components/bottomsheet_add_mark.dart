@@ -76,7 +76,7 @@ class BottomsheetAddMark extends GetView<DetailMarkPageController> {
               text: 'Kirim Nilai',
               backgroundColor: blackColor,
               textColor: whiteColor,
-              onPressed: () => controller.changeStatus(),
+              // onPressed: () => controller.changeStatus(),
             ),
           ],
         ),

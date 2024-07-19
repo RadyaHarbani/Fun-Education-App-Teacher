@@ -53,12 +53,13 @@ class UploadAlbumPageComponentThree extends GetView<UploadAlbumPageController> {
               return InkWell(
                 onTap: () {
                   Get.to(() => CommonDetailImagePage(
-                        imageFile: controller.imageFileList[index],
+                        imagePath: controller.imageFileList[index].path, isNetwork: false,
                       ));
                 },
                 child: CommonGridImageItem(
                   imagePath: controller.imageFileList[index].path,
                   isDelete: true,
+                  isNetwork: false,
                   deleteFunction: () {
                     controller.deleteImage(index);
                   },

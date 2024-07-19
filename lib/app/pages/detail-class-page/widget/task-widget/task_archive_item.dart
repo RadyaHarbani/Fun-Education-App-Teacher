@@ -40,6 +40,7 @@ class TaskArchiveItem extends StatelessWidget {
           right: width * 0.05,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,7 +95,7 @@ class TaskArchiveItem extends StatelessWidget {
                 widget,
               ],
             ),
-            SizedBox(height: height * 0.025),
+            SizedBox(height: height * 0.015),
             AutoSizeText(
               title,
               group: AutoSizeGroup(),
@@ -103,7 +104,7 @@ class TaskArchiveItem extends StatelessWidget {
               style: tsBodyMediumSemibold(blackColor)
                   .copyWith(decoration: TextDecoration.lineThrough),
             ),
-            SizedBox(height: height * 0.02),
+            SizedBox(height: height * 0.01),
             Divider(
               color: greyColor.withOpacity(0.1),
               thickness: 1.5,

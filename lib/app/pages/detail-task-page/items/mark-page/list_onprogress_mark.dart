@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/widgets/mark_widget/mark_student_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class ListOnprogressMark extends StatelessWidget {
+class ListOnprogressMark extends GetView<DetailTaskPageController> {
   const ListOnprogressMark({super.key});
 
   @override
@@ -31,18 +34,28 @@ class ListOnprogressMark extends StatelessWidget {
           ],
         ),
         SizedBox(height: height * 0.02),
-        ListView.builder(
-            itemCount: 3,
+        Obx(() => ListView.builder(
+            itemCount: controller.onProgressList.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              return MarkStudentItem(
-                studentName: 'Radya',
-                date: '${DateFormat('EEEE, dd MMMM').format(DateTime.now())}',
-                index: index,
-                mark: '0',
+              return InkWell(
+                onTap: () {
+                  Get.toNamed(
+                    Routes.DETAIL_MARK_PAGE,
+                    arguments: controller.onProgressList[index].id.toString(),
+                  );
+                },
+                child: MarkStudentItem(
+                  studentName: '${controller.onProgressList[index].fullName}',
+                  date:
+                      '${DateFormat('EEEE, dd MMMM').format(controller.onProgressList[index].createdAt!)}',
+                  profiePicture:
+                      controller.onProgressList[index].profilePicture!,
+                  mark: '${controller.onProgressList[index].grade}',
+                ),
               );
-            }),
+            })),
       ],
     );
   }

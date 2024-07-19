@@ -6,12 +6,15 @@ import 'package:fun_education_app_teacher/app/pages/detail-mark-page/components/
 import 'package:fun_education_app_teacher/app/pages/detail-mark-page/components/detail_mark_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-mark-page/detail_mark_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-mark-page/widgets/detail_mark_item.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DetailMarkPageView extends GetView<DetailMarkPageController> {
-  const DetailMarkPageView({super.key});
+  // const DetailMarkPageView({super.key});
+  final DetailTaskPageController detailTaskPageController =
+      Get.put(DetailTaskPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,23 +51,25 @@ class DetailMarkPageView extends GetView<DetailMarkPageController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Obx(() => DetailMarkItem(
-                    type: 'Dikte',
-                    title: 'Menulis 5 benda yang sering dilihat oleh ananda',
+                    type:
+                        '${detailTaskPageController.showByTaskIdDetail.value.category!}',
+                    title:
+                        '${detailTaskPageController.showByTaskIdDetail.value.title!}',
                     description:
-                        'Berdasarkan gambar tersebut ambil lima barang yang ingin didiktekan, setelah selesai foto hasil tugas anak lalu kumpulkan.',
+                        '${detailTaskPageController.showByTaskIdDetail.value.description!}',
                     madeIn:
-                        '${DateFormat('EEEE,\ndd MMMM').format(DateTime.now())}',
+                        '${DateFormat('EEEE,\ndd MMMM').format(detailTaskPageController.showByTaskIdDetail.value.createdAt!)}',
                     deadline:
-                        '${DateFormat('EEEE,\ndd MMMM').format(DateTime.now())}',
-                    status: '${controller.status.value}',
+                        '${DateFormat('EEEE,\ndd MMMM').format(detailTaskPageController.showByTaskIdDetail.value.deadline!)}',
+                    status: '${controller.showByUserIdDetail.value.status}',
                   )),
               SizedBox(height: height * 0.02),
               DetailMarkPageComponentOne(),
               SizedBox(height: height * 0.02),
               DetailMarkPageComponentTwo(),
-              SizedBox(height: height * 0.02),
+              SizedBox(height: height * 0.05),
               Obx(
-                () => controller.status.value == 'Dikumpulkan'
+                () => controller.showByUserIdDetail.value.status == 'Diperiksa'
                     ? CommonButton(
                         text: 'Beri Nilai',
                         backgroundColor: blackColor,
@@ -85,15 +90,20 @@ class DetailMarkPageView extends GetView<DetailMarkPageController> {
                           vertical: height * 0.02,
                         ),
                         decoration: BoxDecoration(
-                          color: controller.mark.value <= 50
-                              ? dangerColor
-                              : controller.mark.value <= 70
-                                  ? warningColor
-                                  : successColor,
+                          color: controller.showByUserIdDetail.value.grade ==
+                                  null
+                              ? blackColor 
+                              : controller.showByUserIdDetail.value.grade! <= 50
+                                  ? dangerColor
+                                  : controller.showByUserIdDetail.value
+                                              .grade! <=
+                                          70
+                                      ? warningColor
+                                      : successColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: AutoSizeText(
-                          '${controller.mark.value}/100',
+                          '${controller.showByUserIdDetail.value.grade ?? 0}/100',
                           group: AutoSizeGroup(),
                           maxLines: 1,
                           style: tsBodySmallSemibold(whiteColor),

@@ -10,14 +10,12 @@ class TaskCloseItem extends StatelessWidget {
     required this.madeIn,
     required this.deadline,
     required this.status,
-
   }) : super(key: key);
   final String type;
   final String title;
   final String madeIn;
   final String deadline;
   final String status;
- 
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +34,7 @@ class TaskCloseItem extends StatelessWidget {
           horizontal: width * 0.05,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,10 +86,9 @@ class TaskCloseItem extends StatelessWidget {
                     ),
                   ],
                 ),
-           
               ],
             ),
-            SizedBox(height: height * 0.025),
+            SizedBox(height: height * 0.015),
             AutoSizeText(
               title,
               group: AutoSizeGroup(),
@@ -99,7 +97,7 @@ class TaskCloseItem extends StatelessWidget {
               style: tsBodyMediumSemibold(blackColor)
                   .copyWith(decoration: TextDecoration.lineThrough),
             ),
-            SizedBox(height: height * 0.02),
+            SizedBox(height: height * 0.01),
             Divider(
               color: greyColor.withOpacity(0.1),
               thickness: 1.5,

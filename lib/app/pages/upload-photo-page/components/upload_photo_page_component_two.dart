@@ -53,11 +53,13 @@ class UploadPhotoPageComponentTwo extends GetView<UploadPhotoPageController> {
               return InkWell(
                 onTap: () {
                   Get.to(() => CommonDetailImagePage(
-                        imageFile: controller.imageFileList[index],
+                        imagePath: controller.imageFileList[index].path,
+                        isNetwork: false,
                       ));
                 },
                 child: CommonGridImageItem(
                   imagePath: controller.imageFileList[index].path,
+                  isNetwork: false,
                   isDelete: true,
                   deleteFunction: () {
                     controller.deleteImage(index);

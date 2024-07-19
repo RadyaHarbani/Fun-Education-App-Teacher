@@ -28,9 +28,21 @@ class TaskItem extends StatelessWidget {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return status == 'Diarsipkan'
-        ? TaskArchiveItem(type: type, title: title, madeIn: madeIn, deadline: deadline, status: status, widget: widget!,)
+        ? TaskArchiveItem(
+            type: type,
+            title: title,
+            madeIn: madeIn,
+            deadline: deadline,
+            status: status,
+            widget: widget!,
+          )
         : status == 'Ditutup'
-            ? TaskCloseItem(type: type, title: title, madeIn: madeIn, deadline: deadline, status: status)
+            ? TaskCloseItem(
+                type: type,
+                title: title,
+                madeIn: madeIn,
+                deadline: deadline,
+                status: status)
             : Container(
                 margin: EdgeInsets.only(bottom: height * 0.02),
                 decoration: BoxDecoration(
@@ -51,6 +63,7 @@ class TaskItem extends StatelessWidget {
                     right: width * 0.05,
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +95,7 @@ class TaskItem extends StatelessWidget {
                           widget!,
                         ],
                       ),
-                      SizedBox(height: height * 0.025),
+                      SizedBox(height: height * 0.015),
                       AutoSizeText(
                         title,
                         group: AutoSizeGroup(),
@@ -90,7 +103,7 @@ class TaskItem extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: tsBodyMediumSemibold(blackColor),
                       ),
-                      SizedBox(height: height * 0.02),
+                      SizedBox(height: height * 0.01),
                       Divider(
                         color: greyColor.withOpacity(0.1),
                         thickness: 1.5,
