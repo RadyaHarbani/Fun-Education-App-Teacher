@@ -53,7 +53,7 @@ class AddTaskPageComponentThree extends GetView<AddTaskPageController> {
               return InkWell(
                 onTap: () {
                   Get.to(() => CommonDetailImagePage(
-                        imageFile: controller.imageFileList[index],
+                        imagePath: controller.imageFileList[index].path, isNetwork: false,
                       ));
                 },
                 child: CommonGridImageItem(
@@ -61,7 +61,7 @@ class AddTaskPageComponentThree extends GetView<AddTaskPageController> {
                   isDelete: true,
                   deleteFunction: () {
                     controller.deleteImage(index);
-                  },
+                  }, isNetwork: false,
                 ),
               );
             },

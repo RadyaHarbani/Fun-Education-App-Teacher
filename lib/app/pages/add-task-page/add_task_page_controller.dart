@@ -11,9 +11,13 @@ class AddTaskPageController extends GetxController {
   final ImagePicker imagePicker = ImagePicker();
   var imageFileList = <XFile>[].obs;
   var selectedDateTime = DateTime.now().obs;
+  var incomingShift = ''.obs;
 
-  void selectType(String option) {
-    selectedType.value = option;
+  @override
+  void onInit() {
+    super.onInit();
+    incomingShift.value = Get.arguments;
+    print(incomingShift);
   }
 
   void selectImage() async {
@@ -43,7 +47,7 @@ class AddTaskPageController extends GetxController {
         pickerFormat: PickerFormat.dmy,
         activeColor: primaryColor,
         backgroundDecoration: BoxDecoration(
-          color: Colors.white,
+          color: whiteColor,
           borderRadius: BorderRadius.circular(10),
         ),
         boardTitle: 'Pilih Tanggal',

@@ -9,12 +9,15 @@ class DetailTaskPageComponentTwo extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double height = mediaQuery.height;
-    return Column(
-      children: [
-        ListOnprogressMark(),
-        SizedBox(height: height * 0.02),
-        ListFinishedMark(),
-      ],
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: Column(
+        children: [
+          ListOnprogressMark(),
+          SizedBox(height: height * 0.02),
+          ListFinishedMark(),
+        ],
+      ),
     );
   }
 }

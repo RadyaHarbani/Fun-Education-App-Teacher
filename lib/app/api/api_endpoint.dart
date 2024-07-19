@@ -12,6 +12,8 @@ class ApiEndPoint {
   static String baseUrlMinimumPengajuan = '$baseUrl/minimum-pengajuan';
   static String baseUrlPengajuanTabungan = '$baseUrl/pengajuan-tabungan';
   static String baseUrlAlbums = '$baseUrl/album';
+  static String baseUrlTask = '$baseUrl/tugas';
+  static String baseUrlMark = '$baseUrl/tugas-user';
 
   //Auth
   static String login = '$baseUrlAuth/login';
@@ -67,5 +69,14 @@ class ApiEndPoint {
 
   //Pengajuan Tabungan
   static String storePengajuanTabungan = '$baseUrlPengajuanTabungan/store';
-  
+
+  //Task
+  static String showStatusCount = '$baseUrlTask/show-status-count?shift=';
+  static String showByStatus = '$baseUrlTask/index';
+  static String storeTaskByAdmin = '$baseUrlTask/store';
+  static String showByTaskId = '$baseUrlTask/show/';
+
+  //Mark
+  static String markShowByTaskId = '$baseUrlMark/show-by-tugas-id/';
+  static String markShowByUserId = '$baseUrlMark/show/';
 }

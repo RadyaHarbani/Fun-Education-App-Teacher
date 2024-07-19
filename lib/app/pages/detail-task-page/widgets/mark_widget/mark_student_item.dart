@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class MarkStudentItem extends StatelessWidget {
@@ -9,13 +7,13 @@ class MarkStudentItem extends StatelessWidget {
     Key? key,
     required this.studentName,
     required this.date,
-    required this.index,
+    required this.profiePicture,
     required this.mark,
   }) : super(key: key);
 
   final String studentName;
   final String date;
-  final int index;
+  final String profiePicture;
   final String mark;
 
   @override
@@ -40,7 +38,7 @@ class MarkStudentItem extends StatelessWidget {
             ),
             child: CircleAvatar(
               foregroundImage: NetworkImage(
-                'https://i.pravatar.cc/50?u=$index',
+                '$profiePicture',
               ),
             ),
           ),

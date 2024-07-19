@@ -38,35 +38,35 @@ class EditTaskPageComponentThree extends GetView<EditTaskPageController> {
           ],
         ),
         SizedBox(height: height * 0.02),
-        Obx(() {
-          return GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: controller.imageFileList.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: width * 0.02,
-              mainAxisSpacing: height * 0.01,
-              childAspectRatio: 1.4,
-            ),
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  Get.to(() => CommonDetailImagePage(
-                        imageFile: controller.imageFileList[index],
-                      ));
-                },
-                child: CommonGridImageItem(
-                  imagePath: controller.imageFileList[index].path,
-                  isDelete: true,
-                  deleteFunction: () {
-                    controller.deleteImage(index);
-                  },
-                ),
-              );
-            },
-          );
-        }),
+        // Obx(() {
+        //   return GridView.builder(
+        //     shrinkWrap: true,
+        //     physics: NeverScrollableScrollPhysics(),
+        //     itemCount: controller.imageFileList.length,
+        //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //       crossAxisCount: 3,
+        //       crossAxisSpacing: width * 0.02,
+        //       mainAxisSpacing: height * 0.01,
+        //       childAspectRatio: 1.4,
+        //     ),
+        //     itemBuilder: (context, index) {
+        //       return InkWell(
+        //         onTap: () {
+        //           Get.to(() => CommonDetailImagePage(
+        //                 imageFile: controller.imageFileList[index],
+        //               ));
+        //         },
+        //         child: CommonGridImageItem(
+        //           imagePath: controller.imageFileList[index].path,
+        //           isDelete: true,
+        //           deleteFunction: () {
+        //             controller.deleteImage(index);
+        //           },
+        //         ),
+        //       );
+        //     },
+        //   );
+        // }),
         SizedBox(height: height * 0.02),
         CommonButton(
           text: 'Tambah Gambar',

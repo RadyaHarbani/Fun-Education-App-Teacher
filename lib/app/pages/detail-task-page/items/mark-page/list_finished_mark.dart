@@ -1,11 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/widgets/mark_widget/mark_student_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class ListFinishedMark extends StatelessWidget {
+class ListFinishedMark extends GetView<DetailTaskPageController> {
   const ListFinishedMark({super.key});
 
   @override
@@ -31,18 +33,19 @@ class ListFinishedMark extends StatelessWidget {
           ],
         ),
         SizedBox(height: height * 0.02),
-        ListView.builder(
-            itemCount: 3,
+        Obx(() => ListView.builder(
+            itemCount: controller.finishedList.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return MarkStudentItem(
-                studentName: 'Radya',
-                date: '${DateFormat('EEEE, dd MMMM').format(DateTime.now())}',
-                index: index,
-                mark: '100',
+                studentName: '${controller.finishedList[index].fullName}',
+                date:
+                    '${DateFormat('EEEE, dd MMMM').format(controller.finishedList[index].createdAt!)}',
+                profiePicture: controller.finishedList[index].profilePicture!,
+                mark: '${controller.finishedList[index].grade}',
               );
-            }),
+            })),
       ],
     );
   }

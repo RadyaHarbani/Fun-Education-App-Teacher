@@ -6,6 +6,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/task
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/task-page/list_new_task.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/widget/tab_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -38,7 +39,14 @@ class DetailClassComponentTwo extends GetView<DetailClassPageController> {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(
+                  Routes.ADD_TASK_PAGE,
+                  arguments: controller
+                      .showAllIncomingShiftModel.value.shiftMasuk
+                      .toString(),
+                );
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(
                   vertical: height * 0.012,
@@ -69,24 +77,34 @@ class DetailClassComponentTwo extends GetView<DetailClassPageController> {
           ],
         ),
         SizedBox(height: height * 0.02),
-        Container(
-          width: width,
-          child: TabBar(
-            controller: controller.tabControllerHomework,
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: primaryColor,
-            tabAlignment: TabAlignment.start,
-            isScrollable: true,
-            dividerColor: Colors.transparent,
-            labelColor: primaryColor,
-            unselectedLabelColor: greyColor,
-            tabs: [
-              TabItem(title: 'Terbaru', count: 1),
-              TabItem(title: 'Ditutup', count: 10),
-              TabItem(title: 'Diarsipkan', count: 5),
-            ],
-          ),
-        ),
+        Obx(() => Container(
+              width: width,
+              child: TabBar(
+                controller: controller.tabControllerHomework,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorColor: primaryColor,
+                tabAlignment: TabAlignment.start,
+                isScrollable: true,
+                dividerColor: Colors.transparent,
+                labelColor: primaryColor,
+                unselectedLabelColor: greyColor,
+                tabs: [
+                  TabItem(
+                    title: 'Terbaru',
+                    count: controller.showStatusCountModel.value.tersedia ?? 0,
+                  ),
+                  TabItem(
+                    title: 'Ditutup',
+                    count: controller.showStatusCountModel.value.ditutup ?? 0,
+                  ),
+                  TabItem(
+                    title: 'Diarsipkan',
+                    count:
+                        controller.showStatusCountModel.value.diarsipkan ?? 0,
+                  ),
+                ],
+              ),
+            )),
         SizedBox(height: height * 0.015),
         Expanded(
           child: TabBarView(

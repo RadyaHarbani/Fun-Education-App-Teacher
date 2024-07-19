@@ -6,9 +6,10 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CommonDetailImagePage extends StatelessWidget {
-  final XFile imageFile;
+  final String imagePath;
+  final bool isNetwork;
 
-  CommonDetailImagePage({required this.imageFile});
+  CommonDetailImagePage({required this.imagePath, required this.isNetwork,});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,8 @@ class CommonDetailImagePage extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Image.file(
-          File(imageFile.path),
+        child: isNetwork == true ? Image.network(imagePath, fit: BoxFit.contain,) : Image.file(
+          File(imagePath),
           fit: BoxFit.contain,
         ),
       ),
