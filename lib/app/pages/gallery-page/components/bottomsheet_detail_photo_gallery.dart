@@ -114,6 +114,7 @@ class BottomsheetDetailPhotoGallery extends GetView<GalleryPageController> {
               onPressed: () {
                 controller.deletePhotoByAdmin(
                   arguments.id.toString(),
+                  arguments.albumId.toString(),
                 );
               },
             ),

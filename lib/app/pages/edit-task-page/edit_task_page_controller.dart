@@ -1,10 +1,19 @@
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/api/task/service/task_service.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
-class EditTaskPageController extends GetxController{
+class EditTaskPageController extends GetxController {
+  final TaskService taskService = TaskService();
+  final DetailClassPageController detailClassPageController =
+      Get.put(DetailClassPageController());
+  final DetailTaskPageController detailTaskPageController =
+      Get.put(DetailTaskPageController());
   TextEditingController taskNameController = TextEditingController();
   TextEditingController taskDescriptionController = TextEditingController();
   var selectedType = ''.obs;
@@ -12,8 +21,13 @@ class EditTaskPageController extends GetxController{
   var imageFileList = <XFile>[].obs;
   var selectedDateTime = DateTime.now().obs;
 
-  void selectType(String option) {
-    selectedType.value = option;
+  @override
+  void onInit() {
+    super.onInit();
+    taskNameController.text = Get.arguments.title ?? '';
+    taskDescriptionController.text = Get.arguments.description ?? '';
+    selectedType.value = Get.arguments.category ?? '';
+    selectedDateTime.value = Get.arguments.deadline ?? DateTime.now();
   }
 
   void selectImage() async {
@@ -52,6 +66,46 @@ class EditTaskPageController extends GetxController{
     );
     if (value != null) {
       selectedDateTime.value = value;
+    }
+  }
+
+  Future updateTaskByAdmin() async {
+    try {
+      final response = await taskService.putUpdateTaskByAdmin(
+        Get.arguments.id,
+        selectedType.value,
+        taskNameController.text,
+        taskDescriptionController.text,
+        Get.arguments.shift,
+        DateFormat('yyyy-MM-dd').format(selectedDateTime.value),
+      );
+      print(response.statusCode);
+
+      if (response.statusCode == 200) {
+        await detailClassPageController.showByNewStatus(Get.arguments.shift);
+        await detailTaskPageController.showByTaskId(Get.arguments.id);
+        Get.back();
+        Get.snackbar(
+          'Berhasil',
+          'Tugas berhasil diperbarui',
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+        );
+      } else {
+        Get.snackbar(
+          'Error',
+          'Terjadi kesalahan: ${response.statusCode}',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Terjadi kesalahan: $e',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
     }
   }
 }

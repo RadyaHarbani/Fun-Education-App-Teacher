@@ -5,13 +5,15 @@ import 'package:fun_education_app_teacher/app/api/gallery/albums/service/albums_
 import 'package:fun_education_app_teacher/app/api/gallery/photos/models/show_all_photos_model.dart';
 import 'package:fun_education_app_teacher/app/api/gallery/photos/models/show_all_photos_response.dart';
 import 'package:fun_education_app_teacher/app/api/gallery/photos/service/photos_service.dart';
+import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
-import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class UploadPhotoPageController extends GetxController {
+  final GalleryPageController galleryPageController =
+      Get.put(GalleryPageController());
   TextEditingController photoTitleController = TextEditingController();
   TextEditingController photoDescriptionController = TextEditingController();
   final ImagePicker imagePicker = ImagePicker();
@@ -43,35 +45,66 @@ class UploadPhotoPageController extends GetxController {
     imageFileList.removeAt(index);
   }
 
-  Future showAllPhotos() async {
-    try {
-      final response = await photosService.getShowAllPhotos();
-      showAllPhotosResponse = ShowAllPhotosResponse.fromJson(response.data);
-      showAllPhotosModel.value = showAllPhotosResponse!.data;
-      print(showAllPhotosModel);
-      update();
-    } catch (e) {
-      print(e);
-    }
-  }
+  
 
   Future<void> storePhotoByAdmin() async {
-    String title = photoTitleController.text;
-    String description = photoDescriptionController.text;
-    String? selectedAlbumValue = albumId.value;
+    String title = photoTitleController.text.trim();
+    String description = photoDescriptionController.text.trim();
+    String? selectedAlbumValue =
+        albumId.value.isNotEmpty ? albumId.value : null;
     List<File> files = imageFileList.map((xfile) => File(xfile.path)).toList();
+
+    if (title.isEmpty || description.isEmpty || files.isEmpty) {
+      Get.snackbar(
+        'Upload Failed',
+        'Title, description, and images cannot be empty',
+        backgroundColor: dangerColor,
+        colorText: whiteColor,
+      );
+      return;
+    }
 
     try {
       for (var file in files) {
         final response = await photosService.postStorePhotoByAdmin(
-          albumId.isNotEmpty ? true : false,
+          selectedAlbumValue != null,
           file,
           title,
           description,
           selectedAlbumValue,
         );
         print('Upload successful: ${response.data}');
+
+        final responseData = response.data;
+        final image = responseData['data']['image'].toString();
+        final createdAtString = responseData['data']['created_at'];
+        final id = responseData['data']['id'].toString();
+
+        DateTime? createdAt;
+        try {
+          createdAt = DateTime.parse(createdAtString);
+        } catch (e) {
+          print('Failed to parse createdAt: $e');
+          createdAt = null;
+        }
+
+        ShowAllPhotosModel addPhoto = ShowAllPhotosModel(
+          albumId: selectedAlbumValue,
+          title: title,
+          description: description,
+          image: image,
+          createdAt: createdAt,
+          id: id,
+        );
+
+        galleryPageController.showAllPhotosModel.add(addPhoto);
+
+        if (selectedAlbumValue != null) {
+          galleryPageController.updateGalleryCount(selectedAlbumValue, 1);
+        }
       }
+
+      Get.back();
 
       Get.snackbar(
         'Upload Successful',
@@ -79,9 +112,8 @@ class UploadPhotoPageController extends GetxController {
         backgroundColor: successColor,
         colorText: whiteColor,
       );
+
       update();
-      showAllPhotos();
-      Get.offAllNamed(Routes.NAVBAR_MAIN, arguments: 2);
     } catch (e) {
       print('Upload failed: $e');
       Get.snackbar(
@@ -98,7 +130,6 @@ class UploadPhotoPageController extends GetxController {
       final response = await albumsService.getShowAllAlbumPhoto();
       showAllAlbumsResponse = ShowAllAlbumsResponse.fromJson(response.data);
       showAllAlbumsModel.value = showAllAlbumsResponse!.data;
-      print(showAllAlbumsModel);
       update();
     } catch (e) {
       print(e);

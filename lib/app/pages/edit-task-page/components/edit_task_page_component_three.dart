@@ -1,8 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
-import 'package:fun_education_app_teacher/app/global-component/common_detail_image_page.dart';
-import 'package:fun_education_app_teacher/app/global-component/common_grid_image_item.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
@@ -13,7 +11,6 @@ class EditTaskPageComponentThree extends GetView<EditTaskPageController> {
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
-    final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

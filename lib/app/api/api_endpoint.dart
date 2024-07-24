@@ -13,6 +13,7 @@ class ApiEndPoint {
   static String baseUrlPengajuanTabungan = '$baseUrl/pengajuan-tabungan';
   static String baseUrlAlbums = '$baseUrl/album';
   static String baseUrlTask = '$baseUrl/tugas';
+  static String baseUrlTaskImage = '$baseUrl/tugas-image';
   static String baseUrlMark = '$baseUrl/tugas-user';
 
   //Auth
@@ -29,6 +30,7 @@ class ApiEndPoint {
   //User
   static String showCurrentUser = '$baseUrlAuth/show-current';
   static String showAllUserByIncomingShift = '$baseUrlAuth/index?shift=';
+  static String showByIdUser = '$baseUrlAuth/show/';
 
   //Catatan Darurat
   static String showLatestCatatanDarurat = '$baseUrlCatatanDarurat/show';
@@ -74,9 +76,14 @@ class ApiEndPoint {
   static String showStatusCount = '$baseUrlTask/show-status-count?shift=';
   static String showByStatus = '$baseUrlTask/index';
   static String storeTaskByAdmin = '$baseUrlTask/store';
+  static String storeTaskImageByAdmin = '$baseUrlTaskImage/store';
   static String showByTaskId = '$baseUrlTask/show/';
+  static String deleteTaskByAdmin = '$baseUrlTask/delete/';
+  static String updateStatusTaskByAdmin = '$baseUrlTask/update-status/';
+  static String updateTaskByAdmin = '$baseUrlTask/update/';
 
   //Mark
   static String markShowByTaskId = '$baseUrlMark/show-by-tugas-id/';
   static String markShowByUserId = '$baseUrlMark/show/';
+  static String sendGradeByAdmin = '$baseUrlMark/send-grade/';
 }

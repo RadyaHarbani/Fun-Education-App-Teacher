@@ -28,4 +28,15 @@ class UserService {
       throw Exception(e);
     }
   }
+
+  Future<Response> getShowByUserId(String userId) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: '${ApiEndPoint.showByIdUser}$userId',
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

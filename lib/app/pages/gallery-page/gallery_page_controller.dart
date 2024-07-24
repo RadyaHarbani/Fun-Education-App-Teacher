@@ -61,6 +61,15 @@ class GalleryPageController extends GetxController {
     }
   }
 
+  void updateGalleryCount(String albumId, int count) {
+    final album =
+        showAllAlbumsModel.firstWhereOrNull((album) => album.id == albumId);
+    if (album != null) {
+      album.galleryCount = (album.galleryCount ?? 0) + count;
+      showAllAlbumsModel.refresh();
+    }
+  }
+
   Future savePhotoToGallery(String url) async {
     try {
       var response = await Dio().get(
@@ -83,12 +92,16 @@ class GalleryPageController extends GetxController {
     }
   }
 
-  Future deletePhotoByAdmin(String idPhoto) async {
+  Future deletePhotoByAdmin(String idPhoto, String albumId) async {
     try {
       final response = await photosService.deletePhotoByAdmin(idPhoto);
       print(response.data);
-      showAllPhotos();
-      showAllAlbums();
+
+      updateGalleryCount(albumId, -1);
+
+      await showAllPhotos();
+      await showAllAlbums();
+
       update();
       Get.back();
     } catch (e) {

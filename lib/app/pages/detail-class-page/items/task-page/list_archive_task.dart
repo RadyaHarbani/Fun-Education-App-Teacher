@@ -19,7 +19,8 @@ class ListArchiveTask extends GetView<DetailClassPageController> {
             onTap: () {
               Get.toNamed(
                 Routes.DETAIL_TASK_PAGE,
-                arguments: controller.showByArchiveStatusList[index].id.toString(),
+                arguments:
+                    controller.showByArchiveStatusList[index].id.toString(),
               );
             },
             child: TaskItem(
@@ -31,21 +32,19 @@ class ListArchiveTask extends GetView<DetailClassPageController> {
                   '${DateFormat('EEEE,\ndd MMMM').format(controller.showByArchiveStatusList[index].deadline!)}',
               widget: PopupMenuButton(
                 color: whiteColor,
-                onSelected: (value) {},
+                onSelected: (value) {
+                  controller.updateStatusTaskByAdmin(
+                    controller.showByArchiveStatusList[index].id!,
+                    value,
+                  );
+                },
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     child: Text(
-                      'Tutup',
+                      'Pulihkan',
                       style: tsBodySmallSemibold(blackColor),
                     ),
-                    value: 'Tutup',
-                  ),
-                  PopupMenuItem(
-                    child: Text(
-                      'Arsipkan',
-                      style: tsBodySmallSemibold(blackColor),
-                    ),
-                    value: 'Arsip',
+                    value: 'Tersedia',
                   ),
                 ],
               ),
