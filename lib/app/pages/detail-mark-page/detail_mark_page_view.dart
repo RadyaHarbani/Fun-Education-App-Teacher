@@ -83,33 +83,49 @@ class DetailMarkPageView extends GetView<DetailMarkPageController> {
                           );
                         },
                       )
-                    : Container(
-                        width: width,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: width * 0.05,
-                          vertical: height * 0.02,
-                        ),
-                        decoration: BoxDecoration(
-                          color: controller.showByUserIdDetail.value.grade ==
-                                  null
-                              ? blackColor 
-                              : controller.showByUserIdDetail.value.grade! <= 50
-                                  ? dangerColor
-                                  : controller.showByUserIdDetail.value
-                                              .grade! <=
-                                          70
-                                      ? warningColor
-                                      : successColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: AutoSizeText(
-                          '${controller.showByUserIdDetail.value.grade ?? 0}/100',
-                          group: AutoSizeGroup(),
-                          maxLines: 1,
-                          style: tsBodySmallSemibold(whiteColor),
-                        ),
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AutoSizeText(
+                            'Tugas ini diberi nilai :',
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            style: tsBodySmallRegular(blackColor),
+                          ),
+                          SizedBox(height: height * 0.015),
+                          Container(
+                            width: width,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: width * 0.05,
+                              vertical: height * 0.02,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  controller.showByUserIdDetail.value.grade ==
+                                          null
+                                      ? blackColor
+                                      : controller.showByUserIdDetail.value
+                                                  .grade! <=
+                                              50
+                                          ? dangerColor
+                                          : controller.showByUserIdDetail.value
+                                                      .grade! <=
+                                                  70
+                                              ? warningColor
+                                              : successColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: AutoSizeText(
+                              '${controller.showByUserIdDetail.value.grade ?? 0}/100',
+                              group: AutoSizeGroup(),
+                              maxLines: 1,
+                              style: tsBodySmallSemibold(whiteColor),
+                            ),
+                          ),
+                        ],
                       ),
               ),
+              SizedBox(height: height * 0.03),
             ],
           ),
         ),

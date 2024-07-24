@@ -110,6 +110,19 @@ class TaskService {
     }
   }
 
+  Future<Response> deleteTaskImageByAdmin(String imageId) async {
+    try {
+      final response = await _dioInstance.deleteRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: '${ApiEndPoint.deleteTaskImageByAdmin}$imageId',
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<Response> deleteTaskByAdmin(String taskId) async {
     try {
       final response = await _dioInstance.deleteRequest(

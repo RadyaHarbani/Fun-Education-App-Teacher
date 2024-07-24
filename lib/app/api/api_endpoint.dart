@@ -77,6 +77,7 @@ class ApiEndPoint {
   static String showByStatus = '$baseUrlTask/index';
   static String storeTaskByAdmin = '$baseUrlTask/store';
   static String storeTaskImageByAdmin = '$baseUrlTaskImage/store';
+  static String deleteTaskImageByAdmin = '$baseUrlTaskImage/delete/';
   static String showByTaskId = '$baseUrlTask/show/';
   static String deleteTaskByAdmin = '$baseUrlTask/delete/';
   static String updateStatusTaskByAdmin = '$baseUrlTask/update-status/';
