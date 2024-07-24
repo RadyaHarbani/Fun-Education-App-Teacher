@@ -21,22 +21,30 @@ class ShowAllAlbumsModel {
 
   factory ShowAllAlbumsModel.fromJson(Map<String, dynamic> json) =>
       ShowAllAlbumsModel(
-          id: json["id"],
-          name: json["name"],
-          desc: json["desc"],
-          cover: json["cover"],
-          createdAt: DateTime.parse(json["created_at"]),
-          galleryCount: json["gallery_count"],
-          gallery: List<ShowAllPhotosModel>.from(
-              json["gallery"].map((x) => ShowAllPhotosModel.fromJson(x))));
+        id: json["id"],
+        name: json["name"],
+        desc: json["desc"],
+        cover: json["cover"],
+        createdAt: json["created_at"] != null
+            ? DateTime.parse(json["created_at"])
+            : null,
+        galleryCount: json["gallery_count"],
+        gallery: json["gallery"] != null
+            ? List<ShowAllPhotosModel>.from(
+                json["gallery"].map((x) => ShowAllPhotosModel.fromJson(x)))
+            : [], // Atur default empty list jika gallery null
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "desc": desc,
         "cover": cover,
-        "created_at": createdAt!.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
         "gallery_count": galleryCount,
-        "gallery": List<dynamic>.from(gallery!.map((x) => x.toJson()))
+        "gallery": gallery != null
+            ? List<dynamic>.from(gallery!.map((x) => x.toJson()))
+            : [],
       };
 }
+

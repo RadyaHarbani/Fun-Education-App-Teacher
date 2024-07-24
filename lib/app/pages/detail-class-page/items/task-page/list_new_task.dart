@@ -31,21 +31,41 @@ class ListNewTask extends GetView<DetailClassPageController> {
                   '${DateFormat('EEEE,\ndd MMMM').format(controller.showByNewStatusList[index].deadline!)}',
               widget: PopupMenuButton(
                 color: whiteColor,
-                onSelected: (value) {},
+                onSelected: (value) {
+                  // if (value == 'Tutup') {
+                  //   controller
+                  //       .updateStatusTaskByAdmin(controller.showByNewStatusList[index].id!, value,);
+                  // } else {
+                  //   controller
+                  //       .archiveTaskByAdmin(controller.showByNewStatusList[index].id!);
+                  // }
+
+                  if (value == 'Ditutup') {
+                    controller.updateStatusTaskByAdmin(
+                      controller.showByNewStatusList[index].id!,
+                      value,
+                    );
+                  } else {
+                    controller.updateStatusTaskByAdmin(
+                      controller.showByNewStatusList[index].id!,
+                      value,
+                    );
+                  }
+                },
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     child: Text(
                       'Tutup',
                       style: tsBodySmallSemibold(blackColor),
                     ),
-                    value: 'Tutup',
+                    value: 'Ditutup',
                   ),
                   PopupMenuItem(
                     child: Text(
                       'Arsipkan',
                       style: tsBodySmallSemibold(blackColor),
                     ),
-                    value: 'Arsip',
+                    value: 'Diarsipkan',
                   ),
                 ],
               ),

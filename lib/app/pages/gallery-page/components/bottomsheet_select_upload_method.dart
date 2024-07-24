@@ -70,6 +70,7 @@ class BottomSheetSelectUploadMethod extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
+                      Get.back();
                       Get.toNamed(Routes.UPLOAD_PHOTO_PAGE);
                     },
                     child: UploadMethodItem(
@@ -80,6 +81,7 @@ class BottomSheetSelectUploadMethod extends StatelessWidget {
                   SizedBox(height: height * 0.01),
                   InkWell(
                     onTap: () {
+                      Get.back();
                       Get.toNamed(Routes.UPLOAD_ALBUM_PAGE);
                     },
                     child: UploadMethodItem(

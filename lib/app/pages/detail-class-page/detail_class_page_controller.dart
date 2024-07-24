@@ -10,6 +10,7 @@ import 'package:fun_education_app_teacher/app/api/task/service/task_service.dart
 import 'package:fun_education_app_teacher/app/api/user/models/show-all-user-by-incoming-shift/show_all_user_by_incoming_shift_response.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
+import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class DetailClassPageController extends GetxController
@@ -104,7 +105,8 @@ class DetailClassPageController extends GetxController
   Future showByNewStatus(String shift) async {
     try {
       final response = await taskService.getShowByNewStatus(shift);
-      showByStatusListResponse = ShowByStatusListResponse.fromJson(response.data);
+      showByStatusListResponse =
+          ShowByStatusListResponse.fromJson(response.data);
       showByNewStatusList.value = showByStatusListResponse!.data;
       update();
     } catch (e) {
@@ -115,7 +117,8 @@ class DetailClassPageController extends GetxController
   Future showByCloseStatus(String shift) async {
     try {
       final response = await taskService.getShowByCloseStatus(shift);
-      showByStatusListResponse = ShowByStatusListResponse.fromJson(response.data);
+      showByStatusListResponse =
+          ShowByStatusListResponse.fromJson(response.data);
       showByCloseStatusList.value = showByStatusListResponse!.data;
       update();
     } catch (e) {
@@ -126,11 +129,36 @@ class DetailClassPageController extends GetxController
   Future showByArchiveStatus(String shift) async {
     try {
       final response = await taskService.getShowByArchiveStatus(shift);
-      showByStatusListResponse = ShowByStatusListResponse.fromJson(response.data);
+      showByStatusListResponse =
+          ShowByStatusListResponse.fromJson(response.data);
       showByArchiveStatusList.value = showByStatusListResponse!.data;
       update();
     } catch (e) {
       print(e);
+    }
+  }
+
+  Future updateStatusTaskByAdmin(String taskId, String status) async {
+    try {
+      await taskService.putUpdateStatusTaskByAdmin(taskId, status);
+      await showByNewStatus(showAllIncomingShiftModel.value.shiftMasuk!);
+      await showByCloseStatus(showAllIncomingShiftModel.value.shiftMasuk!);
+      await showByArchiveStatus(showAllIncomingShiftModel.value.shiftMasuk!);
+      await showStatusCount(showAllIncomingShiftModel.value.shiftMasuk!);
+      Get.snackbar(
+        'Update Successful',
+        'Status berhasil diubah',
+        backgroundColor: successColor,
+        colorText: whiteColor,
+      );
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        'Update Failed',
+        'Status gagal diubah',
+        backgroundColor: dangerColor,
+        colorText: whiteColor,
+      );
     }
   }
 }

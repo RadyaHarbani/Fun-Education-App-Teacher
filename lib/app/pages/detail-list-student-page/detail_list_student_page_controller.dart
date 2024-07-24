@@ -1,6 +1,9 @@
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
+import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_response.dart';
+import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/all-points-chart-widget/all_points_value_chart.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/report-point-chart-widget/report_value_chart.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -16,6 +19,11 @@ class DetailListStudentPageController extends GetxController
   final Duration animDuration = const Duration(milliseconds: 250);
   RxInt touchedIndexReportChart = (-1).obs;
   final ReportValueChart reportValueChart = ReportValueChart();
+
+  UserService userService = UserService();
+  ShowCurrentUserResponse? showCurrentUserResponse;
+  Rx<ShowCurrentUserModel> detailInformationUser = ShowCurrentUserModel().obs;
+
 
   List<BarChartGroupData> weeklyDataReport() => List.generate(
         7,
@@ -115,10 +123,24 @@ class DetailListStudentPageController extends GetxController
     }
   }
 
+  Future showByUserId (String userId) async {
+    try {
+      final response = await userService.getShowByUserId(userId);
+      showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
+      detailInformationUser.value = showCurrentUserResponse!.data;
+      print(detailInformationUser);
+      update();
+    } catch (e) {
+      print(e);
+    }
+
+  }
+
   @override
   void onInit() {
     super.onInit();
     tabControllerAll = TabController(length: 2, vsync: this);
+    showByUserId(Get.arguments);
   }
 
   @override

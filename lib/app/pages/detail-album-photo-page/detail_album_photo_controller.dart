@@ -6,7 +6,6 @@ import 'package:fun_education_app_teacher/app/api/gallery/albums/service/albums_
 import 'package:fun_education_app_teacher/app/api/gallery/photos/service/photos_service.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
-import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +22,6 @@ class DetailAlbumPhotoPageController extends GetxController {
   void onInit() {
     super.onInit();
     showByIdAlbum(Get.arguments);
-    print(Get.arguments);
   }
 
   Future showByIdAlbum(String albumId) async {
@@ -32,8 +30,15 @@ class DetailAlbumPhotoPageController extends GetxController {
       showByIdAlbumResponse = ShowByIdAlbumResponse.fromJson(response.data);
       showAllAlbumsModel.value = showByIdAlbumResponse!.data;
       print(showAllAlbumsModel.value);
+
+      final photoIds = showAllAlbumsModel.value.gallery!
+          .map((photo) => photo.id)
+          .whereType<String>()
+          .toList();
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setStringList('photoIds', photoIds);
       prefs.setString('albumId', albumId);
+
       update();
     } catch (e) {
       print(e);
@@ -42,15 +47,34 @@ class DetailAlbumPhotoPageController extends GetxController {
 
   Future deleteAlbumByAdmin(String albumId) async {
     try {
+      final album = galleryPageController.showAllAlbumsModel
+          .firstWhereOrNull((album) => album.id == albumId);
+      if (album == null) {
+        print('Album not found');
+        return;
+      }
+
+      if (album.gallery != null) {
+        for (var photo in album.gallery!) {
+          await photosService.deletePhotoByAdmin(photo.id!);
+          print('Photo deleted: ${photo.id}');
+        }
+      }
+
       final response = await albumsService.deleteAlbumByAdmin(albumId);
       print('Album deleted: ${response.data}');
+
+      await galleryPageController.showAllPhotos();
+      await galleryPageController.showAllAlbums();
+
+      Get.back();
       Get.snackbar(
-        'Delete Successfull',
+        'Delete Successful',
         'Album berhasil dihapus',
         backgroundColor: successColor,
         colorText: whiteColor,
       );
-      Get.offAllNamed(Routes.NAVBAR_MAIN, arguments: 2);
+      update();
     } catch (e) {
       print('Delete failed: $e');
       Get.snackbar(
@@ -88,8 +112,10 @@ class DetailAlbumPhotoPageController extends GetxController {
     try {
       final response = await photosService.deletePhotoByAdmin(idPhoto);
       print(response.data);
-      galleryPageController.showAllPhotos();
-      galleryPageController.showAllAlbums();
+
+      await galleryPageController.showAllPhotos();
+      await galleryPageController.showAllAlbums();
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       showByIdAlbum(prefs.getString('albumId')!);
 

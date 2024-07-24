@@ -60,7 +60,9 @@ class AddTaskPageView extends GetView<AddTaskPageController> {
                   backgroundColor: blackColor,
                   textColor: whiteColor,
                   icon: Icons.add_rounded,
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.storeTaskByAdmin();
+                  },
                 ),
               ],
             ),

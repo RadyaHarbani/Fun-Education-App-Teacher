@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/auth/service/authentication_service.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
-import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class AddStudentPageController extends GetxController {
@@ -28,7 +27,7 @@ class AddStudentPageController extends GetxController {
 
   Future<void> register() async {
     try {
-      final response = await authenticationService.register(
+      await authenticationService.register(
         fullNameController.text,
         shortNameController.text,
         birthPlaceController.text,
@@ -37,23 +36,14 @@ class AddStudentPageController extends GetxController {
         passwordStudentController.text,
         genderController.text,
       );
-      if (response.statusCode == 201) {
-        print("Registrasi berhasil");
-        Get.snackbar(
-          'Berhasil',
-          'Registrasi berhasil',
-          backgroundColor: successColor,
-          colorText: whiteColor,
-        );
-        Get.offAllNamed(Routes.NAVBAR_MAIN);
-      } else {
-        Get.snackbar(
-          'Gagal',
-          'Registrasi gagal. Status kode: ${response.statusCode}',
-          backgroundColor: dangerColor,
-          colorText: whiteColor,
-        );
-      }
+      print("Registrasi berhasil");
+      Get.back();
+      Get.snackbar(
+        'Berhasil',
+        'Registrasi berhasil',
+        backgroundColor: successColor,
+        colorText: whiteColor,
+      );
     } catch (e) {
       Get.snackbar(
         'Gagal',
