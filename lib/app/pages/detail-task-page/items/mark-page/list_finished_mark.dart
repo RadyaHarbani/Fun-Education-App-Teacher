@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/widgets/mark_widget/mark_student_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -38,12 +39,20 @@ class ListFinishedMark extends GetView<DetailTaskPageController> {
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              return MarkStudentItem(
-                studentName: '${controller.finishedList[index].fullName}',
-                date:
-                    '${DateFormat('EEEE, dd MMMM').format(controller.finishedList[index].createdAt!)}',
-                profiePicture: controller.finishedList[index].profilePicture!,
-                mark: '${controller.finishedList[index].grade}',
+              return InkWell(
+                onTap: () {
+                  Get.toNamed(
+                    Routes.DETAIL_MARK_PAGE,
+                    arguments: controller.finishedList[index].id.toString(),
+                  );
+                },
+                child: MarkStudentItem(
+                  studentName: '${controller.finishedList[index].fullName}',
+                  date:
+                      '${DateFormat('EEEE, dd MMMM').format(controller.finishedList[index].createdAt!)}',
+                  profiePicture: controller.finishedList[index].profilePicture!,
+                  mark: '${controller.finishedList[index].grade}',
+                ),
               );
             })),
       ],

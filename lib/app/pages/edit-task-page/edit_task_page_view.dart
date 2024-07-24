@@ -51,8 +51,8 @@ class EditTaskPageView extends GetView<EditTaskPageController> {
                 SizedBox(height: height * 0.03),
                 EditTaskPageComponentTwo(),
                 SizedBox(height: height * 0.03),
-                // EditTaskPageComponentThree(),
-                // SizedBox(height: height * 0.03),
+                EditTaskPageComponentThree(),
+                SizedBox(height: height * 0.03),
                 EditTaskPageComponentFour(),
                 SizedBox(height: height * 0.1),
                 CommonButton(

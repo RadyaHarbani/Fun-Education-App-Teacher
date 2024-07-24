@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/task/service/task_service.dart';
@@ -57,7 +59,7 @@ class EditTaskPageController extends GetxController {
         pickerFormat: PickerFormat.dmy,
         activeColor: primaryColor,
         backgroundDecoration: BoxDecoration(
-          color: Colors.white,
+          color: whiteColor,
           borderRadius: BorderRadius.circular(10),
         ),
         boardTitle: 'Pilih Tanggal',
@@ -66,6 +68,37 @@ class EditTaskPageController extends GetxController {
     );
     if (value != null) {
       selectedDateTime.value = value;
+    }
+  }
+
+  Future deleteTaskImageByAdmin(String imageId) async {
+    try {
+      final response = await taskService.deleteTaskImageByAdmin(imageId);
+      print(response.statusCode);
+      await detailClassPageController.showByNewStatus(Get.arguments.shift);
+      await detailTaskPageController.showByTaskId(Get.arguments.id);
+      if (response.statusCode == 200) {
+        Get.snackbar(
+          'Berhasil',
+          'Gambar berhasil dihapus',
+          backgroundColor: successColor,
+          colorText: whiteColor,
+        );
+      } else {
+        Get.snackbar(
+          'Error',
+          'Terjadi kesalahan: ${response.statusCode}',
+          backgroundColor: dangerColor,
+          colorText: whiteColor,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Terjadi kesalahan: $e',
+        backgroundColor: dangerColor,
+        colorText: whiteColor,
+      );
     }
   }
 
@@ -81,6 +114,22 @@ class EditTaskPageController extends GetxController {
       );
       print(response.statusCode);
 
+      if (imageFileList.isNotEmpty) {
+        final responseData = response.data;
+        final taskId = responseData['data']['id'].toString();
+        print('Task created with ID: $taskId');
+        List<File> files =
+            imageFileList.map((xfile) => File(xfile.path)).toList();
+
+        for (var file in files) {
+          final response = await taskService.postStoreTaskImageByAdmin(
+            taskId,
+            file,
+          );
+          print('Upload successful: ${response.data}');
+        }
+      }
+
       if (response.statusCode == 200) {
         await detailClassPageController.showByNewStatus(Get.arguments.shift);
         await detailTaskPageController.showByTaskId(Get.arguments.id);
@@ -88,23 +137,23 @@ class EditTaskPageController extends GetxController {
         Get.snackbar(
           'Berhasil',
           'Tugas berhasil diperbarui',
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
+          backgroundColor: successColor,
+          colorText: whiteColor,
         );
       } else {
         Get.snackbar(
           'Error',
           'Terjadi kesalahan: ${response.statusCode}',
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
+          backgroundColor: dangerColor,
+          colorText: whiteColor,
         );
       }
     } catch (e) {
       Get.snackbar(
         'Error',
         'Terjadi kesalahan: $e',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+        backgroundColor: dangerColor,
+        colorText: whiteColor,
       );
     }
   }
