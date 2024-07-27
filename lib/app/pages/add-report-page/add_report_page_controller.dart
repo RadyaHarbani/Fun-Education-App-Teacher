@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/selected_student_model.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user/show_user_model.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user/show_user_response.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/service/daily_report_service.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
+import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class AddReportPageController extends GetxController {
+  final DetailClassPageController detailClassPageController =
+      Get.put(DetailClassPageController());
   TextEditingController teachersNote = TextEditingController();
   List<String> pointType = ['A', 'B', 'C'];
   List<RxString> points = List.generate(10, (_) => 'A'.obs);
-  var selectedStudent = <String>[].obs;
-  var student = [
-    {"name": "Parent", "avatar": "https://i.pravatar.cc/50?u=1"},
-    {"name": "Guardian", "avatar": "https://i.pravatar.cc/50?u=2"},
-    {"name": "Headmaster", "avatar": "https://i.pravatar.cc/50?u=3"},
-    {"name": "Teacher", "avatar": "https://i.pravatar.cc/50?u=4"},
-    {"name": "Teacher", "avatar": "https://i.pravatar.cc/50?u=4"},
-  ].obs;
+  DailyReportService dailyReportService = DailyReportService();
+  ShowUserResponse? showUserResponse;
+  RxList<ShowUserModel> showUserModel = <ShowUserModel>[].obs;
+  RxList<SelectedStudentModel> selectedStudents = <SelectedStudentModel>[].obs;
   List<String> pointNames = [
     'Datang Tepat Pada Waktunya',
     'Berpakaian Rapi',
@@ -28,73 +30,84 @@ class AddReportPageController extends GetxController {
     'Keterampilan'
   ];
 
-  int calculateTotalPoints() {
-    int totalPoints = 0;
-    for (var point in points) {
-      switch (point.value) {
-        case 'A':
-          totalPoints += 10;
-          break;
-        case 'B':
-          totalPoints += 6;
-          break;
-        case 'C':
-          totalPoints += 4;
-          break;
-      }
-    }
-    return totalPoints;
+  @override
+  void onInit() {
+    super.onInit();
+    showUserDoneUndone('false', Get.arguments);
+    print(Get.arguments);
   }
 
-  void toggleRecipient(String recipientName) {
-    if (selectedStudent.contains(recipientName)) {
-      selectedStudent.remove(recipientName);
-    } else {
-      selectedStudent.add(recipientName);
-    }
-  }
-
-  Future<void> sendReport() async {
-    final url = Uri.parse('https://your-api-endpoint.com/report');
-    final headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer your_token_here',
-    };
-
-    final body = {
-      'points': points.map((point) => point.value).toList(),
-      'totalPoints': calculateTotalPoints(),
-      'pointDetails': List.generate(
-          pointNames.length,
-          (index) => {
-                'name': pointNames[index],
-                'type': points[index].value,
-              }),
-    };
-
+  Future showUserDoneUndone(String isDone, String shift) async {
     try {
-      final response = await http.post(
-        url,
-        headers: headers,
-        body: json.encode(body),
+      final response =
+          await dailyReportService.getShowUserDoneUndone(isDone, shift);
+      showUserResponse = ShowUserResponse.fromJson(response.data);
+      showUserModel.value = showUserResponse!.data;
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void toggleRecipient(ShowUserModel recipient) {
+    final existingStudent =
+        selectedStudents.firstWhereOrNull((s) => s.id == recipient.id);
+    if (existingStudent != null) {
+      selectedStudents.remove(existingStudent);
+    } else {
+      selectedStudents.add(SelectedStudentModel(
+        id: recipient.id!,
+        fullName: recipient.fullName!,
+        profilePicture: recipient.profilePicture!,
+      ));
+    }
+  }
+
+  Future<void> storeDailyReportByAdmin() async {
+    try {
+      Map<String, String> activities = {
+        for (int i = 0; i < points.length; i++)
+          'activity_${i + 1}': points[i].value,
+      };
+
+      for (SelectedStudentModel student in selectedStudents) {
+        final response = await dailyReportService.postStoreDailyReportByAdmin(
+          student.id,
+          activities,
+          teachersNote.text,
+        );
+        if (response.statusCode == 201) {
+          print("Report for ${student.id} submitted successfully");
+        } else {
+          print(
+              "Failed to submit report for ${student.id}: ${response.statusCode}");
+        }
+        ShowUserModel addUser = ShowUserModel(
+          id: student.id,
+          fullName: student.fullName,
+          profilePicture: student.profilePicture,
+        );
+
+        detailClassPageController.showUserModel.add(addUser);
+      }
+      Get.back();
+
+      Get.snackbar(
+        'Upload Successful',
+        'Foto berhasil ditambahkan',
+        backgroundColor: successColor,
+        colorText: whiteColor,
       );
 
-      if (response.statusCode == 200) {
-        // Handle success response
-        Get.snackbar('Success', 'Report sent successfully');
-      } else {
-        // Handle error response
-        Get.snackbar('Error', 'Failed to send report');
-      }
+      update();
     } catch (e) {
-      Get.snackbar('Error', 'An error occurred: $e');
+      print('Upload failed: $e');
+      Get.snackbar(
+        'Upload Failed',
+        'Foto gagal ditambahkan',
+        backgroundColor: dangerColor,
+        colorText: whiteColor,
+      );
     }
   }
-  // void printPoints() {
-  //   for (int i = 0; i < controller.pointNames.length; i++) {
-  //     String pointName = controller.pointNames[i];
-  //     String pointType = controller.points[i].value;
-  //     print('Point Name: $pointName, Point Type: $pointType');
-  //   }
-  // }
 }

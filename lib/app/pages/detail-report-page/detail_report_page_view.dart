@@ -53,12 +53,17 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
               SizedBox(height: height * 0.02),
               DetailReportPageComponentFour(),
               SizedBox(height: height * 0.03),
-              CommonButton(
-                text: 'Edit Laporan',
-                backgroundColor: greyColor.withOpacity(0.1),
-                textColor: blackColor,
-                onPressed: () {},
-              ),
+              controller.userFullName.value == Get.arguments['userFullName']
+                  ? CommonButton(
+                      text: 'Edit Laporan',
+                      backgroundColor: greyColor.withOpacity(0.1),
+                      textColor: blackColor,
+                      onPressed: () {},
+                    )
+                  : SizedBox(
+                      height: 0,
+                      width: 0,
+                    ),
               SizedBox(height: height * 0.01),
               CommonButton(
                 text: 'Hapus Laporan',

@@ -22,29 +22,28 @@ class AddReportPageComponentFour extends GetView<AddReportPageController> {
           style: tsBodyLargeRegular(blackColor),
         ),
         SizedBox(height: height * 0.02),
-        Wrap(
-          spacing: width * 0.02,
-          children: List.generate(
-            controller.student.length,
-            (index) {
-              return Obx(
-                () {
-                  final recipient = controller.student[index];
-                  final isSelected =
-                      controller.selectedStudent.contains(recipient["name"]);
+        Obx(() => Wrap(
+              spacing: width * 0.025,
+              children: List.generate(
+                controller.showUserModel.length,
+                (index) {
+                  final recipient = controller.showUserModel[index];
+                  final isSelected = controller.selectedStudents
+                      .any((s) => s.id == recipient.id);
                   return Padding(
-                    padding: EdgeInsets.only(bottom: height * 0.005),
+                    padding: EdgeInsets.only(bottom: height * 0.01),
                     child: ChoiceChip(
                       avatar: CircleAvatar(
-                        radius: 25, // Medium size
-                        backgroundImage: NetworkImage(recipient["avatar"]!),
+                        radius: 25,
+                        backgroundImage:
+                            NetworkImage(recipient.profilePicture!),
                       ),
                       backgroundColor: whiteColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
                       label: Text(
-                        recipient["name"]!,
+                        recipient.fullName!,
                         style: tsBodySmallSemibold(
                           isSelected ? whiteColor : blackColor,
                         ),
@@ -55,22 +54,20 @@ class AddReportPageComponentFour extends GetView<AddReportPageController> {
                         vertical: height * 0.005,
                       ),
                       padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.05,
+                        horizontal: width * 0.03,
                         vertical: height * 0.008,
                       ),
                       selectedColor: successColor,
                       checkmarkColor: whiteColor,
                       selected: isSelected,
                       onSelected: (selected) {
-                        controller.toggleRecipient(recipient["name"]!);
+                        controller.toggleRecipient(recipient);
                       },
                     ),
                   );
                 },
-              );
-            },
-          ),
-        )
+              ),
+            ))
       ],
     );
   }

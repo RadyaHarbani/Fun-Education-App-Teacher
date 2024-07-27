@@ -1,10 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/widgets/total_point_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class DetailReportPageComponentOne extends StatelessWidget {
+class DetailReportPageComponentOne extends GetView<DetailReportPageController> {
   const DetailReportPageComponentOne({super.key});
 
   @override
@@ -18,18 +20,19 @@ class DetailReportPageComponentOne extends StatelessWidget {
           group: AutoSizeGroup(),
           maxLines: 1,
           TextSpan(
-            text: '${DateFormat('EEEE,').format(DateTime.now())} ',
+            text: '${DateFormat('EEEE,').format(controller.userDate)} ',
             style: tsBodyLargeSemibold(blackColor),
             children: [
               TextSpan(
-                text: '${DateFormat('dd MMMM yyyy').format(DateTime.now())}',
+                text:
+                    '${DateFormat('dd MMMM yyyy').format(controller.userDate)}',
                 style: tsBodyLargeRegular(blackColor),
               ),
             ],
           ),
         ),
         SizedBox(height: height * 0.02),
-        TotalPointItem(totalPoint: 40),
+        Obx(() => TotalPointItem(totalPoint: controller.userGrade.value)),
       ],
     );
   }

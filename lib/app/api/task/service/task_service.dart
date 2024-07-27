@@ -10,7 +10,8 @@ class TaskService {
   Future<Response> getShowStatusCount(String shift) async {
     try {
       final response = await _dioInstance.getRequest(
-        endpoint: '${ApiEndPoint.showStatusCount}$shift',
+        endpoint: '${ApiEndPoint.showStatusCount}',
+        queryParameters: {'shift': shift},
       );
       return response;
     } catch (e) {
