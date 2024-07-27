@@ -4,7 +4,6 @@ class ApiEndPoint {
   static String baseUrlShiftMasuk = '$baseUrl/shift-masuk';
   static String baseUrlCatatanDarurat = '$baseUrl/catatan-darurat';
   static String baseUrlLaporanHarian = '$baseUrl/laporan-harian';
-  static String baseUrlLaporanBulanan = '$baseUrl/laporan-bulanan';
   static String baseUrlTabungan = '$baseUrl/tabungan';
   static String baseUrlTransaksi = '$baseUrl/transaksi';
   static String baseUrlAlurBelajar = '$baseUrl/alur-belajar';
@@ -39,11 +38,10 @@ class ApiEndPoint {
   static String deleteEmergencyNoteByAdmin = '$baseUrlCatatanDarurat/delete/';
 
   //Laporan Harian
-  static String showCurrentLaporanHarian = '$baseUrlLaporanHarian/show-current';
-
-  //Laporan Bulanan
-  static String showCurrentLaporanBulanan =
-      '$baseUrlLaporanBulanan/show-current';
+  static String showCurrentDailyReport = '$baseUrlLaporanHarian/show-current';
+  static String showUserDoneUndone = '$baseUrlLaporanHarian/user';
+  static String showDailyReportByUserId = '$baseUrlLaporanHarian/show-filter';
+  static String storeDailyReportByAdmin = '$baseUrlLaporanHarian/store';
 
   //Tabungan
   static String showCurrentTabungan = '$baseUrlTabungan/show-current';
@@ -73,7 +71,7 @@ class ApiEndPoint {
   static String storePengajuanTabungan = '$baseUrlPengajuanTabungan/store';
 
   //Task
-  static String showStatusCount = '$baseUrlTask/show-status-count?shift=';
+  static String showStatusCount = '$baseUrlTask/show-status-count';
   static String showByStatus = '$baseUrlTask/index';
   static String storeTaskByAdmin = '$baseUrlTask/store';
   static String storeTaskImageByAdmin = '$baseUrlTaskImage/store';

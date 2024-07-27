@@ -16,7 +16,7 @@ class BottomsheetEditEmergencyNote extends GetView<HomePageController> {
     final double height = mediaQuery.height;
 
     return SizedBox(
-      height: height * 0.6,
+      height: height * 0.6 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,

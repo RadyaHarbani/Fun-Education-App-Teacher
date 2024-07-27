@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/widget/report-widget/report_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class DetailClassComponentThree extends StatelessWidget {
+class DetailClassComponentThree extends GetView<DetailClassPageController> {
   const DetailClassComponentThree({super.key});
 
   @override
@@ -33,7 +36,10 @@ class DetailClassComponentThree extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.ADD_REPORT_PAGE, arguments: controller.showAllIncomingShiftModel.value.shiftMasuk!,);
+                
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(
                   vertical: height * 0.012,
@@ -63,19 +69,28 @@ class DetailClassComponentThree extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: height * 0.02),
+        SizedBox(height: height * 0.025),
         Expanded(
-          child: ListView.builder(
-              itemCount: 5,
+          child: Obx(() => ListView.builder(
+              itemCount: controller.showUserModel.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(
+                      Routes.DETAIL_REPORT_PAGE,
+                      arguments: {
+                        'userId' : controller.showUserModel[index].id,
+                        'userFullName' : controller.showUserModel[index].fullName,
+                        'date' : DateTime.now(),
+                      },
+                    );
+                  },
                   child: ReportItem(
-                    name: 'Syahran Fadhil',
-                    image: 'https://i.pravatar.cc/50?u=$index',
+                    name: '${controller.showUserModel[index].fullName}',
+                    image: '${controller.showUserModel[index].profilePicture}',
                   ),
                 );
-              }),
+              })),
         ),
       ],
     );

@@ -51,8 +51,9 @@ class EditTaskPageComponentThree extends GetView<EditTaskPageController> {
               childAspectRatio: 1.4,
             ),
             itemBuilder: (context, index) {
-              if (index < detailTaskPageController
-                  .showByTaskIdDetail.value.images!.length) {
+              if (index <
+                  detailTaskPageController
+                      .showByTaskIdDetail.value.images!.length) {
                 return InkWell(
                   onTap: () {
                     Get.to(() => CommonDetailImagePage(
@@ -81,7 +82,8 @@ class EditTaskPageComponentThree extends GetView<EditTaskPageController> {
                 return InkWell(
                   onTap: () {
                     Get.to(() => CommonDetailImagePage(
-                          imagePath: controller.imageFileList[galleryIndex].path,
+                          imagePath:
+                              controller.imageFileList[galleryIndex].path,
                           isNetwork: false,
                         ));
                   },

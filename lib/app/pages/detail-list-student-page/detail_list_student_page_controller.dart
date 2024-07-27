@@ -7,6 +7,7 @@ import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/all-points-chart-widget/all_points_value_chart.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/report-point-chart-widget/report_value_chart.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class DetailListStudentPageController extends GetxController
@@ -23,7 +24,6 @@ class DetailListStudentPageController extends GetxController
   UserService userService = UserService();
   ShowCurrentUserResponse? showCurrentUserResponse;
   Rx<ShowCurrentUserModel> detailInformationUser = ShowCurrentUserModel().obs;
-
 
   List<BarChartGroupData> weeklyDataReport() => List.generate(
         7,
@@ -94,7 +94,7 @@ class DetailListStudentPageController extends GetxController
     AllPointsValueChart.makeGroupDataAllPoints(2, 750, 500),
     AllPointsValueChart.makeGroupDataAllPoints(3, 350, 1000),
   ];
-  
+
   void selectDateTime(BuildContext context) async {
     final value = await showBoardDateTimePicker(
       context: context,
@@ -120,10 +120,19 @@ class DetailListStudentPageController extends GetxController
     );
     if (value != null) {
       selectedDateTime.value = value;
+
+      Get.toNamed(
+        Routes.DETAIL_REPORT_PAGE,
+        arguments: {
+          'userIdHistory': detailInformationUser.value.id,
+          'userFullNameHistory': detailInformationUser.value.fullName,
+          'dateHistory': selectedDateTime.value,
+        },
+      );
     }
   }
 
-  Future showByUserId (String userId) async {
+  Future showByUserId(String userId) async {
     try {
       final response = await userService.getShowByUserId(userId);
       showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
@@ -133,7 +142,6 @@ class DetailListStudentPageController extends GetxController
     } catch (e) {
       print(e);
     }
-
   }
 
   @override

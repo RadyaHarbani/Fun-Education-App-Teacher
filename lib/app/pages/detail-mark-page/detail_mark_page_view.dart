@@ -125,7 +125,7 @@ class DetailMarkPageView extends GetView<DetailMarkPageController> {
                         ],
                       ),
               ),
-              SizedBox(height: height * 0.03),
+              SizedBox(height: height * 0.02),
             ],
           ),
         ),

@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class DetailReportPageComponentTwo extends StatelessWidget {
+class DetailReportPageComponentTwo extends GetView<DetailReportPageController> {
   const DetailReportPageComponentTwo({super.key});
 
   @override
@@ -28,7 +30,7 @@ class DetailReportPageComponentTwo extends StatelessWidget {
               style: tsBodySmallRegular(primaryColor),
             ),
             TextSpan(
-              text: 'Radya Hukma Shabiyyaa Harbani',
+              text: '${controller.userFullName}',
               style: tsBodySmallSemibold(whiteColor),
             ),
           ],

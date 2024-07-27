@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user/show_user_model.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user/show_user_response.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/service/daily_report_service.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-all-incoming-shift/show_all_incoming_shift_model.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-by-id-incoming-shift/show_by_id_incoming_shift_response.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/service/incoming_shift_service.dart';
@@ -35,12 +38,13 @@ class DetailClassPageController extends GetxController
 
   ShowByStatusListResponse? showByStatusListResponse;
   RxList<ShowByStatusModel> showByNewStatusList = <ShowByStatusModel>[].obs;
-
   RxList<ShowByStatusModel> showByCloseStatusList = <ShowByStatusModel>[].obs;
-
   RxList<ShowByStatusModel> showByArchiveStatusList = <ShowByStatusModel>[].obs;
-
   Rx<ShowByStatusModel> showByTaskIdDetail = ShowByStatusModel().obs;
+
+  DailyReportService dailyReportService = DailyReportService();
+  ShowUserResponse? showUserResponse;
+  RxList<ShowUserModel> showUserModel = <ShowUserModel>[].obs;
 
   void selectPeriod(String option) {
     selectedPeriod.value = option;
@@ -72,6 +76,7 @@ class DetailClassPageController extends GetxController
       showByNewStatus(showAllIncomingShiftModel.value.shiftMasuk!);
       showByCloseStatus(showAllIncomingShiftModel.value.shiftMasuk!);
       showByArchiveStatus(showAllIncomingShiftModel.value.shiftMasuk!);
+      showUserDoneUndone('true', showAllIncomingShiftModel.value.shiftMasuk!);
       update();
     } catch (e) {
       print(e);
@@ -159,6 +164,18 @@ class DetailClassPageController extends GetxController
         backgroundColor: dangerColor,
         colorText: whiteColor,
       );
+    }
+  }
+
+  Future showUserDoneUndone(String isDone, String shift) async {
+    try {
+      final response =
+          await dailyReportService.getShowUserDoneUndone(isDone, shift);
+      showUserResponse = ShowUserResponse.fromJson(response.data);
+      showUserModel.value = showUserResponse!.data;
+      update();
+    } catch (e) {
+      print(e);
     }
   }
 }

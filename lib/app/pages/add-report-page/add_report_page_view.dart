@@ -56,7 +56,9 @@ class AddReportPageView extends GetView<AddReportPageController> {
                 text: 'Kirim Laporan',
                 backgroundColor: blackColor,
                 textColor: whiteColor,
-                onPressed: () {},
+                onPressed: () {
+                  controller.storeDailyReportByAdmin();
+                },
               ),
             ],
           ),

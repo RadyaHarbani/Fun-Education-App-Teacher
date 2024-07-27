@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/widgets/report_list_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class DetailReportPageComponentThree extends StatelessWidget {
+class DetailReportPageComponentThree
+    extends GetView<DetailReportPageController> {
   const DetailReportPageComponentThree({super.key});
 
   @override
@@ -19,61 +22,18 @@ class DetailReportPageComponentThree extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: greyColor.withOpacity(0.05),
       ),
-      child: Column(
-        children: [
-          ReportListItem(
-            no: 1,
-            text: 'Datang tepat pada waktunya',
-            point: 'A',
-          ),
-          ReportListItem(
-            no: 2,
-            text: 'Berpakaian rapi',
-            // point: 'B',
-            point: 'C',
-          ),
-          ReportListItem(
-            no: 3,
-            text: 'Berbuat baik dengan teman',
-            point: 'A',
-          ),
-          ReportListItem(
-            no: 4,
-            text: 'Mau menolong dan berbagi dengan teman',
-            point: 'A',
-          ),
-          ReportListItem(
-            no: 5,
-            text: 'Merapikan alat belajar dan mainan sendiri',
-            point: 'C',
-          ),
-          ReportListItem(
-            no: 6,
-            text: 'Menyelesaikan tugas',
-            point: 'A',
-          ),
-          ReportListItem(
-            no: 7,
-            text: 'Membaca',
-            point: 'A',
-          ),
-          ReportListItem(
-            no: 8,
-            text: 'Menulis',
-            point: 'C',
-          ),
-          ReportListItem(
-            no: 9,
-            text: 'Dikte',
-            point: 'B',
-          ),
-          ReportListItem(
-            no: 10,
-            text: 'Keterampilan',
-            point: 'A',
-          ),
-        ],
-      ),
+      child: Obx(() => ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: controller.showGradeModel.length,
+            itemBuilder: (context, index) {
+              return ReportListItem(
+                no: index + 1,
+                text: '${controller.showGradeModel[index].activity}',
+                point: '${controller.showGradeModel[index].grade}',
+              );
+            },
+          )),
     );
   }
 }

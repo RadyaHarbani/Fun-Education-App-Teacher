@@ -8,14 +8,7 @@ import 'package:get/get.dart';
 class DetailMarkPageController extends GetxController {
   final DetailTaskPageController detailTaskPageController =
       Get.put(DetailTaskPageController());
-  // var status = 'Dikumpulkan'.obs;
-  // var mark = 0.obs;
   TextEditingController markController = TextEditingController();
-
-  // void changeStatus() {
-  //   status.value = 'Selesai';
-  //   mark.value = int.parse(markController.text);
-  // }
 
   @override
   void onInit() {

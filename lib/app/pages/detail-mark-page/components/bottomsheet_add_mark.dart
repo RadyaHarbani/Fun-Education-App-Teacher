@@ -15,11 +15,11 @@ class BottomsheetAddMark extends GetView<DetailMarkPageController> {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.35,
+      height: height * 0.35 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
-          bottom: height * 0.03,
+          bottom: height * 0.02,
           left: width * 0.05,
           right: width * 0.05,
         ),
@@ -77,7 +77,8 @@ class BottomsheetAddMark extends GetView<DetailMarkPageController> {
               backgroundColor: blackColor,
               textColor: whiteColor,
               onPressed: () {
-                controller.sendGradeByAdmin(controller.showByUserIdDetail.value.id!);
+                controller
+                    .sendGradeByAdmin(controller.showByUserIdDetail.value.id!);
               },
             ),
           ],
