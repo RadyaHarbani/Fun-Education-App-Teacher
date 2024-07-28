@@ -37,8 +37,11 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(Routes.ADD_REPORT_PAGE, arguments: controller.showAllIncomingShiftModel.value.shiftMasuk!,);
-                
+                Get.toNamed(
+                  Routes.ADD_REPORT_PAGE,
+                  arguments:
+                      controller.showAllIncomingShiftModel.value.shiftMasuk!,
+                );
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -79,9 +82,12 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
                     Get.toNamed(
                       Routes.DETAIL_REPORT_PAGE,
                       arguments: {
-                        'userId' : controller.showUserModel[index].id,
-                        'userFullName' : controller.showUserModel[index].fullName,
-                        'date' : DateTime.now(),
+                        'userId': controller.showUserModel[index].id,
+                        'userFullName':
+                            controller.showUserModel[index].fullName,
+                        'incomingShift': controller
+                            .showAllIncomingShiftModel.value.shiftMasuk,
+                        'date': DateTime.now(),
                       },
                     );
                   },

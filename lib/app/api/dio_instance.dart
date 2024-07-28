@@ -48,6 +48,7 @@ class DioInstance {
     bool? isAuthorize,
     String? tokenType,
     required Object data,
+    Map<String, dynamic>? queryParameters,
   }) async {
     Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -59,6 +60,7 @@ class DioInstance {
       response = await _dio.post(
         endpoint,
         data: data,
+        queryParameters: queryParameters,
         options: Options(
           headers: {
             "Accept": "application/json",
@@ -79,6 +81,7 @@ class DioInstance {
     bool? isAuthorize,
     String? tokenType,
     required Object data,
+    Map<String, dynamic>? queryParameters,
   }) async {
     Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -90,6 +93,7 @@ class DioInstance {
       response = await _dio.put(
         endpoint,
         data: data,
+        queryParameters: queryParameters,
         options: Options(
           headers: {
             "Accept": "application/json",
@@ -109,6 +113,7 @@ class DioInstance {
     required String endpoint,
     bool? isAuthorize,
     String? tokenType,
+    Map<String, dynamic>? queryParameters,
   }) async {
     Response response;
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -119,6 +124,7 @@ class DioInstance {
     try {
       response = await _dio.delete(
         endpoint,
+        queryParameters: queryParameters,
         options: Options(
           headers: {
             "Accept": "application/json",

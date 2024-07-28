@@ -57,7 +57,9 @@ class EditReportPageView extends GetView<EditReportPageController> {
                 text: 'Simpan Perubahan',
                 backgroundColor: blackColor,
                 textColor: whiteColor,
-                onPressed: () {},
+                onPressed: () {
+                  controller.updateDailyReportByAdmin();
+                },
               ),
             ],
           ),

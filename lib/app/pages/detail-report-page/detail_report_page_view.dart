@@ -6,6 +6,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-report-page/component
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class DetailReportPageView extends GetView<DetailReportPageController> {
@@ -58,7 +59,18 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
                       text: 'Edit Laporan',
                       backgroundColor: greyColor.withOpacity(0.1),
                       textColor: blackColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(
+                          Routes.EDIT_REPORT_PAGE,
+                          arguments: {
+                            'userId': controller.userId.value,
+                            'userFullName': controller.userFullName.value,
+                            'userGrade': controller.showGradeModel,
+                            'userNote': controller.userNote.value,
+                            'userDate': controller.userDate,
+                          },
+                        );
+                      },
                     )
                   : SizedBox(
                       height: 0,
@@ -69,7 +81,9 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
                 text: 'Hapus Laporan',
                 backgroundColor: dangerColor,
                 textColor: whiteColor,
-                onPressed: () {},
+                onPressed: () {
+                  controller.deleteDailyReportByAdmin();
+                },
               ),
             ],
           ),

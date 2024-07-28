@@ -42,6 +42,8 @@ class ApiEndPoint {
   static String showUserDoneUndone = '$baseUrlLaporanHarian/user';
   static String showDailyReportByUserId = '$baseUrlLaporanHarian/show-filter';
   static String storeDailyReportByAdmin = '$baseUrlLaporanHarian/store';
+  static String updateDailyReportByAdmin = '$baseUrlLaporanHarian/update';
+  static String deleteDailyReportByAdmin = '$baseUrlLaporanHarian/delete';
 
   //Tabungan
   static String showCurrentTabungan = '$baseUrlTabungan/show-current';
