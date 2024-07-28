@@ -45,65 +45,71 @@ class DailyReportService {
     }
   }
 
-  // Future<Response> postStoreDailyReportByAdmin(
-  //   String userId,
-  //   String actitivity1,
-  //   String actitivity2,
-  //   String actitivity3,
-  //   String actitivity4,
-  //   String actitivity5,
-  //   String actitivity6,
-  //   String actitivity7,
-  //   String actitivity8,
-  //   String actitivity9,
-  //   String actitivity10,
-  //   String note,
-  // ) async {
-  //   try {
-  //     final response = await _dioInstance.postRequest(
-  //       isAuthorize: true,
-  //       tokenType: 'teacher',
-  //       endpoint: ApiEndPoint.storeDailyReportByAdmin,
-  //       data: {
-  //         'user_id': userId,
-  //         'activity1': actitivity1,
-  //         'activity2': actitivity2,
-  //         'activity3': actitivity3,
-  //         'activity4': actitivity4,
-  //         'activity5': actitivity5,
-  //         'activity6': actitivity6,
-  //         'activity7': actitivity7,
-  //         'activity8': actitivity8,
-  //         'activity9': actitivity9,
-  //         'activity10': actitivity10,
-  //         'note': note,
-  //       },
-  //     );
-  //     return response;
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
-
   Future<Response> postStoreDailyReportByAdmin(
-  String userId,
-  Map<String, String> activities,
-  String note,
-) async {
-  try {
-    final response = await _dioInstance.postRequest(
-      isAuthorize: true,
-      tokenType: 'teacher',
-      endpoint: ApiEndPoint.storeDailyReportByAdmin,
-      data: {
-        'user_id': userId,
-        ...activities,
-        'note': note,
-      },
-    );
-    return response;
-  } catch (e) {
-    throw Exception(e);
+    String userId,
+    Map<String, String> activities,
+    String note,
+  ) async {
+    try {
+      final response = await _dioInstance.postRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: ApiEndPoint.storeDailyReportByAdmin,
+        data: {
+          'user_id': userId,
+          ...activities,
+          'note': note,
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
   }
-}
+
+  Future<Response> putUpdateDailyReportByAdmin(
+    String date,
+    String userId,
+    Map<String, String> activities,
+    String note,
+  ) async {
+    try {
+      final response = await _dioInstance.putRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: ApiEndPoint.updateDailyReportByAdmin,
+        queryParameters: {
+          'date': date,
+        },
+        data: {
+          'user_id': userId,
+          ...activities,
+          'note': note,
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> deleteDailyReportByAdmin(
+    String date,
+    String userId,
+  ) async {
+    try {
+      final response = await _dioInstance.deleteRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: ApiEndPoint.deleteDailyReportByAdmin,
+        queryParameters: {
+          'date': date,
+          'user_id': userId,
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

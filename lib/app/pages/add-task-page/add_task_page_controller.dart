@@ -114,9 +114,6 @@ class AddTaskPageController extends GetxController {
         deadline: selectedDateTime.value,
         shift: incomingShift.value,
         createdAt: createdAt,
-        // images: imageFileList
-        //     .map((e) => ShowByStatusImageModel(image: e.path))
-        //     .toList(),
       );
 
       detailClassPageController.showByNewStatusList.add(showByStatusModel);

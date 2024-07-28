@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageController extends GetxController {
-  // late TextEditingController usernameController;
-  // late TextEditingController passwordController;
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late AuthenticationService authenticationService;
