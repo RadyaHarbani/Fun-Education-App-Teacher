@@ -81,33 +81,46 @@ class DetailClassComponentFour extends GetView<DetailClassPageController> {
             padding: EdgeInsets.only(
               bottom: height * 0.02,
             ),
-            child: ListView.builder(
-              itemCount: 10,
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                Color backgroundContainerColor;
-                switch (index) {
-                  case 0:
-                    backgroundContainerColor = goldColor.withOpacity(0.3);
-                    break;
-                  case 1:
-                    backgroundContainerColor = silverColor.withOpacity(0.5);
-                    break;
-                  case 2:
-                    backgroundContainerColor = bronzeColor.withOpacity(0.3);
-                    break;
-                  default:
-                    backgroundContainerColor = greyColor.withOpacity(0.05);
-                    break;
-                }
-                return RankItem(
-                  index: index,
-                  backgroundContainerColor: backgroundContainerColor,
-                  studentName: 'Radya Harbani',
-                  point: '1357 Poin',
-                );
-              },
-            ),
+            child: Obx(() => ListView.builder(
+                  itemCount: controller.selectedPeriod.value == 'Mingguan'
+                      ? controller.leaderboardWeeklyModel.length
+                      : controller.leaderboardMonthlyModel.length,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    Color backgroundContainerColor;
+                    switch (index) {
+                      case 0:
+                        backgroundContainerColor = goldColor.withOpacity(0.3);
+                        break;
+                      case 1:
+                        backgroundContainerColor = silverColor.withOpacity(0.5);
+                        break;
+                      case 2:
+                        backgroundContainerColor = bronzeColor.withOpacity(0.3);
+                        break;
+                      default:
+                        backgroundContainerColor = greyColor.withOpacity(0.05);
+                        break;
+                    }
+                    return controller.selectedPeriod.value == 'Mingguan'
+                        ? RankItem(
+                            index: index,
+                            backgroundContainerColor: backgroundContainerColor,
+                            studentName:
+                                '${controller.leaderboardWeeklyModel[index].fullName}',
+                            point:
+                                '${controller.leaderboardWeeklyModel[index].point}',
+                          )
+                        : RankItem(
+                            index: index,
+                            backgroundContainerColor: backgroundContainerColor,
+                            studentName:
+                                '${controller.leaderboardMonthlyModel[index].fullName}',
+                            point:
+                                '${controller.leaderboardMonthlyModel[index].point}',
+                          );
+                  },
+                )),
           ),
         ),
       ],

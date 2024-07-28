@@ -5,6 +5,9 @@ import 'package:fun_education_app_teacher/app/api/daily-report/service/daily_rep
 import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-all-incoming-shift/show_all_incoming_shift_model.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-by-id-incoming-shift/show_by_id_incoming_shift_response.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/service/incoming_shift_service.dart';
+import 'package:fun_education_app_teacher/app/api/leaderboard/models/leaderboard_model.dart';
+import 'package:fun_education_app_teacher/app/api/leaderboard/models/leaderboard_response.dart';
+import 'package:fun_education_app_teacher/app/api/leaderboard/service/leaderboard_service.dart';
 import 'package:fun_education_app_teacher/app/api/task/models/show-by-status/show_by_status_model.dart';
 import 'package:fun_education_app_teacher/app/api/task/models/show-by-status/show_by_status_list_response.dart';
 import 'package:fun_education_app_teacher/app/api/task/models/show-status-count/show_status_count_model.dart';
@@ -46,6 +49,11 @@ class DetailClassPageController extends GetxController
   ShowUserResponse? showUserResponse;
   RxList<ShowUserModel> showUserModel = <ShowUserModel>[].obs;
 
+  LeaderboardService leaderboardService = LeaderboardService();
+  LeaderboardResponse? leaderboardResponse;
+  RxList<LeaderboardModel> leaderboardWeeklyModel = <LeaderboardModel>[].obs;
+  RxList<LeaderboardModel> leaderboardMonthlyModel = <LeaderboardModel>[].obs;
+
   void selectPeriod(String option) {
     selectedPeriod.value = option;
   }
@@ -77,6 +85,10 @@ class DetailClassPageController extends GetxController
       showByCloseStatus(showAllIncomingShiftModel.value.shiftMasuk!);
       showByArchiveStatus(showAllIncomingShiftModel.value.shiftMasuk!);
       showUserDoneUndone('true', showAllIncomingShiftModel.value.shiftMasuk!);
+      showLeaderboardWeeklyByIncomingShift(
+          'weekly', showAllIncomingShiftModel.value.shiftMasuk!);
+      showLeaderboardMonthlyByIncomingShift(
+          'monthly', showAllIncomingShiftModel.value.shiftMasuk!);
       update();
     } catch (e) {
       print(e);
@@ -173,6 +185,37 @@ class DetailClassPageController extends GetxController
           await dailyReportService.getShowUserDoneUndone(isDone, shift);
       showUserResponse = ShowUserResponse.fromJson(response.data);
       showUserModel.value = showUserResponse!.data;
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future showLeaderboardWeeklyByIncomingShift(String type, String shift) async {
+    try {
+      final response =
+          await leaderboardService.getShowLeaderboardByIncomingShift(
+        type,
+        shift,
+      );
+      leaderboardResponse = LeaderboardResponse.fromJson(response.data);
+      leaderboardWeeklyModel.value = leaderboardResponse!.data;
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future showLeaderboardMonthlyByIncomingShift(
+      String type, String shift) async {
+    try {
+      final response =
+          await leaderboardService.getShowLeaderboardByIncomingShift(
+        type,
+        shift,
+      );
+      leaderboardResponse = LeaderboardResponse.fromJson(response.data);
+      leaderboardMonthlyModel.value = leaderboardResponse!.data;
       update();
     } catch (e) {
       print(e);

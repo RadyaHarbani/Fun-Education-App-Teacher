@@ -73,13 +73,17 @@ class BottomsheetSelectPeriod extends GetView<DetailClassPageController> {
                       title: 'Mingguan',
                       value: 'Mingguan',
                       groupValue: controller.selectedPeriod.value,
-                      onChanged: (value) => controller.selectPeriod(value),
+                      onChanged: (value) {
+                        controller.selectPeriod(value);
+                      },
                     ),
                     CustomRadioButtonPeriod(
                       title: 'Bulanan',
                       value: 'Bulanan',
                       groupValue: controller.selectedPeriod.value,
-                      onChanged: (value) => controller.selectPeriod(value),
+                      onChanged: (value) {
+                        controller.selectPeriod(value);
+                      },
                     ),
                   ],
                 ),

@@ -14,6 +14,7 @@ class ApiEndPoint {
   static String baseUrlTask = '$baseUrl/tugas';
   static String baseUrlTaskImage = '$baseUrl/tugas-image';
   static String baseUrlMark = '$baseUrl/tugas-user';
+  static String leaderboard = '$baseUrl/leaderboard';
 
   //Auth
   static String login = '$baseUrlAuth/login';
@@ -87,4 +88,7 @@ class ApiEndPoint {
   static String markShowByTaskId = '$baseUrlMark/show-by-tugas-id/';
   static String markShowByUserId = '$baseUrlMark/show/';
   static String sendGradeByAdmin = '$baseUrlMark/send-grade/';
+
+  //Leaderboard
+  static String showLeaderboardByIncomingShift = '$leaderboard/index';
 }
