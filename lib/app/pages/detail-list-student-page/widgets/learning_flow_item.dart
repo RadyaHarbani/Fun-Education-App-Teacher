@@ -40,29 +40,32 @@ class LearningFlowItem extends StatelessWidget {
             ),
           ),
           SizedBox(width: width * 0.04),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AutoSizeText(
-                '$title',
-                group: AutoSizeGroup(),
-                maxLines: 1,
-                style: tsBodyMediumSemibold(whiteColor),
-              ),
-              SizedBox(height: height * 0.01),
-              AutoSizeText(
-                '\u2022 $point1',
-                group: AutoSizeGroup(),
-                maxLines: 1,
-                style: tsBodySmallRegular(whiteColor),
-              ),
-              AutoSizeText(
-                '\u2022 $point2',
-                group: AutoSizeGroup(),
-                maxLines: 2,
-                style: tsBodySmallRegular(whiteColor),
-              ),
-            ],
+          Container(
+            width: width * 0.7,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  '$title',
+                  group: AutoSizeGroup(),
+                  maxLines: 1,
+                  style: tsBodyMediumSemibold(whiteColor),
+                ),
+                SizedBox(height: height * 0.01),
+                AutoSizeText(
+                  '\u2022 $point1',
+                  group: AutoSizeGroup(),
+                  maxLines: 1,
+                  style: tsBodySmallRegular(whiteColor),
+                ),
+                AutoSizeText(
+                  '\u2022 $point2',
+                  group: AutoSizeGroup(),
+                  maxLines: 2,
+                  style: tsBodySmallRegular(whiteColor),
+                ),
+              ],
+            ),
           ),
           Spacer(),
           Icon(

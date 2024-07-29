@@ -39,4 +39,29 @@ class UserService {
       throw Exception(e);
     }
   }
+
+  // Future<Response> putUpdateUserByAdmin(String userId, Map<String, dynamic> data) async {
+  //   try {
+  //     final response = await _dioInstance.putRequest(
+  //       endpoint: '${ApiEndPoint.updateUserByAdmin}$userId',
+  //       data: data,
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
+
+  Future deleteUserByAdmin(String userId) async {
+    try {
+      final response = await _dioInstance.deleteRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: '${ApiEndPoint.deleteUserByAdmin}$userId',
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
