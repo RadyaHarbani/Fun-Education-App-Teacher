@@ -16,7 +16,7 @@ class BottomsheetEditLearningFlow
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.73,
+      height: height * 0.78,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -82,7 +82,7 @@ class BottomsheetEditLearningFlow
                     CustomRadioButtonLearningFlow(
                       title: 'Mengenalkan buku B',
                       point1: 'Mencontoh Suku Kata',
-                      point2: 'Membaca Kartu Baju Sampai Cabe',
+                      point2: 'Membaca Kartu Dadu Sampai Payung',
                       value: 'B',
                       groupValue: controller.selectedLearningFlow.value,
                       onChanged: (value) =>
@@ -91,7 +91,7 @@ class BottomsheetEditLearningFlow
                     CustomRadioButtonLearningFlow(
                       title: 'Mengenalkan buku C',
                       point1: 'Menyalin Kalimat',
-                      point2: 'Membaca Kartu Baju Sampai Cabe',
+                      point2: 'Membaca Kartu Rambutan Sampai Zahra',
                       value: 'C',
                       groupValue: controller.selectedLearningFlow.value,
                       onChanged: (value) =>
@@ -106,7 +106,9 @@ class BottomsheetEditLearningFlow
               text: 'Tingkatkan',
               backgroundColor: blackColor,
               textColor: whiteColor,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                controller.updateLearningFlowByAdmin();
+              },
             ),
           ],
         ),

@@ -1,22 +1,32 @@
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/api/learning-flow/models/learning_flow_model.dart';
+import 'package:fun_education_app_teacher/app/api/learning-flow/models/learning_flow_response.dart';
+import 'package:fun_education_app_teacher/app/api/learning-flow/service/learning_flow_service.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_response.dart';
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/all-points-chart-widget/all_points_value_chart.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/report-point-chart-widget/report_value_chart.dart';
+import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class DetailListStudentPageController extends GetxController
     with SingleGetTickerProviderMixin {
+  final ListStudentPageController listStudentPageController =
+      Get.put(ListStudentPageController());
+  final DetailClassPageController detailClassPageController =
+      Get.put(DetailClassPageController());
   TabController? tabControllerAll;
   var selectedLearningFlow = 'A'.obs;
   var selectedReportPoint = 'Mingguan'.obs;
   var selectedAllPoints = 'Mingguan'.obs;
   var selectedDateTime = DateTime.now().obs;
+  RxString userId = ''.obs;
   final Duration animDuration = const Duration(milliseconds: 250);
   RxInt touchedIndexReportChart = (-1).obs;
   final ReportValueChart reportValueChart = ReportValueChart();
@@ -24,6 +34,10 @@ class DetailListStudentPageController extends GetxController
   UserService userService = UserService();
   ShowCurrentUserResponse? showCurrentUserResponse;
   Rx<ShowCurrentUserModel> detailInformationUser = ShowCurrentUserModel().obs;
+
+  LearningFlowService learningFlowService = LearningFlowService();
+  LearningFlowResponse? learningFlowResponse;
+  Rx<LearningFlowModel> learningFlowModel = LearningFlowModel().obs;
 
   List<BarChartGroupData> weeklyDataReport() => List.generate(
         7,
@@ -95,6 +109,14 @@ class DetailListStudentPageController extends GetxController
     AllPointsValueChart.makeGroupDataAllPoints(3, 350, 1000),
   ];
 
+  @override
+  void onInit() {
+    super.onInit();
+    tabControllerAll = TabController(length: 2, vsync: this);
+    userId.value = Get.arguments;
+    showByUserId(userId.value);
+  }
+
   void selectDateTime(BuildContext context) async {
     final value = await showBoardDateTimePicker(
       context: context,
@@ -137,6 +159,7 @@ class DetailListStudentPageController extends GetxController
       final response = await userService.getShowByUserId(userId);
       showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
       detailInformationUser.value = showCurrentUserResponse!.data;
+      await showLearningFlowByUserId();
       print(detailInformationUser);
       update();
     } catch (e) {
@@ -144,11 +167,70 @@ class DetailListStudentPageController extends GetxController
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    tabControllerAll = TabController(length: 2, vsync: this);
-    showByUserId(Get.arguments);
+  Future showLearningFlowByUserId() async {
+    try {
+      final response = await learningFlowService.getLearningFlowByUserId(
+        userId.value,
+      );
+      learningFlowResponse = LearningFlowResponse.fromJson(response.data);
+      learningFlowModel.value = learningFlowResponse!.data;
+      selectedLearningFlow.value = learningFlowModel.value.tahap!;
+      print(learningFlowModel);
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future updateLearningFlowByAdmin() async {
+    try {
+      await learningFlowService.putUpdateLearningFlowByAdmin(
+        learningFlowModel.value.id!,
+        userId.value,
+        selectedLearningFlow.value,
+      );
+      await showLearningFlowByUserId();
+      Get.back();
+      Get.snackbar(
+        'Berhasil',
+        'Data alur belajar berhasil diubah',
+        backgroundColor: successColor,
+        colorText: whiteColor,
+      );
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        'Gagal',
+        'Data alur belajar gagal diubah',
+        backgroundColor: dangerColor,
+        colorText: whiteColor,
+      );
+    }
+  }
+
+  Future deleteUserByAdmin() async {
+    try {
+      await userService.deleteUserByAdmin(userId.value);
+      await listStudentPageController
+          .showAllUserByIncomingShift(detailInformationUser.value.shift);
+      await detailClassPageController
+          .showAllUserByIncomingShift(detailInformationUser.value.shift);
+      Get.back();
+      Get.snackbar(
+        'Berhasil',
+        'Data siswa berhasil dihapus',
+        backgroundColor: successColor,
+        colorText: whiteColor,
+      );
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        'Gagal',
+        'Data siswa gagal dihapus',
+        backgroundColor: dangerColor,
+        colorText: whiteColor,
+      );
+    }
   }
 
   @override

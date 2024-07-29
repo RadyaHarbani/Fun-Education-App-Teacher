@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/items/information-page/information_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/items/information-page/information_page_component_two.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class DetailListStudentPageComponentOne extends StatelessWidget {
+class DetailListStudentPageComponentOne
+    extends GetView<DetailListStudentPageController> {
   const DetailListStudentPageComponentOne({super.key});
 
   @override
@@ -23,7 +26,9 @@ class DetailListStudentPageComponentOne extends StatelessWidget {
           backgroundColor: dangerColor,
           textColor: whiteColor,
           icon: Icons.delete_rounded,
-          onPressed: () {},
+          onPressed: () {
+            controller.deleteUserByAdmin();
+          },
         ),
       ],
     );

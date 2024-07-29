@@ -43,29 +43,32 @@ class CustomRadioButtonLearningFlow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AutoSizeText(
-                    '$title',
-                    group: AutoSizeGroup(),
-                    maxLines: 1,
-                    style: tsBodyMediumSemibold(blackColor),
-                  ),
-                  SizedBox(height: height * 0.01),
-                  AutoSizeText(
-                    '\u2022 $point1',
-                    group: AutoSizeGroup(),
-                    maxLines: 1,
-                    style: tsBodySmallRegular(blackColor),
-                  ),
-                  AutoSizeText(
-                    '\u2022 $point2',
-                    group: AutoSizeGroup(),
-                    maxLines: 2,
-                    style: tsBodySmallRegular(blackColor),
-                  ),
-                ],
+              Container(
+                width: width * 0.6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      '$title',
+                      group: AutoSizeGroup(),
+                      maxLines: 1,
+                      style: tsBodyMediumSemibold(blackColor),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    AutoSizeText(
+                      '\u2022 $point1',
+                      group: AutoSizeGroup(),
+                      maxLines: 1,
+                      style: tsBodySmallRegular(blackColor),
+                    ),
+                    AutoSizeText(
+                      '\u2022 $point2',
+                      group: AutoSizeGroup(),
+                      maxLines: 2,
+                      style: tsBodySmallRegular(blackColor),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(
@@ -83,7 +86,8 @@ class CustomRadioButtonLearningFlow extends StatelessWidget {
                   ),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: groupValue == value ? primaryColor : transparentColor,
+                    color:
+                        groupValue == value ? primaryColor : transparentColor,
                   ),
                 ),
               ),

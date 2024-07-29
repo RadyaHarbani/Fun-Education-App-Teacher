@@ -31,6 +31,8 @@ class ApiEndPoint {
   static String showCurrentUser = '$baseUrlAuth/show-current';
   static String showAllUserByIncomingShift = '$baseUrlAuth/index?shift=';
   static String showByIdUser = '$baseUrlAuth/show/';
+  static String updateUserByAdmin = '$baseUrlAuth/update-admin/';
+  static String deleteUserByAdmin = '$baseUrlAuth/delete/';
 
   //Catatan Darurat
   static String showLatestCatatanDarurat = '$baseUrlCatatanDarurat/show';
@@ -54,6 +56,8 @@ class ApiEndPoint {
 
   //Alur Belajar
   static String showCurrentAlurBelajar = '$baseUrlAlurBelajar/show-current';
+  static String showLearningFlowByUserId = '$baseUrlAlurBelajar/show-by-user/';
+  static String updateLearningFlowByAdmin = '$baseUrlAlurBelajar/update/';
 
   //Photos
   static String showAllPhotos = '$baseUrlPhotos/index';
