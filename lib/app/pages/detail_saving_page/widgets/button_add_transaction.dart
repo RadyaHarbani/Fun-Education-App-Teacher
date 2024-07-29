@@ -68,7 +68,7 @@ class ButtonAddTransaction extends StatelessWidget {
               child: AutoSizeText(
                 group: AutoSizeGroup(),
                 maxLines: 2,
-                'Catat Pengeluaran',
+                '$typeTransaction',
                 style: tsBodySmallSemibold(typeTransaction == 'Catat Pemasukan'
                         ? blackColor
                         : whiteColor)

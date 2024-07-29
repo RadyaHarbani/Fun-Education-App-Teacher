@@ -2,9 +2,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
+import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class BottomsheetAddOutcomingNote extends StatelessWidget {
+class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
   const BottomsheetAddOutcomingNote({super.key});
 
   @override
@@ -79,7 +81,8 @@ class BottomsheetAddOutcomingNote extends StatelessWidget {
                       CommonTextField(
                         obscureText: false,
                         hintText: 'Masukkan Nominal',
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
+                        fieldController: controller.amoutOutgoingController,
                       ),
                     ],
                   ),
@@ -106,7 +109,9 @@ class BottomsheetAddOutcomingNote extends StatelessWidget {
                       CommonTextField(
                         obscureText: false,
                         hintText: 'Tambahkan Keterangan',
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
+                        fieldController:
+                            controller.descriptionOutgoingController,
                       ),
                     ],
                   ),
@@ -118,7 +123,9 @@ class BottomsheetAddOutcomingNote extends StatelessWidget {
               text: 'Catat Pengeluaran',
               backgroundColor: blackColor,
               textColor: whiteColor,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                controller.storeTransactionByAdmin('outcome');
+              },
             ),
           ],
         ),

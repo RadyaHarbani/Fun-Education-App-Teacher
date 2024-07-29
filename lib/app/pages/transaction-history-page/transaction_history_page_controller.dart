@@ -1,12 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:fun_education_app_teacher/app/api/savings/transaction/models/transaction_model.dart';
+import 'package:fun_education_app_teacher/app/api/savings/transaction/models/transaction_response.dart';
+import 'package:fun_education_app_teacher/app/api/savings/transaction/service/transaction_service.dart';
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/widgets/transaction-history-chart-widget/transaction_value_chart.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class TransactionHistoryPageController extends GetxController {
+  TransactionService transactionService = TransactionService();
+  TransactionResponse? transactionResponse;
+  RxList<TransactionModel> transactionModel = <TransactionModel>[].obs;
   var selectedPeriod = 'Mingguan'.obs;
   var selectedMonth = 'Januari'.obs;
+  RxString userId = ''.obs;
+  RxString totalIncome = '0'.obs;
+  RxString totalOutcome = '0'.obs;
 
   final List<BarChartGroupData> mingguanData = [
     TransactionValueChart.makeGroupDataTransaction(0, 200000, 500000),
@@ -83,4 +92,29 @@ class TransactionHistoryPageController extends GetxController {
       );
     return AutoSizeText('');
   }
+
+  @override
+  void onInit() {
+    super.onInit();
+    userId.value = Get.arguments;
+    showTransactionByUserIdAndMonth();
+  }
+
+  Future showTransactionByUserIdAndMonth() async {
+    try {
+      final response = await transactionService.getShowTransactionByUserIdAndMonth(
+        userId.value,
+        selectedMonth.value,
+      );
+      transactionResponse = TransactionResponse.fromJson(response.data);
+      transactionModel.value = transactionResponse!.data;
+      if (transactionResponse != null) {
+        totalIncome.value = transactionResponse!.totalIncome;
+        totalOutcome.value = transactionResponse!.totalOutcome;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
+

@@ -9,7 +9,8 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class TransactionHistoryPageComponentTwo extends GetView<TransactionHistoryPageController> {
+class TransactionHistoryPageComponentTwo
+    extends GetView<TransactionHistoryPageController> {
   const TransactionHistoryPageComponentTwo({super.key});
 
   @override
@@ -79,45 +80,48 @@ class TransactionHistoryPageComponentTwo extends GetView<TransactionHistoryPageC
           ],
         ),
         SizedBox(height: height * 0.02),
-        AutoSizeText(
-          '${controller.selectedMonth.value} 2024',
-          group: AutoSizeGroup(),
-          maxLines: 1,
-          style: tsBodyMediumRegular(blackColor),
-        ),
+        Obx(() => AutoSizeText(
+              '${controller.selectedMonth.value} 2024',
+              group: AutoSizeGroup(),
+              maxLines: 1,
+              style: tsBodyMediumRegular(blackColor),
+            )),
         SizedBox(height: height * 0.02),
-        Row(
-          children: [
-            Expanded(
-              child: TotalTransactionHistoryItem(
-                transactionType: 'Total Pemasukan',
-                transactionAmount: '100.000',
-              ),
-            ),
-            SizedBox(width: width * 0.02),
-            Expanded(
-              child: TotalTransactionHistoryItem(
-                transactionType: 'Total Pengeluaran',
-                transactionAmount: '100.000',
-              ),
-            ),
-          ],
-        ),
+        Obx(() => Row(
+              children: [
+                Expanded(
+                  child: TotalTransactionHistoryItem(
+                    transactionType: 'Total Pemasukan',
+                    transactionAmount: '${controller.totalIncome.value}',
+                  ),
+                ),
+                SizedBox(width: width * 0.02),
+                Expanded(
+                  child: TotalTransactionHistoryItem(
+                    transactionType: 'Total Pengeluaran',
+                    transactionAmount: '${controller.totalOutcome.value}',
+                  ),
+                ),
+              ],
+            )),
         SizedBox(height: height * 0.02),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            return HistoryTransactionItem(
-              transactionType: 'Pemasukan',
-              transactionAmount: '100.000',
-              transactionDate:
-                  '${DateFormat('dd MMMM yyyy').format(DateTime.now())}',
-              transactionDescription: 'Tidak Ada Deskripsi',
-            );
-          },
-        ),
+        Obx(() => ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: controller.transactionModel.length,
+              itemBuilder: (context, index) {
+                return HistoryTransactionItem(
+                  transactionType:
+                      '${controller.transactionModel[index].category == 'income' ? 'Pemasukan' : 'Pengeluaran'}',
+                  transactionAmount:
+                      '${controller.transactionModel[index].amount}',
+                  transactionDate:
+                      '${DateFormat('dd MMMM yyyy').format(controller.transactionModel[index].date!)}',
+                  transactionDescription:
+                      '${controller.transactionModel[index].desc ?? 'Tidak Ada Deskripsi'}',
+                );
+              },
+            )),
       ],
     );
   }

@@ -151,7 +151,10 @@ class BottomsheetSelectMonthTransaction
               text: 'Tutup',
               backgroundColor: blackColor,
               textColor: whiteColor,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () async {
+                await controller.showTransactionByUserIdAndMonth();
+                Get.back();
+              },
             ),
           ],
         ),

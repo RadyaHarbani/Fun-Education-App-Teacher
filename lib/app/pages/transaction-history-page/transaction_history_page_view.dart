@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/pages/transaction-history-page/components/transaction_history_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/components/transaction_history_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/transaction_history_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -30,7 +29,7 @@ class TransactionHistoryPageView
           },
         ),
         title: Text(
-          'Riwayat Transaksi',
+          'List Transaksi',
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
@@ -43,8 +42,8 @@ class TransactionHistoryPageView
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TransactionHistoryPageComponentOne(),
-              SizedBox(height: height * 0.02),
+              // TransactionHistoryPageComponentOne(),
+              // SizedBox(height: height * 0.02),
               TransactionHistoryPageComponentTwo(),
             ],
           ),
