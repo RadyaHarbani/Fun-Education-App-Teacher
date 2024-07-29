@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:fun_education_app_teacher/app/api/api_endpoint.dart';
 import 'package:fun_education_app_teacher/app/api/dio_instance.dart';
@@ -40,19 +42,39 @@ class UserService {
     }
   }
 
-  // Future<Response> putUpdateUserByAdmin(String userId, Map<String, dynamic> data) async {
-  //   try {
-  //     final response = await _dioInstance.putRequest(
-  //       endpoint: '${ApiEndPoint.updateUserByAdmin}$userId',
-  //       data: data,
-  //     );
-  //     return response;
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
+  Future<Response> putUpdateUserByAdmin(
+    String userId,
+    String fullName,
+    String nickName,
+    String password,
+    String birth,
+    String address,
+    String shift,
+    String gender,
+  ) async {
+    try {
+      final data = {
+        'full_name': fullName,
+        'nickname': nickName,
+        'password': password,
+        'birth': birth,
+        'address': address,
+        'shift': shift,
+        'gender' : gender,
+      };
+      final response = await _dioInstance.putRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: '${ApiEndPoint.updateUserByAdmin}$userId',
+        data: data,
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
-  Future deleteUserByAdmin(String userId) async {
+  Future<Response> deleteUserByAdmin(String userId) async {
     try {
       final response = await _dioInstance.deleteRequest(
         isAuthorize: true,

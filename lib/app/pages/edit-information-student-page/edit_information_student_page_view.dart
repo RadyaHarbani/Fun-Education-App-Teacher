@@ -3,10 +3,12 @@ import 'package:fun_education_app_teacher/app/global-component/common_button.dar
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/components/edit_information_student_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/components/edit_information_student_page_component_three.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/components/edit_information_student_page_component_two.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/edit_information_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
-class EditInformationStudentPageView extends StatelessWidget {
+class EditInformationStudentPageView
+    extends GetView<EditInformationStudentPageController> {
   const EditInformationStudentPageView({super.key});
 
   @override
@@ -55,7 +57,9 @@ class EditInformationStudentPageView extends StatelessWidget {
                   text: 'Simpan Perubahan',
                   backgroundColor: blackColor,
                   textColor: whiteColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.updateUserByAdmin();
+                  },
                 ),
               ],
             ),

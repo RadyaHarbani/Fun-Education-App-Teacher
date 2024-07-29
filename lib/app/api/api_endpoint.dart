@@ -50,9 +50,12 @@ class ApiEndPoint {
 
   //Tabungan
   static String showCurrentTabungan = '$baseUrlTabungan/show-current';
+  static String showSavingsByUserId = '$baseUrlTabungan/show-by-user/';
 
   //Transaksi
   static String showCurrentTransaksi = '$baseUrlTransaksi/show-current';
+  static String showTransactionByUserId = '$baseUrlTransaksi/show-by-user/';
+  static String storeTransactionByAdmin = '$baseUrlTransaksi/store';
 
   //Alur Belajar
   static String showCurrentAlurBelajar = '$baseUrlAlurBelajar/show-current';
@@ -76,6 +79,10 @@ class ApiEndPoint {
 
   //Pengajuan Tabungan
   static String storePengajuanTabungan = '$baseUrlPengajuanTabungan/store';
+  static String showSavingSubmissionByUserId =
+      '$baseUrlPengajuanTabungan/show-by-user/';
+  static String updateSavingSubmissionByAdmin =
+      '$baseUrlPengajuanTabungan/update/';
 
   //Task
   static String showStatusCount = '$baseUrlTask/show-status-count';

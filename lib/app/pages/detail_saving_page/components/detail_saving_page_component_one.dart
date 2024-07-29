@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/widgets/last_history_transaction_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class DetailSavingPageComponentOne extends StatelessWidget {
+class DetailSavingPageComponentOne extends GetView<DetailSavingPageController> {
   const DetailSavingPageComponentOne({super.key});
 
   @override
@@ -28,7 +30,7 @@ class DetailSavingPageComponentOne extends StatelessWidget {
             maxLines: 2,
             textAlign: TextAlign.center,
             TextSpan(
-              text: 'Rp. 100.000\n',
+              text: 'Rp. ${controller.totalSavingsModel.value.saving}',
               style: tsHeadingLargeSemibold(whiteColor),
               children: [
                 TextSpan(
@@ -49,14 +51,16 @@ class DetailSavingPageComponentOne extends StatelessWidget {
                 Expanded(
                   child: LastHistoryTransactionItem(
                     transactionType: 'Pemasukan Terakhir',
-                    transactionAmount: '100.000',
+                    transactionAmount:
+                        '${controller.totalSavingsModel.value.lastIncome}',
                   ),
                 ),
                 SizedBox(width: width * 0.02),
                 Expanded(
                   child: LastHistoryTransactionItem(
                     transactionType: 'Pengeluaran Terakhir',
-                    transactionAmount: '50.000',
+                    transactionAmount:
+                        '${controller.totalSavingsModel.value.lastOutcome}',
                   ),
                 ),
               ],

@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/edit_information_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class EditInformationStudentPageComponentOne extends StatelessWidget {
+class EditInformationStudentPageComponentOne
+    extends GetView<EditInformationStudentPageController> {
   const EditInformationStudentPageComponentOne({super.key});
 
   @override
@@ -23,26 +26,31 @@ class EditInformationStudentPageComponentOne extends StatelessWidget {
         CommonTextField(
           obscureText: false,
           hintText: "Nama Lengkap",
+          fieldController: controller.fullNameController,
         ),
         SizedBox(height: height * 0.01),
         CommonTextField(
           obscureText: false,
           hintText: "Nama Panggilan",
+          fieldController: controller.nickNameController,
         ),
         SizedBox(height: height * 0.01),
         CommonTextField(
           obscureText: false,
-          hintText: "Jenis Kelamain",
+          hintText: "Jenis Kelamin",
+          fieldController: controller.genderController,
         ),
         SizedBox(height: height * 0.01),
         CommonTextField(
           obscureText: false,
           hintText: 'Tempat, Tanggal Lahir',
+          fieldController: controller.placeOfBirthController,
         ),
         SizedBox(height: height * 0.01),
         CommonTextField(
           obscureText: false,
           hintText: 'Alamat Lengkap',
+          fieldController: controller.addressController,
         ),
       ],
     );
