@@ -33,6 +33,7 @@ class ApiEndPoint {
   static String showByIdUser = '$baseUrlAuth/show/';
   static String updateUserByAdmin = '$baseUrlAuth/update-admin/';
   static String deleteUserByAdmin = '$baseUrlAuth/delete/';
+  static String showPasswordUserByAdmin = '$baseUrlAuth/show-secret/';
 
   //Catatan Darurat
   static String showLatestCatatanDarurat = '$baseUrlCatatanDarurat/show';

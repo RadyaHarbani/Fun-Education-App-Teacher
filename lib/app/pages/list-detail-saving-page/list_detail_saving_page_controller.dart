@@ -8,11 +8,13 @@ class ListDetailSavingPageController extends GetxController {
   ShowAllUserByIncomingShiftResponse? showAllUserByIncomingShiftResponse;
   RxList<ShowCurrentUserModel> showCurrentUserModel =
       <ShowCurrentUserModel>[].obs;
+      RxString incomingShift = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    showAllUserByIncomingShift(Get.arguments);
+    incomingShift.value = Get.arguments;
+    showAllUserByIncomingShift(incomingShift.value);
   }
 
   Future showAllUserByIncomingShift(String shift) async {

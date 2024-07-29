@@ -22,52 +22,52 @@ class DetailSavingPageComponentOne extends GetView<DetailSavingPageController> {
           bottomRight: Radius.circular(25),
         ),
       ),
-      child: Column(
-        children: [
-          SizedBox(height: height * 0.04),
-          AutoSizeText.rich(
-            group: AutoSizeGroup(),
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            TextSpan(
-              text: 'Rp. ${controller.totalSavingsModel.value.saving}',
-              style: tsHeadingLargeSemibold(whiteColor),
-              children: [
+      child: Obx(() => Column(
+            children: [
+              SizedBox(height: height * 0.04),
+              AutoSizeText.rich(
+                group: AutoSizeGroup(),
+                maxLines: 2,
+                textAlign: TextAlign.center,
                 TextSpan(
-                  text: 'Total Tabungan',
-                  style: tsBodySmallRegular(whiteColor),
+                  text: 'Rp. ${controller.totalSavingsModel.value.saving}\n',
+                  style: tsHeadingLargeSemibold(whiteColor),
+                  children: [
+                    TextSpan(
+                      text: 'Total Tabungan',
+                      style: tsBodySmallRegular(whiteColor),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(height: height * 0.03),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: width * 0.05,
-              vertical: height * 0.025,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: LastHistoryTransactionItem(
-                    transactionType: 'Pemasukan Terakhir',
-                    transactionAmount:
-                        '${controller.totalSavingsModel.value.lastIncome}',
-                  ),
+              ),
+              SizedBox(height: height * 0.03),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.05,
+                  vertical: height * 0.025,
                 ),
-                SizedBox(width: width * 0.02),
-                Expanded(
-                  child: LastHistoryTransactionItem(
-                    transactionType: 'Pengeluaran Terakhir',
-                    transactionAmount:
-                        '${controller.totalSavingsModel.value.lastOutcome}',
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: LastHistoryTransactionItem(
+                        transactionType: 'Pemasukan Terakhir',
+                        transactionAmount:
+                            '${controller.totalSavingsModel.value.lastIncome}',
+                      ),
+                    ),
+                    SizedBox(width: width * 0.02),
+                    Expanded(
+                      child: LastHistoryTransactionItem(
+                        transactionType: 'Pengeluaran Terakhir',
+                        transactionAmount:
+                            '${controller.totalSavingsModel.value.lastOutcome}',
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-        ],
-      ),
+              ),
+            ],
+          )),
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/widgets/outcoming_submission_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 
-class DetailSavingPageComponentTwo extends StatelessWidget {
+class DetailSavingPageComponentTwo extends GetView<DetailSavingPageController> {
   const DetailSavingPageComponentTwo({super.key});
 
   @override
@@ -28,6 +30,7 @@ class DetailSavingPageComponentTwo extends StatelessWidget {
         ),
         SizedBox(height: height * 0.02),
         Container(
+          width: width,
           decoration: BoxDecoration(
             color: greyColor.withOpacity(0.05),
             borderRadius: BorderRadius.circular(15),
@@ -46,18 +49,25 @@ class DetailSavingPageComponentTwo extends StatelessWidget {
                 style: tsBodySmallRegular(blackColor),
               ),
               SizedBox(height: height * 0.02),
-              ListView.builder(
-                itemCount: 1,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return OutcomingSubmissionItem(
-                    titleSubmission: 'SPP Bulanan',
-                    onTapClose: () {},
-                    onTapCheck: () {},
-                  );
-                },
-              ),
+              Obx(() =>
+                  controller.savingSubmissionModel.value.status == 'Pending'
+                      ? OutcomingSubmissionItem(
+                          titleSubmission:
+                              controller.savingSubmissionModel.value.category ==
+                                      'SPP Bulanan'
+                                  ? 'SPP Bulanan'
+                                  : 'Kegiatan Belajar Diluar',
+                          onTapClose: () {
+                            controller.updateStatusSavingSubmission('Rejected');
+                          },
+                          onTapCheck: () {
+                            controller.updateStatusSavingSubmission('Accepted');
+                          },
+                        )
+                      : SizedBox(
+                          width: 0,
+                          height: 0,
+                        )),
             ],
           ),
         )

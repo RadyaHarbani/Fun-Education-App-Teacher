@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/widgets/history_transaction_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class DetailSavingPageComponentFour extends StatelessWidget {
+class DetailSavingPageComponentFour
+    extends GetView<DetailSavingPageController> {
   const DetailSavingPageComponentFour({super.key});
 
   @override
@@ -49,20 +52,24 @@ class DetailSavingPageComponentFour extends StatelessWidget {
           ],
         ),
         SizedBox(height: height * 0.03),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            return HistoryTransactionItem(
-              transactionType: 'Pemasukan',
-              transactionAmount: '100.000',
-              transactionDate:
-                  '${DateFormat('dd MMMM yyyy').format(DateTime.now())}',
-              transactionDescription: 'Tidak Ada Deskripsi',
-            );
-          },
-        ),
+        Obx(() => ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: controller.transactionModel.length,
+              itemBuilder: (context, index) {
+                return HistoryTransactionItem(
+                  transactionType:
+                      '${controller.transactionModel[index].category == 'income' ? 'Pemasukan' : 'Pengeluaran'}',
+                  transactionAmount:
+                      '${controller.transactionModel[index].amount}',
+                  transactionDate:
+                      '${DateFormat('dd MMMM yyyy').format(controller.transactionModel[index].date!)}',
+                  transactionDescription:
+                      '${controller.transactionModel[index].desc ?? 'Tidak Ada Deskripsi'}',
+                );
+              },
+            )),
+        SizedBox(height: height * 0.03),
       ],
     );
   }

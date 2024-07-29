@@ -2,6 +2,7 @@ class ShowCurrentUserModel {
   String? id;
   String? fullName;
   String? nickname;
+  String? password;
   String? birth;
   String? address;
   dynamic shift;
@@ -13,6 +14,7 @@ class ShowCurrentUserModel {
     this.id,
     this.fullName,
     this.nickname,
+    this.password,
     this.birth,
     this.address,
     this.shift,
@@ -26,6 +28,7 @@ class ShowCurrentUserModel {
         id: json["id"],
         fullName: json["full_name"],
         nickname: json["nickname"],
+        password: json["password"],
         birth: json["birth"],
         address: json["address"],
         shift: json["shift"],
@@ -38,6 +41,7 @@ class ShowCurrentUserModel {
         "id": id,
         "full_name": fullName,
         "nickname": nickname,
+        "password": password,
         "birth": birth,
         "address": address,
         "shift": shift,

@@ -27,7 +27,7 @@ class ListDetailSavingPageComponentOne
             style: tsBodySmallRegular(blackColor),
             children: [
               TextSpan(
-                text: '${Get.arguments}',
+                text: '${controller.incomingShift.value}',
                 style: tsTitleSmallSemibold(blackColor),
               ),
             ],

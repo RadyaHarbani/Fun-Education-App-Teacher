@@ -60,7 +60,7 @@ class UserService {
         'birth': birth,
         'address': address,
         'shift': shift,
-        'gender' : gender,
+        'gender': gender,
       };
       final response = await _dioInstance.putRequest(
         isAuthorize: true,
@@ -80,6 +80,19 @@ class UserService {
         isAuthorize: true,
         tokenType: 'teacher',
         endpoint: '${ApiEndPoint.deleteUserByAdmin}$userId',
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> getShowPasswordByUserId(String userId) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: '${ApiEndPoint.showPasswordUserByAdmin}$userId',
       );
       return response;
     } catch (e) {
