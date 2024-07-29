@@ -49,7 +49,7 @@ class TotalTransactionHistoryItem extends StatelessWidget {
                   : primaryColor,
             ),
           ),
-          SizedBox(height: height * 0.005),
+          SizedBox(height: height * 0.01),
           Container(
             width: width * 0.25,
             child: AutoSizeText(

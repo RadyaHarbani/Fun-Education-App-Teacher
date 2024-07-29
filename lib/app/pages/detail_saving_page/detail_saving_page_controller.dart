@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fun_education_app_teacher/app/api/savings/savings-submission/models/saving_submission_model.dart';
 import 'package:fun_education_app_teacher/app/api/savings/savings-submission/models/saving_submission_response.dart';
 import 'package:fun_education_app_teacher/app/api/savings/savings-submission/service/saving_submission_service.dart';
@@ -9,7 +11,6 @@ import 'package:fun_education_app_teacher/app/api/savings/transaction/models/tra
 import 'package:fun_education_app_teacher/app/api/savings/transaction/service/transaction_service.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 
 class DetailSavingPageController extends GetxController {
   TotalSavingsService totalSavingsService = TotalSavingsService();
@@ -23,6 +24,11 @@ class DetailSavingPageController extends GetxController {
   TransactionService transactionService = TransactionService();
   TransactionResponse? transactionResponse;
   RxList<TransactionModel> transactionModel = <TransactionModel>[].obs;
+
+  TextEditingController amountIncomingController = TextEditingController();
+  TextEditingController descriptionIncomingController = TextEditingController();
+  TextEditingController amoutOutgoingController = TextEditingController();
+  TextEditingController descriptionOutgoingController = TextEditingController();
 
   RxString userId = ''.obs;
 
@@ -77,6 +83,8 @@ class DetailSavingPageController extends GetxController {
         status,
       );
       showSavingSubmissionByUserId(userId.value);
+      showTransactionByUserId(userId.value);
+      showTotalSavingsByUserId(userId.value);
       update();
 
       if (status == 'Accepted') {
@@ -99,6 +107,41 @@ class DetailSavingPageController extends GetxController {
       Get.snackbar(
         'Gagal',
         'Pengajuan Gagal',
+        backgroundColor: successColor,
+        colorText: whiteColor,
+      );
+    }
+  }
+
+  Future storeTransactionByAdmin(
+    String category,
+  ) async {
+    try {
+      await transactionService.postStoreTrasactionByAdmin(
+        userId.value,
+        category == 'income'
+            ? amountIncomingController.text
+            : amoutOutgoingController.text,
+        category,
+        category == 'income'
+            ? descriptionIncomingController.text
+            : descriptionOutgoingController.text,
+      );
+      showTransactionByUserId(userId.value);
+      showTotalSavingsByUserId(userId.value);
+      update();
+      Get.back();
+      Get.snackbar(
+        'Berhasil',
+        'Transaksi Berhasil Dicatat',
+        backgroundColor: successColor,
+        colorText: whiteColor,
+      );
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        'Gagal',
+        'Transaksi Gagal Dicatat',
         backgroundColor: successColor,
         colorText: whiteColor,
       );

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/widgets/history_transaction_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -33,21 +34,29 @@ class DetailSavingPageComponentFour
                 ),
               ],
             ),
-            Row(
-              children: [
-                AutoSizeText(
-                  group: AutoSizeGroup(),
-                  maxLines: 1,
-                  'Lihat Semua',
-                  style: tsBodySmallRegular(blackColor),
-                ),
-                SizedBox(width: width * 0.01),
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 15,
-                  color: blackColor,
-                ),
-              ],
+            InkWell(
+              onTap: () {
+                Get.toNamed(
+                  Routes.TRANSACTION_HISTORY_PAGE,
+                  arguments: controller.userId.value,
+                );
+              },
+              child: Row(
+                children: [
+                  AutoSizeText(
+                    group: AutoSizeGroup(),
+                    maxLines: 1,
+                    'Lihat Semua',
+                    style: tsBodySmallRegular(blackColor),
+                  ),
+                  SizedBox(width: width * 0.01),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 15,
+                    color: blackColor,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

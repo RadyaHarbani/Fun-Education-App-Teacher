@@ -33,4 +33,29 @@ class TransactionService {
       throw Exception(e);
     }
   }
+
+  Future<Response> postStoreTrasactionByAdmin(
+    String userId,
+    String amount,
+    String category,
+    String description,
+  ) async {
+    try {
+      final data = {
+        'user_id': userId,
+        'amount': amount,
+        'category': category,
+        'desc': description,
+      };
+      final response = await _dioInstance.postRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: ApiEndPoint.storeTransactionByAdmin,
+        data: data,
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
