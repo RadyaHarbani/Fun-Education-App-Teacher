@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
+import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_response.dart';
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_controller.dart';
@@ -15,6 +17,8 @@ class EditInformationStudentPageController extends GetxController {
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
   UserService _userService = UserService();
+  ShowCurrentUserResponse? showCurrentUserResponse;
+  Rx<ShowCurrentUserModel> showCurrentUserModel = ShowCurrentUserModel().obs;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController nickNameController = TextEditingController();
   TextEditingController genderController = TextEditingController();
@@ -35,6 +39,18 @@ class EditInformationStudentPageController extends GetxController {
     addressController.text = Get.arguments['address'];
     selectedShift.value = Get.arguments['shift'];
     userId.value = Get.arguments['userId'];
+    showPasswordUserByAdmin(userId.value);
+  }
+
+  Future showPasswordUserByAdmin(String userId) async {
+    try {
+      final response = await _userService.getShowPasswordByUserId(userId);
+      showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
+      showCurrentUserModel.value = showCurrentUserResponse!.data;
+      passwordController.text = showCurrentUserModel.value.password!;
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future updateUserByAdmin() async {

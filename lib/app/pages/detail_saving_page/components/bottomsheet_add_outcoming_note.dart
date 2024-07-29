@@ -13,7 +13,7 @@ class BottomsheetAddOutcomingNote extends StatelessWidget {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.55,
+      height: height * 0.55 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
