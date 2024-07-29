@@ -17,6 +17,7 @@ class ListDetailSavingPageComponentTwo
             onTap: () {
               Get.toNamed(
                 Routes.DETAIL_SAVING_PAGE,
+                arguments: controller.showCurrentUserModel[index].id,
               );
             },
             child: ReportItem(

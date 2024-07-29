@@ -32,6 +32,7 @@ class EditInformationStudentPageComponentTwo
             obscureText: controller.isObsecure.value,
             hintText: 'Kata Sandi',
             keyboardType: TextInputType.name,
+            fieldController: controller.passwordController,
             suffixIcon: IconButton(
               onPressed: () {
                 controller.isObsecure.value = !controller.isObsecure.value;

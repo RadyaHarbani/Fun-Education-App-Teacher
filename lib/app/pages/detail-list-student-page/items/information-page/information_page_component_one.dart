@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class InformationPageComponentOne
@@ -102,7 +103,20 @@ class InformationPageComponentOne
               backgroundColor: primaryColor,
               textColor: whiteColor,
               icon: Icons.edit_rounded,
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(
+                  Routes.EDIT_INFORMATION_STUDENT_PAGE,
+                  arguments: {
+                    'userId' : controller.detailInformationUser.value.id,
+                    'fullName': controller.detailInformationUser.value.fullName,
+                    'nickName': controller.detailInformationUser.value.nickname,
+                    'gender' : controller.detailInformationUser.value.gender,
+                    'birth': controller.detailInformationUser.value.birth,
+                    'address': controller.detailInformationUser.value.address,
+                    'shift': controller.detailInformationUser.value.shift,
+                  },
+                );
+              },
             ),
           ],
         ));
