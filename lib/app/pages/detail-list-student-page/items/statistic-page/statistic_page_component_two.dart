@@ -29,7 +29,7 @@ class StatisticPageComponentTwo
                 SizedBox(width: width * 0.02),
                 AutoSizeText.rich(
                   TextSpan(
-                    text: 'Point Laporan',
+                    text: 'Point Tugas',
                     style: tsBodyMediumSemibold(blackColor),
                   ),
                   textAlign: TextAlign.start,
@@ -60,7 +60,7 @@ class StatisticPageComponentTwo
                   child: Row(
                     children: [
                       Obx(() => AutoSizeText(
-                            '${controller.selectedTaskPoints.value.toString()} Laporan',
+                            '${controller.selectedTaskPoints.value.toString()} Tugas',
                             group: AutoSizeGroup(),
                             maxLines: 1,
                             style: tsBodySmallSemibold(blackColor),
@@ -97,7 +97,7 @@ class StatisticPageComponentTwo
                   return AutoSizeText.rich(
                     TextSpan(
                       text:
-                          '${controller.selectedReportPoint.value} Laporan (Terakhir)\n',
+                          '${controller.selectedReportPoint.value} Tugas (Terakhir)\n',
                       style: tsBodyMediumSemibold(blackColor)
                           .copyWith(height: 1.5),
                       children: [
@@ -147,13 +147,13 @@ class StatisticPageComponentTwo
                         children: [
                           CircleAvatar(
                             radius: 6,
-                            backgroundColor: successColor,
+                            backgroundColor: primaryColor,
                           ),
                           SizedBox(width: width * 0.02),
                           AutoSizeText(
                             group: AutoSizeGroup(),
                             maxLines: 1,
-                            'Point Laporan',
+                            'Point Tugas',
                             style: tsBodySmallRegular(blackColor),
                           ),
                         ],
