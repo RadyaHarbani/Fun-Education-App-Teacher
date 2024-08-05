@@ -44,6 +44,7 @@ class AddTaskPageController extends GetxController {
       context: context,
       pickerType: DateTimePickerType.date,
       initialDate: selectedDateTime.value,
+      minimumDate: DateTime.now(),
       options: BoardDateTimeOptions(
         languages: BoardPickerLanguages(
           today: 'Hari ini',

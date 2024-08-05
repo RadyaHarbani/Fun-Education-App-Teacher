@@ -4,6 +4,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/det
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/items/statistic-page/statistic_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/items/statistic-page/statistic_page_component_two.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class DetailListStudentPageComponentTwo
@@ -20,7 +21,7 @@ class DetailListStudentPageComponentTwo
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           StatisticPageComponentOne(),
-          SizedBox(height: height * 0.03),
+          SizedBox(height: height * 0.05),
           StatisticPageComponentTwo(),
           SizedBox(height: height * 0.05),
           CommonButton(
@@ -29,7 +30,7 @@ class DetailListStudentPageComponentTwo
             textColor: whiteColor,
             icon: Icons.arrow_forward_ios_rounded,
             onPressed: () {
-              controller.selectDateTime(context);
+              Get.toNamed(Routes.REPORT_HISTORY_PAGE);
             },
           ),
           SizedBox(height: height * 0.05),

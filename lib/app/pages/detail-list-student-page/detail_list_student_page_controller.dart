@@ -1,18 +1,19 @@
-import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/learning-flow/models/learning_flow_model.dart';
 import 'package:fun_education_app_teacher/app/api/learning-flow/models/learning_flow_response.dart';
 import 'package:fun_education_app_teacher/app/api/learning-flow/service/learning_flow_service.dart';
+import 'package:fun_education_app_teacher/app/api/statistics/model/statistic-daily-report/statistic_daily_report_model.dart';
+import 'package:fun_education_app_teacher/app/api/statistics/model/statistic-daily-report/statistic_daily_report_response.dart';
+import 'package:fun_education_app_teacher/app/api/statistics/model/statistic-task/statistic_task_model.dart';
+import 'package:fun_education_app_teacher/app/api/statistics/model/statistic-task/statistic_task_response.dart';
+import 'package:fun_education_app_teacher/app/api/statistics/services/statistic_service.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_response.dart';
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/all-points-chart-widget/all_points_value_chart.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/report-point-chart-widget/report_value_chart.dart';
 import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
-import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class DetailListStudentPageController extends GetxController
@@ -23,13 +24,9 @@ class DetailListStudentPageController extends GetxController
       Get.put(DetailClassPageController());
   TabController? tabControllerAll;
   var selectedLearningFlow = 'A'.obs;
-  var selectedReportPoint = 'Mingguan'.obs;
-  var selectedAllPoints = 'Mingguan'.obs;
-  var selectedDateTime = DateTime.now().obs;
+  var selectedReportPoint = '5'.obs;
+  var selectedTaskPoints = '5'.obs;
   RxString userId = ''.obs;
-  final Duration animDuration = const Duration(milliseconds: 250);
-  RxInt touchedIndexReportChart = (-1).obs;
-  final ReportValueChart reportValueChart = ReportValueChart();
 
   UserService userService = UserService();
   ShowCurrentUserResponse? showCurrentUserResponse;
@@ -39,75 +36,23 @@ class DetailListStudentPageController extends GetxController
   LearningFlowResponse? learningFlowResponse;
   Rx<LearningFlowModel> learningFlowModel = LearningFlowModel().obs;
 
-  List<BarChartGroupData> weeklyDataReport() => List.generate(
-        7,
-        (i) {
-          switch (i) {
-            case 0:
-              return reportValueChart.makeGroupDataReport(true, 0, 100,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 1:
-              return reportValueChart.makeGroupDataReport(true, 1, 65,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 2:
-              return reportValueChart.makeGroupDataReport(true, 2, 50,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 3:
-              return reportValueChart.makeGroupDataReport(true, 3, 75,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 4:
-              return reportValueChart.makeGroupDataReport(true, 4, 90,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 5:
-              return reportValueChart.makeGroupDataReport(true, 5, 115,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 6:
-              return reportValueChart.makeGroupDataReport(true, 6, 65,
-                  isTouched: i == touchedIndexReportChart.value);
-            default:
-              throw Error();
-          }
-        },
-      );
+  StatisticService statisticService = StatisticService();
+  StatisticDailyReportResponse? statisticDailyReportResponse;
+  RxList<StatisticDailyReportModel> statisticDailyReportModel =
+      <StatisticDailyReportModel>[].obs;
 
-  List<BarChartGroupData> monthlyDataReport() => List.generate(
-        4,
-        (i) {
-          switch (i) {
-            case 0:
-              return reportValueChart.makeGroupDataReport(false, 0, 400,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 1:
-              return reportValueChart.makeGroupDataReport(false, 1, 700,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 2:
-              return reportValueChart.makeGroupDataReport(false, 2, 405,
-                  isTouched: i == touchedIndexReportChart.value);
-            case 3:
-              return reportValueChart.makeGroupDataReport(false, 3, 120,
-                  isTouched: i == touchedIndexReportChart.value);
-            default:
-              throw Error();
-          }
-        },
-      );
+  StatisticTaskResponse? statisticTaskResponse;
+  RxList<StatisticTaskModel> statisticTaskModel = <StatisticTaskModel>[].obs;
 
-  final List<BarChartGroupData> mingguanData = [
-    AllPointsValueChart.makeGroupDataAllPoints(0, 700, 360),
-    AllPointsValueChart.makeGroupDataAllPoints(1, 600, 740),
-    AllPointsValueChart.makeGroupDataAllPoints(2, 200, 500),
-    AllPointsValueChart.makeGroupDataAllPoints(3, 550, 1000),
-    AllPointsValueChart.makeGroupDataAllPoints(4, 230, 500),
-    AllPointsValueChart.makeGroupDataAllPoints(5, 1000, 500),
-    AllPointsValueChart.makeGroupDataAllPoints(6, 310, 500),
-  ];
+  var spots = <FlSpot>[].obs;
+  var touchedTitle = <DateTime>[].obs;
+  var bottomTitles = <String>[].obs;
+  var maxX = 0.0.obs;
 
-  final List<BarChartGroupData> bulananData = [
-    AllPointsValueChart.makeGroupDataAllPoints(0, 200, 500),
-    AllPointsValueChart.makeGroupDataAllPoints(1, 400, 1000),
-    AllPointsValueChart.makeGroupDataAllPoints(2, 750, 500),
-    AllPointsValueChart.makeGroupDataAllPoints(3, 350, 1000),
-  ];
+  var spotsTask = <FlSpot>[].obs;
+  var touchedTitleTask = <String>[].obs;
+  var bottomTitlesTask = <String>[].obs;
+  var maxXTask = 0.0.obs;
 
   @override
   void onInit() {
@@ -117,49 +62,14 @@ class DetailListStudentPageController extends GetxController
     showByUserId(userId.value);
   }
 
-  void selectDateTime(BuildContext context) async {
-    final value = await showBoardDateTimePicker(
-      context: context,
-      pickerType: DateTimePickerType.date,
-      initialDate: selectedDateTime.value,
-      options: BoardDateTimeOptions(
-        languages: BoardPickerLanguages(
-          today: 'Hari ini',
-          tomorrow: 'Besok',
-          now: 'Sekarang',
-          locale: 'id',
-        ),
-        startDayOfWeek: DateTime.monday,
-        pickerFormat: PickerFormat.dmy,
-        activeColor: primaryColor,
-        backgroundDecoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        boardTitle: 'Pilih Tanggal',
-        boardTitleTextStyle: tsBodyMediumSemibold(blackColor),
-      ),
-    );
-    if (value != null) {
-      selectedDateTime.value = value;
-
-      Get.toNamed(
-        Routes.DETAIL_REPORT_PAGE,
-        arguments: {
-          'userIdHistory': detailInformationUser.value.id,
-          'userFullNameHistory': detailInformationUser.value.fullName,
-          'dateHistory': selectedDateTime.value,
-        },
-      );
-    }
-  }
-
   Future showByUserId(String userId) async {
     try {
       final response = await userService.getShowByUserId(userId);
       showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
       detailInformationUser.value = showCurrentUserResponse!.data;
       await showLearningFlowByUserId();
+      await showStatisticDailyReportByUserId();
+      await showStatisticTaskByUserId();
       print(detailInformationUser);
       update();
     } catch (e) {
@@ -230,6 +140,72 @@ class DetailListStudentPageController extends GetxController
         backgroundColor: dangerColor,
         colorText: whiteColor,
       );
+    }
+  }
+
+  Future showStatisticDailyReportByUserId() async {
+    try {
+      final response =
+          await statisticService.getShowStatisticDailyReportByUserId(
+        selectedReportPoint.value,
+        userId.value,
+      );
+      statisticDailyReportResponse =
+          StatisticDailyReportResponse.fromJson(response.data);
+      statisticDailyReportModel.value = statisticDailyReportResponse!.data;
+      print(statisticDailyReportModel);
+
+      final List<FlSpot> newSpots = statisticDailyReportResponse!.data
+          .map((e) => FlSpot(
+                statisticDailyReportModel.indexOf(e).toDouble(),
+                e.totalPoint!.toDouble(),
+              ))
+          .toList();
+      final List<DateTime> newDateTime =
+          statisticDailyReportResponse!.data.map((e) => e.date!).toList();
+      final List<String> newBottomTitles = statisticDailyReportResponse!
+          .bottomTitle
+          .map((e) => e.date!)
+          .toList();
+
+      spots.value = newSpots;
+      touchedTitle.value = newDateTime;
+      bottomTitles.value = newBottomTitles;
+      maxX.value = newSpots.length - 1.0;
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future showStatisticTaskByUserId() async {
+    try {
+      final response = await statisticService.getShowStatisticTaskByUserId(
+        selectedTaskPoints.value,
+        userId.value,
+      );
+      statisticTaskResponse = StatisticTaskResponse.fromJson(response.data);
+      statisticTaskModel.value = statisticTaskResponse!.data;
+      print(statisticTaskModel);
+
+      final List<FlSpot> newSpotsTask = statisticTaskResponse!.data
+          .map((e) => FlSpot(
+                statisticTaskModel.indexOf(e).toDouble(),
+                e.totalPoint!.toDouble(),
+              ))
+          .toList();
+      final List<String> newTouchedTitleTask =
+          statisticTaskResponse!.data.map((e) => e.title!).toList();
+      final List<String> newBottomTitlesTask =
+          statisticTaskResponse!.bottomTitle.map((e) => e.date!).toList();
+
+      spotsTask.value = newSpotsTask;
+      touchedTitleTask.value = newTouchedTitleTask;
+      bottomTitlesTask.value = newBottomTitlesTask;
+      maxXTask.value = newSpotsTask.length - 1.0;
+      update();
+    } catch (e) {
+      print(e);
     }
   }
 

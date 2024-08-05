@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/components/bottomsheet_select_period_report.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_controller.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/report-point-chart-widget/report_bar_chart.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/report-chart-widget/report_line_chart.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class StatisticPageComponentOne
     extends GetView<DetailListStudentPageController> {
-  final ReportBarChart reportBarChart = ReportBarChart();
+  final ReportLineChart reportBarChart = ReportLineChart();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class StatisticPageComponentOne
                   child: Row(
                     children: [
                       Obx(() => AutoSizeText(
-                            controller.selectedReportPoint.value.toString(),
+                            '${controller.selectedReportPoint.value.toString()} Laporan',
                             group: AutoSizeGroup(),
                             maxLines: 1,
                             style: tsBodySmallSemibold(blackColor),
@@ -78,7 +78,7 @@ class StatisticPageComponentOne
             ),
           ],
         ),
-        SizedBox(height: height * 0.03),
+        SizedBox(height: height * 0.02),
         Container(
           padding: EdgeInsets.symmetric(
             horizontal: width * 0.05,
@@ -89,16 +89,17 @@ class StatisticPageComponentOne
             color: greyColor.withOpacity(0.05),
           ),
           child: AspectRatio(
-            aspectRatio: 1.2,
+            aspectRatio: 0.6,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
+              children: [
                 Obx(() {
                   return AutoSizeText.rich(
                     TextSpan(
-                      text: '${controller.selectedReportPoint.value}\n',
+                      text:
+                          '${controller.selectedReportPoint.value} Laporan (Terakhir)\n',
                       style: tsBodyMediumSemibold(blackColor)
-                          .copyWith(height: 1.3),
+                          .copyWith(height: 1.5),
                       children: [
                         TextSpan(
                           text: 'Perkembangan point ananda',
@@ -110,14 +111,68 @@ class StatisticPageComponentOne
                     group: AutoSizeGroup(),
                   );
                 }),
-                SizedBox(height: height * 0.03),
+                SizedBox(height: height * 0.02),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.05,
+                    vertical: height * 0.008,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: whiteColor,
+                  ),
+                  child: Row(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            '-',
+                            style: tsTitleLargeSemibold(dangerColor),
+                          ),
+                          SizedBox(width: width * 0.02),
+                          AutoSizeText(
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            'Rata - Rata',
+                            style: tsBodySmallRegular(blackColor),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: width * 0.05),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 6,
+                            backgroundColor: successColor,
+                          ),
+                          SizedBox(width: width * 0.02),
+                          AutoSizeText(
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            'Point Laporan',
+                            style: tsBodySmallRegular(blackColor),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(height: height * 0.04),
                 Expanded(
-                  child: Obx(
-                    () => BarChart(
-                      controller.selectedReportPoint.value == 'Mingguan'
-                          ? reportBarChart.mingguanBar(context)
-                          : reportBarChart.bulananBar(context),
-                      swapAnimationDuration: controller.animDuration,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.01,
+                    ),
+                    child: Stack(
+                      children: [
+                        Obx(() => LineChart(
+                              reportBarChart.reportLineChart(),
+                            )),
+                      ],
                     ),
                   ),
                 ),

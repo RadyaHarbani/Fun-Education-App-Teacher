@@ -22,15 +22,13 @@ class DetailReportPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    userId.value = Get.arguments['userId'] ?? Get.arguments['userIdHistory'];
-    userFullName.value =
-        Get.arguments['userFullName'] ?? Get.arguments['userFullNameHistory'];
-    userDate = Get.arguments['date'] ?? Get.arguments['dateHistory'];
+    userId.value = Get.arguments['userId'];
+    userFullName.value = Get.arguments['userFullName'];
+    userDate = Get.arguments['date'];
     incomingShift.value = Get.arguments['incomingShift'];
     showByUserId(
       userId.value,
-      DateFormat('yyyy-MM-dd')
-          .format(Get.arguments['date'] ?? Get.arguments['dateHistory']),
+      DateFormat('yyyy-MM-dd').format(Get.arguments['date']),
     );
   }
 
@@ -41,7 +39,7 @@ class DetailReportPageController extends GetxController {
       showByUserIdResponse = ShowByUserIdResponse.fromJson(response.data);
       showGradeModel.value = showByUserIdResponse!.data;
       userGrade.value = showByUserIdResponse!.totalPoint;
-      userNote.value = showByUserIdResponse!.note;
+      userNote.value = showByUserIdResponse!.note ?? '';
       update();
     } catch (e) {
       print(e);

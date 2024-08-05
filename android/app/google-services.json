@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "145778819833",
+    "project_id": "fun-education-app",
+    "storage_bucket": "fun-education-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145778819833:android:2abf700194eb7cbd5ed828",
+        "android_client_info": {
+          "package_name": "com.example.fun_education_app_teacher"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABjmA_s5kCEWxCttjTZHF37VOiZT-8Ffc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

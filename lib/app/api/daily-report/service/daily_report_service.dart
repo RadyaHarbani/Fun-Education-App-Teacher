@@ -46,9 +46,10 @@ class DailyReportService {
   }
 
   Future<Response> postStoreDailyReportByAdmin(
+    bool isNote,
     String userId,
     Map<String, String> activities,
-    String note,
+    String? note,
   ) async {
     try {
       final response = await _dioInstance.postRequest(
@@ -58,7 +59,7 @@ class DailyReportService {
         data: {
           'user_id': userId,
           ...activities,
-          'note': note,
+          if (isNote == true) 'note': note,
         },
       );
       return response;
