@@ -6,7 +6,8 @@ import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/det
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
-class BottomsheetSelectPeriodReport extends GetView<DetailListStudentPageController> {
+class BottomsheetSelectPeriodReport
+    extends GetView<DetailListStudentPageController> {
   const BottomsheetSelectPeriodReport({super.key});
 
   @override
@@ -15,7 +16,7 @@ class BottomsheetSelectPeriodReport extends GetView<DetailListStudentPageControl
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.4,
+      height: height * 0.45,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -70,16 +71,27 @@ class BottomsheetSelectPeriodReport extends GetView<DetailListStudentPageControl
                 () => Column(
                   children: [
                     CustomRadioButtonPeriod(
-                      title: 'Mingguan',
-                      value: 'Mingguan',
+                      title: '5 Laporan Terakhir',
+                      value: '5',
                       groupValue: controller.selectedReportPoint.value,
-                      onChanged: (value) => controller.selectedReportPoint(value),
+                      onChanged: (value) =>
+                          controller.selectedReportPoint(value),
                     ),
+                    SizedBox(height: height * 0.01),
                     CustomRadioButtonPeriod(
-                      title: 'Bulanan',
-                      value: 'Bulanan',
+                      title: '15 Laporan Terakhir',
+                      value: '15',
                       groupValue: controller.selectedReportPoint.value,
-                      onChanged: (value) => controller.selectedReportPoint(value),
+                      onChanged: (value) =>
+                          controller.selectedReportPoint(value),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    CustomRadioButtonPeriod(
+                      title: '30 Laporan Terakhir',
+                      value: '30',
+                      groupValue: controller.selectedReportPoint.value,
+                      onChanged: (value) =>
+                          controller.selectedReportPoint(value),
                     ),
                   ],
                 ),
@@ -90,7 +102,10 @@ class BottomsheetSelectPeriodReport extends GetView<DetailListStudentPageControl
               text: 'Tutup',
               backgroundColor: blackColor,
               textColor: whiteColor,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () async {
+                await controller.showStatisticDailyReportByUserId();
+                Get.back();
+              },
             ),
           ],
         ),

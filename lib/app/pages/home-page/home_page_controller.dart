@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/emergency-note/models/show_latest_emergency_note_model.dart';
 import 'package:fun_education_app_teacher/app/api/emergency-note/models/show_latest_emergency_note_response.dart';
@@ -37,6 +38,7 @@ class HomePageController extends GetxController {
     showAllIncomingShift();
     showCurrentUserTeacher();
     showLatestEmergencyNote();
+    initNotification();
   }
 
   Future showCurrentUserTeacher() async {
@@ -118,5 +120,11 @@ class HomePageController extends GetxController {
 
   void openDrawer() {
     scaffoldKey.currentState?.openDrawer();
+  }
+
+  Future<void> initNotification() async {
+    await FirebaseMessaging.instance.requestPermission();
+    final token = await FirebaseMessaging.instance.getToken();
+    print('Token Firebase: $token');
   }
 }

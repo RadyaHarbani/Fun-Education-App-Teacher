@@ -14,12 +14,12 @@ String showByUserIdResponseToJson(ShowByUserIdResponse data) =>
 
 class ShowByUserIdResponse {
   List<ShowGradeModel> data;
-  String note;
+  String? note;
   int totalPoint;
 
   ShowByUserIdResponse({
     required this.data,
-    required this.note,
+    this.note,
     required this.totalPoint,
   });
 

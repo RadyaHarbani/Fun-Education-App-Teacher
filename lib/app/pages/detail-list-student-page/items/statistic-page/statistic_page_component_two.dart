@@ -2,17 +2,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/components/bottomsheet_select_period_all_points.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/components/bottomsheet_select_period_task_points.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_controller.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/report-point-chart-widget/report_titles_chart.dart';
-import 'package:fun_education_app_teacher/app/pages/transaction-history-page/widgets/transaction-history-chart-widget/transaction_titles_chart.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/widgets/task-chart-widget/task_line_chart.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class StatisticPageComponentTwo
     extends GetView<DetailListStudentPageController> {
-  final TransactionTitleChart transactionTitleChart = TransactionTitleChart();
-  final ReportTitlesChart reportTitlesChart = ReportTitlesChart();
+  final TaskLineChart taskLineChart = TaskLineChart();
+
   @override
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
@@ -30,7 +29,7 @@ class StatisticPageComponentTwo
                 SizedBox(width: width * 0.02),
                 AutoSizeText.rich(
                   TextSpan(
-                    text: 'Point Keseluruhan',
+                    text: 'Point Laporan',
                     style: tsBodyMediumSemibold(blackColor),
                   ),
                   textAlign: TextAlign.start,
@@ -43,7 +42,7 @@ class StatisticPageComponentTwo
                   context: context,
                   isScrollControlled: true,
                   backgroundColor: whiteColor,
-                  builder: (context) => BottomsheetSelectPeriodAllPoints(),
+                  builder: (context) => BottomsheetSelectPeriodTaskPoints(),
                 );
               },
               child: Container(
@@ -61,7 +60,7 @@ class StatisticPageComponentTwo
                   child: Row(
                     children: [
                       Obx(() => AutoSizeText(
-                            controller.selectedAllPoints.value.toString(),
+                            '${controller.selectedTaskPoints.value.toString()} Laporan',
                             group: AutoSizeGroup(),
                             maxLines: 1,
                             style: tsBodySmallSemibold(blackColor),
@@ -79,26 +78,26 @@ class StatisticPageComponentTwo
             ),
           ],
         ),
-        SizedBox(height: height * 0.03),
+        SizedBox(height: height * 0.02),
         Container(
           padding: EdgeInsets.symmetric(
             horizontal: width * 0.05,
             vertical: height * 0.025,
           ),
           decoration: BoxDecoration(
-            color: greyColor.withOpacity(0.05),
             borderRadius: BorderRadius.circular(15),
+            color: greyColor.withOpacity(0.05),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Obx(
-                () {
+          child: AspectRatio(
+            aspectRatio: 0.6,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Obx(() {
                   return AutoSizeText.rich(
-                    maxLines: 2,
-                    group: AutoSizeGroup(),
                     TextSpan(
-                      text: '${controller.selectedAllPoints.value}\n',
+                      text:
+                          '${controller.selectedReportPoint.value} Laporan (Terakhir)\n',
                       style: tsBodyMediumSemibold(blackColor)
                           .copyWith(height: 1.5),
                       children: [
@@ -108,127 +107,77 @@ class StatisticPageComponentTwo
                         ),
                       ],
                     ),
+                    maxLines: 2,
+                    group: AutoSizeGroup(),
                   );
-                },
-              ),
-              SizedBox(height: height * 0.02),
-              Row(
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                }),
+                SizedBox(height: height * 0.02),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.05,
+                    vertical: height * 0.008,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: whiteColor,
+                  ),
+                  child: Row(
                     children: [
-                      CircleAvatar(
-                        radius: 7,
-                        backgroundColor: blackColor,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AutoSizeText(
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            '-',
+                            style: tsTitleLargeSemibold(dangerColor),
+                          ),
+                          SizedBox(width: width * 0.02),
+                          AutoSizeText(
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            'Rata - Rata',
+                            style: tsBodySmallRegular(blackColor),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: width * 0.02),
-                      AutoSizeText(
-                        group: AutoSizeGroup(),
-                        maxLines: 1,
-                        'Point Tugas',
-                        style: tsBodySmallRegular(blackColor),
-                      ),
+                      SizedBox(width: width * 0.05),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 6,
+                            backgroundColor: successColor,
+                          ),
+                          SizedBox(width: width * 0.02),
+                          AutoSizeText(
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            'Point Laporan',
+                            style: tsBodySmallRegular(blackColor),
+                          ),
+                        ],
+                      )
                     ],
                   ),
-                  SizedBox(width: width * 0.04),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 7,
-                        backgroundColor: primaryColor,
-                      ),
-                      SizedBox(width: width * 0.02),
-                      AutoSizeText(
-                        group: AutoSizeGroup(),
-                        maxLines: 1,
-                        'Point Laporan',
-                        style: tsBodySmallRegular(blackColor),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(height: height * 0.03),
-              Obx(
-                () {
-                  return AspectRatio(
-                    aspectRatio: 1.3,
-                    child: BarChart(
-                      BarChartData(
-                        alignment: BarChartAlignment.spaceAround,
-                        maxY: 2000,
-                        barTouchData: BarTouchData(
-                            touchTooltipData: BarTouchTooltipData(
-                          getTooltipColor: (_) => blackColor.withOpacity(0.9),
-                          getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                            reportTitlesChart.getWeekDay(
-                              group.x.toInt(),
-                            );
-
-                            String reportPoints =
-                                group.barRods[0].toY.toInt().toString();
-                            String taskPoints = (group.barRods[1].toY -
-                                    0.2 -
-                                    group.barRods[0].toY)
-                                .toInt()
-                                .toString();
-
-                            return BarTooltipItem(
-                              '${controller.selectedAllPoints.value == 'Mingguan' ? reportTitlesChart.getWeekDay(group.x.toInt()) : reportTitlesChart.getWeekNumber(group.x.toInt())}\n',
-                              tsBodySmallSemibold(whiteColor),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'Tugas: $taskPoints\n',
-                                  style: tsBodySmallSemibold(successColor),
-                                ),
-                                TextSpan(
-                                  text: 'Laporan: $reportPoints',
-                                  style: tsBodySmallSemibold(dangerColor),
-                                ),
-                              ],
-                            );
-                          },
-                        )),
-                        titlesData: FlTitlesData(
-                          show: true,
-                          rightTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          topTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              reservedSize:
-                                  controller.selectedAllPoints.value ==
-                                          'Mingguan'
-                                      ? width * 0.07
-                                      : width * 0.12,
-                              getTitlesWidget:
-                                  controller.selectedAllPoints.value ==
-                                          'Mingguan'
-                                      ? transactionTitleChart.weeklyTitles
-                                      : transactionTitleChart.monthlyTitles,
-                            ),
-                          ),
-                          leftTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                        ),
-                        borderData: FlBorderData(show: false),
-                        barGroups:
-                            controller.selectedAllPoints.value == 'Mingguan'
-                                ? controller.mingguanData
-                                : controller.bulananData,
-                        gridData: const FlGridData(show: false),
-                      ),
+                ),
+                SizedBox(height: height * 0.04),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.01,
                     ),
-                  );
-                },
-              )
-            ],
+                    child: Stack(
+                      children: [
+                        LineChart(
+                          taskLineChart.taskLineChart(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

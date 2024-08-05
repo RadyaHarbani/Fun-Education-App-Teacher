@@ -40,6 +40,8 @@ import 'package:fun_education_app_teacher/app/pages/login-page/login_page_bindin
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_view.dart';
+import 'package:fun_education_app_teacher/app/pages/report-history-page/report_history_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/report-history-page/report_history_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_view.dart';
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/transaction_history_page_binding.dart';
@@ -54,7 +56,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN_PAGE;
+  static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
@@ -131,6 +133,11 @@ class AppPages {
       name: _Paths.DETAIL_REPORT_PAGE,
       page: () => DetailReportPageView(),
       binding: DetailReportPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.REPORT_HISTORY_PAGE,
+      page: () => ReportHistoryPageView(),
+      binding: ReportHistoryPageBinding(),
     ),
     GetPage(
       name: _Paths.HOME_SAVING_PAGE,

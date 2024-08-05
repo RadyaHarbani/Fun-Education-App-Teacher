@@ -6,9 +6,9 @@ import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/det
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
-class BottomsheetSelectPeriodAllPoints
+class BottomsheetSelectPeriodTaskPoints
     extends GetView<DetailListStudentPageController> {
-  const BottomsheetSelectPeriodAllPoints({super.key});
+  const BottomsheetSelectPeriodTaskPoints({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class BottomsheetSelectPeriodAllPoints
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.4,
+      height: height * 0.45,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -71,16 +71,27 @@ class BottomsheetSelectPeriodAllPoints
                 () => Column(
                   children: [
                     CustomRadioButtonPeriod(
-                      title: 'Mingguan',
-                      value: 'Mingguan',
-                      groupValue: controller.selectedAllPoints.value,
-                      onChanged: (value) => controller.selectedAllPoints(value),
+                      title: '5 Laporan Terakhir',
+                      value: '5',
+                      groupValue: controller.selectedTaskPoints.value,
+                      onChanged: (value) =>
+                          controller.selectedTaskPoints(value),
                     ),
+                    SizedBox(height: height * 0.01),
                     CustomRadioButtonPeriod(
-                      title: 'Bulanan',
-                      value: 'Bulanan',
-                      groupValue: controller.selectedAllPoints.value,
-                      onChanged: (value) => controller.selectedAllPoints(value),
+                      title: '15 Laporan Terakhir',
+                      value: '15',
+                      groupValue: controller.selectedTaskPoints.value,
+                      onChanged: (value) =>
+                          controller.selectedTaskPoints(value),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    CustomRadioButtonPeriod(
+                      title: '30 Laporan Terakhir',
+                      value: '30',
+                      groupValue: controller.selectedTaskPoints.value,
+                      onChanged: (value) =>
+                          controller.selectedTaskPoints(value),
                     ),
                   ],
                 ),
@@ -91,7 +102,10 @@ class BottomsheetSelectPeriodAllPoints
               text: 'Tutup',
               backgroundColor: blackColor,
               textColor: whiteColor,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () async {
+                await controller.showStatisticTaskByUserId();
+                Get.back();
+              },
             ),
           ],
         ),

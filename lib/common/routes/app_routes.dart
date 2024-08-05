@@ -16,6 +16,7 @@ abstract class Routes {
   static const ADD_REPORT_PAGE = _Paths.ADD_REPORT_PAGE;
   static const EDIT_REPORT_PAGE = _Paths.EDIT_REPORT_PAGE;
   static const DETAIL_REPORT_PAGE = _Paths.DETAIL_REPORT_PAGE;
+  static const REPORT_HISTORY_PAGE = _Paths.REPORT_HISTORY_PAGE;
   static const HOME_SAVING_PAGE = _Paths.HOME_SAVING_PAGE;
   static const LIST_DETAIL_SAVING_PAGE = _Paths.LIST_DETAIL_SAVING_PAGE;
   static const DETAIL_SAVING_PAGE = _Paths.DETAIL_SAVING_PAGE;
@@ -46,6 +47,7 @@ abstract class _Paths {
   static const ADD_REPORT_PAGE = '/add-report-page';
   static const EDIT_REPORT_PAGE = '/edit-report-page';
   static const DETAIL_REPORT_PAGE = '/detail-report-page';
+  static const REPORT_HISTORY_PAGE = '/report-history-page';
   static const HOME_SAVING_PAGE = '/home-saving-page';
   static const LIST_DETAIL_SAVING_PAGE = '/list-detail-saving-page';
   static const DETAIL_SAVING_PAGE = '/detail-saving-page';

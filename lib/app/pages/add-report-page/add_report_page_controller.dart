@@ -72,6 +72,7 @@ class AddReportPageController extends GetxController {
 
       for (SelectedStudentModel student in selectedStudents) {
         final response = await dailyReportService.postStoreDailyReportByAdmin(
+          teachersNote.text.isNotEmpty ? true : false,
           student.id,
           activities,
           teachersNote.text,
@@ -94,7 +95,7 @@ class AddReportPageController extends GetxController {
 
       Get.snackbar(
         'Upload Successful',
-        'Foto berhasil ditambahkan',
+        'Laporan berhasil ditambahkan',
         backgroundColor: successColor,
         colorText: whiteColor,
       );
@@ -104,7 +105,7 @@ class AddReportPageController extends GetxController {
       print('Upload failed: $e');
       Get.snackbar(
         'Upload Failed',
-        'Foto gagal ditambahkan',
+        'Laporan gagal ditambahkan',
         backgroundColor: dangerColor,
         colorText: whiteColor,
       );
