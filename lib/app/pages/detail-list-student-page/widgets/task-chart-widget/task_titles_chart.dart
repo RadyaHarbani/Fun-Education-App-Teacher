@@ -43,19 +43,19 @@ class TaskTitleChart {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = detailListStudentPageController.bottomTitlesTask[0];
+        text = detailListStudentPageController.bottomTitlesTask[0] ?? '';
         break;
       case 1:
-        text = detailListStudentPageController.bottomTitlesTask[1];
+        text = detailListStudentPageController.bottomTitlesTask[1] ?? '';
         break;
       case 2:
-        text = detailListStudentPageController.bottomTitlesTask[2];
+        text = detailListStudentPageController.bottomTitlesTask[2] ?? '';
         break;
       case 3:
-        text = detailListStudentPageController.bottomTitlesTask[3];
+        text = detailListStudentPageController.bottomTitlesTask[3] ?? '';
         break;
       case 4:
-        text = detailListStudentPageController.bottomTitlesTask[4];
+        text = detailListStudentPageController.bottomTitlesTask[4] ?? '';
 
       default:
         text = '';
@@ -76,19 +76,19 @@ class TaskTitleChart {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = detailListStudentPageController.bottomTitlesTask[0];
+        text = detailListStudentPageController.bottomTitlesTask[0] ?? '';
         break;
       case 4:
-        text = detailListStudentPageController.bottomTitlesTask[1];
+        text = detailListStudentPageController.bottomTitlesTask[1] ?? '';
         break;
       case 7:
-        text = detailListStudentPageController.bottomTitlesTask[2];
+        text = detailListStudentPageController.bottomTitlesTask[2] ?? '';
         break;
       case 10:
-        text = detailListStudentPageController.bottomTitlesTask[3];
+        text = detailListStudentPageController.bottomTitlesTask[3] ?? '';
         break;
       case 13:
-        text = detailListStudentPageController.bottomTitlesTask[4];
+        text = detailListStudentPageController.bottomTitlesTask[4] ?? '';
 
       default:
         text = '';
@@ -109,19 +109,19 @@ class TaskTitleChart {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = detailListStudentPageController.bottomTitlesTask[0];
+        text = detailListStudentPageController.bottomTitlesTask[0] ?? '';
         break;
       case 7:
-        text = detailListStudentPageController.bottomTitlesTask[1];
+        text = detailListStudentPageController.bottomTitlesTask[1] ?? '';
         break;
       case 13:
-        text = detailListStudentPageController.bottomTitlesTask[2];
+        text = detailListStudentPageController.bottomTitlesTask[2] ?? '';
         break;
       case 19:
-        text = detailListStudentPageController.bottomTitlesTask[3];
+        text = detailListStudentPageController.bottomTitlesTask[3] ?? '';
         break;
       case 25:
-        text = detailListStudentPageController.bottomTitlesTask[4];
+        text = detailListStudentPageController.bottomTitlesTask[4] ?? '';
 
       default:
         text = '';

@@ -97,7 +97,7 @@ class StatisticPageComponentTwo
                   return AutoSizeText.rich(
                     TextSpan(
                       text:
-                          '${controller.selectedReportPoint.value} Tugas (Terakhir)\n',
+                          '${controller.selectedTaskPoints.value} Tugas (Terakhir)\n',
                       style: tsBodyMediumSemibold(blackColor)
                           .copyWith(height: 1.5),
                       children: [

@@ -46,12 +46,12 @@ class DetailListStudentPageController extends GetxController
 
   var spots = <FlSpot>[].obs;
   var touchedTitle = <DateTime>[].obs;
-  var bottomTitles = <String>[].obs;
+  var bottomTitles = <String?>[].obs;
   var maxX = 0.0.obs;
 
   var spotsTask = <FlSpot>[].obs;
   var touchedTitleTask = <String>[].obs;
-  var bottomTitlesTask = <String>[].obs;
+  var bottomTitlesTask = <String?>[].obs;
   var maxXTask = 0.0.obs;
 
   @override
@@ -155,23 +155,19 @@ class DetailListStudentPageController extends GetxController
       statisticDailyReportModel.value = statisticDailyReportResponse!.data;
       print(statisticDailyReportModel);
 
-      final List<FlSpot> newSpots = statisticDailyReportResponse!.data
+      spots.value = statisticDailyReportResponse!.data
           .map((e) => FlSpot(
                 statisticDailyReportModel.indexOf(e).toDouble(),
                 e.totalPoint!.toDouble(),
               ))
           .toList();
-      final List<DateTime> newDateTime =
+      touchedTitle.value =
           statisticDailyReportResponse!.data.map((e) => e.date!).toList();
-      final List<String> newBottomTitles = statisticDailyReportResponse!
-          .bottomTitle
+      bottomTitles.value = statisticDailyReportResponse!.bottomTitle
           .map((e) => e.date!)
           .toList();
+      maxX.value = spots.length - 1.0;
 
-      spots.value = newSpots;
-      touchedTitle.value = newDateTime;
-      bottomTitles.value = newBottomTitles;
-      maxX.value = newSpots.length - 1.0;
       update();
     } catch (e) {
       print(e);
@@ -188,21 +184,18 @@ class DetailListStudentPageController extends GetxController
       statisticTaskModel.value = statisticTaskResponse!.data;
       print(statisticTaskModel);
 
-      final List<FlSpot> newSpotsTask = statisticTaskResponse!.data
+      spotsTask.value = statisticTaskResponse!.data
           .map((e) => FlSpot(
                 statisticTaskModel.indexOf(e).toDouble(),
                 e.totalPoint!.toDouble(),
               ))
           .toList();
-      final List<String> newTouchedTitleTask =
+      touchedTitleTask.value =
           statisticTaskResponse!.data.map((e) => e.title!).toList();
-      final List<String> newBottomTitlesTask =
+      bottomTitlesTask.value =
           statisticTaskResponse!.bottomTitle.map((e) => e.date!).toList();
+      maxXTask.value = spotsTask.length - 1.0;
 
-      spotsTask.value = newSpotsTask;
-      touchedTitleTask.value = newTouchedTitleTask;
-      bottomTitlesTask.value = newBottomTitlesTask;
-      maxXTask.value = newSpotsTask.length - 1.0;
       update();
     } catch (e) {
       print(e);

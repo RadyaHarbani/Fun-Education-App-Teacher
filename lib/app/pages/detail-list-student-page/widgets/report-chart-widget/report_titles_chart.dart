@@ -43,19 +43,19 @@ class ReportTitleChart {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = detailListStudentPageController.bottomTitles[0];
+        text = detailListStudentPageController.bottomTitles[0] ?? '';
         break;
       case 1:
-        text = detailListStudentPageController.bottomTitles[1];
+        text = detailListStudentPageController.bottomTitles[1] ?? '';
         break;
       case 2:
-        text = detailListStudentPageController.bottomTitles[2];
+        text = detailListStudentPageController.bottomTitles[2] ?? '';
         break;
       case 3:
-        text = detailListStudentPageController.bottomTitles[3];
+        text = detailListStudentPageController.bottomTitles[3] ?? '';
         break;
       case 4:
-        text = detailListStudentPageController.bottomTitles[4];
+        text = detailListStudentPageController.bottomTitles[4] ?? '';
 
       default:
         text = '';
@@ -76,19 +76,19 @@ class ReportTitleChart {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = detailListStudentPageController.bottomTitles[0];
+        text = detailListStudentPageController.bottomTitles[0] ?? '';
         break;
       case 4:
-        text = detailListStudentPageController.bottomTitles[1];
+        text = detailListStudentPageController.bottomTitles[1] ?? '';
         break;
       case 7:
-        text = detailListStudentPageController.bottomTitles[2];
+        text = detailListStudentPageController.bottomTitles[2] ?? '';
         break;
       case 10:
-        text = detailListStudentPageController.bottomTitles[3];
+        text = detailListStudentPageController.bottomTitles[3] ?? '';
         break;
       case 13:
-        text = detailListStudentPageController.bottomTitles[4];
+        text = detailListStudentPageController.bottomTitles[4] ?? '';
 
       default:
         text = '';
@@ -109,19 +109,19 @@ class ReportTitleChart {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = detailListStudentPageController.bottomTitles[0];
+        text = detailListStudentPageController.bottomTitles[0] ?? '';
         break;
       case 7:
-        text = detailListStudentPageController.bottomTitles[1];
+        text = detailListStudentPageController.bottomTitles[1] ?? '';
         break;
       case 13:
-        text = detailListStudentPageController.bottomTitles[2];
+        text = detailListStudentPageController.bottomTitles[2] ?? '';
         break;
       case 19:
-        text = detailListStudentPageController.bottomTitles[3];
+        text = detailListStudentPageController.bottomTitles[3] ?? '';
         break;
       case 25:
-        text = detailListStudentPageController.bottomTitles[4];
+        text = detailListStudentPageController.bottomTitles[4] ?? '';
 
       default:
         text = '';
