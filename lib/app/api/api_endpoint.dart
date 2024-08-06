@@ -50,6 +50,8 @@ class ApiEndPoint {
   static String deleteDailyReportByAdmin = '$baseUrlLaporanHarian/delete';
   static String showStatisticDailyReportByUserId =
       '$baseUrlLaporanHarian/statistic';
+  static String showAvailableDateByUserId =
+      '$baseUrlLaporanHarian/show-available';
 
   //Tabungan
   static String showCurrentTabungan = '$baseUrlTabungan/show-current';

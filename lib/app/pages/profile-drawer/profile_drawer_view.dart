@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
+import 'package:fun_education_app_teacher/app/pages/home-page/home_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class ProfileDrawerView extends StatelessWidget {
   final ProfileDrawerController controller = Get.put(ProfileDrawerController());
+  final HomePageController homePageController = Get.put(HomePageController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,10 @@ class ProfileDrawerView extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: greyColor,
                     borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            '${homePageController.showCurrentUserModel.value.profilePicture}'),
+                        fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(width: width * 0.03),
@@ -61,7 +67,7 @@ class ProfileDrawerView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Tuti Caidah',
+                      '${homePageController.showCurrentUserModel.value.fullName}',
                       style: tsBodyMediumSemibold(blackColor),
                     ),
                     Text(

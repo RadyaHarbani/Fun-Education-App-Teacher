@@ -30,7 +30,14 @@ class DetailListStudentPageComponentTwo
             textColor: whiteColor,
             icon: Icons.arrow_forward_ios_rounded,
             onPressed: () {
-              Get.toNamed(Routes.REPORT_HISTORY_PAGE);
+              Get.toNamed(
+                Routes.REPORT_HISTORY_PAGE,
+                arguments: {
+                  'userId': controller.detailInformationUser.value.id,
+                  'userName': controller.detailInformationUser.value.fullName,
+                  'incomingShift': controller.detailInformationUser.value.shift,
+                },
+              );
             },
           ),
           SizedBox(height: height * 0.05),
