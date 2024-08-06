@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class TaskTitleChart {
   DetailListStudentPageController detailListStudentPageController =
       Get.put(DetailListStudentPageController());
+
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     TextStyle style = tsBodySmallRegular(blackColor);
     String text;
@@ -28,6 +29,7 @@ class TaskTitleChart {
         break;
       case 100:
         text = '100';
+        break;
       default:
         return Container();
     }
@@ -39,93 +41,10 @@ class TaskTitleChart {
     );
   }
 
-  Widget bottomTitleWidgets5Data(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = detailListStudentPageController.bottomTitlesTask[0] ?? '';
-        break;
-      case 1:
-        text = detailListStudentPageController.bottomTitlesTask[1] ?? '';
-        break;
-      case 2:
-        text = detailListStudentPageController.bottomTitlesTask[2] ?? '';
-        break;
-      case 3:
-        text = detailListStudentPageController.bottomTitlesTask[3] ?? '';
-        break;
-      case 4:
-        text = detailListStudentPageController.bottomTitlesTask[4] ?? '';
-
-      default:
-        text = '';
-        break;
-    }
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(
-        text,
-        style: tsLabelMediumSemibold(blackColor),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
-  Widget bottomTitleWidgets15Data(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = detailListStudentPageController.bottomTitlesTask[0] ?? '';
-        break;
-      case 4:
-        text = detailListStudentPageController.bottomTitlesTask[1] ?? '';
-        break;
-      case 7:
-        text = detailListStudentPageController.bottomTitlesTask[2] ?? '';
-        break;
-      case 10:
-        text = detailListStudentPageController.bottomTitlesTask[3] ?? '';
-        break;
-      case 13:
-        text = detailListStudentPageController.bottomTitlesTask[4] ?? '';
-
-      default:
-        text = '';
-        break;
-    }
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(
-        text,
-        style: tsLabelMediumSemibold(blackColor),
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
-
-  Widget bottomTitleWidgets30Data(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = detailListStudentPageController.bottomTitlesTask[0] ?? '';
-        break;
-      case 7:
-        text = detailListStudentPageController.bottomTitlesTask[1] ?? '';
-        break;
-      case 13:
-        text = detailListStudentPageController.bottomTitlesTask[2] ?? '';
-        break;
-      case 19:
-        text = detailListStudentPageController.bottomTitlesTask[3] ?? '';
-        break;
-      case 25:
-        text = detailListStudentPageController.bottomTitlesTask[4] ?? '';
-
-      default:
-        text = '';
-        break;
+  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+    String text = '';
+    if (value.toInt() < detailListStudentPageController.bottomTitlesTask.length) {
+      text = detailListStudentPageController.bottomTitlesTask[value.toInt()] ?? '';
     }
 
     return SideTitleWidget(

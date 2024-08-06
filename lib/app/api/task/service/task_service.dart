@@ -56,6 +56,8 @@ class TaskService {
     try {
       final response = await _dioInstance.getRequest(
         endpoint: '${ApiEndPoint.showByTaskId}$taskId',
+        isAuthorize: true,
+        tokenType: 'teacher',
       );
       return response;
     } catch (e) {

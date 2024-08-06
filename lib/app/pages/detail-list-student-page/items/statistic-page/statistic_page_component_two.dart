@@ -167,13 +167,11 @@ class StatisticPageComponentTwo
                     padding: EdgeInsets.symmetric(
                       horizontal: width * 0.01,
                     ),
-                    child: Stack(
-                      children: [
-                        LineChart(
-                          taskLineChart.taskLineChart(),
-                        ),
-                      ],
-                    ),
+                    child: Obx(() => controller.bottomTitlesTask.isEmpty
+                        ? Text('Tidak Ada data')
+                        : LineChart(
+                            taskLineChart.taskLineChart(),
+                          )),
                   ),
                 ),
               ],

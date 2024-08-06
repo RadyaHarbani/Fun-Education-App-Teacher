@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+//DATE TIME HASH CODE
+int getHashCode(DateTime key) {
+  return key.day * 1000000 + key.month * 10000 + key.year;
+}
+
 // COLORS
 const Color transparentColor = Colors.transparent;
 const Color backgroundColor = Color(0xFFF5F6FB);

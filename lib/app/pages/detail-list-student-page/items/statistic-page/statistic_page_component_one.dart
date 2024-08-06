@@ -167,13 +167,11 @@ class StatisticPageComponentOne
                     padding: EdgeInsets.symmetric(
                       horizontal: width * 0.01,
                     ),
-                    child: Stack(
-                      children: [
-                        Obx(() => LineChart(
-                              reportBarChart.reportLineChart(),
-                            )),
-                      ],
-                    ),
+                    child: Obx(() => controller.bottomTitles.isEmpty
+                        ? Text('Tidak Ada data')
+                        : LineChart(
+                            reportBarChart.reportLineChart(),
+                          )),
                   ),
                 ),
               ],

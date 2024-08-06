@@ -46,7 +46,6 @@ class HomePageController extends GetxController {
       final response = await userService.getShowCurrentUserTeacher();
       showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
       showCurrentUserModel.value = showCurrentUserResponse!.data;
-      // isLoading.value = false;
       update();
     } catch (e) {
       print(e);
@@ -62,7 +61,6 @@ class HomePageController extends GetxController {
           showLatestEmergencyNoteResponse!.data;
       editEmergencyNoteController.text =
           showLatestEmergencyNoteModel.value.catatan ?? '';
-      // isLoading.value = false;
       update();
     } catch (e) {
       print(e);

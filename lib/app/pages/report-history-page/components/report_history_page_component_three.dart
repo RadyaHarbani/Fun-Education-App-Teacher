@@ -1,8 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-report-page/widgets/report_list_item.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-report-page/widgets/total_point_item.dart';
 import 'package:fun_education_app_teacher/app/pages/report-history-page/report_history_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ReportHistoryPageComponentThree
     extends GetView<ReportHistoryPageController> {
@@ -12,28 +14,30 @@ class ReportHistoryPageComponentThree
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double height = mediaQuery.height;
-    final double width = mediaQuery.width;
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: width * 0.035,
-        vertical: height * 0.01,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: greyColor.withOpacity(0.05),
-      ),
-      child: ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return ReportListItem(
-                no: index + 1,
-                text: 'Test',
-                point: 'A',
-              );
-            },
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Obx(() => AutoSizeText.rich(
+              group: AutoSizeGroup(),
+              maxLines: 1,
+              TextSpan(
+                text:
+                    '${DateFormat('EEEE,').format(controller.selectedDay.value)} ',
+                style: tsBodyLargeSemibold(blackColor),
+                children: [
+                  TextSpan(
+                    text:
+                        '${DateFormat('dd MMMM yyyy').format(controller.selectedDay.value)}',
+                    style: tsBodyLargeRegular(blackColor),
+                  ),
+                ],
+              ),
+            )),
+        SizedBox(height: height * 0.02),
+        Obx(() => TotalPointItem(
+              totalPoint: controller.userGrade.value,
+            )),
+      ],
     );
   }
 }

@@ -16,7 +16,7 @@ class BottomsheetSelectPeriodReport
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.45,
+      height: height * 0.5,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -79,8 +79,16 @@ class BottomsheetSelectPeriodReport
                     ),
                     SizedBox(height: height * 0.01),
                     CustomRadioButtonPeriod(
-                      title: '15 Laporan Terakhir',
-                      value: '15',
+                      title: '10 Laporan Terakhir',
+                      value: '10',
+                      groupValue: controller.selectedReportPoint.value,
+                      onChanged: (value) =>
+                          controller.selectedReportPoint(value),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    CustomRadioButtonPeriod(
+                      title: '20 Laporan Terakhir',
+                      value: '20',
                       groupValue: controller.selectedReportPoint.value,
                       onChanged: (value) =>
                           controller.selectedReportPoint(value),

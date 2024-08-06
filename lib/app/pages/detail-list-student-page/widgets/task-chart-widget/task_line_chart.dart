@@ -52,12 +52,15 @@ class TaskLineChart {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 40,
-            getTitlesWidget:
-                detailListStudentPageController.selectedTaskPoints == '5'
-                    ? taskTitleChart.bottomTitleWidgets5Data
-                    : detailListStudentPageController.selectedTaskPoints == '15'
-                        ? taskTitleChart.bottomTitleWidgets15Data
-                        : taskTitleChart.bottomTitleWidgets30Data,
+            // getTitlesWidget:
+            //     detailListStudentPageController.selectedTaskPoints == '5'
+            //         ? taskTitleChart.bottomTitleWidgets5Data
+            //         : detailListStudentPageController.selectedTaskPoints == '10'
+            //             ? taskTitleChart.bottomTitleWidgets10Data
+            //             : detailListStudentPageController.selectedTaskPoints == '20'
+            //                 ? taskTitleChart.bottomTitleWidgets20Data
+            //                 : taskTitleChart.bottomTitleWidgets30Data,
+            getTitlesWidget: taskTitleChart.bottomTitleWidgets,
             interval: 1,
           ),
         ),

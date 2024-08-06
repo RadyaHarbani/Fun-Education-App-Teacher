@@ -113,4 +113,22 @@ class DailyReportService {
       throw Exception(e);
     }
   }
+
+  Future<Response> getShowAvailableDateByUserId(
+    String userId,
+  ) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: ApiEndPoint.showAvailableDateByUserId,
+        queryParameters: {
+          'user_id': userId,
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

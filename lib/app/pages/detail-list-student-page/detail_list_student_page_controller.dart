@@ -153,19 +153,21 @@ class DetailListStudentPageController extends GetxController
       statisticDailyReportResponse =
           StatisticDailyReportResponse.fromJson(response.data);
       statisticDailyReportModel.value = statisticDailyReportResponse!.data;
-      print(statisticDailyReportModel);
 
-      spots.value = statisticDailyReportResponse!.data
+      spots.value = statisticDailyReportModel
           .map((e) => FlSpot(
                 statisticDailyReportModel.indexOf(e).toDouble(),
                 e.totalPoint!.toDouble(),
               ))
           .toList();
       touchedTitle.value =
-          statisticDailyReportResponse!.data.map((e) => e.date!).toList();
-      bottomTitles.value = statisticDailyReportResponse!.bottomTitle
-          .map((e) => e.date!)
-          .toList();
+          statisticDailyReportModel.map((e) => e.date!).toList();
+
+      bottomTitles.value = List<String?>.filled(spots.length, null);
+      for (var title in statisticDailyReportResponse!.bottomTitle) {
+        bottomTitles[title.bottomTitleCase!] = title.date;
+      }
+
       maxX.value = spots.length - 1.0;
 
       update();
@@ -182,18 +184,20 @@ class DetailListStudentPageController extends GetxController
       );
       statisticTaskResponse = StatisticTaskResponse.fromJson(response.data);
       statisticTaskModel.value = statisticTaskResponse!.data;
-      print(statisticTaskModel);
 
-      spotsTask.value = statisticTaskResponse!.data
+      spotsTask.value = statisticTaskModel
           .map((e) => FlSpot(
                 statisticTaskModel.indexOf(e).toDouble(),
                 e.totalPoint!.toDouble(),
               ))
           .toList();
-      touchedTitleTask.value =
-          statisticTaskResponse!.data.map((e) => e.title!).toList();
-      bottomTitlesTask.value =
-          statisticTaskResponse!.bottomTitle.map((e) => e.date!).toList();
+      touchedTitleTask.value = statisticTaskModel.map((e) => e.title!).toList();
+
+      bottomTitlesTask.value = List<String?>.filled(spotsTask.length, null);
+      for (var title in statisticTaskResponse!.bottomTitle) {
+        bottomTitlesTask[title.bottomTitleCase!] = title.date;
+      }
+
       maxXTask.value = spotsTask.length - 1.0;
 
       update();
