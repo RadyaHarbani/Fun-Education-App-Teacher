@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/widgets/outcoming_submission_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -49,25 +50,41 @@ class DetailSavingPageComponentTwo extends GetView<DetailSavingPageController> {
                 style: tsBodySmallRegular(blackColor),
               ),
               SizedBox(height: height * 0.02),
-              Obx(() =>
-                  controller.savingSubmissionModel.value.status == 'Pending'
-                      ? OutcomingSubmissionItem(
-                          titleSubmission:
-                              controller.savingSubmissionModel.value.category ==
-                                      'SPP Bulanan'
-                                  ? 'SPP Bulanan'
-                                  : 'Kegiatan Belajar Diluar',
-                          onTapClose: () {
-                            controller.updateStatusSavingSubmission('Rejected');
-                          },
-                          onTapCheck: () {
-                            controller.updateStatusSavingSubmission('Accepted');
-                          },
-                        )
-                      : SizedBox(
-                          width: 0,
-                          height: 0,
-                        )),
+              Obx(
+                () => controller.savingSubmissionModel.value.status == 'Pending'
+                    ? OutcomingSubmissionItem(
+                        titleSubmission:
+                            controller.savingSubmissionModel.value.category ==
+                                    'SPP'
+                                ? 'SPP Bulanan'
+                                : 'Kegiatan Belajar Diluar',
+                        onTapClose: () {
+                          controller.updateStatusSavingSubmission('Rejected');
+                        },
+                        onTapCheck: () {
+                          controller.savingSubmissionModel.value.category ==
+                                  'SPP'
+                              ? controller
+                                  .updateStatusSavingSubmission('Accepted')
+                              : controller.updateStatusSavingSubmission(
+                                  'Pending Accept');
+                        },
+                      )
+                    : SizedBox(
+                        width: 0,
+                        height: 0,
+                      ),
+              ),
+              Obx(
+                () => controller.savingSubmissionModel.value.status ==
+                        'Pending Accept'
+                    ? CommonWarning(
+                        backColor: warningColor,
+                        text:
+                            'Jangan Lupa Mencatat Pengeluaran Untuk Kegiatan Belajar Diluar',
+                      )
+                    : SizedBox(width: 0, height: 0),
+              )
             ],
           ),
         )

@@ -6,6 +6,7 @@ import 'package:fun_education_app_teacher/app/pages/detail_saving_page/component
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailSavingPageView extends GetView<DetailSavingPageController> {
   const DetailSavingPageView({super.key});
@@ -36,26 +37,36 @@ class DetailSavingPageView extends GetView<DetailSavingPageController> {
           style: tsBodyMediumSemibold(whiteColor),
         ),
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DetailSavingPageComponentOne(),
-            SizedBox(height: height * 0.025),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-              child: Column(
-                children: [
-                  DetailSavingPageComponentTwo(),
-                  SizedBox(height: height * 0.03),
-                  DetailSavingPageComponentThree(),
-                  SizedBox(height: height * 0.03),
-                  DetailSavingPageComponentFour(),
-                ],
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await Future.delayed(Duration(milliseconds: 1000));
+          controller.showTotalSavingsByUserId(controller.userId.value);
+          controller.showSavingSubmissionByUserId(controller.userId.value);
+          controller.showTransactionByUserId(controller.userId.value);
+          controller.refreshController.refreshCompleted();
+        },
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DetailSavingPageComponentOne(),
+              SizedBox(height: height * 0.025),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                child: Column(
+                  children: [
+                    DetailSavingPageComponentTwo(),
+                    SizedBox(height: height * 0.03),
+                    DetailSavingPageComponentThree(),
+                    SizedBox(height: height * 0.03),
+                    DetailSavingPageComponentFour(),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
