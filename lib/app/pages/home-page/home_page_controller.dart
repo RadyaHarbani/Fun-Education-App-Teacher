@@ -10,8 +10,10 @@ import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_response.dart';
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePageController extends GetxController {
+  RefreshController refreshController = RefreshController(initialRefresh: false);
   late TextEditingController addEmergencyNoteController;
   late TextEditingController editEmergencyNoteController;
   final scaffoldKey = GlobalKey<ScaffoldState>();

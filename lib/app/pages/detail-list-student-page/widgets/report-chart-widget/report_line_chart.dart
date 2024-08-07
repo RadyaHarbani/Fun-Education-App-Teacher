@@ -53,16 +53,6 @@ class ReportLineChart {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 40,
-            // getTitlesWidget:
-            //     detailListStudentPageController.selectedReportPoint == '5'
-            //         ? reportTitleChart.bottomTitleWidgets5Data
-            //         : detailListStudentPageController.selectedReportPoint ==
-            //                 '10'
-            //             ? reportTitleChart.bottomTitleWidgets10Data
-            //             : detailListStudentPageController.selectedReportPoint ==
-            //                     '20'
-            //                 ? reportTitleChart.bottomTitleWidgets20Data
-            //                 : reportTitleChart.bottomTitleWidgets30Data,
             getTitlesWidget: reportTitleChart.bottomTitleWidgets,
             interval: 1,
           ),

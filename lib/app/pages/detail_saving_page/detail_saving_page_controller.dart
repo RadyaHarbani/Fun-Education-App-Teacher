@@ -11,8 +11,11 @@ import 'package:fun_education_app_teacher/app/api/savings/transaction/models/tra
 import 'package:fun_education_app_teacher/app/api/savings/transaction/service/transaction_service.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailSavingPageController extends GetxController {
+  RefreshController refreshController = RefreshController(initialRefresh: false);
+  
   TotalSavingsService totalSavingsService = TotalSavingsService();
   TotalSavingsResponse? totalSavingsResponse;
   Rx<TotalSavingsModel> totalSavingsModel = TotalSavingsModel().obs;
@@ -117,15 +120,25 @@ class DetailSavingPageController extends GetxController {
     String category,
   ) async {
     try {
+      String? isDescriptionIncome =
+          descriptionIncomingController.text.isNotEmpty
+              ? descriptionIncomingController.text
+              : null;
+      String? isDescriptionOutgoing =
+          descriptionOutgoingController.text.isNotEmpty
+              ? descriptionOutgoingController.text
+              : null;
+
       await transactionService.postStoreTrasactionByAdmin(
+        category == 'income'
+            ? isDescriptionIncome != null
+            : isDescriptionOutgoing != null,
         userId.value,
         category == 'income'
             ? amountIncomingController.text
             : amoutOutgoingController.text,
         category,
-        category == 'income'
-            ? descriptionIncomingController.text
-            : descriptionOutgoingController.text,
+        category == 'income' ? isDescriptionIncome : isDescriptionOutgoing,
       );
       showTransactionByUserId(userId.value);
       showTotalSavingsByUserId(userId.value);
@@ -137,6 +150,11 @@ class DetailSavingPageController extends GetxController {
         backgroundColor: successColor,
         colorText: whiteColor,
       );
+
+      amountIncomingController.clear();
+      descriptionIncomingController.clear();
+      amoutOutgoingController.clear();
+      descriptionOutgoingController.clear();
     } catch (e) {
       print(e);
       Get.snackbar(

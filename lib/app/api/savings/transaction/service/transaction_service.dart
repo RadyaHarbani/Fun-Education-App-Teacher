@@ -35,17 +35,18 @@ class TransactionService {
   }
 
   Future<Response> postStoreTrasactionByAdmin(
+    bool isDescription,
     String userId,
     String amount,
     String category,
-    String description,
+    String? description,
   ) async {
     try {
       final data = {
         'user_id': userId,
         'amount': amount,
         'category': category,
-        'desc': description,
+        if (isDescription == true) 'desc': description,
       };
       final response = await _dioInstance.postRequest(
         isAuthorize: true,
