@@ -7,6 +7,7 @@ import 'package:fun_education_app_teacher/app/pages/add-report-page/components/a
 import 'package:fun_education_app_teacher/app/pages/add-report-page/components/add_report_page_component_two.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AddReportPageView extends GetView<AddReportPageController> {
   const AddReportPageView({super.key});
@@ -35,32 +36,46 @@ class AddReportPageView extends GetView<AddReportPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: width * 0.05,
-            vertical: height * 0.02,
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await controller.showUserDoneUndone('false', Get.arguments);
+          controller.refreshController.refreshCompleted();
+        },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AddReportPageComponentOne(),
-              SizedBox(height: height * 0.03),
-              AddReportPageComponentTwo(),
-              SizedBox(height: height * 0.02),
-              AddReportPageComponentThree(),
-              SizedBox(height: height * 0.03),
-              AddReportPageComponentFour(),
-              SizedBox(height: height * 0.05),
-              CommonButton(
-                text: 'Kirim Laporan',
-                backgroundColor: blackColor,
-                textColor: whiteColor,
-                onPressed: () {
-                  controller.storeDailyReportByAdmin();
-                },
-              ),
-            ],
+          waterDropColor: primaryColor,
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: width * 0.05,
+              vertical: height * 0.02,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AddReportPageComponentOne(),
+                SizedBox(height: height * 0.03),
+                AddReportPageComponentTwo(),
+                SizedBox(height: height * 0.02),
+                AddReportPageComponentThree(),
+                SizedBox(height: height * 0.03),
+                AddReportPageComponentFour(),
+                SizedBox(height: height * 0.05),
+                CommonButton(
+                  text: 'Kirim Laporan',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    controller.storeDailyReportByAdmin();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

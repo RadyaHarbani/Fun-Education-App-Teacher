@@ -4,6 +4,7 @@ import 'package:fun_education_app_teacher/app/pages/list-student-page/list_stude
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ListStudentPageView extends GetView<ListStudentPageController> {
   const ListStudentPageView({super.key});
@@ -33,33 +34,47 @@ class ListStudentPageView extends GetView<ListStudentPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: width * 0.05,
-            vertical: height * 0.02,
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await controller.showAllUserByIncomingShift(Get.arguments);
+          controller.refreshController.refreshCompleted();
+        },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
           ),
-          child: Obx(() => ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: controller.showCurrentUserModel.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Get.toNamed(
-                        Routes.DETAIL_LIST_STUDENT_PAGE,
-                        arguments: controller.showCurrentUserModel[index].id,
-                      );
-                    },
-                    child: ReportItem(
-                      name:
-                          '${controller.showCurrentUserModel[index].fullName}',
-                      image:
-                          '${controller.showCurrentUserModel[index].profilePicture}',
-                    ),
-                  );
-                },
-              )),
+          waterDropColor: primaryColor,
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: width * 0.05,
+              vertical: height * 0.02,
+            ),
+            child: Obx(() => ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: controller.showCurrentUserModel.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Get.toNamed(
+                          Routes.DETAIL_LIST_STUDENT_PAGE,
+                          arguments: controller.showCurrentUserModel[index].id,
+                        );
+                      },
+                      child: ReportItem(
+                        name:
+                            '${controller.showCurrentUserModel[index].fullName}',
+                        image:
+                            '${controller.showCurrentUserModel[index].profilePicture}',
+                      ),
+                    );
+                  },
+                )),
+          ),
         ),
       ),
     );

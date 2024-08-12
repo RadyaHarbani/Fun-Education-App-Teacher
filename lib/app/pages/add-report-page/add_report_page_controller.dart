@@ -6,8 +6,10 @@ import 'package:fun_education_app_teacher/app/api/daily-report/service/daily_rep
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AddReportPageController extends GetxController {
+  RefreshController refreshController = RefreshController();
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
   TextEditingController teachersNote = TextEditingController();

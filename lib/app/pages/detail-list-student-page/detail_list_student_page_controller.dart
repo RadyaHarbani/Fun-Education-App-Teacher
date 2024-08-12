@@ -15,9 +15,11 @@ import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_cla
 import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailListStudentPageController extends GetxController
     with SingleGetTickerProviderMixin {
+  RefreshController refreshController = RefreshController();
   final ListStudentPageController listStudentPageController =
       Get.put(ListStudentPageController());
   final DetailClassPageController detailClassPageController =

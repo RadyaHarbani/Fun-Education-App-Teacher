@@ -34,12 +34,12 @@ class HomePageComponentOne extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Get.toNamed(Routes.ADD_STUDENT_PAGE);
+            Get.toNamed(Routes.UNVERIFIED_STUDENT_PAGE);
           },
           child: Container(
             padding: EdgeInsets.symmetric(
               vertical: height * 0.012,
-              horizontal: width * 0.07,
+              horizontal: width * 0.06,
             ),
             decoration: BoxDecoration(
               color: blackColor,
@@ -48,16 +48,16 @@ class HomePageComponentOne extends StatelessWidget {
             child: Row(
               children: [
                 AutoSizeText(
-                  'Tambah Siswa',
+                  'Pengajuan Siswa',
                   group: AutoSizeGroup(),
                   maxLines: 1,
                   style: tsBodySmallMedium(whiteColor),
                 ),
                 SizedBox(width: width * 0.02),
                 Icon(
-                  Icons.add_rounded,
+                  Icons.arrow_forward_ios_rounded,
                   color: whiteColor,
-                  size: 18,
+                  size: 12,
                 ),
               ],
             ),

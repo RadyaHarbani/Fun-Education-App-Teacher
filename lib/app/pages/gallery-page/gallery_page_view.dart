@@ -6,6 +6,7 @@ import 'package:fun_education_app_teacher/app/pages/gallery-page/components/gall
 import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class GalleryPageView extends GetView<GalleryPageController> {
   const GalleryPageView({super.key});
@@ -17,36 +18,51 @@ class GalleryPageView extends GetView<GalleryPageController> {
     final double height = mediaQuery.height;
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: width * 0.05,
-              vertical: height * 0.03,
+      body: SafeArea(
+        child: SmartRefresher(
+          controller: controller.refreshController,
+          onRefresh: () async {
+            await controller.showAllPhotos();
+            await controller.showAllAlbums();
+            controller.refreshController.refreshCompleted();
+          },
+          header: WaterDropHeader(
+            complete: Text(
+              'Refresh Completed',
+              style: tsBodySmallRegular(blackColor),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText.rich(
-                  group: AutoSizeGroup(),
-                  maxLines: 1,
-                  TextSpan(
-                    text: 'Galeri ',
-                    style: tsTitleSmallRegular(blackColor),
-                    children: [
-                      TextSpan(
-                        text: 'Ananda',
-                        style: tsTitleSmallSemibold(blackColor),
-                      ),
-                    ],
+            waterDropColor: primaryColor,
+          ),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: width * 0.05,
+                vertical: height * 0.03,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText.rich(
+                    group: AutoSizeGroup(),
+                    maxLines: 1,
+                    TextSpan(
+                      text: 'Galeri ',
+                      style: tsTitleSmallRegular(blackColor),
+                      children: [
+                        TextSpan(
+                          text: 'Ananda',
+                          style: tsTitleSmallSemibold(blackColor),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: height * 0.03),
-                GalleryPageComponentOne(),
-                SizedBox(height: height * 0.04),
-                GalleryPageComponentTwo(),
-              ],
+                  SizedBox(height: height * 0.03),
+                  GalleryPageComponentOne(),
+                  SizedBox(height: height * 0.04),
+                  GalleryPageComponentTwo(),
+                ],
+              ),
             ),
           ),
         ),

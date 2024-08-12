@@ -6,13 +6,18 @@ class SplashScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    SharedPreferences.getInstance().then((prefs) {
-      final token = prefs.getString('token');
-      if (token != null) {
-        Get.offAllNamed(Routes.HOME_PAGE);
-      } else {
-        Get.offAllNamed(Routes.LOGIN_PAGE);
-      }
+    Future.delayed(Duration(seconds: 2), () {
+      SharedPreferences.getInstance().then((prefs) {
+        final token = prefs.getString('teachersToken');
+        if (token != null) {
+          Get.offAllNamed(
+            Routes.NAVBAR_MAIN,
+            arguments: 0,
+          );
+        } else {
+          Get.offAllNamed(Routes.LOGIN_PAGE);
+        }
+      });
     });
   }
 }

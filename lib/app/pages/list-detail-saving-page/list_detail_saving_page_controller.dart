@@ -2,13 +2,15 @@ import 'package:fun_education_app_teacher/app/api/user/models/show-all-user-by-i
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ListDetailSavingPageController extends GetxController {
+  RefreshController refreshController = RefreshController();
   UserService userService = UserService();
   ShowAllUserByIncomingShiftResponse? showAllUserByIncomingShiftResponse;
   RxList<ShowCurrentUserModel> showCurrentUserModel =
       <ShowCurrentUserModel>[].obs;
-      RxString incomingShift = ''.obs;
+  RxString incomingShift = ''.obs;
 
   @override
   void onInit() {

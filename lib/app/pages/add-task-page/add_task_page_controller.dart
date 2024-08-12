@@ -20,6 +20,7 @@ class AddTaskPageController extends GetxController {
   var imageFileList = <XFile>[].obs;
   var selectedDateTime = DateTime.now().obs;
   var incomingShift = ''.obs;
+  RxBool isLoadingPostTask = false.obs;
 
   @override
   void onInit() {
@@ -71,6 +72,7 @@ class AddTaskPageController extends GetxController {
 
   Future<void> storeTaskByAdmin() async {
     try {
+      isLoadingPostTask(true);
       final formattedDate =
           DateFormat('yyyy-MM-dd').format(selectedDateTime.value);
       final response = await taskService.postStoreTaskByAdmin(
@@ -130,6 +132,7 @@ class AddTaskPageController extends GetxController {
       );
       update();
     } catch (e) {
+      isLoadingPostTask(false);
       Get.snackbar(
         'Upload Failed',
         'Album gagal ditambahkan',

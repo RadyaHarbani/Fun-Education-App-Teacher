@@ -56,6 +56,7 @@ class AddTaskPageView extends GetView<AddTaskPageController> {
                 AddTaskPageComponentFour(),
                 SizedBox(height: height * 0.1),
                 CommonButton(
+                  isLoading: controller.isLoadingPostTask.value,
                   text: 'Tambah Tugas',
                   backgroundColor: blackColor,
                   textColor: whiteColor,

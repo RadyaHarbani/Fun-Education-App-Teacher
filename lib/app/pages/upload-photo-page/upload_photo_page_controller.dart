@@ -10,8 +10,10 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UploadPhotoPageController extends GetxController {
+  RefreshController refreshController = RefreshController();
   final GalleryPageController galleryPageController =
       Get.put(GalleryPageController());
   TextEditingController photoTitleController = TextEditingController();
@@ -44,8 +46,6 @@ class UploadPhotoPageController extends GetxController {
   void deleteImage(int index) {
     imageFileList.removeAt(index);
   }
-
-  
 
   Future<void> storePhotoByAdmin() async {
     String title = photoTitleController.text.trim();

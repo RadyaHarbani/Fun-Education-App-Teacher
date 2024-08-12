@@ -6,6 +6,7 @@ import 'package:fun_education_app_teacher/app/pages/upload-photo-page/components
 import 'package:fun_education_app_teacher/app/pages/upload-photo-page/upload_photo_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UploadPhotoPageView extends GetView<UploadPhotoPageController> {
   const UploadPhotoPageView({super.key});
@@ -35,33 +36,47 @@ class UploadPhotoPageView extends GetView<UploadPhotoPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: width * 0.05,
-              vertical: height * 0.015,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                UploadPhotoPageComponentOne(),
-                SizedBox(height: height * 0.03),
-                UploadPhotoPageComponentTwo(),
-                SizedBox(height: height * 0.03),
-                UploadPhotoPageComponentThree(),
-                SizedBox(height: height * 0.05),
-                CommonButton(
-                  text: 'Unggah Foto',
-                  backgroundColor: blackColor,
-                  textColor: whiteColor,
-                  onPressed: () {
-                    print('album id : ${controller.albumId.value}');
-                    controller.storePhotoByAdmin();
-                  },
-                ),
-              ],
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await controller.showAllAlbums();
+          controller.refreshController.refreshCompleted();
+        },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
+          ),
+          waterDropColor: primaryColor,
+        ),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: width * 0.05,
+                vertical: height * 0.015,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  UploadPhotoPageComponentOne(),
+                  SizedBox(height: height * 0.03),
+                  UploadPhotoPageComponentTwo(),
+                  SizedBox(height: height * 0.03),
+                  UploadPhotoPageComponentThree(),
+                  SizedBox(height: height * 0.05),
+                  CommonButton(
+                    text: 'Unggah Foto',
+                    backgroundColor: blackColor,
+                    textColor: whiteColor,
+                    onPressed: () {
+                      print('album id : ${controller.albumId.value}');
+                      controller.storePhotoByAdmin();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

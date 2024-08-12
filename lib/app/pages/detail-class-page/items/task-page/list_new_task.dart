@@ -32,14 +32,6 @@ class ListNewTask extends GetView<DetailClassPageController> {
               widget: PopupMenuButton(
                 color: whiteColor,
                 onSelected: (value) {
-                  // if (value == 'Tutup') {
-                  //   controller
-                  //       .updateStatusTaskByAdmin(controller.showByNewStatusList[index].id!, value,);
-                  // } else {
-                  //   controller
-                  //       .archiveTaskByAdmin(controller.showByNewStatusList[index].id!);
-                  // }
-
                   if (value == 'Ditutup') {
                     controller.updateStatusTaskByAdmin(
                       controller.showByNewStatusList[index].id!,
