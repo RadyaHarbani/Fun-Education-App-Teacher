@@ -29,7 +29,7 @@ class ApiEndPoint {
 
   //User
   static String showCurrentUser = '$baseUrlAuth/show-current';
-  static String showAllUserByIncomingShift = '$baseUrlAuth/index?shift=';
+  static String showAllUserByIncomingShift = '$baseUrlAuth/index';
   static String showByIdUser = '$baseUrlAuth/show/';
   static String updateUserByAdmin = '$baseUrlAuth/update-admin/';
   static String deleteUserByAdmin = '$baseUrlAuth/delete/';

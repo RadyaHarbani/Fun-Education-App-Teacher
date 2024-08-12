@@ -77,28 +77,8 @@ class EditTaskPageController extends GetxController {
       print(response.statusCode);
       await detailClassPageController.showByNewStatus(Get.arguments.shift);
       await detailTaskPageController.showByTaskId(Get.arguments.id);
-      if (response.statusCode == 200) {
-        Get.snackbar(
-          'Berhasil',
-          'Gambar berhasil dihapus',
-          backgroundColor: successColor,
-          colorText: whiteColor,
-        );
-      } else {
-        Get.snackbar(
-          'Error',
-          'Terjadi kesalahan: ${response.statusCode}',
-          backgroundColor: dangerColor,
-          colorText: whiteColor,
-        );
-      }
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Terjadi kesalahan: $e',
-        backgroundColor: dangerColor,
-        colorText: whiteColor,
-      );
+      print(e);
     }
   }
 

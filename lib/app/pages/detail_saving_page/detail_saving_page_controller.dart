@@ -14,8 +14,8 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailSavingPageController extends GetxController {
-  RefreshController refreshController = RefreshController(initialRefresh: false);
-  
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   TotalSavingsService totalSavingsService = TotalSavingsService();
   TotalSavingsResponse? totalSavingsResponse;
   Rx<TotalSavingsModel> totalSavingsModel = TotalSavingsModel().obs;

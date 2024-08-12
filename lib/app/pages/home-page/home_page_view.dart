@@ -39,7 +39,7 @@ class HomePageView extends GetView<HomePageController> {
         header: WaterDropHeader(
           complete: Text(
             'Refresh Selesai',
-            style: tsBodyMediumSemibold(blackColor),
+            style: tsBodySmallRegular(blackColor),
           ),
           waterDropColor: primaryColor,
         ),

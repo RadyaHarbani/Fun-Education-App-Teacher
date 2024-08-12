@@ -5,6 +5,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/comp
 import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailAlbumPhotoPageView extends GetView<DetailAlbumPhotoPageController> {
   @override
@@ -37,21 +38,35 @@ class DetailAlbumPhotoPageView extends GetView<DetailAlbumPhotoPageController> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: height * 0.01,
-            left: width * 0.05,
-            right: width * 0.05,
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await controller.showByIdAlbum(Get.arguments);
+          controller.refreshController.refreshCompleted();
+        },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DetailAlbumPhotoPageComponentOne(),
-              SizedBox(height: height * 0.03),
-              DetailAlbumPhotoPageComponentTwo(),
-            ],
+          waterDropColor: primaryColor,
+        ),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: height * 0.01,
+              left: width * 0.05,
+              right: width * 0.05,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DetailAlbumPhotoPageComponentOne(),
+                SizedBox(height: height * 0.03),
+                DetailAlbumPhotoPageComponentTwo(),
+              ],
+            ),
           ),
         ),
       ),

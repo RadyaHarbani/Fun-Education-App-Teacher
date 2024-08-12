@@ -46,7 +46,7 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
               child: Container(
                 padding: EdgeInsets.symmetric(
                   vertical: height * 0.012,
-                  horizontal: width * 0.07,
+                  horizontal: width * 0.055,
                 ),
                 decoration: BoxDecoration(
                   color: blackColor,

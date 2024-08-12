@@ -23,8 +23,13 @@ class UserService {
   Future<Response> getShowAllUsersByIncomingShift(String shift) async {
     try {
       final response = await _dioInstance.getRequest(
-        endpoint: '${ApiEndPoint.showAllUserByIncomingShift}$shift',
+        endpoint: '${ApiEndPoint.showAllUserByIncomingShift}',
+        queryParameters: {
+          'shift': shift,
+          'is_verified': 'true',
+        },
       );
+
       return response;
     } catch (e) {
       throw Exception(e);

@@ -18,9 +18,11 @@ import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailClassPageController extends GetxController
     with SingleGetTickerProviderMixin {
+      RefreshController refreshController = RefreshController();
   TabController? tabControllerAll;
   TabController? tabControllerHomework;
   var selectedPeriod = 'Mingguan'.obs;

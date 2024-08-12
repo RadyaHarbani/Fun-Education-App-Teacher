@@ -40,12 +40,19 @@ class DetailSavingPageView extends GetView<DetailSavingPageController> {
       body: SmartRefresher(
         controller: controller.refreshController,
         onRefresh: () async {
-          await Future.delayed(Duration(milliseconds: 1000));
-          controller.showTotalSavingsByUserId(controller.userId.value);
-          controller.showSavingSubmissionByUserId(controller.userId.value);
-          controller.showTransactionByUserId(controller.userId.value);
+          await controller.showTotalSavingsByUserId(controller.userId.value);
+          await controller
+              .showSavingSubmissionByUserId(controller.userId.value);
+          await controller.showTransactionByUserId(controller.userId.value);
           controller.refreshController.refreshCompleted();
         },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
+          ),
+          waterDropColor: primaryColor,
+        ),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(

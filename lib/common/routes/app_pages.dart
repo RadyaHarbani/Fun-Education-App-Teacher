@@ -2,8 +2,8 @@ import 'package:fun_education_app_teacher/app/archive/dashboard-page/dashboard_p
 import 'package:fun_education_app_teacher/app/archive/dashboard-page/dashboard_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_view.dart';
-import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_binding.dart';
-import 'package:fun_education_app_teacher/app/pages/add-student-page/add_student_page_view.dart';
+import 'package:fun_education_app_teacher/app/archive/add-student-page/add_student_page_binding.dart';
+import 'package:fun_education_app_teacher/app/archive/add-student-page/add_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_binding.dart';
@@ -18,6 +18,8 @@ import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_re
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-unverified-student-page/detail_unverified_student_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-unverified-student-page/detail_unverified_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/edit_information_student_page_binding.dart';
@@ -50,13 +52,15 @@ import 'package:fun_education_app_teacher/app/pages/upload-album-page/upload_alb
 import 'package:fun_education_app_teacher/app/pages/upload-album-page/upload_album_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/upload-photo-page/upload_photo_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/upload-photo-page/upload_photo_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/unverified-student-page/unverified_student_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/unverified-student-page/unverified_student_page_view.dart';
 import 'package:get/get.dart';
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH_SCREEN;
+  static const INITIAL = Routes.LOGIN_PAGE;
 
   static final routes = [
     GetPage(
@@ -193,6 +197,16 @@ class AppPages {
       name: _Paths.UPLOAD_ALBUM_PAGE,
       page: () => UploadAlbumPageView(),
       binding: UploadAlbumPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.UNVERIFIED_STUDENT_PAGE,
+      page: () => UnverifiedStudentPageView(),
+      binding: UnverifiedStudentPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_UNVERIFIED_STUDENT_PAGE,
+      page: () => DetailUnverifiedStudentPageView(),
+      binding: DetailUnverifiedStudentPageBinding(),
     ),
   ];
 }

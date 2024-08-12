@@ -8,9 +8,11 @@ import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_co
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailAlbumPhotoPageController extends GetxController {
+  RefreshController refreshController = RefreshController();
   final GalleryPageController galleryPageController =
       Get.put(GalleryPageController());
   AlbumsService albumsService = AlbumsService();
