@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/pages/unverified-student-page/widget/unverified_student_item.dart';
+import 'package:fun_education_app_teacher/app/pages/unverified-student-page/widgets/unverified_student_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class UnverifiedStudentPageComponentFour extends StatelessWidget {

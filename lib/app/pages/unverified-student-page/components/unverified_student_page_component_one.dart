@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/pages/unverified-student-page/widget/unverified_student_item.dart';
+import 'package:fun_education_app_teacher/app/pages/unverified-student-page/widgets/unverified_student_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
+import 'package:get/get.dart';
 
 class UnverifiedStudentPageComponentOne extends StatelessWidget {
   const UnverifiedStudentPageComponentOne({super.key});
@@ -41,12 +43,17 @@ class UnverifiedStudentPageComponentOne extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: 5,
+          itemCount: 1,
           itemBuilder: (context, index) {
-            return UnverifiedStudentItem(
-              fullname: 'Radya Hukma Shabiyyaa Harbani',
-              onTapClose: () {},
-              onTapCheck: () {},
+            return InkWell(
+              onTap: () {
+                Get.toNamed(Routes.DETAIL_UNVERIFIED_STUDENT_PAGE);
+              },
+              child: UnverifiedStudentItem(
+                fullname: 'Radya Hukma Shabiyyaa Harbani',
+                onTapClose: () {},
+                onTapCheck: () {},
+              ),
             );
           },
         )
