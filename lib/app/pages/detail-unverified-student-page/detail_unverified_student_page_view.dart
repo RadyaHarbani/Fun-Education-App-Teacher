@@ -5,6 +5,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-unverified-student-pa
 import 'package:fun_education_app_teacher/app/pages/detail-unverified-student-page/widgets/information_container_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DetailUnverifiedStudentPageView
     extends GetView<DetailUnverifiedStudentPageController> {
@@ -40,89 +41,101 @@ class DetailUnverifiedStudentPageView
           horizontal: width * 0.05,
           vertical: height * 0.02,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AutoSizeText.rich(
-              group: AutoSizeGroup(),
-              maxLines: 2,
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: 'Ananda,\n',
-                    style: tsBodySmallRegular(blackColor),
-                  ),
-                  TextSpan(
-                    text: 'Radya Hukma Shabiyyaa Harbani',
-                    style: tsBodyMediumSemibold(blackColor),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: height * 0.025),
-            InformationContainerItem(
-              titleInformation: 'Nama Panggilan',
-              valueInformation: 'Radya',
-            ),
-            SizedBox(height: height * 0.01),
-            InformationContainerItem(
-              titleInformation: 'Tempat, Tanggal Lahir',
-              valueInformation: 'Batam, 17 November 2006',
-            ),
-            SizedBox(height: height * 0.01),
-            InformationContainerItem(
-              titleInformation: 'Alamat Lengkap',
-              valueInformation:
-                  'Griya batu aji asri g1 no 06 semarang kota batang',
-            ),
-            SizedBox(height: height * 0.01),
-            InformationContainerItem(
-              titleInformation: 'Kata Sandi',
-              valueInformation: 'radyapass',
-            ),
-            SizedBox(height: height * 0.02),
-            Row(
+        child: Obx(() => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.calendar_today_rounded,
-                  color: blackColor,
-                  size: 20,
-                ),
-                SizedBox(width: width * 0.02),
                 AutoSizeText.rich(
                   group: AutoSizeGroup(),
                   maxLines: 2,
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Mendaftar Pada : ',
+                        text: 'Ananda,\n',
                         style: tsBodySmallRegular(blackColor),
                       ),
                       TextSpan(
-                        text: '17 November 2021',
-                        style: tsBodySmallSemibold(blackColor),
+                        text:
+                            '${controller.detailInformationUser.value.fullName}',
+                        style: tsBodyMediumSemibold(blackColor),
                       ),
                     ],
                   ),
                 ),
+                SizedBox(height: height * 0.025),
+                InformationContainerItem(
+                  titleInformation: 'Nama Panggilan',
+                  valueInformation:
+                      '${controller.detailInformationUser.value.nickname}',
+                ),
+                SizedBox(height: height * 0.01),
+                InformationContainerItem(
+                  titleInformation: 'Tempat, Tanggal Lahir',
+                  valueInformation:
+                      '${controller.detailInformationUser.value.birth}',
+                ),
+                SizedBox(height: height * 0.01),
+                InformationContainerItem(
+                  titleInformation: 'Alamat Lengkap',
+                  valueInformation:
+                      '${controller.detailInformationUser.value.address}',
+                ),
+                SizedBox(height: height * 0.01),
+                InformationContainerItem(
+                  titleInformation: 'Kata Sandi',
+                  valueInformation:
+                      '${controller.informationPasswordUser.value.password}',
+                ),
+                SizedBox(height: height * 0.02),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_today_rounded,
+                      color: blackColor,
+                      size: 20,
+                    ),
+                    SizedBox(width: width * 0.02),
+                    AutoSizeText.rich(
+                      group: AutoSizeGroup(),
+                      maxLines: 2,
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Mendaftar Pada : ',
+                            style: tsBodySmallRegular(blackColor),
+                          ),
+                          TextSpan(
+                            text: controller.detailInformationUser.value
+                                        .createdAt !=
+                                    null
+                                ? '${DateFormat('dd MMMM yyyy').format(controller.detailInformationUser.value.createdAt!)}'
+                                : 'Date not available',
+                            style: tsBodySmallSemibold(blackColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                CommonButton(
+                  text: 'Terima Pengajuan',
+                  backgroundColor: greyColor.withOpacity(0.1),
+                  textColor: blackColor,
+                  onPressed: () {
+                    controller.updateVerifyUserByAdmin(true);
+                  },
+                ),
+                SizedBox(height: height * 0.01),
+                CommonButton(
+                  text: 'Tolak Pengajuan',
+                  backgroundColor: dangerColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    controller.updateVerifyUserByAdmin(false);
+                  },
+                ),
               ],
-            ),
-            Spacer(),
-            CommonButton(
-              text: 'Terima Pengajuan',
-              backgroundColor: greyColor.withOpacity(0.1),
-              textColor: blackColor,
-              onPressed: () {},
-            ),
-            SizedBox(height: height * 0.01),
-            CommonButton(
-              text: 'Tolak Pengajuan',
-              backgroundColor: dangerColor,
-              textColor: whiteColor,
-              onPressed: () {},
-            ),
-          ],
-        ),
+            )),
       ),
     );
   }

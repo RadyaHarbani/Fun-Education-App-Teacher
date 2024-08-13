@@ -23,7 +23,7 @@ class UnverifiedStudentItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: height * 0.01),
       padding: EdgeInsets.symmetric(
-        vertical: height * 0.03,
+        vertical: height * 0.025,
         horizontal: width * 0.06,
       ),
       decoration: BoxDecoration(

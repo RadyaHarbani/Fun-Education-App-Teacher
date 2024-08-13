@@ -8,6 +8,7 @@ import 'package:fun_education_app_teacher/app/pages/unverified-student-page/comp
 import 'package:fun_education_app_teacher/app/pages/unverified-student-page/unverified_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class UnverifiedStudentPageView
     extends GetView<UnverifiedStudentPageController> {
@@ -38,33 +39,51 @@ class UnverifiedStudentPageView
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.05,
-          vertical: height * 0.02,
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await controller.showAllUserByIncomingShiftOne('08.00 - 10.00');
+          await controller.showAllUserByIncomingShiftTwo('10.00 - 11.30');
+          await controller.showAllUserByIncomingShiftThree('11.30 - 13.00');
+          await controller.showAllUserByIncomingShiftFour('13.00 - 14.00');
+          await controller.showAllUserByIncomingShiftFive('14.00 - 15.00');
+          controller.refreshController.refreshCompleted();
+        },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
+          ),
+          waterDropColor: primaryColor,
         ),
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommonWarning(
-                backColor: warningColor,
-                text:
-                    'Cek detail siswa untuk melihat informasi secara keseluruhan',
-              ),
-              SizedBox(height: height * 0.02),
-              UnverifiedStudentPageComponentOne(),
-              SizedBox(height: height * 0.02),
-              UnverifiedStudentPageComponentTwo(),
-              SizedBox(height: height * 0.02),
-              UnverifiedStudentPageComponentThree(),
-              SizedBox(height: height * 0.02),
-              UnverifiedStudentPageComponentFour(),
-              SizedBox(height: height * 0.02),
-              UnverifiedStudentPageComponentFive(),
-              SizedBox(height: height * 0.02),
-            ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.05,
+            vertical: height * 0.02,
+          ),
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CommonWarning(
+                  backColor: warningColor,
+                  text:
+                      'Cek detail siswa untuk melihat informasi secara keseluruhan',
+                ),
+                SizedBox(height: height * 0.02),
+                UnverifiedStudentPageComponentOne(),
+                SizedBox(height: height * 0.02),
+                UnverifiedStudentPageComponentTwo(),
+                SizedBox(height: height * 0.02),
+                UnverifiedStudentPageComponentThree(),
+                SizedBox(height: height * 0.02),
+                UnverifiedStudentPageComponentFour(),
+                SizedBox(height: height * 0.02),
+                UnverifiedStudentPageComponentFive(),
+                SizedBox(height: height * 0.02),
+              ],
+            ),
           ),
         ),
       ),

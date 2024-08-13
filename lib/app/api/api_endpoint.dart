@@ -34,6 +34,7 @@ class ApiEndPoint {
   static String updateUserByAdmin = '$baseUrlAuth/update-admin/';
   static String deleteUserByAdmin = '$baseUrlAuth/delete/';
   static String showPasswordUserByAdmin = '$baseUrlAuth/show-secret/';
+  static String updateVerifyUserByAdmin = '$baseUrlAuth/update-verify/';
 
   //Catatan Darurat
   static String showLatestCatatanDarurat = '$baseUrlCatatanDarurat/show';

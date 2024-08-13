@@ -22,7 +22,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailClassPageController extends GetxController
     with SingleGetTickerProviderMixin {
-      RefreshController refreshController = RefreshController();
+  RefreshController refreshController = RefreshController();
   TabController? tabControllerAll;
   TabController? tabControllerHomework;
   var selectedPeriod = 'Mingguan'.obs;
@@ -100,7 +100,8 @@ class DetailClassPageController extends GetxController
   Future showAllUserByIncomingShift(String shift) async {
     try {
       if (shift.isEmpty) return;
-      final response = await userService.getShowAllUsersByIncomingShift(shift);
+      final response =
+          await userService.getShowAllUsersByIncomingShift(shift, 'true');
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       showCurrentUserModel.value = showAllUserByIncomingShiftResponse!.data;

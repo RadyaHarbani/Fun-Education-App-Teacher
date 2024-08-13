@@ -20,13 +20,16 @@ class UserService {
     }
   }
 
-  Future<Response> getShowAllUsersByIncomingShift(String shift) async {
+  Future<Response> getShowAllUsersByIncomingShift(
+    String shift,
+    String isVerified,
+  ) async {
     try {
       final response = await _dioInstance.getRequest(
         endpoint: '${ApiEndPoint.showAllUserByIncomingShift}',
         queryParameters: {
           'shift': shift,
-          'is_verified': 'true',
+          'is_verified': isVerified,
         },
       );
 
@@ -99,6 +102,24 @@ class UserService {
         tokenType: 'teacher',
         endpoint: '${ApiEndPoint.showPasswordUserByAdmin}$userId',
       );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> putUpdateVerifyUserByAdmin(
+    String userId,
+    bool verify,
+  ) async {
+    try {
+      final response = await _dioInstance.putRequest(
+          isAuthorize: true,
+          tokenType: 'teacher',
+          endpoint: '${ApiEndPoint.updateVerifyUserByAdmin}$userId',
+          data: {
+            'is_verified': verify,
+          });
       return response;
     } catch (e) {
       throw Exception(e);
