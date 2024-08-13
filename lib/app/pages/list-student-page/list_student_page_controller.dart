@@ -19,7 +19,8 @@ class ListStudentPageController extends GetxController {
 
   Future showAllUserByIncomingShift(String shift) async {
     try {
-      final response = await userService.getShowAllUsersByIncomingShift(shift);
+      final response =
+          await userService.getShowAllUsersByIncomingShift(shift, 'true');
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       showCurrentUserModel.value = showAllUserByIncomingShiftResponse!.data;

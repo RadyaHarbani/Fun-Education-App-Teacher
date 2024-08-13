@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/api/user/models/show-current-user-password/show_current_user_model_password.dart';
+import 'package:fun_education_app_teacher/app/api/user/models/show-current-user-password/show_current_user_response_password.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_response.dart';
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
@@ -17,8 +19,9 @@ class EditInformationStudentPageController extends GetxController {
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
   UserService _userService = UserService();
-  ShowCurrentUserResponse? showCurrentUserResponse;
-  Rx<ShowCurrentUserModel> showCurrentUserModel = ShowCurrentUserModel().obs;
+  ShowCurrentUserResponsePassword? showCurrentUserResponsePassword;
+  Rx<ShowCurrentUserModelPassword> showCurrentUserModelPassword =
+      ShowCurrentUserModelPassword().obs;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController nickNameController = TextEditingController();
   TextEditingController genderController = TextEditingController();
@@ -45,9 +48,11 @@ class EditInformationStudentPageController extends GetxController {
   Future showPasswordUserByAdmin(String userId) async {
     try {
       final response = await _userService.getShowPasswordByUserId(userId);
-      showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
-      showCurrentUserModel.value = showCurrentUserResponse!.data;
-      passwordController.text = showCurrentUserModel.value.password!;
+      showCurrentUserResponsePassword =
+          ShowCurrentUserResponsePassword.fromJson(response.data);
+      showCurrentUserModelPassword.value =
+          showCurrentUserResponsePassword!.data;
+      passwordController.text = showCurrentUserModelPassword.value.password!;
     } catch (e) {
       print(e);
     }
