@@ -26,8 +26,10 @@ class DetailListStudentPageController extends GetxController
       Get.put(DetailClassPageController());
   TabController? tabControllerAll;
   var selectedLearningFlow = 'A'.obs;
-  var selectedReportPoint = '5'.obs;
-  var selectedTaskPoints = '5'.obs;
+  // var selectedReportPoint = '5'.obs;
+  var selectedReportPoint = 'weekly'.obs;
+  // var selectedTaskPoints = '5'.obs;
+  var selectedTaskPoints = 'weekly'.obs;
   RxString userId = ''.obs;
 
   UserService userService = UserService();
@@ -52,7 +54,8 @@ class DetailListStudentPageController extends GetxController
   var maxX = 0.0.obs;
 
   var spotsTask = <FlSpot>[].obs;
-  var touchedTitleTask = <String>[].obs;
+  // var touchedTitleTask = <String>[].obs;
+  var touchedTitleTask = <DateTime>[].obs;
   var bottomTitlesTask = <String?>[].obs;
   var maxXTask = 0.0.obs;
 
@@ -193,7 +196,8 @@ class DetailListStudentPageController extends GetxController
                 e.totalPoint!.toDouble(),
               ))
           .toList();
-      touchedTitleTask.value = statisticTaskModel.map((e) => e.title!).toList();
+      // touchedTitleTask.value = statisticTaskModel.map((e) => e.title!).toList();
+      touchedTitleTask.value = statisticTaskModel.map((e) => e.date!).toList();
 
       bottomTitlesTask.value = List<String?>.filled(spotsTask.length, null);
       for (var title in statisticTaskResponse!.bottomTitle) {

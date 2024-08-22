@@ -16,7 +16,8 @@ class BottomsheetSelectPeriodTaskPoints
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.5,
+      // height: height * 0.5,
+      height: height * 0.38,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -70,33 +71,48 @@ class BottomsheetSelectPeriodTaskPoints
               child: Obx(
                 () => Column(
                   children: [
+                    // CustomRadioButtonPeriod(
+                    //   title: '5 Tugas Terakhir',
+                    //   value: '5',
+                    //   groupValue: controller.selectedTaskPoints.value,
+                    //   onChanged: (value) =>
+                    //       controller.selectedTaskPoints(value),
+                    // ),
+                    // SizedBox(height: height * 0.01),
+                    // CustomRadioButtonPeriod(
+                    //   title: '10 Tugas Terakhir',
+                    //   value: '10',
+                    //   groupValue: controller.selectedTaskPoints.value,
+                    //   onChanged: (value) =>
+                    //       controller.selectedTaskPoints(value),
+                    // ),
+                    // SizedBox(height: height * 0.01),
+                    // CustomRadioButtonPeriod(
+                    //   title: '20 Tugas Terakhir',
+                    //   value: '20',
+                    //   groupValue: controller.selectedTaskPoints.value,
+                    //   onChanged: (value) =>
+                    //       controller.selectedTaskPoints(value),
+                    // ),
+                    // SizedBox(height: height * 0.01),
+                    // CustomRadioButtonPeriod(
+                    //   title: '30 Tugas Terakhir',
+                    //   value: '30',
+                    //   groupValue: controller.selectedTaskPoints.value,
+                    //   onChanged: (value) =>
+                    //       controller.selectedTaskPoints(value),
+                    // ),
                     CustomRadioButtonPeriod(
-                      title: '5 Tugas Terakhir',
-                      value: '5',
+                      title: 'Mingguan (Terakhir)',
+                      value: 'weekly',
                       groupValue: controller.selectedTaskPoints.value,
                       onChanged: (value) =>
                           controller.selectedTaskPoints(value),
                     ),
                     SizedBox(height: height * 0.01),
                     CustomRadioButtonPeriod(
-                      title: '10 Tugas Terakhir',
-                      value: '10',
-                      groupValue: controller.selectedTaskPoints.value,
-                      onChanged: (value) =>
-                          controller.selectedTaskPoints(value),
-                    ),
-                    SizedBox(height: height * 0.01),
-                    CustomRadioButtonPeriod(
-                      title: '20 Tugas Terakhir',
-                      value: '20',
-                      groupValue: controller.selectedTaskPoints.value,
-                      onChanged: (value) =>
-                          controller.selectedTaskPoints(value),
-                    ),
-                    SizedBox(height: height * 0.01),
-                    CustomRadioButtonPeriod(
-                      title: '30 Tugas Terakhir',
-                      value: '30',
+                      title: 'Bulanan (Terakhir)',
+                      value: 'monthly',
                       groupValue: controller.selectedTaskPoints.value,
                       onChanged: (value) =>
                           controller.selectedTaskPoints(value),

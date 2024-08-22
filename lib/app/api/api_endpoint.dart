@@ -49,8 +49,10 @@ class ApiEndPoint {
   static String storeDailyReportByAdmin = '$baseUrlLaporanHarian/store';
   static String updateDailyReportByAdmin = '$baseUrlLaporanHarian/update';
   static String deleteDailyReportByAdmin = '$baseUrlLaporanHarian/delete';
+  // static String showStatisticDailyReportByUserId =
+  //     '$baseUrlLaporanHarian/statistic';
   static String showStatisticDailyReportByUserId =
-      '$baseUrlLaporanHarian/statistic';
+      '$baseUrlLaporanHarian/statistic-new';
   static String showAvailableDateByUserId =
       '$baseUrlLaporanHarian/show-available';
 
@@ -105,7 +107,8 @@ class ApiEndPoint {
   static String markShowByTaskId = '$baseUrlMark/show-by-tugas-id/';
   static String markShowByUserId = '$baseUrlMark/show/';
   static String sendGradeByAdmin = '$baseUrlMark/send-grade/';
-  static String showStatisticTaskByUserId = '$baseUrlMark/statistic';
+  // static String showStatisticTaskByUserId = '$baseUrlMark/statistic';
+  static String showStatisticTaskByUserId = '$baseUrlMark/statistic-new';
 
   //Leaderboard
   static String showLeaderboardByIncomingShift = '$leaderboard/index';

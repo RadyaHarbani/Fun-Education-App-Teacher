@@ -41,6 +41,69 @@ class ReportTitleChart {
     );
   }
 
+  Widget weeklyBottomTitle(double value, TitleMeta meta) {
+    TextStyle style = tsLabelLargeSemibold(blackColor);
+    String text;
+    switch (value.toInt()) {
+      case 0:
+        text = 'SEN';
+        break;
+      case 1:
+        text = 'SEL';
+        break;
+      case 2:
+        text = 'RAB';
+        break;
+      case 3:
+        text = 'KAM';
+        break;
+      case 4:
+        text = 'JUM';
+        break;
+      case 5:
+        text = 'SAB';
+        break;
+      case 6:
+        text = 'MIN';
+        break;
+      default:
+        return Container();
+    }
+
+    return Text(
+      text,
+      style: style,
+      textAlign: TextAlign.left,
+    );
+  }
+
+  Widget monthlyBottomTitle(double value, TitleMeta meta) {
+    TextStyle style = tsLabelLargeSemibold(blackColor);
+    String text;
+    switch (value.toInt()) {
+      case 0:
+        text = 'Minggu\n1';
+        break;
+      case 10:
+        text = 'Minggu\n2';
+        break;
+      case 20:
+        text = 'Minggu\n3';
+        break;
+      case 30:
+        text = 'Minggu\n4';
+        break;
+      default:
+        return Container();
+    }
+
+    return Text(
+      text,
+      style: style,
+      textAlign: TextAlign.center,
+    );
+  }
+
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     String text = '';
     if (value.toInt() < detailListStudentPageController.bottomTitles.length) {

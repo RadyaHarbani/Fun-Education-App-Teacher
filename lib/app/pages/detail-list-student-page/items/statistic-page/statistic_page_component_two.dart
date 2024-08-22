@@ -60,7 +60,10 @@ class StatisticPageComponentTwo
                   child: Row(
                     children: [
                       Obx(() => AutoSizeText(
-                            '${controller.selectedTaskPoints.value.toString()} Tugas',
+                            // '${controller.selectedTaskPoints.value.toString()} Tugas',
+                            controller.selectedTaskPoints.value == 'weekly'
+                                ? 'Mingguan'
+                                : 'Tahunan',
                             group: AutoSizeGroup(),
                             maxLines: 1,
                             style: tsBodySmallSemibold(blackColor),
@@ -96,8 +99,11 @@ class StatisticPageComponentTwo
                 Obx(() {
                   return AutoSizeText.rich(
                     TextSpan(
-                      text:
-                          '${controller.selectedTaskPoints.value} Tugas (Terakhir)\n',
+                      // text:
+                      //     '${controller.selectedTaskPoints.value} Tugas (Terakhir)\n',
+                      text: controller.selectedTaskPoints.value == 'weekly'
+                          ? 'Mingguan (Terakhir)\n'
+                          : 'Bulanan (Terakhir)\n',
                       style: tsBodyMediumSemibold(blackColor)
                           .copyWith(height: 1.5),
                       children: [

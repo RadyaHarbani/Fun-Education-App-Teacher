@@ -60,7 +60,10 @@ class StatisticPageComponentOne
                   child: Row(
                     children: [
                       Obx(() => AutoSizeText(
-                            '${controller.selectedReportPoint.value.toString()} Laporan',
+                            // '${controller.selectedReportPoint.value.toString()} Laporan',
+                            controller.selectedReportPoint.value == 'weekly'
+                                ? 'Mingguan'
+                                : 'Bulanan',
                             group: AutoSizeGroup(),
                             maxLines: 1,
                             style: tsBodySmallSemibold(blackColor),
@@ -96,8 +99,11 @@ class StatisticPageComponentOne
                 Obx(() {
                   return AutoSizeText.rich(
                     TextSpan(
-                      text:
-                          '${controller.selectedReportPoint.value} Laporan (Terakhir)\n',
+                      // text:
+                      //     '${controller.selectedReportPoint.value} Laporan (Terakhir)\n',
+                      text: controller.selectedReportPoint.value == 'weekly'
+                          ? 'Mingguan (Terakhir)\n'
+                          : 'Bulanan (Terakhir)\n',
                       style: tsBodyMediumSemibold(blackColor)
                           .copyWith(height: 1.5),
                       children: [
