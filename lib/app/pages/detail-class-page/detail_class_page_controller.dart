@@ -65,7 +65,7 @@ class DetailClassPageController extends GetxController
     super.onInit();
     tabControllerAll = TabController(length: 3, vsync: this);
     tabControllerHomework = TabController(length: 3, vsync: this);
-    showByIdIncomingShift(Get.arguments);
+    showByIdIncomingShift(Get.arguments );
   }
 
   @override

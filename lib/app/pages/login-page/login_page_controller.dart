@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageController extends GetxController {
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late AuthenticationService authenticationService;
   RxBool isObsecure = true.obs;
@@ -15,7 +15,7 @@ class LoginPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    usernameController.text = 'Tuti';
+    emailController.text = 'funeducationapp@gmail.com';
     passwordController.text = 'tuticaidahguru1';
     authenticationService = AuthenticationService();
   }
@@ -24,7 +24,7 @@ class LoginPageController extends GetxController {
     try {
       isLoading(true);
       final response = await authenticationService.login(
-        usernameController.text,
+        emailController.text,
         passwordController.text,
       );
 

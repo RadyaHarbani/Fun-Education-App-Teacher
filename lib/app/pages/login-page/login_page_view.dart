@@ -76,9 +76,9 @@ class LoginPageView extends GetView<LoginPageController> {
                 Column(
                   children: [
                     CommonTextField(
-                      fieldController: controller.usernameController,
+                      fieldController: controller.emailController,
                       obscureText: false,
-                      hintText: 'Nama Panggilan',
+                      hintText: 'Masukkan Email',
                       keyboardType: TextInputType.name,
                     ),
                     SizedBox(height: height * 0.01),
@@ -86,7 +86,7 @@ class LoginPageView extends GetView<LoginPageController> {
                       () => CommonTextField(
                         fieldController: controller.passwordController,
                         obscureText: controller.isObsecure.value,
-                        hintText: 'Kata Sandi',
+                        hintText: 'Masukkan Kata Sandi',
                         keyboardType: TextInputType.name,
                         suffixIcon: IconButton(
                           onPressed: () {

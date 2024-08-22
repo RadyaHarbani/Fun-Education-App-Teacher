@@ -38,7 +38,7 @@ class AuthenticationService {
       final response = await _dioInstance.postRequest(
         endpoint: ApiEndPoint.login,
         data: {
-          'nickname': nickname,
+          'email': nickname,
           'password': password,
         },
       );

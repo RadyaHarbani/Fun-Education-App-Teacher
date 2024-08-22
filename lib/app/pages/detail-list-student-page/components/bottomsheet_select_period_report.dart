@@ -16,7 +16,8 @@ class BottomsheetSelectPeriodReport
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.5,
+      // height: height * 0.5,
+      height: height * 0.38,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -70,33 +71,48 @@ class BottomsheetSelectPeriodReport
               child: Obx(
                 () => Column(
                   children: [
+                    // CustomRadioButtonPeriod(
+                    //   title: '5 Laporan Terakhir',
+                    //   value: '5',
+                    //   groupValue: controller.selectedReportPoint.value,
+                    //   onChanged: (value) =>
+                    //       controller.selectedReportPoint(value),
+                    // ),
+                    // SizedBox(height: height * 0.01),
+                    // CustomRadioButtonPeriod(
+                    //   title: '10 Laporan Terakhir',
+                    //   value: '10',
+                    //   groupValue: controller.selectedReportPoint.value,
+                    //   onChanged: (value) =>
+                    //       controller.selectedReportPoint(value),
+                    // ),
+                    // SizedBox(height: height * 0.01),
+                    // CustomRadioButtonPeriod(
+                    //   title: '20 Laporan Terakhir',
+                    //   value: '20',
+                    //   groupValue: controller.selectedReportPoint.value,
+                    //   onChanged: (value) =>
+                    //       controller.selectedReportPoint(value),
+                    // ),
+                    // SizedBox(height: height * 0.01),
+                    // CustomRadioButtonPeriod(
+                    //   title: '30 Laporan Terakhir',
+                    //   value: '30',
+                    //   groupValue: controller.selectedReportPoint.value,
+                    //   onChanged: (value) =>
+                    //       controller.selectedReportPoint(value),
+                    // ),
                     CustomRadioButtonPeriod(
-                      title: '5 Laporan Terakhir',
-                      value: '5',
+                      title: 'Mingguan (Terakhir)',
+                      value: 'weekly',
                       groupValue: controller.selectedReportPoint.value,
                       onChanged: (value) =>
                           controller.selectedReportPoint(value),
                     ),
                     SizedBox(height: height * 0.01),
                     CustomRadioButtonPeriod(
-                      title: '10 Laporan Terakhir',
-                      value: '10',
-                      groupValue: controller.selectedReportPoint.value,
-                      onChanged: (value) =>
-                          controller.selectedReportPoint(value),
-                    ),
-                    SizedBox(height: height * 0.01),
-                    CustomRadioButtonPeriod(
-                      title: '20 Laporan Terakhir',
-                      value: '20',
-                      groupValue: controller.selectedReportPoint.value,
-                      onChanged: (value) =>
-                          controller.selectedReportPoint(value),
-                    ),
-                    SizedBox(height: height * 0.01),
-                    CustomRadioButtonPeriod(
-                      title: '30 Laporan Terakhir',
-                      value: '30',
+                      title: 'Bulanan (Terakhir)',
+                      value: 'monthly',
                       groupValue: controller.selectedReportPoint.value,
                       onChanged: (value) =>
                           controller.selectedReportPoint(value),
