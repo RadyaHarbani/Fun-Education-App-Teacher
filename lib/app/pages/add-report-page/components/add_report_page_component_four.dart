@@ -25,9 +25,9 @@ class AddReportPageComponentFour extends GetView<AddReportPageController> {
         Obx(() => Wrap(
               spacing: width * 0.025,
               children: List.generate(
-                controller.showUserModel.length,
+                controller.showUserUndoneModel.length,
                 (index) {
-                  final recipient = controller.showUserModel[index];
+                  final recipient = controller.showUserUndoneModel[index];
                   final isSelected = controller.selectedStudents
                       .any((s) => s.id == recipient.id);
                   return Padding(

@@ -23,6 +23,7 @@ class UserService {
   Future<Response> getShowAllUsersByIncomingShift(
     String shift,
     String isVerified,
+    String isGraduated,
   ) async {
     try {
       final response = await _dioInstance.getRequest(
@@ -30,6 +31,7 @@ class UserService {
         queryParameters: {
           'shift': shift,
           'is_verified': isVerified,
+          'is_graduated' : isGraduated,
         },
       );
 

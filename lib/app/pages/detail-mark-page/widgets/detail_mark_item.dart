@@ -31,7 +31,7 @@ class DetailMarkItem extends StatelessWidget {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
-    return status == 'Dikumpulkan'
+    return status == 'Diperiksa'
         ? DetailMarkOnprogressItem(
             type: type,
             title: title,

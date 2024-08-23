@@ -3,8 +3,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class FirebaseApi {
+class PushNotificationService {
   static final _firebaseMessaging = FirebaseMessaging.instance;
   static final channel = AndroidNotificationChannel(
     'high_importance_channel',
@@ -40,11 +41,12 @@ class FirebaseApi {
       sound: true,
     );
     final token = await _firebaseMessaging.getToken();
-    FirebaseApi.initLocalNotification();
-    FirebaseMessaging.onMessage.listen(FirebaseApi.handleMessage);
+    PushNotificationService.initLocalNotification();
+    FirebaseMessaging.onMessage.listen(PushNotificationService.handleMessage);
     FirebaseMessaging.onMessageOpenedApp.listen(handleForegroundMessage);
-    FirebaseMessaging.onBackgroundMessage(FirebaseApi.handleBackgroundMessage);
-    print(token);
+    FirebaseMessaging.onBackgroundMessage(PushNotificationService.handleBackgroundMessage);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('tokenFirebase', token.toString());
   }
 
   static Future<void> handleMessage(RemoteMessage message) async {
@@ -71,63 +73,26 @@ class FirebaseApi {
   }
 
   static Future<void> handleForegroundMessage(RemoteMessage message) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     final data = message.data;
-    final classShiftId = _mapShiftToId(data['shift']);
+    var token = prefs.getString('teachersToken');
 
-    if (data['route'] != null && classShiftId != null) {
-      Get.toNamed(
-        Routes.DETAIL_CLASS_PAGE,
-        arguments: classShiftId,
-      )?.then((_) {
-        Get.toNamed(
-          Routes.DETAIL_TASK_PAGE,
-          arguments: data['tugas_id'],
-        )?.then((_) {
-          Get.toNamed(
-            Routes.DETAIL_MARK_PAGE,
-            arguments: data['tugas_user_id'],
-          );
-        });
-      });
+    if (data['route'] != null && token != null) {
+      Get.toNamed(Routes.NAVBAR_MAIN, arguments: 0);
+    } else {
+      Get.toNamed(Routes.LOGIN_PAGE);
     }
   }
 
-  static void onSelectNotification(NotificationResponse details) {
+  static void onSelectNotification(NotificationResponse details) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     final payload = json.decode(details.payload!);
-    final classShiftId = _mapShiftToId(payload['shift']);
+    var token = prefs.getString('teachersToken');
 
-    if (payload['route'] != null && classShiftId != null) {
-      Get.toNamed(
-        Routes.DETAIL_CLASS_PAGE,
-        arguments: classShiftId,
-      )?.then((_) {
-        Get.toNamed(
-          Routes.DETAIL_TASK_PAGE,
-          arguments: payload['tugas_id'],
-        )?.then((_) {
-          Get.toNamed(
-            Routes.DETAIL_MARK_PAGE,
-            arguments: payload['tugas_user_id'],
-          );
-        });
-      });
-    }
-  }
-
-  static String? _mapShiftToId(String? shift) {
-    switch (shift) {
-      case '08.00 - 10.00':
-        return '1';
-      case '10.00 - 11.30':
-        return '2';
-      case '11.30 - 13.00':
-        return '3';
-      case '13.00 - 14.00':
-        return '4';
-      case '14.00 - 15.00':
-        return '5';
-      default:
-        return null;
+    if (payload['route'] != null && token != null) {
+      Get.toNamed(Routes.NAVBAR_MAIN, arguments: 0);
+    } else {
+      Get.toNamed(Routes.LOGIN_PAGE);
     }
   }
 }

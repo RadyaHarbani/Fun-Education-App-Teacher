@@ -5,13 +5,11 @@ abstract class Routes {
   static const NAVBAR_MAIN = _Paths.NAVBAR_MAIN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
-  static const ADD_STUDENT_PAGE = _Paths.ADD_STUDENT_PAGE;
   static const DETAIL_CLASS_PAGE = _Paths.DETAIL_CLASS_PAGE;
   static const HOME_PAGE = _Paths.HOME_PAGE;
   static const ADD_TASK_PAGE = _Paths.ADD_TASK_PAGE;
   static const DETAIL_TASK_PAGE = _Paths.DETAIL_TASK_PAGE;
   static const EDIT_TASK_PAGE = _Paths.EDIT_TASK_PAGE;
-  static const DASHBOARD_PAGE = _Paths.DASHBOARD_PAGE;
   static const DETAIL_MARK_PAGE = _Paths.DETAIL_MARK_PAGE;
   static const ADD_REPORT_PAGE = _Paths.ADD_REPORT_PAGE;
   static const EDIT_REPORT_PAGE = _Paths.EDIT_REPORT_PAGE;
@@ -30,7 +28,8 @@ abstract class Routes {
   static const UPLOAD_PHOTO_PAGE = _Paths.UPLOAD_PHOTO_PAGE;
   static const UPLOAD_ALBUM_PAGE = _Paths.UPLOAD_ALBUM_PAGE;
   static const UNVERIFIED_STUDENT_PAGE = _Paths.UNVERIFIED_STUDENT_PAGE;
-  static const DETAIL_UNVERIFIED_STUDENT_PAGE = _Paths.DETAIL_UNVERIFIED_STUDENT_PAGE;
+  static const DETAIL_UNVERIFIED_STUDENT_PAGE =
+      _Paths.DETAIL_UNVERIFIED_STUDENT_PAGE;
 }
 
 abstract class _Paths {
@@ -38,13 +37,11 @@ abstract class _Paths {
   static const NAVBAR_MAIN = '/navbar-main';
   static const SPLASH_SCREEN = '/splash-screen';
   static const LOGIN_PAGE = '/login-page';
-  static const ADD_STUDENT_PAGE = '/add-student-page';
   static const DETAIL_CLASS_PAGE = '/detail-class-page';
   static const HOME_PAGE = '/home-page';
   static const ADD_TASK_PAGE = '/add-task-page';
   static const DETAIL_TASK_PAGE = '/detail-task-page';
   static const EDIT_TASK_PAGE = '/edit-task-page';
-  static const DASHBOARD_PAGE = '/dashboard-page';
   static const DETAIL_MARK_PAGE = '/detail-mark-page';
   static const ADD_REPORT_PAGE = '/add-report-page';
   static const EDIT_REPORT_PAGE = '/edit-report-page';
@@ -62,5 +59,6 @@ abstract class _Paths {
   static const UPLOAD_PHOTO_PAGE = '/upload-photo-page';
   static const UPLOAD_ALBUM_PAGE = '/upload-album-page';
   static const UNVERIFIED_STUDENT_PAGE = '/unverified-student-page';
-  static const DETAIL_UNVERIFIED_STUDENT_PAGE = '/detail-unverified-student-page';
+  static const DETAIL_UNVERIFIED_STUDENT_PAGE =
+      '/detail-unverified-student-page';
 }

@@ -75,16 +75,16 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
         SizedBox(height: height * 0.025),
         Expanded(
           child: Obx(() => ListView.builder(
-              itemCount: controller.showUserModel.length,
+              itemCount: controller.showUserDoneModel.length,
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
                     Get.toNamed(
                       Routes.DETAIL_REPORT_PAGE,
                       arguments: {
-                        'userId': controller.showUserModel[index].id,
+                        'userId': controller.showUserDoneModel[index].id,
                         'userFullName':
-                            controller.showUserModel[index].fullName,
+                            controller.showUserDoneModel[index].fullName,
                         'incomingShift': controller
                             .showAllIncomingShiftModel.value.shiftMasuk,
                         'date': DateTime.now(),
@@ -92,8 +92,8 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
                     );
                   },
                   child: ReportItem(
-                    name: '${controller.showUserModel[index].fullName}',
-                    image: '${controller.showUserModel[index].profilePicture}',
+                    name: '${controller.showUserDoneModel[index].fullName}',
+                    image: '${controller.showUserDoneModel[index].profilePicture}',
                   ),
                 );
               })),

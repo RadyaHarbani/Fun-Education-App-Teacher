@@ -22,7 +22,7 @@ class ListDetailSavingPageController extends GetxController {
   Future showAllUserByIncomingShift(String shift) async {
     try {
       final response =
-          await userService.getShowAllUsersByIncomingShift(shift, 'true');
+          await userService.getShowAllUsersByIncomingShift(shift, 'true', 'false');
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       showCurrentUserModel.value = showAllUserByIncomingShiftResponse!.data;
