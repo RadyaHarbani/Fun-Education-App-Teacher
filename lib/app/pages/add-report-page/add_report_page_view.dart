@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_controller.dart';
-import 'package:fun_education_app_teacher/app/pages/add-report-page/components/add_report_page_component_four.dart';
+import 'package:fun_education_app_teacher/app/pages/add-report-page/components/add_report_page_component_five.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/components/add_report_page_component_one.dart';
+import 'package:fun_education_app_teacher/app/pages/add-report-page/components/add_report_page_component_four.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/components/add_report_page_component_three.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/components/add_report_page_component_two.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -61,10 +62,12 @@ class AddReportPageView extends GetView<AddReportPageController> {
                 AddReportPageComponentOne(),
                 SizedBox(height: height * 0.03),
                 AddReportPageComponentTwo(),
-                SizedBox(height: height * 0.02),
-                AddReportPageComponentThree(),
                 SizedBox(height: height * 0.03),
+                AddReportPageComponentThree(),
+                SizedBox(height: height * 0.02),
                 AddReportPageComponentFour(),
+                SizedBox(height: height * 0.03),
+                AddReportPageComponentFive(),
                 SizedBox(height: height * 0.05),
                 CommonButton(
                   text: 'Kirim Laporan',

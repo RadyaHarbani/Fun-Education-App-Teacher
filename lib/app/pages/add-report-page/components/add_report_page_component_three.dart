@@ -1,8 +1,6 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/global-component/common_multiline_text_field.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_controller.dart';
-import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/app/pages/add-report-page/widgets/select_point_item.dart';
 import 'package:get/get.dart';
 
 class AddReportPageComponentThree extends GetView<AddReportPageController> {
@@ -13,30 +11,21 @@ class AddReportPageComponentThree extends GetView<AddReportPageController> {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double height = mediaQuery.height;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AutoSizeText.rich(
-          group: AutoSizeGroup(),
-          maxLines: 2,
-          TextSpan(
-            text: 'Catatan Dari Guru\n',
-            style: tsBodyLargeRegular(blackColor),
-            children: [
-              TextSpan(
-                text: '*opsional',
-                style: tsBodySmallRegular(dangerColor),
-              ),
-            ],
+      children: List.generate(
+        controller.pointNames.length,
+        (index) => Padding(
+          padding: EdgeInsets.only(bottom: height * 0.02),
+          child: Obx(
+            () => SelectPointItem(
+              pointName: controller.pointNames[index],
+              selectedPointType: controller.points[index].value,
+              onChanged: (value) {
+                controller.points[index].value = value;
+              }, pointType: controller.pointType,
+            ),
           ),
         ),
-        SizedBox(height: height * 0.02),
-        CommonMultilineTextfield(
-          maxlines: 5,
-          hintText: 'Masukkan Catatan',
-          onChanged: (value) {},
-          controller: controller.teachersNote,
-        ),
-      ],
+      ),
     );
   }
 }
