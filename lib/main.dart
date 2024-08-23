@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/api/push-notification/firebase_api.dart';
+import 'package:fun_education_app_teacher/app/api/push-notification/push_notification_service.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:fun_education_app_teacher/firebase_options.dart';
 import 'package:get/get.dart';
@@ -10,8 +10,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseApi.initNotification();
-  
+  PushNotificationService.initNotification();
+
   runApp(
     GetMaterialApp(
       title: "Application",

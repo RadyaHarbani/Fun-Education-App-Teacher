@@ -32,8 +32,11 @@ class UnverifiedStudentPageController extends GetxController {
 
   Future showAllUserByIncomingShiftOne(String shift) async {
     try {
-      final response =
-          await userService.getShowAllUsersByIncomingShift(shift, 'false');
+      final response = await userService.getShowAllUsersByIncomingShift(
+        shift,
+        'false',
+        'false',
+      );
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       listUnverifiedStudentOne.value = showAllUserByIncomingShiftResponse!.data;
@@ -46,8 +49,11 @@ class UnverifiedStudentPageController extends GetxController {
 
   Future showAllUserByIncomingShiftTwo(String shift) async {
     try {
-      final response =
-          await userService.getShowAllUsersByIncomingShift(shift, 'false');
+      final response = await userService.getShowAllUsersByIncomingShift(
+        shift,
+        'false',
+        'false',
+      );
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       listUnverifiedStudentTwo.value = showAllUserByIncomingShiftResponse!.data;
@@ -60,8 +66,11 @@ class UnverifiedStudentPageController extends GetxController {
 
   Future showAllUserByIncomingShiftThree(String shift) async {
     try {
-      final response =
-          await userService.getShowAllUsersByIncomingShift(shift, 'false');
+      final response = await userService.getShowAllUsersByIncomingShift(
+        shift,
+        'false',
+        'false',
+      );
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       listUnverifiedStudentThree.value =
@@ -75,8 +84,11 @@ class UnverifiedStudentPageController extends GetxController {
 
   Future showAllUserByIncomingShiftFour(String shift) async {
     try {
-      final response =
-          await userService.getShowAllUsersByIncomingShift(shift, 'false');
+      final response = await userService.getShowAllUsersByIncomingShift(
+        shift,
+        'false',
+        'false',
+      );
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       listUnverifiedStudentFour.value =
@@ -90,8 +102,11 @@ class UnverifiedStudentPageController extends GetxController {
 
   Future showAllUserByIncomingShiftFive(String shift) async {
     try {
-      final response =
-          await userService.getShowAllUsersByIncomingShift(shift, 'false');
+      final response = await userService.getShowAllUsersByIncomingShift(
+        shift,
+        'false',
+        'false',
+      );
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       listUnverifiedStudentFive.value =

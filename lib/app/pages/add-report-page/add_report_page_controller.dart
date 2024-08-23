@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/daily-report/models/selected_student_model.dart';
-import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user/show_user_model.dart';
-import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user/show_user_response.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user-done-undone/show_user_done_undone_model.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user-done-undone/show_user_done_undone_response.dart';
 import 'package:fun_education_app_teacher/app/api/daily-report/service/daily_report_service.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -16,8 +16,8 @@ class AddReportPageController extends GetxController {
   List<String> pointType = ['A', 'B', 'C'];
   List<RxString> points = List.generate(10, (_) => 'A'.obs);
   DailyReportService dailyReportService = DailyReportService();
-  ShowUserResponse? showUserResponse;
-  RxList<ShowUserModel> showUserModel = <ShowUserModel>[].obs;
+  ShowUserDoneUndoneResponse? showUserDoneUndoneResponse;
+  RxList<ShowUserDoneUndoneModel> showUserUndoneModel = <ShowUserDoneUndoneModel>[].obs;
   RxList<SelectedStudentModel> selectedStudents = <SelectedStudentModel>[].obs;
   List<String> pointNames = [
     'Datang Tepat Pada Waktunya',
@@ -43,15 +43,15 @@ class AddReportPageController extends GetxController {
     try {
       final response =
           await dailyReportService.getShowUserDoneUndone(isDone, shift);
-      showUserResponse = ShowUserResponse.fromJson(response.data);
-      showUserModel.value = showUserResponse!.data;
+      showUserDoneUndoneResponse = ShowUserDoneUndoneResponse.fromJson(response.data);
+      showUserUndoneModel.value = showUserDoneUndoneResponse!.data;
       update();
     } catch (e) {
       print(e);
     }
   }
 
-  void toggleRecipient(ShowUserModel recipient) {
+  void toggleRecipient(ShowUserDoneUndoneModel recipient) {
     final existingStudent =
         selectedStudents.firstWhereOrNull((s) => s.id == recipient.id);
     if (existingStudent != null) {
@@ -85,13 +85,13 @@ class AddReportPageController extends GetxController {
           print(
               "Failed to submit report for ${student.id}: ${response.statusCode}");
         }
-        ShowUserModel addUser = ShowUserModel(
+        ShowUserDoneUndoneModel addUser = ShowUserDoneUndoneModel(
           id: student.id,
           fullName: student.fullName,
           profilePicture: student.profilePicture,
         );
 
-        detailClassPageController.showUserModel.add(addUser);
+        detailClassPageController.showUserDoneModel.add(addUser);
       }
       Get.back();
 

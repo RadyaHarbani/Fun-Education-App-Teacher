@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user/show_user_model.dart';
-import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user/show_user_response.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user-done-undone/show_user_done_undone_model.dart';
+import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user-done-undone/show_user_done_undone_response.dart';
 import 'package:fun_education_app_teacher/app/api/daily-report/service/daily_report_service.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-all-incoming-shift/show_all_incoming_shift_model.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-by-id-incoming-shift/show_by_id_incoming_shift_response.dart';
@@ -48,8 +48,8 @@ class DetailClassPageController extends GetxController
   Rx<ShowByStatusModel> showByTaskIdDetail = ShowByStatusModel().obs;
 
   DailyReportService dailyReportService = DailyReportService();
-  ShowUserResponse? showUserResponse;
-  RxList<ShowUserModel> showUserModel = <ShowUserModel>[].obs;
+  ShowUserDoneUndoneResponse? showUserDoneUndoneResponse;
+  RxList<ShowUserDoneUndoneModel> showUserDoneModel = <ShowUserDoneUndoneModel>[].obs;
 
   LeaderboardService leaderboardService = LeaderboardService();
   LeaderboardResponse? leaderboardResponse;
@@ -65,7 +65,7 @@ class DetailClassPageController extends GetxController
     super.onInit();
     tabControllerAll = TabController(length: 3, vsync: this);
     tabControllerHomework = TabController(length: 3, vsync: this);
-    showByIdIncomingShift(Get.arguments );
+    showByIdIncomingShift(Get.arguments);
   }
 
   @override
@@ -100,8 +100,8 @@ class DetailClassPageController extends GetxController
   Future showAllUserByIncomingShift(String shift) async {
     try {
       if (shift.isEmpty) return;
-      final response =
-          await userService.getShowAllUsersByIncomingShift(shift, 'true');
+      final response = await userService.getShowAllUsersByIncomingShift(
+          shift, 'true', 'false');
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       showCurrentUserModel.value = showAllUserByIncomingShiftResponse!.data;
@@ -186,8 +186,8 @@ class DetailClassPageController extends GetxController
     try {
       final response =
           await dailyReportService.getShowUserDoneUndone(isDone, shift);
-      showUserResponse = ShowUserResponse.fromJson(response.data);
-      showUserModel.value = showUserResponse!.data;
+      showUserDoneUndoneResponse = ShowUserDoneUndoneResponse.fromJson(response.data);
+      showUserDoneModel.value = showUserDoneUndoneResponse!.data;
       update();
     } catch (e) {
       print(e);

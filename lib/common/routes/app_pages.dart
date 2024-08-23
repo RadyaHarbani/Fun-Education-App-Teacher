@@ -1,9 +1,5 @@
-import 'package:fun_education_app_teacher/app/archive/dashboard-page/dashboard_page_binding.dart';
-import 'package:fun_education_app_teacher/app/archive/dashboard-page/dashboard_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_view.dart';
-import 'package:fun_education_app_teacher/app/archive/add-student-page/add_student_page_binding.dart';
-import 'package:fun_education_app_teacher/app/archive/add-student-page/add_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_binding.dart';
@@ -84,11 +80,6 @@ class AppPages {
       binding: LoginPageBinding(),
     ),
     GetPage(
-      name: _Paths.ADD_STUDENT_PAGE,
-      page: () => AddStudentPageView(),
-      binding: AddStudentPageBinding(),
-    ),
-    GetPage(
       name: _Paths.DETAIL_CLASS_PAGE,
       page: () => DetailClassPageView(),
       binding: DetailClassPageBinding(),
@@ -112,11 +103,6 @@ class AppPages {
       name: _Paths.EDIT_TASK_PAGE,
       page: () => EditTaskPageView(),
       binding: EditTaskPageBinding(),
-    ),
-    GetPage(
-      name: _Paths.DASHBOARD_PAGE,
-      page: () => DashboardPageView(),
-      binding: DashboardPageBinding(),
     ),
     GetPage(
       name: _Paths.DETAIL_MARK_PAGE,
