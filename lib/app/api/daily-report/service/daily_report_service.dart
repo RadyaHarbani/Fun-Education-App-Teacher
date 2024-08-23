@@ -46,9 +46,11 @@ class DailyReportService {
   }
 
   Future<Response> postStoreDailyReportByAdmin(
+    bool isPresent,
     bool isNote,
     String userId,
-    Map<String, String> activities,
+    Map<String, String>? activities,
+    String permission,
     String? note,
   ) async {
     try {
@@ -58,8 +60,9 @@ class DailyReportService {
         endpoint: ApiEndPoint.storeDailyReportByAdmin,
         data: {
           'user_id': userId,
-          ...activities,
+          if (isPresent == true) ...activities!,
           if (isNote == true) 'note': note,
+          'permission' : permission,
         },
       );
       return response;

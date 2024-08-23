@@ -3,7 +3,6 @@
 //     final showByUserIdResponse = showByUserIdResponseFromJson(jsonString);
 
 import 'dart:convert';
-
 import 'package:fun_education_app_teacher/app/api/daily-report/models/show-by-user-id/show_grade_model.dart';
 
 ShowByUserIdResponse showByUserIdResponseFromJson(String str) =>
@@ -14,11 +13,13 @@ String showByUserIdResponseToJson(ShowByUserIdResponse data) =>
 
 class ShowByUserIdResponse {
   List<ShowGradeModel> data;
+  String permission;
   String? note;
   int totalPoint;
 
   ShowByUserIdResponse({
     required this.data,
+    required this.permission,
     this.note,
     required this.totalPoint,
   });
@@ -27,12 +28,14 @@ class ShowByUserIdResponse {
       ShowByUserIdResponse(
         data: List<ShowGradeModel>.from(
             json["data"].map((x) => ShowGradeModel.fromJson(x))),
+        permission: json["permission"],
         note: json["note"],
         totalPoint: json["total_point"],
       );
 
   Map<String, dynamic> toJson() => {
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "permission": permission,
         "note": note,
         "total_point": totalPoint,
       };

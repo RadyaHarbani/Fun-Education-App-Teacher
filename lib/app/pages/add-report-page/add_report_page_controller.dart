@@ -60,11 +60,18 @@ class AddReportPageController extends GetxController {
     if (existingStudent != null) {
       selectedStudents.remove(existingStudent);
     } else {
-      selectedStudents.add(SelectedStudentModel(
-        id: recipient.id!,
-        fullName: recipient.fullName!,
-        profilePicture: recipient.profilePicture!,
-      ));
+      if (recipient.id != null &&
+          recipient.fullName != null &&
+          recipient.profilePicture != null) {
+        selectedStudents.add(SelectedStudentModel(
+          id: recipient.id!,
+          fullName: recipient.fullName!,
+          profilePicture: recipient.profilePicture!,
+          permission: selectedPermission.value,
+        ));
+      } else {
+        print("Error: Missing required recipient fields");
+      }
     }
   }
 
@@ -77,9 +84,11 @@ class AddReportPageController extends GetxController {
 
       for (SelectedStudentModel student in selectedStudents) {
         final response = await dailyReportService.postStoreDailyReportByAdmin(
+          selectedPermission.value == 'Hadir' ? true : false,
           teachersNote.text.isNotEmpty ? true : false,
           student.id,
           activities,
+          selectedPermission.value,
           teachersNote.text,
         );
         if (response.statusCode == 201) {
@@ -92,6 +101,7 @@ class AddReportPageController extends GetxController {
           id: student.id,
           fullName: student.fullName,
           profilePicture: student.profilePicture,
+          permission: student.permission,
         );
 
         detailClassPageController.showUserDoneModel.add(addUser);

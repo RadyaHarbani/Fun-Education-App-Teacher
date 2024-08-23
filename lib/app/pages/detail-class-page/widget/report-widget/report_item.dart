@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class ReportItem extends StatelessWidget {
@@ -9,9 +7,11 @@ class ReportItem extends StatelessWidget {
     Key? key,
     required this.name,
     required this.image,
+    required this.permission,
   }) : super(key: key);
   final String name;
   final String image;
+  final String permission;
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +48,34 @@ class ReportItem extends StatelessWidget {
               ),
             ),
             SizedBox(width: width * 0.03),
-            AutoSizeText(
-              '$name',
-              group: AutoSizeGroup(),
-              maxLines: 1,
-              style: tsBodySmallSemibold(blackColor),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  '$name',
+                  group: AutoSizeGroup(),
+                  maxLines: 1,
+                  style: tsBodySmallSemibold(blackColor),
+                ),
+                permission == 'Hadir'
+                    ? SizedBox.shrink()
+                    : Row(
+                        children: [
+                          Icon(
+                            Icons.info_rounded,
+                            color: warningColor,
+                            size: 20,
+                          ),
+                          SizedBox(width: width * 0.005),
+                          AutoSizeText(
+                            '$permission',
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            style: tsBodySmallRegular(greyColor),
+                          ),
+                        ],
+                      )
+              ],
             ),
             Spacer(),
             Icon(

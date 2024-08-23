@@ -23,6 +23,7 @@ class ListDetailSavingPageComponentTwo
             child: ReportItem(
               name: '${controller.showCurrentUserModel[index].fullName}',
               image: '${controller.showCurrentUserModel[index].profilePicture}',
+              permission: 'Hadir',
             ),
           );
         }));

@@ -93,7 +93,10 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
                   },
                   child: ReportItem(
                     name: '${controller.showUserDoneModel[index].fullName}',
-                    image: '${controller.showUserDoneModel[index].profilePicture}',
+                    image:
+                        '${controller.showUserDoneModel[index].profilePicture}',
+                    permission:
+                        '${controller.showUserDoneModel[index].permission}',
                   ),
                 );
               })),
