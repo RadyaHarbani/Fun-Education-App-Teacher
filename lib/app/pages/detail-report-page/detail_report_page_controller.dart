@@ -11,10 +11,12 @@ class DetailReportPageController extends GetxController {
       Get.put(DetailClassPageController());
   RxString userFullName = ''.obs;
   DateTime userDate = DateTime.now();
-  RxInt userGrade = 0.obs;
-  RxString userNote = ''.obs;
+
   RxString userId = ''.obs;
   RxString incomingShift = ''.obs;
+  RxInt userGrade = 0.obs;
+  RxString userNote = ''.obs;
+  RxString userPermission = ''.obs;
   DailyReportService dailyReportService = DailyReportService();
   ShowByUserIdResponse? showByUserIdResponse;
   RxList<ShowGradeModel> showGradeModel = <ShowGradeModel>[].obs;
@@ -28,7 +30,7 @@ class DetailReportPageController extends GetxController {
     incomingShift.value = Get.arguments['incomingShift'];
     showByUserId(
       userId.value,
-      DateFormat('yyyy-MM-dd').format(Get.arguments['date']),
+      DateFormat('yyyy-MM-dd').format(userDate),
     );
   }
 
@@ -40,6 +42,7 @@ class DetailReportPageController extends GetxController {
       showGradeModel.value = showByUserIdResponse!.data;
       userGrade.value = showByUserIdResponse!.totalPoint;
       userNote.value = showByUserIdResponse!.note ?? '';
+      userPermission.value = showByUserIdResponse!.permission;
       update();
     } catch (e) {
       print(e);

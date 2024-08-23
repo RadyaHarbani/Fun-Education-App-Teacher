@@ -70,6 +70,7 @@ class ListStudentPageView extends GetView<ListStudentPageController> {
                             '${controller.showCurrentUserModel[index].fullName}',
                         image:
                             '${controller.showCurrentUserModel[index].profilePicture}',
+                        permission: 'Hadir',
                       ),
                     );
                   },

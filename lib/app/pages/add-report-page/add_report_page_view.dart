@@ -63,8 +63,19 @@ class AddReportPageView extends GetView<AddReportPageController> {
                 SizedBox(height: height * 0.03),
                 AddReportPageComponentTwo(),
                 SizedBox(height: height * 0.03),
-                AddReportPageComponentThree(),
-                SizedBox(height: height * 0.02),
+                Obx(() => AnimatedSize(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      child: controller.selectedPermission.value == 'Hadir'
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AddReportPageComponentThree(),
+                                SizedBox(height: height * 0.02),
+                              ],
+                            )
+                          : SizedBox.shrink(),
+                    )),
                 AddReportPageComponentFour(),
                 SizedBox(height: height * 0.03),
                 AddReportPageComponentFive(),
