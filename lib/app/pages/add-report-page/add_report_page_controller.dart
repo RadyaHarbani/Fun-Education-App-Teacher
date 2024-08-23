@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AddReportPageController extends GetxController {
+  var selectedPermission = 'Hadir'.obs;
   RefreshController refreshController = RefreshController();
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
@@ -17,7 +18,8 @@ class AddReportPageController extends GetxController {
   List<RxString> points = List.generate(10, (_) => 'A'.obs);
   DailyReportService dailyReportService = DailyReportService();
   ShowUserDoneUndoneResponse? showUserDoneUndoneResponse;
-  RxList<ShowUserDoneUndoneModel> showUserUndoneModel = <ShowUserDoneUndoneModel>[].obs;
+  RxList<ShowUserDoneUndoneModel> showUserUndoneModel =
+      <ShowUserDoneUndoneModel>[].obs;
   RxList<SelectedStudentModel> selectedStudents = <SelectedStudentModel>[].obs;
   List<String> pointNames = [
     'Datang Tepat Pada Waktunya',
@@ -43,7 +45,8 @@ class AddReportPageController extends GetxController {
     try {
       final response =
           await dailyReportService.getShowUserDoneUndone(isDone, shift);
-      showUserDoneUndoneResponse = ShowUserDoneUndoneResponse.fromJson(response.data);
+      showUserDoneUndoneResponse =
+          ShowUserDoneUndoneResponse.fromJson(response.data);
       showUserUndoneModel.value = showUserDoneUndoneResponse!.data;
       update();
     } catch (e) {

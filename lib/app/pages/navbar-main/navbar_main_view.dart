@@ -18,6 +18,7 @@ class NavbarMainView extends GetView<NavbarMainController> {
               icon: SvgPicture.asset('assets/icons/icHome.svg'),
               activeIcon: SvgPicture.asset(
                 'assets/icons/icHome.svg',
+                
                 color: primaryColor,
               ),
               label: 'Home',
