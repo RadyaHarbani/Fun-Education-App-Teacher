@@ -1,6 +1,6 @@
-# fun_education_app_teacher
+# Fun Education App Teacher
 
-A new Flutter project.
+The Fun Education App is an application created as a form of digitalization of recording daily reports and savings as well as a means for student parents to play an active role in their children's development
 
 ## Getting Started
 
