@@ -62,7 +62,7 @@ class DailyReportService {
           'user_id': userId,
           if (isPresent == true) ...activities!,
           if (isNote == true) 'note': note,
-          'permission' : permission,
+          'permission': permission,
         },
       );
       return response;
@@ -72,10 +72,13 @@ class DailyReportService {
   }
 
   Future<Response> putUpdateDailyReportByAdmin(
+    bool isPresent,
+    bool isNote,
     String date,
     String userId,
-    Map<String, String> activities,
-    String note,
+    Map<String, String>? activities,
+    String? note,
+    String permission,
   ) async {
     try {
       final response = await _dioInstance.putRequest(
@@ -87,8 +90,9 @@ class DailyReportService {
         },
         data: {
           'user_id': userId,
-          ...activities,
-          'note': note,
+          if (isPresent == true) ...activities!,
+          'permission': permission,
+          if (isNote == true) 'note': note,
         },
       );
       return response;

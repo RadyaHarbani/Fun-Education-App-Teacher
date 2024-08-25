@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_four.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_one.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_permission.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_three.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_controller.dart';
@@ -37,27 +38,26 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: width * 0.05,
-            vertical: height * 0.02,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DetailReportPageComponentOne(),
-              SizedBox(height: height * 0.02),
-              DetailReportPageComponentTwo(),
-              SizedBox(height: height * 0.02),
-              controller.userPermission.value == 'Hadir'
-                  ? DetailReportPageComponentThree()
-                  : SizedBox.shrink(),
-              SizedBox(height: height * 0.02),
-              DetailReportPageComponentFour(),
-              SizedBox(height: height * 0.03),
-              controller.userPermission.value == 'Hadir'
-                  ? CommonButton(
+      body: Obx(() => controller.userPermission.value == 'Hadir'
+          ? SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.05,
+                  vertical: height * 0.02,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DetailReportPageComponentOne(),
+                    SizedBox(height: height * 0.02),
+                    DetailReportPageComponentTwo(),
+                    SizedBox(height: height * 0.02),
+                    DetailReportPageComponentThree(),
+                    SizedBox(height: height * 0.02),
+                    DetailReportPageComponentFour(),
+                    SizedBox(height: height * 0.03),
+                    CommonButton(
                       text: 'Edit Laporan',
                       backgroundColor: greyColor.withOpacity(0.1),
                       textColor: blackColor,
@@ -70,24 +70,28 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
                             'userGrade': controller.showGradeModel,
                             'userNote': controller.userNote.value,
                             'userDate': controller.userDate,
+                            'userPermission': controller.userPermission.value,
+                            'userShift': controller.incomingShift.value,
                           },
                         );
                       },
-                    )
-                  : SizedBox.shrink(),
-              SizedBox(height: height * 0.01),
-              CommonButton(
-                text: 'Hapus Laporan',
-                backgroundColor: dangerColor,
-                textColor: whiteColor,
-                onPressed: () {
-                  controller.deleteDailyReportByAdmin();
-                },
+                    ),
+                    SizedBox(height: height * 0.01),
+                    CommonButton(
+                      text: 'Hapus Laporan',
+                      backgroundColor: dangerColor,
+                      textColor: whiteColor,
+                      onPressed: () {
+                        controller.deleteDailyReportByAdmin();
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            )
+          : DetailReportPageComponentPermission(
+              permission: controller.userPermission.value,
+            )),
     );
   }
 }

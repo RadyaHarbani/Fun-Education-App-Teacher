@@ -17,6 +17,7 @@ class ReportHistoryPageController extends GetxController {
   RxString userName = ''.obs;
   RxString userNote = ''.obs;
   RxString incomingShift = ''.obs;
+  RxString userPermission = ''.obs;
 
   DailyReportService dailyReportService = DailyReportService();
   ShowByUserIdResponse? showByUserIdResponse;
@@ -35,7 +36,6 @@ class ReportHistoryPageController extends GetxController {
     userId.value = Get.arguments['userId'];
     userName.value = Get.arguments['userName'];
     incomingShift.value = Get.arguments['incomingShift'];
-
     showAvailableDateByUserId();
     showByUserId(userId.value, selectedDay.value.toString());
   }
@@ -80,12 +80,17 @@ class ReportHistoryPageController extends GetxController {
 
   Future showByUserId(String userId, String date) async {
     try {
+      showGradeModel.clear();
+      userGrade.value = 0;
+      userNote.value = '';
+      userPermission.value = '';
       final response = await dailyReportService.getShowDailyReportByUserId(
           userId, DateFormat('yyyy-MM-dd').format(DateTime.parse(date)));
       showByUserIdResponse = ShowByUserIdResponse.fromJson(response.data);
       showGradeModel.value = showByUserIdResponse!.data;
       userGrade.value = showByUserIdResponse!.totalPoint;
       userNote.value = showByUserIdResponse!.note ?? '';
+      userPermission.value = showByUserIdResponse!.permission;
       update();
     } catch (e) {
       print(e);

@@ -142,10 +142,10 @@ class TaskLineChart {
             isCurved: true,
             gradient: LinearGradient(
               colors: [
-                ColorTween(begin: successColor, end: successColor)
+                ColorTween(begin: primaryColor, end: primaryColor)
                     .lerp(0.1)!
                     .withOpacity(0.5),
-                ColorTween(begin: successColor, end: successColor)
+                ColorTween(begin: primaryColor, end: primaryColor)
                     .lerp(0.1)!
                     .withOpacity(0.5),
               ],
@@ -157,17 +157,17 @@ class TaskLineChart {
               getDotPainter: (spot, percent, barData, index) =>
                   FlDotCirclePainter(
                 radius: 4,
-                color: successColor.withOpacity(0.6),
+                color: primaryColor.withOpacity(0.6),
               ),
             ),
             belowBarData: BarAreaData(
               show: true,
               gradient: LinearGradient(
                 colors: [
-                  ColorTween(begin: successColor, end: whiteColor)
+                  ColorTween(begin: primaryColor, end: whiteColor)
                       .lerp(0.1)!
                       .withOpacity(0.1),
-                  ColorTween(begin: successColor, end: whiteColor)
+                  ColorTween(begin: primaryColor, end: whiteColor)
                       .lerp(0.1)!
                       .withOpacity(0.1),
                 ],

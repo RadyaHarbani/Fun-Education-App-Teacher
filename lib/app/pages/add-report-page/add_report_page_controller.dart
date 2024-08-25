@@ -93,18 +93,14 @@ class AddReportPageController extends GetxController {
         );
         if (response.statusCode == 201) {
           print("Report for ${student.id} submitted successfully");
+          await detailClassPageController.showUserDoneUndone(
+            'true',
+            Get.arguments,
+          );
         } else {
           print(
               "Failed to submit report for ${student.id}: ${response.statusCode}");
         }
-        ShowUserDoneUndoneModel addUser = ShowUserDoneUndoneModel(
-          id: student.id,
-          fullName: student.fullName,
-          profilePicture: student.profilePicture,
-          permission: student.permission,
-        );
-
-        detailClassPageController.showUserDoneModel.add(addUser);
       }
       Get.back();
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
-import 'package:fun_education_app_teacher/app/pages/edit-report-page/components/edit_report_page_component_four.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-report-page/components/edit_report-page_component_three.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-report-page/components/edit_report_page_component_five.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/components/edit_report_page_component_one.dart';
-import 'package:fun_education_app_teacher/app/pages/edit-report-page/components/edit_report_page_component_three.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-report-page/components/edit_report_page_component_four.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/components/edit_report_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -48,10 +49,23 @@ class EditReportPageView extends GetView<EditReportPageController> {
               EditReportPageComponentOne(),
               SizedBox(height: height * 0.02),
               EditReportPageComponentTwo(),
-              SizedBox(height: height * 0.04),
+              SizedBox(height: height * 0.03),
               EditReportPageComponentThree(),
-              SizedBox(height: height * 0.01),
-              EditReportPageComponentFour(),
+              SizedBox(height: height * 0.03),
+              Obx(() => AnimatedSize(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    child: controller.userPermission.value == 'Hadir'
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              EditReportPageComponentFour(),
+                              SizedBox(height: height * 0.02),
+                            ],
+                          )
+                        : SizedBox.shrink(),
+                  )),
+              EditReportPageComponentFive(),
               SizedBox(height: height * 0.06),
               CommonButton(
                 text: 'Simpan Perubahan',

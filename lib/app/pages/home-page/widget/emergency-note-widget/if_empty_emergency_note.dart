@@ -21,8 +21,9 @@ class IfEmptyEmergencyNote extends StatelessWidget {
     return Column(
       children: [
         SvgPicture.asset(
-          'assets/images/empty_message.svg',
+          'assets/images/empty_list.svg',
         ),
+        SizedBox(height: height * 0.01),
         AutoSizeText.rich(
           group: AutoSizeGroup(),
           maxLines: 2,
@@ -38,7 +39,7 @@ class IfEmptyEmergencyNote extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: height * 0.03),
+        SizedBox(height: height * 0.04),
         CommonButton(
           text: 'Buat Catatan',
           backgroundColor: primaryColor,
