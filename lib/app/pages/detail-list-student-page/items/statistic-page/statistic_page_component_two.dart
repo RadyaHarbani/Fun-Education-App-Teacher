@@ -63,7 +63,7 @@ class StatisticPageComponentTwo
                             // '${controller.selectedTaskPoints.value.toString()} Tugas',
                             controller.selectedTaskPoints.value == 'weekly'
                                 ? 'Mingguan'
-                                : 'Tahunan',
+                                : 'Bulanan',
                             group: AutoSizeGroup(),
                             maxLines: 1,
                             style: tsBodySmallSemibold(blackColor),

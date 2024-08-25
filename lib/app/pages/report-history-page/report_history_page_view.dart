@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
-import 'package:fun_education_app_teacher/app/pages/report-history-page/components/report_history_page_component_five.dart';
-import 'package:fun_education_app_teacher/app/pages/report-history-page/components/report_history_page_component_three.dart';
-import 'package:fun_education_app_teacher/app/pages/report-history-page/components/report_history_page_component_four.dart';
 import 'package:fun_education_app_teacher/app/pages/report-history-page/components/report_history_page_component_one.dart';
+import 'package:fun_education_app_teacher/app/pages/report-history-page/components/report_history_page_component_three.dart';
 import 'package:fun_education_app_teacher/app/pages/report-history-page/components/report_history_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/report-history-page/report_history_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/report-history-page/widget/report_history_container_item.dart';
+import 'package:fun_education_app_teacher/app/pages/report-history-page/widget/report_history_empty_item.dart';
+import 'package:fun_education_app_teacher/app/pages/report-history-page/widget/report_history_permission_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
@@ -52,21 +52,32 @@ class ReportHistoryPageView extends GetView<ReportHistoryPageController> {
               ReportHistoryPageComponentOne(),
               SizedBox(height: height * 0.015),
               ReportHistoryPageComponentTwo(),
-              SizedBox(height: height * 0.05),
+              SizedBox(height: height * 0.035),
               ReportHistoryPageComponentThree(),
               SizedBox(height: height * 0.02),
-              ReportHistoryPageComponentFour(),
-              SizedBox(height: height * 0.02),
-              ReportHistoryPageComponentFive(),
-              SizedBox(height: height * 0.03),
-              CommonButton(
-                text: 'Hapus Laporan',
-                backgroundColor: dangerColor,
-                textColor: whiteColor,
-                onPressed: () {
-                  controller.deleteDailyReportByAdmin();
-                },
-              ),
+              Obx(() {
+                if (controller.showGradeModel.isNotEmpty &&
+                    controller.userPermission.value == 'Hadir') {
+                  return ReportHistoryContainerItem(
+                    selectedDate: controller.selectedDay.value,
+                    totalPoint: controller.userGrade.value,
+                    note: controller.userNote.value,
+                  );
+                } else if (controller.userPermission.isNotEmpty &&
+                    controller.userPermission.value != 'Hadir') {
+                  return ReportHistoryPermissionItem(
+                    permission: controller.userPermission.value,
+                    selectedDate: controller.selectedDay.value,
+                    note: controller.userNote.value,
+                    onTap: () {},
+                  );
+                } else if (controller.userPermission.isEmpty) {
+                  return ReportHistoryEmptyItem(
+                      selectedDate: controller.selectedDay.value);
+                } else {
+                  return Container();
+                }
+              })
             ],
           ),
         ),

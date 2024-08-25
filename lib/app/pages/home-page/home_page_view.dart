@@ -47,7 +47,7 @@ class HomePageView extends GetView<HomePageController> {
           physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.only(
-              top: height * 0.02,
+              top: height * 0.03,
               bottom: height * 0.03,
               left: width * 0.05,
               right: width * 0.05,

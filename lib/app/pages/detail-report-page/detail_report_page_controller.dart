@@ -11,7 +11,6 @@ class DetailReportPageController extends GetxController {
       Get.put(DetailClassPageController());
   RxString userFullName = ''.obs;
   DateTime userDate = DateTime.now();
-
   RxString userId = ''.obs;
   RxString incomingShift = ''.obs;
   RxInt userGrade = 0.obs;
@@ -41,7 +40,7 @@ class DetailReportPageController extends GetxController {
       showByUserIdResponse = ShowByUserIdResponse.fromJson(response.data);
       showGradeModel.value = showByUserIdResponse!.data;
       userGrade.value = showByUserIdResponse!.totalPoint;
-      userNote.value = showByUserIdResponse!.note ?? '';
+      userNote.value = showByUserIdResponse!.note ?? 'Tidak ada catatan';
       userPermission.value = showByUserIdResponse!.permission;
       update();
     } catch (e) {

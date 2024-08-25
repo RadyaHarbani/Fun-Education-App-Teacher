@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/api/task/models/show-by-status/show_by_status_model.dart';
 import 'package:fun_education_app_teacher/app/api/task/service/task_service.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -99,27 +98,7 @@ class AddTaskPageController extends GetxController {
         }
       }
 
-      final id = response.data['data']['id'];
-      final createdAtString = response.data['data']['created_at'];
-
-      DateTime? createdAt;
-      try {
-        createdAt = DateTime.parse(createdAtString);
-      } catch (e) {
-        print('Failed to parse createdAt: $e');
-        createdAt = null;
-      }
-
-      ShowByStatusModel showByStatusModel = ShowByStatusModel(
-        id: id,
-        category: selectedType.value,
-        title: taskNameController.text,
-        deadline: selectedDateTime.value,
-        shift: incomingShift.value,
-        createdAt: createdAt,
-      );
-
-      detailClassPageController.showByNewStatusList.add(showByStatusModel);
+      await detailClassPageController.showByNewStatus(incomingShift.value);
       await detailClassPageController.showStatusCount(incomingShift.value);
 
       Get.back();
