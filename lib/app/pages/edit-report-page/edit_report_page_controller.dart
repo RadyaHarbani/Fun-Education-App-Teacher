@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/daily-report/service/daily_report_service.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/report-history-page/report_history_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +12,8 @@ class EditReportPageController extends GetxController {
       Get.put(DetailReportPageController());
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
+  final ReportHistoryPageController reportHistoryPageController =
+      Get.put(ReportHistoryPageController());
   DailyReportService dailyReportService = DailyReportService();
   TextEditingController teachersNote = TextEditingController();
   List<String> pointType = ['A', 'B', 'C'];
@@ -39,6 +42,7 @@ class EditReportPageController extends GetxController {
     userFullName.value = Get.arguments['userFullName'];
     teachersNote.text = Get.arguments['userNote'];
     userDate.value = DateFormat('yyyy-MM-dd').format(Get.arguments['userDate']);
+    print(userDate.value);
     userId.value = Get.arguments['userId'];
     userPermission.value = Get.arguments['userPermission'];
     userShift.value = Get.arguments['userShift'];
@@ -75,6 +79,12 @@ class EditReportPageController extends GetxController {
       await detailClassPageController.showUserDoneUndone(
         'true',
         userShift.value,
+      );
+
+      await reportHistoryPageController.showAvailableDateByUserId(userId.value);
+      await reportHistoryPageController.showByUserId(
+        userId.value,
+        userDate.value,
       );
 
       Get.back();

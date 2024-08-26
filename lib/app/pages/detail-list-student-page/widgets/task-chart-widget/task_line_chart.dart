@@ -188,7 +188,7 @@ class TaskLineChart {
               getDotPainter: (spot, percent, barData, index) =>
                   FlDotCirclePainter(
                 radius: 4,
-                color: greyColor.withOpacity(0.3),
+                color: greyColor.withOpacity(0.15),
               ),
             ),
             belowBarData: BarAreaData(show: false),

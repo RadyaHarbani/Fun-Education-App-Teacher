@@ -26,9 +26,7 @@ class DetailListStudentPageController extends GetxController
       Get.put(DetailClassPageController());
   TabController? tabControllerAll;
   var selectedLearningFlow = 'A'.obs;
-  // var selectedReportPoint = '5'.obs;
   var selectedReportPoint = 'weekly'.obs;
-  // var selectedTaskPoints = '5'.obs;
   var selectedTaskPoints = 'weekly'.obs;
   RxString userId = ''.obs;
 
@@ -54,7 +52,6 @@ class DetailListStudentPageController extends GetxController
   var maxX = 0.0.obs;
 
   var spotsTask = <FlSpot>[].obs;
-  // var touchedTitleTask = <String>[].obs;
   var touchedTitleTask = <DateTime>[].obs;
   var bottomTitlesTask = <String?>[].obs;
   var maxXTask = 0.0.obs;
@@ -150,6 +147,7 @@ class DetailListStudentPageController extends GetxController
 
   Future showStatisticDailyReportByUserId() async {
     try {
+      bottomTitles.clear();
       final response =
           await statisticService.getShowStatisticDailyReportByUserId(
         selectedReportPoint.value,
@@ -168,7 +166,9 @@ class DetailListStudentPageController extends GetxController
       touchedTitle.value =
           statisticDailyReportModel.map((e) => e.date!).toList();
 
-      bottomTitles.value = List<String?>.filled(spots.length, null);
+      bottomTitles.value =
+          List<String?>.generate(spots.length, (index) => null);
+
       for (var title in statisticDailyReportResponse!.bottomTitle) {
         bottomTitles[title.bottomTitleCase!] = title.date;
       }
@@ -183,6 +183,7 @@ class DetailListStudentPageController extends GetxController
 
   Future showStatisticTaskByUserId() async {
     try {
+      bottomTitlesTask.clear();
       final response = await statisticService.getShowStatisticTaskByUserId(
         selectedTaskPoints.value,
         userId.value,
@@ -196,10 +197,11 @@ class DetailListStudentPageController extends GetxController
                 e.totalPoint!.toDouble(),
               ))
           .toList();
-      // touchedTitleTask.value = statisticTaskModel.map((e) => e.title!).toList();
       touchedTitleTask.value = statisticTaskModel.map((e) => e.date!).toList();
 
-      bottomTitlesTask.value = List<String?>.filled(spotsTask.length, null);
+      bottomTitlesTask.value =
+          List<String?>.generate(spotsTask.length, (index) => null);
+
       for (var title in statisticTaskResponse!.bottomTitle) {
         bottomTitlesTask[title.bottomTitleCase!] = title.date;
       }
