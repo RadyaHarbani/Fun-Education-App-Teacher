@@ -36,14 +36,14 @@ class ReportHistoryPageController extends GetxController {
     userId.value = Get.arguments['userId'];
     userName.value = Get.arguments['userName'];
     incomingShift.value = Get.arguments['incomingShift'];
-    showAvailableDateByUserId();
+    showAvailableDateByUserId(userId.value);
     showByUserId(userId.value, selectedDay.value.toString());
   }
 
-  Future<void> showAvailableDateByUserId() async {
+  Future<void> showAvailableDateByUserId(String userId) async {
     try {
       final response =
-          await dailyReportService.getShowAvailableDateByUserId(userId.value);
+          await dailyReportService.getShowAvailableDateByUserId(userId);
       final List<String> dateStrings = response.data['dates'].cast<String>();
       List<DateTime> showAvailableDate = dateStrings
           .map((date) => DateFormat('yyyy-MM-dd').parse(date))

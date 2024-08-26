@@ -46,25 +46,25 @@ class ReportTitleChart {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = 'SEN';
+        text = detailListStudentPageController.bottomTitles[0] ?? '';
         break;
       case 1:
-        text = 'SEL';
+        text = detailListStudentPageController.bottomTitles[1] ?? '';
         break;
       case 2:
-        text = 'RAB';
+        text = detailListStudentPageController.bottomTitles[2] ?? '';
         break;
       case 3:
-        text = 'KAM';
+        text = detailListStudentPageController.bottomTitles[3] ?? '';
         break;
       case 4:
-        text = 'JUM';
+        text = detailListStudentPageController.bottomTitles[4] ?? '';
         break;
       case 5:
-        text = 'SAB';
+        text = detailListStudentPageController.bottomTitles[5] ?? '';
         break;
       case 6:
-        text = 'MIN';
+        text = detailListStudentPageController.bottomTitles[6] ?? '';
         break;
       default:
         return Container();
@@ -82,16 +82,16 @@ class ReportTitleChart {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = 'Minggu\n1';
+        text = detailListStudentPageController.bottomTitles[0] ?? '';
         break;
       case 10:
-        text = 'Minggu\n2';
+        text = detailListStudentPageController.bottomTitles[10] ?? '';
         break;
       case 20:
-        text = 'Minggu\n3';
+        text = detailListStudentPageController.bottomTitles[20] ?? '';
         break;
       case 30:
-        text = 'Minggu\n4';
+        text = detailListStudentPageController.bottomTitles[30] ?? '';
         break;
       default:
         return Container();

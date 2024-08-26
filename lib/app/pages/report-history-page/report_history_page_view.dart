@@ -7,6 +7,7 @@ import 'package:fun_education_app_teacher/app/pages/report-history-page/widget/r
 import 'package:fun_education_app_teacher/app/pages/report-history-page/widget/report_history_empty_item.dart';
 import 'package:fun_education_app_teacher/app/pages/report-history-page/widget/report_history_permission_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class ReportHistoryPageView extends GetView<ReportHistoryPageController> {
@@ -58,10 +59,24 @@ class ReportHistoryPageView extends GetView<ReportHistoryPageController> {
               Obx(() {
                 if (controller.showGradeModel.isNotEmpty &&
                     controller.userPermission.value == 'Hadir') {
-                  return ReportHistoryContainerItem(
-                    selectedDate: controller.selectedDay.value,
-                    totalPoint: controller.userGrade.value,
-                    note: controller.userNote.value,
+                  return InkWell(
+                    onTap: () {
+                      Get.toNamed(
+                        Routes.DETAIL_REPORT_PAGE,
+                        arguments: {
+                          'userIdHistory': controller.userId.value,
+                          'userFullNameHistory': controller.userName.value,
+                          'dateHistory': controller.selectedDay.value,
+                          'incomingShiftHistory':
+                              controller.incomingShift.value,
+                        },
+                      );
+                    },
+                    child: ReportHistoryContainerItem(
+                      selectedDate: controller.selectedDay.value,
+                      totalPoint: controller.userGrade.value,
+                      note: controller.userNote.value,
+                    ),
                   );
                 } else if (controller.userPermission.isNotEmpty &&
                     controller.userPermission.value != 'Hadir') {
@@ -69,7 +84,18 @@ class ReportHistoryPageView extends GetView<ReportHistoryPageController> {
                     permission: controller.userPermission.value,
                     selectedDate: controller.selectedDay.value,
                     note: controller.userNote.value,
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(
+                        Routes.DETAIL_REPORT_PAGE,
+                        arguments: {
+                          'userIdHistory': controller.userId.value,
+                          'userFullNameHistory': controller.userName.value,
+                          'dateHistory': controller.selectedDay.value,
+                          'incomingShiftHistory':
+                              controller.incomingShift.value,
+                        },
+                      );
+                    },
                   );
                 } else if (controller.userPermission.isEmpty) {
                   return ReportHistoryEmptyItem(

@@ -46,25 +46,25 @@ class TaskTitleChart {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = 'SEN';
+        text = detailListStudentPageController.bottomTitlesTask[0] ?? '';
         break;
       case 1:
-        text = 'SEL';
+        text = detailListStudentPageController.bottomTitlesTask[1] ?? '';
         break;
       case 2:
-        text = 'RAB';
+        text = detailListStudentPageController.bottomTitlesTask[2] ?? '';
         break;
       case 3:
-        text = 'KAM';
+        text = detailListStudentPageController.bottomTitlesTask[3] ?? '';
         break;
       case 4:
-        text = 'JUM';
+        text = detailListStudentPageController.bottomTitlesTask[4] ?? '';
         break;
       case 5:
-        text = 'SAB';
+        text = detailListStudentPageController.bottomTitlesTask[5] ?? '';
         break;
       case 6:
-        text = 'MIN';
+        text = detailListStudentPageController.bottomTitlesTask[6] ?? '';
         break;
       default:
         return Container();
@@ -82,16 +82,16 @@ class TaskTitleChart {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = 'Minggu\n1';
+        text = detailListStudentPageController.bottomTitlesTask[0] ?? '';
         break;
       case 10:
-        text = 'Minggu\n2';
+        text = detailListStudentPageController.bottomTitlesTask[10] ?? '';
         break;
       case 20:
-        text = 'Minggu\n3';
+        text = detailListStudentPageController.bottomTitlesTask[20] ?? '';
         break;
       case 30:
-        text = 'Minggu\n4';
+        text = detailListStudentPageController.bottomTitlesTask[30] ?? '';
         break;
       default:
         return Container();
@@ -106,8 +106,10 @@ class TaskTitleChart {
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     String text = '';
-    if (value.toInt() < detailListStudentPageController.bottomTitlesTask.length) {
-      text = detailListStudentPageController.bottomTitlesTask[value.toInt()] ?? '';
+    if (value.toInt() <
+        detailListStudentPageController.bottomTitlesTask.length) {
+      text =
+          detailListStudentPageController.bottomTitlesTask[value.toInt()] ?? '';
     }
 
     return SideTitleWidget(

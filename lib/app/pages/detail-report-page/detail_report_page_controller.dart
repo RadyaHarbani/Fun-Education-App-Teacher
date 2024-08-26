@@ -2,6 +2,7 @@ import 'package:fun_education_app_teacher/app/api/daily-report/models/show-by-us
 import 'package:fun_education_app_teacher/app/api/daily-report/models/show-by-user-id/show_grade_model.dart';
 import 'package:fun_education_app_teacher/app/api/daily-report/service/daily_report_service.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/report-history-page/report_history_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +10,8 @@ import 'package:intl/intl.dart';
 class DetailReportPageController extends GetxController {
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
+  final ReportHistoryPageController reportHistoryPageController =
+      Get.put(ReportHistoryPageController());
   RxString userFullName = ''.obs;
   DateTime userDate = DateTime.now();
   RxString userId = ''.obs;
@@ -23,10 +26,12 @@ class DetailReportPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    userId.value = Get.arguments['userId'];
-    userFullName.value = Get.arguments['userFullName'];
-    userDate = Get.arguments['date'];
-    incomingShift.value = Get.arguments['incomingShift'];
+    userId.value = Get.arguments['userId'] ?? Get.arguments['userIdHistory'];
+    userFullName.value =
+        Get.arguments['userFullName'] ?? Get.arguments['userFullNameHistory'];
+    userDate = Get.arguments['date'] ?? Get.arguments['dateHistory'];
+    incomingShift.value =
+        Get.arguments['incomingShift'] ?? Get.arguments['incomingShiftHistory'];
     showByUserId(
       userId.value,
       DateFormat('yyyy-MM-dd').format(userDate),
@@ -58,6 +63,12 @@ class DetailReportPageController extends GetxController {
         'true',
         incomingShift.value,
       );
+      await reportHistoryPageController.showAvailableDateByUserId(userId.value);
+      await reportHistoryPageController.showByUserId(
+        userId.value,
+        DateFormat('yyyy-MM-dd').format(userDate),
+      );
+      reportHistoryPageController.selectedDay.value = userDate;
       Get.back();
       Get.snackbar(
         'Berhasil',

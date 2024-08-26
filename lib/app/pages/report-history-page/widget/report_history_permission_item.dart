@@ -29,11 +29,11 @@ class ReportHistoryPermissionItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: height * 0.05),
+              SizedBox(height: height * 0.03),
               SvgPicture.asset('assets/images/empty_list.svg'),
               SizedBox(height: height * 0.02),
               AutoSizeText(
-                'Laporan Ananda Izin',
+                'Laporan Ananda $permission',
                 group: AutoSizeGroup(),
                 textAlign: TextAlign.center,
                 maxLines: 1,
@@ -61,7 +61,9 @@ class ReportHistoryPermissionItem extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 6,
-                        backgroundColor: note.isNotEmpty ? greenColor : greyColor.withOpacity(0.5),
+                        backgroundColor: note.isNotEmpty
+                            ? greenColor
+                            : greyColor.withOpacity(0.5),
                       ),
                       SizedBox(width: width * 0.02),
                       AutoSizeText(
