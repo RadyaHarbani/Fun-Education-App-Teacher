@@ -66,7 +66,7 @@ class BottomsheetDetailPhotoGallery extends GetView<GalleryPageController> {
                       ),
                       SizedBox(width: width * 0.02),
                       AutoSizeText(
-                        '${DateFormat('EEEE, dd MMMM yyyy').format(arguments.createdAt)}',
+                        '${DateFormat('EEEE, dd MMMM yyyy', 'id_ID').format(arguments.createdAt)}',
                         group: AutoSizeGroup(),
                         maxLines: 1,
                         style: tsBodySmallRegular(blackColor),

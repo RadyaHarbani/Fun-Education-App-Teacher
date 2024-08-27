@@ -72,7 +72,7 @@ class DetailSavingPageComponentFour
                   transactionAmount:
                       '${controller.transactionModel[index].amount}',
                   transactionDate:
-                      '${DateFormat('dd MMMM yyyy').format(controller.transactionModel[index].date!)}',
+                      '${DateFormat('dd MMMM yyyy', 'id_ID').format(controller.transactionModel[index].date!)}',
                   transactionDescription:
                       '${controller.transactionModel[index].desc ?? 'Tidak Ada Deskripsi'}',
                 );

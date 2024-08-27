@@ -49,7 +49,7 @@ class ListFinishedMark extends GetView<DetailTaskPageController> {
                 child: MarkStudentItem(
                   studentName: '${controller.finishedList[index].fullName}',
                   date:
-                      '${DateFormat('EEEE, dd MMMM').format(controller.finishedList[index].createdAt!)}',
+                      '${DateFormat('EEEE, dd MMMM', 'id_ID').format(controller.finishedList[index].createdAt!)}',
                   profiePicture: controller.finishedList[index].profilePicture!,
                   mark: '${controller.finishedList[index].grade}',
                 ),

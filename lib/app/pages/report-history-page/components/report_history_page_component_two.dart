@@ -64,6 +64,7 @@ class ReportHistoryPageComponentTwo
             bottom: height * 0.02,
           ),
         ),
+        locale: 'id_ID',
         focusedDay: controller.focusedDay.value,
         firstDay: DateTime.utc(2021, 1, 1),
         lastDay: DateTime.utc(2024, 12, 31),

@@ -58,9 +58,9 @@ class DetailMarkPageView extends GetView<DetailMarkPageController> {
                     description:
                         '${detailTaskPageController.showByTaskIdDetail.value.description!}',
                     madeIn:
-                        '${DateFormat('EEEE,\ndd MMMM').format(detailTaskPageController.showByTaskIdDetail.value.createdAt!)}',
+                        '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(detailTaskPageController.showByTaskIdDetail.value.createdAt!)}',
                     deadline:
-                        '${DateFormat('EEEE,\ndd MMMM').format(detailTaskPageController.showByTaskIdDetail.value.deadline!)}',
+                        '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(detailTaskPageController.showByTaskIdDetail.value.deadline!)}',
                     status: '${controller.showByUserIdDetail.value.status}',
                   )),
               SizedBox(height: height * 0.02),

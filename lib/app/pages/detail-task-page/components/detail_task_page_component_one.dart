@@ -22,9 +22,9 @@ class DetailTaskPageComponentOne extends GetView<DetailTaskPageController> {
                 description:
                     '${controller.showByTaskIdDetail.value.description}',
                 madeIn:
-                    '${controller.showByTaskIdDetail.value.createdAt != null ? DateFormat('EEEE,\ndd MMMM').format(controller.showByTaskIdDetail.value.createdAt!) : 'N/A'}',
+                    '${controller.showByTaskIdDetail.value.createdAt != null ? DateFormat('EEEE,\ndd MMMM', 'id_ID').format(controller.showByTaskIdDetail.value.createdAt!) : 'N/A'}',
                 deadline:
-                    '${controller.showByTaskIdDetail.value.deadline != null ? DateFormat('EEEE,\ndd MMMM').format(controller.showByTaskIdDetail.value.deadline!) : 'N/A'}',
+                    '${controller.showByTaskIdDetail.value.deadline != null ? DateFormat('EEEE,\ndd MMMM', 'id_ID').format(controller.showByTaskIdDetail.value.deadline!) : 'N/A'}',
                 status: '${controller.showByTaskIdDetail.value.status}',
                 function1: () {
                   if (controller.showByTaskIdDetail.value.status ==

@@ -27,9 +27,9 @@ class ListArchiveTask extends GetView<DetailClassPageController> {
               type: '${controller.showByArchiveStatusList[index].category}',
               title: '${controller.showByArchiveStatusList[index].title}',
               madeIn:
-                  '${DateFormat('EEEE,\ndd MMMM').format(controller.showByArchiveStatusList[index].createdAt!)}',
+                  '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(controller.showByArchiveStatusList[index].createdAt!)}',
               deadline:
-                  '${DateFormat('EEEE,\ndd MMMM').format(controller.showByArchiveStatusList[index].deadline!)}',
+                  '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(controller.showByArchiveStatusList[index].deadline!)}',
               widget: PopupMenuButton(
                 color: whiteColor,
                 onSelected: (value) {

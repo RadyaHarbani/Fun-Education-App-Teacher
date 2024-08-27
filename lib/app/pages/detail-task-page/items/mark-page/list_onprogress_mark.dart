@@ -49,7 +49,7 @@ class ListOnprogressMark extends GetView<DetailTaskPageController> {
                 child: MarkStudentItem(
                   studentName: '${controller.onProgressList[index].fullName}',
                   date:
-                      '${DateFormat('EEEE, dd MMMM').format(controller.onProgressList[index].createdAt!)}',
+                      '${DateFormat('EEEE, dd MMMM', 'id_ID').format(controller.onProgressList[index].createdAt!)}',
                   profiePicture:
                       controller.onProgressList[index].profilePicture!,
                   mark: '${controller.onProgressList[index].grade}',
