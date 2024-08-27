@@ -129,25 +129,25 @@ class StatisticPageComponentTwo
                   ),
                   child: Row(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          AutoSizeText(
-                            group: AutoSizeGroup(),
-                            maxLines: 1,
-                            '-',
-                            style: tsTitleLargeSemibold(dangerColor),
-                          ),
-                          SizedBox(width: width * 0.02),
-                          AutoSizeText(
-                            group: AutoSizeGroup(),
-                            maxLines: 1,
-                            'Rata - Rata',
-                            style: tsBodySmallRegular(blackColor),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: width * 0.05),
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   children: [
+                      //     AutoSizeText(
+                      //       group: AutoSizeGroup(),
+                      //       maxLines: 1,
+                      //       '-',
+                      //       style: tsTitleLargeSemibold(dangerColor),
+                      //     ),
+                      //     SizedBox(width: width * 0.02),
+                      //     AutoSizeText(
+                      //       group: AutoSizeGroup(),
+                      //       maxLines: 1,
+                      //       'Rata - Rata',
+                      //       style: tsBodySmallRegular(blackColor),
+                      //     ),
+                      //   ],
+                      // ),
+                      // SizedBox(width: width * 0.05),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

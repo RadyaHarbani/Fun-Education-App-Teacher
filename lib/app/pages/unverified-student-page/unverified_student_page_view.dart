@@ -35,7 +35,7 @@ class UnverifiedStudentPageView
           },
         ),
         title: Text(
-          'List Pengajuan',
+          'List Pengajuan Akun',
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),

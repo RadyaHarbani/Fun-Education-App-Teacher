@@ -103,21 +103,21 @@ class ReportLineChart {
       ),
       gridData: FlGridData(
         show: true,
-        drawHorizontalLine: false,
+        drawHorizontalLine: true,
         drawVerticalLine: false,
         verticalInterval: 1,
-        horizontalInterval: 1,
+        horizontalInterval: 20,
       ),
-      extraLinesData: ExtraLinesData(
-        horizontalLines: [
-          HorizontalLine(
-            y: 70,
-            color: dangerColor.withOpacity(0.8),
-            strokeWidth: 2,
-            dashArray: [5, 5],
-          ),
-        ],
-      ),
+      // extraLinesData: ExtraLinesData(
+      //   horizontalLines: [
+      //     HorizontalLine(
+      //       y: 70,
+      //       color: dangerColor.withOpacity(0.8),
+      //       strokeWidth: 2,
+      //       dashArray: [5, 5],
+      //     ),
+      //   ],
+      // ),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
