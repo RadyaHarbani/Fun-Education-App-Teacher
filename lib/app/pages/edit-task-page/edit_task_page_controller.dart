@@ -22,6 +22,7 @@ class EditTaskPageController extends GetxController {
   final ImagePicker imagePicker = ImagePicker();
   var imageFileList = <XFile>[].obs;
   var selectedDateTime = DateTime.now().obs;
+  RxBool isLoadingUpdateTask = false.obs;
 
   @override
   void onInit() {
@@ -84,6 +85,7 @@ class EditTaskPageController extends GetxController {
 
   Future updateTaskByAdmin() async {
     try {
+      isLoadingUpdateTask(true);
       final response = await taskService.putUpdateTaskByAdmin(
         Get.arguments.id,
         selectedType.value,
@@ -120,7 +122,9 @@ class EditTaskPageController extends GetxController {
           backgroundColor: successColor,
           colorText: whiteColor,
         );
+        isLoadingUpdateTask(false);
       } else {
+        isLoadingUpdateTask(false);
         Get.snackbar(
           'Error',
           'Terjadi kesalahan: ${response.statusCode}',
@@ -129,6 +133,7 @@ class EditTaskPageController extends GetxController {
         );
       }
     } catch (e) {
+      isLoadingUpdateTask(false);
       Get.snackbar(
         'Error',
         'Terjadi kesalahan: $e',

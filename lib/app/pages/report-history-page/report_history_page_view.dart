@@ -80,7 +80,7 @@ class ReportHistoryPageView extends GetView<ReportHistoryPageController> {
                   );
                 } else if (controller.showGradeModel.isEmpty &&
                     controller.userPermission.value != 'Hadir' &&
-                    controller.userGrade.value == 0) {
+                    controller.userPermission.isNotEmpty) {
                   return ReportHistoryPermissionItem(
                     permission: controller.userPermission.value,
                     selectedDate: controller.selectedDay.value,
@@ -98,7 +98,9 @@ class ReportHistoryPageView extends GetView<ReportHistoryPageController> {
                       );
                     },
                   );
-                } else if (controller.userPermission.isEmpty) {
+                } else if (controller.userPermission.isEmpty &&
+                    controller.showGradeModel.isEmpty &&
+                    controller.userNote.isEmpty) {
                   return ReportHistoryEmptyItem(
                       selectedDate: controller.selectedDay.value);
                 } else {

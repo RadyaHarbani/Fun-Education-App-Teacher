@@ -102,14 +102,15 @@ class BottomsheetEditLearningFlow
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Tingkatkan',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              onPressed: () {
-                controller.updateLearningFlowByAdmin();
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingUpdateLearningFlow.value,
+                  text: 'Tingkatkan',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    controller.updateLearningFlowByAdmin();
+                  },
+                )),
           ],
         ),
       ),

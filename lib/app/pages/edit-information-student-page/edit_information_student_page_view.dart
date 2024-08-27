@@ -53,14 +53,16 @@ class EditInformationStudentPageView
                 SizedBox(height: height * 0.03),
                 EditInformationStudentPageComponentThree(),
                 SizedBox(height: height * 0.03),
-                CommonButton(
-                  text: 'Simpan Perubahan',
-                  backgroundColor: blackColor,
-                  textColor: whiteColor,
-                  onPressed: () {
-                    controller.updateUserByAdmin();
-                  },
-                ),
+                Obx(() => CommonButton(
+                      isLoading:
+                          controller.isLoadingEditInformationStudent.value,
+                      text: 'Simpan Perubahan',
+                      backgroundColor: blackColor,
+                      textColor: whiteColor,
+                      onPressed: () {
+                        controller.updateUserByAdmin();
+                      },
+                    )),
               ],
             ),
           ),

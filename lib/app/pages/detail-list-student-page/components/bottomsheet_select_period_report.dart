@@ -122,15 +122,16 @@ class BottomsheetSelectPeriodReport
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Tutup',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              onPressed: () async {
-                await controller.showStatisticDailyReportByUserId();
-                Get.back();
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingShowStatisticDailyReport.value,
+                  text: 'Tutup',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () async {
+                    await controller.showStatisticDailyReportByUserId();
+                    Get.back();
+                  },
+                )),
           ],
         ),
       ),

@@ -73,15 +73,16 @@ class BottomsheetAddMark extends GetView<DetailMarkPageController> {
                 hintText: '100',
               ),
             ),
-            CommonButton(
-              text: 'Kirim Nilai',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              onPressed: () {
-                controller
-                    .sendGradeByAdmin(controller.showByUserIdDetail.value.id!);
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingUpdateGrade.value,
+                  text: 'Kirim Nilai',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    controller.sendGradeByAdmin(
+                        controller.showByUserIdDetail.value.id!);
+                  },
+                )),
           ],
         ),
       ),

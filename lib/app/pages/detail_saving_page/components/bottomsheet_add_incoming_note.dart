@@ -119,14 +119,15 @@ class BottomsheetAddIncomingNote extends GetView<DetailSavingPageController> {
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Catat Pemasukan',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              onPressed: () {
-                controller.storeTransactionByAdmin('income');
-              },
-            ),
+            Obx(() => CommonButton(
+              isLoading: controller.isLoadingAddTransaction.value,
+                  text: 'Catat Pemasukan',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    controller.storeTransactionByAdmin('income');
+                  },
+                )),
           ],
         ),
       ),

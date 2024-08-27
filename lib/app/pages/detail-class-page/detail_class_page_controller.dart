@@ -211,6 +211,9 @@ class DetailClassPageController extends GetxController
   Future showUserDone(String isDone, String shift, DateTime date) async {
     try {
       showUserDoneModel.clear();
+      showUserPermissionHadir.clear();
+      showUserPermissionIzin.clear();
+      showUserPermissionSakit.clear();
       final response =
           await dailyReportService.getShowUserDoneUndone(isDone, shift, date);
       showUserDoneUndoneResponse =

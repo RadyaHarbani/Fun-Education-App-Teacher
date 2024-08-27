@@ -21,6 +21,7 @@ class UploadPhotoPageController extends GetxController {
   final ImagePicker imagePicker = ImagePicker();
   var imageFileList = <XFile>[].obs;
   RxString albumId = ''.obs;
+  RxBool isLoadingUploadPhoto = false.obs;
 
   PhotosService photosService = PhotosService();
   ShowAllPhotosResponse? showAllPhotosResponse;
@@ -55,6 +56,7 @@ class UploadPhotoPageController extends GetxController {
     List<File> files = imageFileList.map((xfile) => File(xfile.path)).toList();
 
     if (title.isEmpty || description.isEmpty || files.isEmpty) {
+      isLoadingUploadPhoto(false);
       Get.snackbar(
         'Upload Failed',
         'Title, description, and images cannot be empty',
@@ -65,6 +67,7 @@ class UploadPhotoPageController extends GetxController {
     }
 
     try {
+      isLoadingUploadPhoto(true);
       for (var file in files) {
         final response = await photosService.postStorePhotoByAdmin(
           selectedAlbumValue != null,
@@ -103,18 +106,17 @@ class UploadPhotoPageController extends GetxController {
           galleryPageController.updateGalleryCount(selectedAlbumValue, 1);
         }
       }
-
+      update();
       Get.back();
-
+      isLoadingUploadPhoto(false);
       Get.snackbar(
         'Upload Successful',
         'Foto berhasil ditambahkan',
         backgroundColor: successColor,
         colorText: whiteColor,
       );
-
-      update();
     } catch (e) {
+      isLoadingUploadPhoto(false);
       print('Upload failed: $e');
       Get.snackbar(
         'Upload Failed',

@@ -13,7 +13,11 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePageController extends GetxController {
-  RefreshController refreshController = RefreshController(initialRefresh: false);
+  RxBool isLoadingAddBottomsheet = false.obs;
+  RxBool isLoadingEditBottomsheet = false.obs;
+
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
   late TextEditingController addEmergencyNoteController;
   late TextEditingController editEmergencyNoteController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -71,12 +75,14 @@ class HomePageController extends GetxController {
 
   Future storeEmergencyNoteByAdmin() async {
     try {
+      isLoadingAddBottomsheet(true);
       await emergencyNoteService
           .postStoreEmergencyNoteByAdmin(addEmergencyNoteController.text);
       showLatestEmergencyNote();
       addEmergencyNoteController.clear();
       update();
       Get.back();
+      isLoadingAddBottomsheet(false);
     } catch (e) {
       print(e);
     }
@@ -84,12 +90,14 @@ class HomePageController extends GetxController {
 
   Future updateEmergencyNoteByAdmin(String id) async {
     try {
+      isLoadingEditBottomsheet(true);
       await emergencyNoteService.putUpdateEmergencyNoteByAdmin(
           editEmergencyNoteController.text, id);
       showLatestEmergencyNote();
       editEmergencyNoteController.clear();
       update();
       Get.back();
+      isLoadingEditBottomsheet(false);
     } catch (e) {
       print(e);
     }

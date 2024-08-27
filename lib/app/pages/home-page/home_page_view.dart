@@ -71,8 +71,9 @@ class HomePageView extends GetView<HomePageController> {
                             );
                           },
                           onTapDelete: () {
-                            controller.deleteEmergencyNoteByAdmin(controller
-                                .showLatestEmergencyNoteModel.value.id!);
+                            controller.deleteEmergencyNoteByAdmin(
+                              controller.showLatestEmergencyNoteModel.value.id!,
+                            );
                           },
                         )
                       : IfEmptyEmergencyNote(

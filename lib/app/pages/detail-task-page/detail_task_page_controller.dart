@@ -14,6 +14,8 @@ class DetailTaskPageController extends GetxController
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
   TabController? tabControllerAll;
+  RxBool isLoadingDeleteTask = false.obs;
+  RxBool isLoadingUpdateStatusTask = false.obs;
 
   TaskService taskService = TaskService();
   ShowByStatusSingleResponse? showByStatusSingleResponse;
@@ -70,6 +72,7 @@ class DetailTaskPageController extends GetxController
 
   Future deleteTaskByAdmin(String taskId) async {
     try {
+      isLoadingDeleteTask(true);
       await taskService.deleteTaskByAdmin(taskId);
       await detailClassPageController
           .showByNewStatus(showByTaskIdDetail.value.shift!);
@@ -81,6 +84,7 @@ class DetailTaskPageController extends GetxController
           .showStatusCount(showByTaskIdDetail.value.shift!);
       update();
       Get.back();
+      isLoadingDeleteTask(false);
       Get.snackbar(
         "Berhasil",
         "Tugas berhasil dihapus",
@@ -88,6 +92,7 @@ class DetailTaskPageController extends GetxController
         colorText: whiteColor,
       );
     } catch (e) {
+      isLoadingDeleteTask(false);
       Get.snackbar(
         "Gagal",
         "Tugas gagal dihapus",
@@ -100,6 +105,7 @@ class DetailTaskPageController extends GetxController
 
   Future updateStatusTaskByAdmin(String taskId, String status) async {
     try {
+      isLoadingUpdateStatusTask(true);
       await taskService.putUpdateStatusTaskByAdmin(taskId, status);
       await detailClassPageController
           .showByNewStatus(showByTaskIdDetail.value.shift!);
@@ -112,6 +118,7 @@ class DetailTaskPageController extends GetxController
 
       Get.back();
       update();
+      isLoadingUpdateStatusTask(false);
       Get.snackbar(
         'Update Successful',
         'Status berhasil diubah',
@@ -119,6 +126,7 @@ class DetailTaskPageController extends GetxController
         colorText: whiteColor,
       );
     } catch (e) {
+      isLoadingUpdateStatusTask(false);
       print(e);
       Get.snackbar(
         'Update Failed',

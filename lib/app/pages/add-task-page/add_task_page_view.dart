@@ -55,16 +55,16 @@ class AddTaskPageView extends GetView<AddTaskPageController> {
                 SizedBox(height: height * 0.03),
                 AddTaskPageComponentFour(),
                 SizedBox(height: height * 0.1),
-                CommonButton(
-                  isLoading: controller.isLoadingPostTask.value,
-                  text: 'Tambah Tugas',
-                  backgroundColor: blackColor,
-                  textColor: whiteColor,
-                  icon: Icons.add_rounded,
-                  onPressed: () {
-                    controller.storeTaskByAdmin();
-                  },
-                ),
+                Obx(() => CommonButton(
+                      isLoading: controller.isLoadingAddTask.value,
+                      text: 'Tambah Tugas',
+                      backgroundColor: blackColor,
+                      textColor: whiteColor,
+                      icon: Icons.add_rounded,
+                      onPressed: () {
+                        controller.storeTaskByAdmin();
+                      },
+                    )),
               ],
             ),
           ),

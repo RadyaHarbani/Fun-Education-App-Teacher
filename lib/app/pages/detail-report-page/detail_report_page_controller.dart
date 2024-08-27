@@ -21,6 +21,7 @@ class DetailReportPageController extends GetxController {
   DailyReportService dailyReportService = DailyReportService();
   ShowByUserIdResponse? showByUserIdResponse;
   RxList<ShowGradeModel> showGradeModel = <ShowGradeModel>[].obs;
+  RxBool isLoadingDeleteDailyReport = false.obs;
 
   @override
   void onInit() {
@@ -54,6 +55,7 @@ class DetailReportPageController extends GetxController {
 
   Future deleteDailyReportByAdmin() async {
     try {
+      isLoadingDeleteDailyReport(true);
       await dailyReportService.deleteDailyReportByAdmin(
         DateFormat('yyyy-MM-dd').format(userDate),
         userId.value,
@@ -81,6 +83,7 @@ class DetailReportPageController extends GetxController {
       }
 
       Get.back();
+      isLoadingDeleteDailyReport(false);
       Get.snackbar(
         'Berhasil',
         'Laporan harian berhasil dihapus',
@@ -88,6 +91,7 @@ class DetailReportPageController extends GetxController {
         colorText: whiteColor,
       );
     } catch (e) {
+      isLoadingDeleteDailyReport(false);
       print(e);
       Get.snackbar(
         'Gagal',

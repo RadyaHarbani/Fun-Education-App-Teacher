@@ -147,15 +147,16 @@ class BottomsheetSelectMonthTransaction
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Tutup',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              onPressed: () async {
-                await controller.showTransactionByUserIdAndMonth();
-                Get.back();
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingShowHistoryTransaction.value,
+                  text: 'Tutup',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () async {
+                    await controller.showTransactionByUserIdAndMonth();
+                    Get.back();
+                  },
+                )),
           ],
         ),
       ),

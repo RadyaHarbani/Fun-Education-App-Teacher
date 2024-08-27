@@ -18,6 +18,7 @@ class TransactionHistoryPageController extends GetxController {
   RxString userId = ''.obs;
   RxString totalIncome = '0'.obs;
   RxString totalOutcome = '0'.obs;
+  RxBool isLoadingShowHistoryTransaction = false.obs;
 
   final List<BarChartGroupData> mingguanData = [
     TransactionValueChart.makeGroupDataTransaction(0, 200000, 500000),
@@ -104,6 +105,7 @@ class TransactionHistoryPageController extends GetxController {
 
   Future showTransactionByUserIdAndMonth() async {
     try {
+      isLoadingShowHistoryTransaction(true);
       final response =
           await transactionService.getShowTransactionByUserIdAndMonth(
         userId.value,
@@ -115,7 +117,9 @@ class TransactionHistoryPageController extends GetxController {
         totalIncome.value = transactionResponse!.totalIncome;
         totalOutcome.value = transactionResponse!.totalOutcome;
       }
+      isLoadingShowHistoryTransaction(false);
     } catch (e) {
+      isLoadingShowHistoryTransaction(false);
       print(e);
     }
   }

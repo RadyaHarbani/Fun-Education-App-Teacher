@@ -15,6 +15,8 @@ class GalleryPageController extends GetxController {
   RefreshController refreshController = RefreshController();
   RxBool isLoadingAllPhotos = false.obs;
   RxBool isLoadingAllAlbums = false.obs;
+  RxBool isLoadingSavePhoto = false.obs;
+  RxBool isLoadingDeletePhoto = false.obs;
 
   PhotosService photosService = PhotosService();
   ShowAllPhotosResponse? showAllPhotosResponse;
@@ -74,6 +76,7 @@ class GalleryPageController extends GetxController {
 
   Future savePhotoToGallery(String url) async {
     try {
+      isLoadingSavePhoto(true);
       var response = await Dio().get(
         url,
         options: Options(responseType: ResponseType.bytes),
@@ -84,11 +87,16 @@ class GalleryPageController extends GetxController {
         name: "downloaded_image",
       );
       if (result['isSuccess']) {
+        update();
+        Get.back();
+        isLoadingSavePhoto(false);
         Get.snackbar("Success", "Photo saved to gallery");
       } else {
+        isLoadingSavePhoto(false);
         Get.snackbar("Error", "Failed to save photo");
       }
     } catch (e) {
+      isLoadingSavePhoto(false);
       print(e);
       Get.snackbar("Error", "An error occurred while saving the photo");
     }
@@ -96,6 +104,7 @@ class GalleryPageController extends GetxController {
 
   Future deletePhotoByAdmin(String idPhoto, String albumId) async {
     try {
+      isLoadingDeletePhoto(true);
       final response = await photosService.deletePhotoByAdmin(idPhoto);
       print(response.data);
 
@@ -106,7 +115,9 @@ class GalleryPageController extends GetxController {
 
       update();
       Get.back();
+      isLoadingDeletePhoto(false);
     } catch (e) {
+      isLoadingDeletePhoto(false);
       print(e);
     }
   }

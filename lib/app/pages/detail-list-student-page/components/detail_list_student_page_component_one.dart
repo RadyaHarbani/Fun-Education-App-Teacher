@@ -21,15 +21,16 @@ class DetailListStudentPageComponentOne
         SizedBox(height: height * 0.04),
         InformationPageComponentTwo(),
         SizedBox(height: height * 0.02),
-        CommonButton(
-          text: 'Hapus Data Siswa',
-          backgroundColor: dangerColor,
-          textColor: whiteColor,
-          icon: Icons.delete_rounded,
-          onPressed: () {
-            controller.deleteUserByAdmin();
-          },
-        ),
+        Obx(() => CommonButton(
+              isLoading: controller.isLoadingDeleteUser.value,
+              text: 'Hapus Data Siswa',
+              backgroundColor: dangerColor,
+              textColor: whiteColor,
+              icon: Icons.delete_rounded,
+              onPressed: () {
+                controller.deleteUserByAdmin();
+              },
+            )),
       ],
     );
   }

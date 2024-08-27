@@ -8,6 +8,8 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
 class DetailUnverifiedStudentPageController extends GetxController {
+  RxBool isLoadingAcceptVerify = false.obs;
+  RxBool isLoadingRejectVerify = false.obs;
   final UnverifiedStudentPageController unverifiedStudentPageController =
       Get.put(UnverifiedStudentPageController());
   RxString userId = ''.obs;
@@ -51,6 +53,9 @@ class DetailUnverifiedStudentPageController extends GetxController {
 
   Future updateVerifyUserByAdmin(bool verify) async {
     try {
+      verify == true
+          ? isLoadingAcceptVerify(true)
+          : isLoadingRejectVerify(true);
       await userService.putUpdateVerifyUserByAdmin(userId.value, verify);
       await unverifiedStudentPageController
           .showAllUserByIncomingShiftOne('08.00 - 10.00');
@@ -64,6 +69,9 @@ class DetailUnverifiedStudentPageController extends GetxController {
           .showAllUserByIncomingShiftFive('14.00 - 15.00');
       Get.back();
       update();
+      verify == true
+          ? isLoadingAcceptVerify(false)
+          : isLoadingRejectVerify(false);
       if (verify == true) {
         Get.snackbar(
           'Berhasil',
@@ -81,6 +89,9 @@ class DetailUnverifiedStudentPageController extends GetxController {
       }
     } catch (e) {
       print(e);
+      verify == true
+          ? isLoadingAcceptVerify(false)
+          : isLoadingRejectVerify(false);
       Get.snackbar(
         'Gagal',
         'Siswa Gagal Didaftarkan',

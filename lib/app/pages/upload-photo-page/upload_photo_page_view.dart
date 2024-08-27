@@ -66,15 +66,16 @@ class UploadPhotoPageView extends GetView<UploadPhotoPageController> {
                   SizedBox(height: height * 0.03),
                   UploadPhotoPageComponentThree(),
                   SizedBox(height: height * 0.05),
-                  CommonButton(
-                    text: 'Unggah Foto',
-                    backgroundColor: blackColor,
-                    textColor: whiteColor,
-                    onPressed: () {
-                      print('album id : ${controller.albumId.value}');
-                      controller.storePhotoByAdmin();
-                    },
-                  ),
+                  Obx(() => CommonButton(
+                        isLoading: controller.isLoadingUploadPhoto.value,
+                        text: 'Unggah Foto',
+                        backgroundColor: blackColor,
+                        textColor: whiteColor,
+                        onPressed: () {
+                          print('album id : ${controller.albumId.value}');
+                          controller.storePhotoByAdmin();
+                        },
+                      )),
                 ],
               ),
             ),

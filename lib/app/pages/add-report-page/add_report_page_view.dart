@@ -84,14 +84,15 @@ class AddReportPageView extends GetView<AddReportPageController> {
                 SizedBox(height: height * 0.03),
                 AddReportPageComponentFive(),
                 SizedBox(height: height * 0.05),
-                CommonButton(
-                  text: 'Kirim Laporan',
-                  backgroundColor: blackColor,
-                  textColor: whiteColor,
-                  onPressed: () {
-                    controller.storeDailyReportByAdmin();
-                  },
-                ),
+                Obx(() => CommonButton(
+                      isLoading: controller.isLoadingAddReport.value,
+                      text: 'Kirim Laporan',
+                      backgroundColor: blackColor,
+                      textColor: whiteColor,
+                      onPressed: () {
+                        controller.storeDailyReportByAdmin();
+                      },
+                    )),
               ],
             ),
           ),

@@ -16,6 +16,7 @@ class UploadAlbumPageController extends GetxController {
   final ImagePicker imagePicker = ImagePicker();
   var imageFileList = <XFile>[].obs;
   var fileimagePath = ''.obs;
+  RxBool isLoadingUploadAlbum = false.obs;
 
   AlbumsService albumsService = AlbumsService();
   ShowAllAlbumsResponse? showAllAlbumsResponse;
@@ -54,6 +55,7 @@ class UploadAlbumPageController extends GetxController {
 
   Future<void> storeAlbumByAdmin() async {
     try {
+      isLoadingUploadAlbum(true);
       final response = await albumsService.postStoreAlbumByAdmin(
         albumTitleController.text,
         albumDescriptionController.text,
@@ -93,17 +95,17 @@ class UploadAlbumPageController extends GetxController {
 
       await galleryPageController.showAllPhotos();
 
+      update();
       Get.back();
-
+      isLoadingUploadAlbum(false);
       Get.snackbar(
         'Upload Successful',
         'Album berhasil ditambahkan',
         backgroundColor: successColor,
         colorText: whiteColor,
       );
-
-      update();
     } catch (e) {
+      isLoadingUploadAlbum(false);
       Get.snackbar(
         'Upload Failed',
         'Album gagal ditambahkan',

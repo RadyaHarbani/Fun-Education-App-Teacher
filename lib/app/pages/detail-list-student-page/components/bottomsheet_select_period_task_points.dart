@@ -122,15 +122,16 @@ class BottomsheetSelectPeriodTaskPoints
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Tutup',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              onPressed: () async {
-                await controller.showStatisticTaskByUserId();
-                Get.back();
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingShowStatisticTask.value,
+                  text: 'Tutup',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () async {
+                    await controller.showStatisticTaskByUserId();
+                    Get.back();
+                  },
+                )),
           ],
         ),
       ),

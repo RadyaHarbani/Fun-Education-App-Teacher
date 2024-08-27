@@ -51,7 +51,7 @@ class BottomsheetDetailEmergencyNote extends GetView<HomePageController> {
                   group: AutoSizeGroup(),
                   maxLines: 2,
                   TextSpan(
-                    text: 'Catatan Darurat\n',
+                    text: 'Informasi Penting\n',
                     style: tsBodyMediumSemibold(blackColor).copyWith(
                       height: 1.3,
                     ),
