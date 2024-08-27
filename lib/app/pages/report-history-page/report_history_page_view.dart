@@ -78,8 +78,9 @@ class ReportHistoryPageView extends GetView<ReportHistoryPageController> {
                       note: controller.userNote.value,
                     ),
                   );
-                } else if (controller.userPermission.isNotEmpty &&
-                    controller.userPermission.value != 'Hadir') {
+                } else if (controller.showGradeModel.isEmpty &&
+                    controller.userPermission.value != 'Hadir' &&
+                    controller.userGrade.value == 0) {
                   return ReportHistoryPermissionItem(
                     permission: controller.userPermission.value,
                     selectedDate: controller.selectedDay.value,

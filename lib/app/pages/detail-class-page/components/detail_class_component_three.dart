@@ -1,7 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
-import 'package:fun_education_app_teacher/app/pages/detail-class-page/widget/report-widget/report_item.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_hadir_permission.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_izin_permission.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_sakit_permission.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_undone_report.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -15,91 +19,130 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
+
+    // Create a DateTime object for today without time information
+    final DateTime today = DateTime.now();
+    final DateTime onlyDateToday = DateTime(today.year, today.month, today.day);
+
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AutoSizeText.rich(
-              group: AutoSizeGroup(),
-              maxLines: 2,
-              TextSpan(
-                text: 'Laporan Hari Ini\n',
-                style: tsBodyLargeSemibold(blackColor),
-                children: [
+            Obx(() => AutoSizeText.rich(
+                  group: AutoSizeGroup(),
+                  maxLines: 2,
                   TextSpan(
-                    text:
-                        '${DateFormat('EEEE, dd MMMM yyyy').format(DateTime.now())}',
-                    style: tsBodySmallRegular(blackColor),
+                    text: 'Laporan Hari Ini\n',
+                    style: tsBodyLargeSemibold(blackColor),
+                    children: [
+                      TextSpan(
+                        text:
+                            '${DateFormat('EEEE, dd MMMM yyyy').format(controller.selectedDateTime.value)}',
+                        style: tsBodySmallRegular(blackColor),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                Get.toNamed(
-                  Routes.ADD_REPORT_PAGE,
-                  arguments:
-                      controller.showAllIncomingShiftModel.value.shiftMasuk!,
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: height * 0.012,
-                  horizontal: width * 0.055,
-                ),
-                decoration: BoxDecoration(
-                  color: blackColor,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Row(
-                  children: [
-                    AutoSizeText(
-                      'Buat Laporan',
-                      group: AutoSizeGroup(),
-                      maxLines: 1,
-                      style: tsBodySmallMedium(whiteColor),
+                )),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    controller.selectDateTime(context);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: height * 0.013,
+                      horizontal: width * 0.05,
                     ),
-                    SizedBox(width: width * 0.02),
-                    Icon(
-                      Icons.add_rounded,
-                      color: whiteColor,
-                      size: 18,
+                    decoration: BoxDecoration(
+                      color: greyColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                  ],
+                    child: Icon(
+                      Icons.calendar_today_rounded,
+                      color: greyColor,
+                      size: 22,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: height * 0.025),
-        Expanded(
-          child: Obx(() => ListView.builder(
-              itemCount: controller.showUserDoneModel.length,
-              itemBuilder: (context, index) {
-                return InkWell(
+                SizedBox(width: width * 0.01),
+                InkWell(
                   onTap: () {
                     Get.toNamed(
-                      Routes.DETAIL_REPORT_PAGE,
+                      Routes.ADD_REPORT_PAGE,
                       arguments: {
-                        'userId': controller.showUserDoneModel[index].id,
-                        'userFullName':
-                            controller.showUserDoneModel[index].fullName,
                         'incomingShift': controller
                             .showAllIncomingShiftModel.value.shiftMasuk,
-                        'date': DateTime.now(),
+                        'selectedDate': controller.selectedDateTime.value,
                       },
                     );
                   },
-                  child: ReportItem(
-                    name: '${controller.showUserDoneModel[index].fullName}',
-                    image:
-                        '${controller.showUserDoneModel[index].profilePicture}',
-                    permission:
-                        '${controller.showUserDoneModel[index].permission}',
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: height * 0.013,
+                      horizontal: width * 0.05,
+                    ),
+                    decoration: BoxDecoration(
+                      color: blackColor,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      children: [
+                        AutoSizeText(
+                          'Buat',
+                          group: AutoSizeGroup(),
+                          maxLines: 1,
+                          style: tsBodySmallMedium(whiteColor),
+                        ),
+                        SizedBox(width: width * 0.02),
+                        Icon(
+                          Icons.add_rounded,
+                          color: whiteColor,
+                          size: 18,
+                        ),
+                      ],
+                    ),
                   ),
-                );
-              })),
+                ),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: height * 0.02),
+        CommonWarning(
+          backColor: warningColor,
+          text:
+              'Pilih tanggal jika ingin melihat dan membuat laporan dihari sebelumnya',
+        ),
+        SizedBox(height: height * 0.02),
+        Expanded(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Obx(() {
+              final selectedDate = controller.selectedDateTime.value;
+              final DateTime onlyDateSelected = DateTime(
+                  selectedDate.year, selectedDate.month, selectedDate.day);
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  onlyDateSelected != onlyDateToday &&
+                          controller.showUserUndoneModel.isNotEmpty
+                      ? ListUndoneReport()
+                      : SizedBox.shrink(),
+                  controller.showUserPermissionHadir.isNotEmpty
+                      ? ListHadirPermission()
+                      : SizedBox.shrink(),
+                  controller.showUserPermissionIzin.isNotEmpty
+                      ? ListIzinPermission()
+                      : SizedBox.shrink(),
+                  controller.showUserPermissionSakit.isNotEmpty
+                      ? ListSakitPermission()
+                      : SizedBox.shrink(),
+                ],
+              );
+            }),
+          ),
         ),
       ],
     );

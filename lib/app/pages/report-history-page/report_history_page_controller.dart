@@ -103,10 +103,18 @@ class ReportHistoryPageController extends GetxController {
         DateFormat('yyyy-MM-dd').format(selectedDay.value),
         userId.value,
       );
-      await detailClassPageController.showUserDoneUndone(
+      await detailClassPageController.showUserDone(
         'true',
         incomingShift.value,
+        selectedDay.value,
       );
+      await detailClassPageController.showUserUndone(
+        'false',
+        incomingShift.value,
+        selectedDay.value,
+      );
+      await showAvailableDateByUserId(userId.value);
+
       Get.back();
       Get.snackbar(
         'Berhasil',

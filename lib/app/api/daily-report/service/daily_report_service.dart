@@ -9,6 +9,7 @@ class DailyReportService {
   Future<Response> getShowUserDoneUndone(
     String isDone,
     String shift,
+    DateTime date,
   ) async {
     try {
       final response = await _dioInstance.getRequest(
@@ -17,7 +18,7 @@ class DailyReportService {
           tokenType: 'teacher',
           queryParameters: {
             'is_done': '$isDone',
-            'date': '${DateFormat('yyyy-MM-dd').format(DateTime.now())}',
+            'date': '${DateFormat('yyyy-MM-dd').format(date)}',
             'shift': '$shift',
           });
       return response;
@@ -52,6 +53,7 @@ class DailyReportService {
     Map<String, String>? activities,
     String permission,
     String? note,
+    DateTime date,
   ) async {
     try {
       final response = await _dioInstance.postRequest(
@@ -63,6 +65,7 @@ class DailyReportService {
           if (isPresent == true) ...activities!,
           if (isNote == true) 'note': note,
           'permission': permission,
+          'created_at' : '${DateFormat('yyyy-MM-dd').format(date)}', 
         },
       );
       return response;
