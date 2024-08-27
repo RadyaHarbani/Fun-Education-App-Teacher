@@ -68,7 +68,9 @@ class ReportItem extends StatelessWidget {
                           ),
                           SizedBox(width: width * 0.005),
                           AutoSizeText(
-                            '$permission',
+                            permission == 'null'
+                                ? 'Belum Ada Laporan'
+                                : permission,
                             group: AutoSizeGroup(),
                             maxLines: 1,
                             style: tsBodySmallRegular(greyColor),

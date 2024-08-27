@@ -10,6 +10,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AddReportPageController extends GetxController {
   var selectedPermission = 'Hadir'.obs;
+  var selectedDate = DateTime.now().obs;
+  var incomingShift = ''.obs;
   RefreshController refreshController = RefreshController();
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
@@ -37,14 +39,20 @@ class AddReportPageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    showUserDoneUndone('false', Get.arguments);
+    selectedDate.value = Get.arguments['selectedDate'];
+    incomingShift.value = Get.arguments['incomingShift'];
+    showUserDoneUndone(
+      'false',
+      incomingShift.value,
+      selectedDate.value,
+    );
     print(Get.arguments);
   }
 
-  Future showUserDoneUndone(String isDone, String shift) async {
+  Future showUserDoneUndone(String isDone, String shift, DateTime date) async {
     try {
       final response =
-          await dailyReportService.getShowUserDoneUndone(isDone, shift);
+          await dailyReportService.getShowUserDoneUndone(isDone, shift, date);
       showUserDoneUndoneResponse =
           ShowUserDoneUndoneResponse.fromJson(response.data);
       showUserUndoneModel.value = showUserDoneUndoneResponse!.data;
@@ -90,12 +98,19 @@ class AddReportPageController extends GetxController {
           activities,
           selectedPermission.value,
           teachersNote.text,
+          selectedDate.value,
         );
         if (response.statusCode == 201) {
           print("Report for ${student.id} submitted successfully");
-          await detailClassPageController.showUserDoneUndone(
+          await detailClassPageController.showUserDone(
             'true',
-            Get.arguments,
+            Get.arguments['incomingShift'],
+            Get.arguments['selectedDate'],
+          );
+          await detailClassPageController.showUserUndone(
+            'false',
+            Get.arguments['incomingShift'],
+            Get.arguments['selectedDate'],
           );
         } else {
           print(

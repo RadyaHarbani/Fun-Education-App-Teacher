@@ -40,21 +40,21 @@ class EditInformationStudentPageController extends GetxController {
     addressController.text = Get.arguments['address'];
     selectedShift.value = Get.arguments['shift'];
     userId.value = Get.arguments['userId'];
-    showPasswordUserByAdmin(userId.value);
+    // showPasswordUserByAdmin(userId.value);
   }
 
-  Future showPasswordUserByAdmin(String userId) async {
-    try {
-      final response = await _userService.getShowPasswordByUserId(userId);
-      showCurrentUserResponsePassword =
-          ShowCurrentUserResponsePassword.fromJson(response.data);
-      showCurrentUserModelPassword.value =
-          showCurrentUserResponsePassword!.data;
-      passwordController.text = showCurrentUserModelPassword.value.password!;
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future showPasswordUserByAdmin(String userId) async {
+  //   try {
+  //     final response = await _userService.getShowPasswordByUserId(userId);
+  //     showCurrentUserResponsePassword =
+  //         ShowCurrentUserResponsePassword.fromJson(response.data);
+  //     showCurrentUserModelPassword.value =
+  //         showCurrentUserResponsePassword!.data;
+  //     passwordController.text = showCurrentUserModelPassword.value.password!;
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   Future updateUserByAdmin() async {
     try {

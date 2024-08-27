@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user-done-undone/show_user_done_undone_model.dart';
 import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user-done-undone/show_user_done_undone_response.dart';
@@ -26,6 +29,7 @@ class DetailClassPageController extends GetxController
   TabController? tabControllerAll;
   TabController? tabControllerHomework;
   var selectedPeriod = 'Mingguan'.obs;
+  var selectedDateTime = DateTime.now().obs;
 
   IncomingShiftService incomingShiftService = IncomingShiftService();
   ShowByIdIncomingShiftResponse? showByIdIncomingShiftResponse;
@@ -49,7 +53,16 @@ class DetailClassPageController extends GetxController
 
   DailyReportService dailyReportService = DailyReportService();
   ShowUserDoneUndoneResponse? showUserDoneUndoneResponse;
-  RxList<ShowUserDoneUndoneModel> showUserDoneModel = <ShowUserDoneUndoneModel>[].obs;
+  RxList<ShowUserDoneUndoneModel> showUserDoneModel =
+      <ShowUserDoneUndoneModel>[].obs;
+  RxList<ShowUserDoneUndoneModel> showUserPermissionHadir =
+      <ShowUserDoneUndoneModel>[].obs;
+  RxList<ShowUserDoneUndoneModel> showUserPermissionIzin =
+      <ShowUserDoneUndoneModel>[].obs;
+  RxList<ShowUserDoneUndoneModel> showUserPermissionSakit =
+      <ShowUserDoneUndoneModel>[].obs;
+  RxList<ShowUserDoneUndoneModel> showUserUndoneModel =
+      <ShowUserDoneUndoneModel>[].obs;
 
   LeaderboardService leaderboardService = LeaderboardService();
   LeaderboardResponse? leaderboardResponse;
@@ -86,11 +99,24 @@ class DetailClassPageController extends GetxController
       showByNewStatus(showAllIncomingShiftModel.value.shiftMasuk!);
       showByCloseStatus(showAllIncomingShiftModel.value.shiftMasuk!);
       showByArchiveStatus(showAllIncomingShiftModel.value.shiftMasuk!);
-      showUserDoneUndone('true', showAllIncomingShiftModel.value.shiftMasuk!);
+      showUserDone(
+        'true',
+        showAllIncomingShiftModel.value.shiftMasuk!,
+        selectedDateTime.value,
+      );
+      showUserUndone(
+        'false',
+        showAllIncomingShiftModel.value.shiftMasuk!,
+        selectedDateTime.value,
+      );
       showLeaderboardWeeklyByIncomingShift(
-          'weekly', showAllIncomingShiftModel.value.shiftMasuk!);
+        'weekly',
+        showAllIncomingShiftModel.value.shiftMasuk!,
+      );
       showLeaderboardMonthlyByIncomingShift(
-          'monthly', showAllIncomingShiftModel.value.shiftMasuk!);
+        'monthly',
+        showAllIncomingShiftModel.value.shiftMasuk!,
+      );
       update();
     } catch (e) {
       print(e);
@@ -182,12 +208,37 @@ class DetailClassPageController extends GetxController
     }
   }
 
-  Future showUserDoneUndone(String isDone, String shift) async {
+  Future showUserDone(String isDone, String shift, DateTime date) async {
     try {
+      showUserDoneModel.clear();
       final response =
-          await dailyReportService.getShowUserDoneUndone(isDone, shift);
-      showUserDoneUndoneResponse = ShowUserDoneUndoneResponse.fromJson(response.data);
+          await dailyReportService.getShowUserDoneUndone(isDone, shift, date);
+      showUserDoneUndoneResponse =
+          ShowUserDoneUndoneResponse.fromJson(response.data);
       showUserDoneModel.value = showUserDoneUndoneResponse!.data;
+      showUserPermissionHadir.value = showUserDoneModel
+          .where((permission) => permission.permission == 'Hadir')
+          .toList();
+      showUserPermissionIzin.value = showUserDoneModel
+          .where((permission) => permission.permission == 'Izin')
+          .toList();
+      showUserPermissionSakit.value = showUserDoneModel
+          .where((permission) => permission.permission == 'Sakit')
+          .toList();
+      update();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future showUserUndone(String isDone, String shift, DateTime date) async {
+    try {
+      showUserUndoneModel.clear();
+      final response =
+          await dailyReportService.getShowUserDoneUndone(isDone, shift, date);
+      showUserDoneUndoneResponse =
+          ShowUserDoneUndoneResponse.fromJson(response.data);
+      showUserUndoneModel.value = showUserDoneUndoneResponse!.data;
       update();
     } catch (e) {
       print(e);
@@ -222,6 +273,55 @@ class DetailClassPageController extends GetxController
       update();
     } catch (e) {
       print(e);
+    }
+  }
+
+  void selectDateTime(BuildContext context) async {
+    final value = await showBoardDateTimePicker(
+      context: context,
+      pickerType: DateTimePickerType.date,
+      initialDate: selectedDateTime.value,
+      minimumDate: DateTime(1900),
+      options: BoardDateTimeOptions(
+        languages: BoardPickerLanguages(
+          today: 'Hari ini',
+          tomorrow: 'Besok',
+          now: 'Sekarang',
+          locale: 'id',
+        ),
+        startDayOfWeek: DateTime.monday,
+        pickerFormat: PickerFormat.dmy,
+        activeColor: primaryColor,
+        backgroundDecoration: BoxDecoration(
+          color: whiteColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        boardTitle: 'Pilih Tanggal',
+        boardTitleTextStyle: tsBodyMediumSemibold(blackColor),
+      ),
+    );
+    if (value != null) {
+      if (value.isAfter(DateTime.now())) {
+        Get.snackbar(
+          'Tanggal tidak valid',
+          'Tanggal yang dipilih tidak boleh melebihi hari ini.',
+          backgroundColor: dangerColor,
+          colorText: whiteColor,
+        );
+      } else {
+        selectedDateTime.value = value;
+        showUserDone(
+          'true',
+          showAllIncomingShiftModel.value.shiftMasuk!,
+          selectedDateTime.value,
+        );
+        showUserUndone(
+          'false',
+          showAllIncomingShiftModel.value.shiftMasuk!,
+          selectedDateTime.value,
+        );
+        print(value);
+      }
     }
   }
 }

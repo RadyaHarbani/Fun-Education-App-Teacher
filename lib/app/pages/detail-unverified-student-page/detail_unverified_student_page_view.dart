@@ -79,12 +79,12 @@ class DetailUnverifiedStudentPageView
                   valueInformation:
                       '${controller.detailInformationUser.value.address}',
                 ),
-                SizedBox(height: height * 0.01),
-                InformationContainerItem(
-                  titleInformation: 'Kata Sandi',
-                  valueInformation:
-                      '${controller.informationPasswordUser.value.password}',
-                ),
+                // SizedBox(height: height * 0.01),
+                // InformationContainerItem(
+                //   titleInformation: 'Kata Sandi',
+                //   valueInformation:
+                //       '${controller.informationPasswordUser.value.password}',
+                // ),
                 SizedBox(height: height * 0.02),
                 Row(
                   children: [

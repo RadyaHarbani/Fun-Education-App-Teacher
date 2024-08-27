@@ -97,18 +97,18 @@ class UserService {
     }
   }
 
-  Future<Response> getShowPasswordByUserId(String userId) async {
-    try {
-      final response = await _dioInstance.getRequest(
-        isAuthorize: true,
-        tokenType: 'teacher',
-        endpoint: '${ApiEndPoint.showPasswordUserByAdmin}$userId',
-      );
-      return response;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
+  // Future<Response> getShowPasswordByUserId(String userId) async {
+  //   try {
+  //     final response = await _dioInstance.getRequest(
+  //       isAuthorize: true,
+  //       tokenType: 'teacher',
+  //       endpoint: '${ApiEndPoint.showPasswordUserByAdmin}$userId',
+  //     );
+  //     return response;
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
 
   Future<Response> putUpdateVerifyUserByAdmin(
     String userId,

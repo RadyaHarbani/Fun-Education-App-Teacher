@@ -119,6 +119,9 @@ class DetailReportPageComponentPermission
               ),
               child: Obx(() => AutoSizeText(
                     group: AutoSizeGroup(),
+                    controller.userNote.value.isEmpty
+                        ? 'Tidak ada catatan'
+                        :
                     '${controller.userNote.value}',
                     style: tsBodySmallRegular(blackColor),
                   )),

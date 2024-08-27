@@ -12,8 +12,6 @@ class EditReportPageController extends GetxController {
       Get.put(DetailReportPageController());
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
-  final ReportHistoryPageController reportHistoryPageController =
-      Get.put(ReportHistoryPageController());
   DailyReportService dailyReportService = DailyReportService();
   TextEditingController teachersNote = TextEditingController();
   List<String> pointType = ['A', 'B', 'C'];
@@ -76,17 +74,26 @@ class EditReportPageController extends GetxController {
         userDate.value,
       );
 
-      await detailClassPageController.showUserDoneUndone(
+      await detailClassPageController.showUserDone(
         'true',
         userShift.value,
+        DateTime.parse(userDate.value),
       );
 
-      await reportHistoryPageController.showAvailableDateByUserId(userId.value);
-      await reportHistoryPageController.showByUserId(
+      await detailClassPageController.showUserUndone(
+        'false',
+        userShift.value,
+        DateTime.parse(userDate.value),
+      );
+
+      await ReportHistoryPageController()
+          .showAvailableDateByUserId(userId.value);
+      await ReportHistoryPageController().showByUserId(
         userId.value,
         userDate.value,
       );
-
+     
+      update();
       Get.back();
       Get.snackbar(
         'Edit Successful',

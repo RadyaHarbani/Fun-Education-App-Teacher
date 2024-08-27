@@ -40,7 +40,11 @@ class AddReportPageView extends GetView<AddReportPageController> {
       body: SmartRefresher(
         controller: controller.refreshController,
         onRefresh: () async {
-          await controller.showUserDoneUndone('false', Get.arguments);
+          await controller.showUserDoneUndone(
+            'false',
+            Get.arguments['incomingShift'],
+            Get.arguments['selectedDate'],
+          );
           controller.refreshController.refreshCompleted();
         },
         header: WaterDropHeader(

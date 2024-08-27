@@ -30,24 +30,24 @@ class DetailUnverifiedStudentPageController extends GetxController {
       final response = await userService.getShowByUserId(userId);
       showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
       detailInformationUser.value = showCurrentUserResponse!.data;
-      await showPasswordUserByAdmin(userId);
+      // await showPasswordUserByAdmin(userId);
       update();
     } catch (e) {
       print(e);
     }
   }
 
-  Future showPasswordUserByAdmin(String userId) async {
-    try {
-      final response = await userService.getShowPasswordByUserId(userId);
-      showCurrentUserResponsePassword =
-          ShowCurrentUserResponsePassword.fromJson(response.data);
-      informationPasswordUser.value = showCurrentUserResponsePassword!.data;
-      update();
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future showPasswordUserByAdmin(String userId) async {
+  //   try {
+  //     final response = await userService.getShowPasswordByUserId(userId);
+  //     showCurrentUserResponsePassword =
+  //         ShowCurrentUserResponsePassword.fromJson(response.data);
+  //     informationPasswordUser.value = showCurrentUserResponsePassword!.data;
+  //     update();
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   Future updateVerifyUserByAdmin(bool verify) async {
     try {

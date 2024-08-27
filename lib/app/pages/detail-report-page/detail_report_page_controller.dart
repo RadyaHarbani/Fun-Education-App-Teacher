@@ -10,8 +10,7 @@ import 'package:intl/intl.dart';
 class DetailReportPageController extends GetxController {
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
-  final ReportHistoryPageController reportHistoryPageController =
-      Get.put(ReportHistoryPageController());
+
   RxString userFullName = ''.obs;
   DateTime userDate = DateTime.now();
   RxString userId = ''.obs;
@@ -45,7 +44,7 @@ class DetailReportPageController extends GetxController {
       showByUserIdResponse = ShowByUserIdResponse.fromJson(response.data);
       showGradeModel.value = showByUserIdResponse!.data;
       userGrade.value = showByUserIdResponse!.totalPoint;
-      userNote.value = showByUserIdResponse!.note ?? 'Tidak ada catatan';
+      userNote.value = showByUserIdResponse!.note ?? '';
       userPermission.value = showByUserIdResponse!.permission;
       update();
     } catch (e) {
@@ -59,16 +58,28 @@ class DetailReportPageController extends GetxController {
         DateFormat('yyyy-MM-dd').format(userDate),
         userId.value,
       );
-      await detailClassPageController.showUserDoneUndone(
+      await detailClassPageController.showUserDone(
         'true',
         incomingShift.value,
+        userDate,
       );
-      await reportHistoryPageController.showAvailableDateByUserId(userId.value);
-      await reportHistoryPageController.showByUserId(
-        userId.value,
-        DateFormat('yyyy-MM-dd').format(userDate),
+      await detailClassPageController.showUserUndone(
+        'false',
+        incomingShift.value,
+        userDate,
       );
-      reportHistoryPageController.selectedDay.value = userDate;
+
+      if (Get.arguments['userIdHistory'] != null) {
+        final ReportHistoryPageController reportHistoryPageController =
+            Get.put(ReportHistoryPageController());
+        await reportHistoryPageController
+            .showAvailableDateByUserId(userId.value);
+        await reportHistoryPageController.showByUserId(
+          userId.value,
+          DateFormat('yyyy-MM-dd').format(userDate),
+        );
+      }
+
       Get.back();
       Get.snackbar(
         'Berhasil',
