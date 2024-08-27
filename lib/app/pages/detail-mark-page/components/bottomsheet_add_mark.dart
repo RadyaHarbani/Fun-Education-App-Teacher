@@ -68,6 +68,7 @@ class BottomsheetAddMark extends GetView<DetailMarkPageController> {
             Expanded(
               child: CommonTextField(
                 fieldController: controller.markController,
+                keyboardType: TextInputType.number,
                 obscureText: false,
                 hintText: '100',
               ),
