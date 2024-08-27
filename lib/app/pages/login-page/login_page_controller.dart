@@ -6,11 +6,12 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageController extends GetxController {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   late AuthenticationService authenticationService;
   RxBool isObsecure = true.obs;
-  RxBool isLoading = false.obs;
+  RxBool isLoadingLogin = false.obs;
 
   @override
   void onInit() {
@@ -21,24 +22,32 @@ class LoginPageController extends GetxController {
   }
 
   Future<void> login() async {
-    try {
-      isLoading(true);
-      final response = await authenticationService.login(
-        emailController.text,
-        passwordController.text,
-      );
+    if (formKey.currentState!.validate()) {
+      try {
+        isLoadingLogin(true);
+        final response = await authenticationService.login(
+          emailController.text,
+          passwordController.text,
+        );
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('teachersToken', response.data['token']);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('teachersToken', response.data['token']);
 
-      Get.snackbar("Login Success", "Welcome Back!");
-      Get.offAllNamed(Routes.NAVBAR_MAIN, arguments: 0);
-    } catch (e) {
-      isLoading(true);
-      Get.snackbar("Login Error", "Invalid Username or Password");
-      print(e);
-    } finally {
-      isLoading(false);
+        Get.snackbar("Login Success", "Welcome Back!");
+        // ScaffoldMessenger.of(Get.context!).showSnackBar(
+        //   SnackBar(
+        //     content: Text('Login Success'),
+        //     duration: Duration(seconds: 2),
+        //   ),
+        // );
+        Get.offAllNamed(Routes.NAVBAR_MAIN, arguments: 0);
+      } catch (e) {
+        isLoadingLogin(true);
+        Get.snackbar("Login Error", "Invalid Username or Password");
+        print(e);
+      } finally {
+        isLoadingLogin(false);
+      }
     }
   }
 }

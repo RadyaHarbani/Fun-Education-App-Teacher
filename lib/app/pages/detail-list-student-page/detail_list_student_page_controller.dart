@@ -15,6 +15,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_cla
 import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailListStudentPageController extends GetxController
@@ -49,11 +50,14 @@ class DetailListStudentPageController extends GetxController
   var spots = <FlSpot>[].obs;
   var touchedTitle = <DateTime>[].obs;
   var bottomTitles = <String?>[].obs;
+  var bottomTitlesMonthly = <String?>[].obs;
+
   var maxX = 0.0.obs;
 
   var spotsTask = <FlSpot>[].obs;
   var touchedTitleTask = <DateTime>[].obs;
   var bottomTitlesTask = <String?>[].obs;
+  var bottomTitlesMonthlyTask = <String?>[].obs;
   var maxXTask = 0.0.obs;
 
   @override
@@ -148,6 +152,7 @@ class DetailListStudentPageController extends GetxController
   Future showStatisticDailyReportByUserId() async {
     try {
       bottomTitles.clear();
+      bottomTitlesMonthly.clear();
       final response =
           await statisticService.getShowStatisticDailyReportByUserId(
         selectedReportPoint.value,
@@ -168,9 +173,15 @@ class DetailListStudentPageController extends GetxController
 
       bottomTitles.value =
           List<String?>.generate(spots.length, (index) => null);
+          bottomTitlesMonthly.value =
+          List<String?>.generate(spots.length, (index) => null);
+
 
       for (var title in statisticDailyReportResponse!.bottomTitle) {
-        bottomTitles[title.bottomTitleCase!] = title.date;
+        bottomTitles[title.bottomTitleCase!] =
+            convertToIndonesianDayAbbreviation(title.date!);
+        bottomTitlesMonthly[title.bottomTitleCase!] = DateFormat('dd-MM')
+            .format(title.date!);
       }
 
       maxX.value = spots.length - 1.0;
@@ -184,6 +195,7 @@ class DetailListStudentPageController extends GetxController
   Future showStatisticTaskByUserId() async {
     try {
       bottomTitlesTask.clear();
+      bottomTitlesMonthlyTask.clear();
       final response = await statisticService.getShowStatisticTaskByUserId(
         selectedTaskPoints.value,
         userId.value,
@@ -201,9 +213,12 @@ class DetailListStudentPageController extends GetxController
 
       bottomTitlesTask.value =
           List<String?>.generate(spotsTask.length, (index) => null);
+      bottomTitlesMonthlyTask.value = List<String?>.generate(spotsTask.length, (index) => null);
 
       for (var title in statisticTaskResponse!.bottomTitle) {
-        bottomTitlesTask[title.bottomTitleCase!] = title.date;
+        bottomTitlesTask[title.bottomTitleCase!] =
+            convertToIndonesianDayAbbreviation(title.date!);
+        bottomTitlesMonthlyTask[title.bottomTitleCase!] = DateFormat('dd-MM').format(title.date!);
       }
 
       maxXTask.value = spotsTask.length - 1.0;
@@ -211,6 +226,29 @@ class DetailListStudentPageController extends GetxController
       update();
     } catch (e) {
       print(e);
+    }
+  }
+
+  String convertToIndonesianDayAbbreviation(DateTime dateTime) {
+    String dayInEnglish = DateFormat('EEEE').format(dateTime);
+
+    switch (dayInEnglish) {
+      case 'Monday':
+        return 'SEN';
+      case 'Tuesday':
+        return 'SEL';
+      case 'Wednesday':
+        return 'RAB';
+      case 'Thursday':
+        return 'KAM';
+      case 'Friday':
+        return 'JUM';
+      case 'Saturday':
+        return 'SAB';
+      case 'Sunday':
+        return 'MIN';
+      default:
+        return '';
     }
   }
 

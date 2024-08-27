@@ -56,6 +56,7 @@ class DetailSavingPageController extends GetxController {
 
   Future showSavingSubmissionByUserId(String userId) async {
     try {
+      savingSubmissionModel.value = SavingSubmissionModel();
       final response =
           await savingSubmissionService.getShowSavingSubmissionByUserId(userId);
       savingSubmissionResponse =
@@ -161,6 +162,41 @@ class DetailSavingPageController extends GetxController {
         'Gagal',
         'Transaksi Gagal Dicatat',
         backgroundColor: successColor,
+        colorText: whiteColor,
+      );
+    }
+  }
+
+  Future storeOutcomingTransactionWithUpdateStatusSubmission() async {
+    try {
+      await transactionService.postStoreTrasactionByAdmin(
+        descriptionOutgoingController.text.isNotEmpty ? true : false,
+        userId.value,
+        amoutOutgoingController.text,
+        'outcome',
+        descriptionOutgoingController.text,
+      );
+      showTransactionByUserId(userId.value);
+      showTotalSavingsByUserId(userId.value);
+      update();
+      Get.back();
+      Get.snackbar(
+        'Berhasil',
+        'Transaksi Berhasil Dicatat',
+        backgroundColor: successColor,
+        colorText: whiteColor,
+      );
+
+      amountIncomingController.clear();
+      descriptionIncomingController.clear();
+      amoutOutgoingController.clear();
+      descriptionOutgoingController.clear();
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        'Gagal',
+        'Transaksi Gagal Dicatat',
+        backgroundColor: dangerColor,
         colorText: whiteColor,
       );
     }

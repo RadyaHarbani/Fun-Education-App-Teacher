@@ -70,10 +70,7 @@ class DetailSavingPageComponentTwo extends GetView<DetailSavingPageController> {
                                   'Pending Accept');
                         },
                       )
-                    : SizedBox(
-                        width: 0,
-                        height: 0,
-                      ),
+                    : SizedBox.shrink(),
               ),
               Obx(
                 () => controller.savingSubmissionModel.value.status ==
@@ -83,7 +80,7 @@ class DetailSavingPageComponentTwo extends GetView<DetailSavingPageController> {
                         text:
                             'Jangan Lupa Mencatat Pengeluaran Untuk Kegiatan Belajar Diluar',
                       )
-                    : SizedBox(width: 0, height: 0),
+                    : SizedBox.shrink(),
               )
             ],
           ),

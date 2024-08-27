@@ -110,7 +110,8 @@ class BottomsheetAddIncomingNote extends GetView<DetailSavingPageController> {
                         obscureText: false,
                         hintText: 'Tambahkan Keterangan',
                         keyboardType: TextInputType.text,
-                        fieldController: controller.descriptionIncomingController,
+                        fieldController:
+                            controller.descriptionIncomingController,
                       ),
                     ],
                   ),

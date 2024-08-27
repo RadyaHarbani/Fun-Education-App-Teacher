@@ -1,19 +1,26 @@
+import 'package:intl/intl.dart';
+
 class StatisticBottomTitleModel {
-    String? date;
-    int? bottomTitleCase;
+  DateTime? date;
+  int? bottomTitleCase;
 
-    StatisticBottomTitleModel({
-        this.date,
-        this.bottomTitleCase,
-    });
+  StatisticBottomTitleModel({
+    this.date,
+    this.bottomTitleCase,
+  });
 
-    factory StatisticBottomTitleModel.fromJson(Map<String, dynamic> json) => StatisticBottomTitleModel(
-        date: json["date"],
-        bottomTitleCase: json["case"],
+  factory StatisticBottomTitleModel.fromJson(Map<String, dynamic> json) {
+    String dateString = json["date"];
+    DateTime parsedDate = DateFormat('dd-MM').parse(dateString);
+
+    return StatisticBottomTitleModel(
+      date: parsedDate,
+      bottomTitleCase: json["case"],
     );
+  }
 
-    Map<String, dynamic> toJson() => {
-        "date": date,
+  Map<String, dynamic> toJson() => {
+        "date": DateFormat('dd-MM').format(date!),
         "case": bottomTitleCase,
-    };
+      };
 }
