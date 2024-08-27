@@ -6,13 +6,15 @@ import 'package:fun_education_app_teacher/app/api/savings/transaction/service/tr
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/widgets/transaction-history-chart-widget/transaction_value_chart.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class TransactionHistoryPageController extends GetxController {
   TransactionService transactionService = TransactionService();
   TransactionResponse? transactionResponse;
   RxList<TransactionModel> transactionModel = <TransactionModel>[].obs;
   var selectedPeriod = 'Mingguan'.obs;
-  var selectedMonth = 'Januari'.obs;
+  var selectedMonth =
+      '${DateFormat('MMMM', 'id_ID').format(DateTime.now())}'.obs;
   RxString userId = ''.obs;
   RxString totalIncome = '0'.obs;
   RxString totalOutcome = '0'.obs;
@@ -102,7 +104,8 @@ class TransactionHistoryPageController extends GetxController {
 
   Future showTransactionByUserIdAndMonth() async {
     try {
-      final response = await transactionService.getShowTransactionByUserIdAndMonth(
+      final response =
+          await transactionService.getShowTransactionByUserIdAndMonth(
         userId.value,
         selectedMonth.value,
       );
@@ -117,4 +120,3 @@ class TransactionHistoryPageController extends GetxController {
     }
   }
 }
-

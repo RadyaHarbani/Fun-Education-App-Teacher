@@ -4,6 +4,7 @@ import 'package:fun_education_app_teacher/app/api/push-notification/push_notific
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:fun_education_app_teacher/firebase_options.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,6 +12,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   PushNotificationService.initNotification();
+  initializeDateFormatting();
 
   runApp(
     GetMaterialApp(

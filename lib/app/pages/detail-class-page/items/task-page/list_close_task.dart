@@ -26,9 +26,9 @@ class ListCloseTask extends GetView<DetailClassPageController> {
               type: '${controller.showByCloseStatusList[index].category}',
               title: '${controller.showByCloseStatusList[index].title}',
               madeIn:
-                  '${DateFormat('EEEE,\ndd MMMM').format(controller.showByCloseStatusList[index].createdAt!)}',
+                  '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(controller.showByCloseStatusList[index].createdAt!)}',
               deadline:
-                  '${DateFormat('EEEE,\ndd MMMM').format(controller.showByCloseStatusList[index].deadline!)}',
+                  '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(controller.showByCloseStatusList[index].deadline!)}',
               status: 'Ditutup',
             ),
           );

@@ -124,10 +124,11 @@ class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
               backgroundColor: blackColor,
               textColor: whiteColor,
               onPressed: () {
-                controller.savingSubmissionModel.value.status ==
-                        'Pending Accept'
-                    ? controller.storeOutcomingTransactionWithUpdateStatusSubmission()
-                    : controller.storeTransactionByAdmin('outcome');;
+                // controller.savingSubmissionModel.value.status ==
+                //         'Pending Accept'
+                //     ? controller.storeOutcomingTransactionWithUpdateStatusSubmission()
+                //     : controller.storeTransactionByAdmin('outcome');
+                controller.storeTransactionByAdmin('outcome');
               },
             ),
           ],

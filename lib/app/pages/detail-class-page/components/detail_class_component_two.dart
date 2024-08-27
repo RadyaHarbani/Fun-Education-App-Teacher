@@ -32,7 +32,7 @@ class DetailClassComponentTwo extends GetView<DetailClassPageController> {
                 children: [
                   TextSpan(
                     text:
-                        '${DateFormat('EEEE, dd MMMM yyyy').format(DateTime.now())}',
+                        '${DateFormat('EEEE, dd MMMM yyyy', 'id_ID').format(DateTime.now())}',
                     style: tsBodySmallRegular(blackColor),
                   ),
                 ],

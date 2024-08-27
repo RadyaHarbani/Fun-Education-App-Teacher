@@ -36,7 +36,7 @@ class AddTaskPageComponentFour extends GetView<AddTaskPageController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Obx(() => AutoSizeText(
-                      '${DateFormat('EEEE, dd MMMM yyyy').format(controller.selectedDateTime.value)}',
+                      '${DateFormat('EEEE, dd MMMM yyyy', 'id_ID').format(controller.selectedDateTime.value)}',
                       style: tsBodySmallRegular(blackColor),
                     )),
                 InkWell(

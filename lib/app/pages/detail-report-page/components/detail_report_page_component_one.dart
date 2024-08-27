@@ -20,12 +20,13 @@ class DetailReportPageComponentOne extends GetView<DetailReportPageController> {
           group: AutoSizeGroup(),
           maxLines: 1,
           TextSpan(
-            text: '${DateFormat('EEEE,').format(controller.userDate)} ',
+            text:
+                '${DateFormat('EEEE,', 'id_ID').format(controller.userDate)} ',
             style: tsBodyLargeSemibold(blackColor),
             children: [
               TextSpan(
                 text:
-                    '${DateFormat('dd MMMM yyyy').format(controller.userDate)}',
+                    '${DateFormat('dd MMMM yyyy', 'id_ID').format(controller.userDate)}',
                 style: tsBodyLargeRegular(blackColor),
               ),
             ],

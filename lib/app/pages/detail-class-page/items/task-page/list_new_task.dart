@@ -26,9 +26,9 @@ class ListNewTask extends GetView<DetailClassPageController> {
               type: '${controller.showByNewStatusList[index].category}',
               title: '${controller.showByNewStatusList[index].title}',
               madeIn:
-                  '${DateFormat('EEEE,\ndd MMMM').format(controller.showByNewStatusList[index].createdAt!)}',
+                  '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(controller.showByNewStatusList[index].createdAt!)}',
               deadline:
-                  '${DateFormat('EEEE,\ndd MMMM').format(controller.showByNewStatusList[index].deadline!)}',
+                  '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(controller.showByNewStatusList[index].deadline!)}',
               widget: PopupMenuButton(
                 color: whiteColor,
                 onSelected: (value) {

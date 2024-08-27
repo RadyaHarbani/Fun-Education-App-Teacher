@@ -107,7 +107,7 @@ class DetailUnverifiedStudentPageView
                             text: controller.detailInformationUser.value
                                         .createdAt !=
                                     null
-                                ? '${DateFormat('dd MMMM yyyy').format(controller.detailInformationUser.value.createdAt!)}'
+                                ? '${DateFormat('dd MMMM yyyy', 'id_ID').format(controller.detailInformationUser.value.createdAt!)}'
                                 : 'Date not available',
                             style: tsBodySmallSemibold(blackColor),
                           ),

@@ -27,7 +27,7 @@ class HomePageAppbarComponent extends GetView<HomePageController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AutoSizeText(
-              '${DateFormat('EEEE, dd MMMM yyyy').format(DateTime.now())}',
+              '${DateFormat('EEEE, dd MMMM yyyy', 'id_ID').format(DateTime.now())}',
               group: AutoSizeGroup(),
               maxLines: 1,
               style: tsBodySmallRegular(blackColor),
