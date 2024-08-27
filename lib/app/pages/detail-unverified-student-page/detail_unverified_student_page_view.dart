@@ -117,23 +117,29 @@ class DetailUnverifiedStudentPageView
                   ],
                 ),
                 Spacer(),
-                CommonButton(
-                  text: 'Terima Pengajuan',
-                  backgroundColor: greyColor.withOpacity(0.1),
-                  textColor: blackColor,
-                  onPressed: () {
-                    controller.updateVerifyUserByAdmin(true);
-                  },
-                ),
-                SizedBox(height: height * 0.01),
-                CommonButton(
-                  text: 'Tolak Pengajuan',
-                  backgroundColor: dangerColor,
-                  textColor: whiteColor,
-                  onPressed: () {
-                    controller.updateVerifyUserByAdmin(false);
-                  },
-                ),
+                Obx(() => Column(
+                      children: [
+                        CommonButton(
+                          isLoading: controller.isLoadingAcceptVerify.value,
+                          text: 'Terima Pengajuan',
+                          backgroundColor: greyColor.withOpacity(0.1),
+                          textColor: blackColor,
+                          onPressed: () {
+                            controller.updateVerifyUserByAdmin(true);
+                          },
+                        ),
+                        SizedBox(height: height * 0.01),
+                        CommonButton(
+                          isLoading: controller.isLoadingRejectVerify.value,
+                          text: 'Tolak Pengajuan',
+                          backgroundColor: dangerColor,
+                          textColor: whiteColor,
+                          onPressed: () {
+                            controller.updateVerifyUserByAdmin(false);
+                          },
+                        ),
+                      ],
+                    )),
               ],
             )),
       ),

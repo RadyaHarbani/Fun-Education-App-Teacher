@@ -96,28 +96,29 @@ class BottomsheetDetailPhotoGallery extends GetView<GalleryPageController> {
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Download Gambar',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              icon: Icons.file_download_rounded,
-              onPressed: () {
-                controller.savePhotoToGallery(arguments.image);
-                Navigator.pop(context);
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingSavePhoto.value,
+                  text: 'Download Gambar',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  icon: Icons.file_download_rounded,
+                  onPressed: () {
+                    controller.savePhotoToGallery(arguments.image);
+                  },
+                )),
             SizedBox(height: height * 0.005),
-            CommonButton(
-              text: 'Hapus Foto',
-              backgroundColor: dangerColor,
-              textColor: whiteColor,
-              onPressed: () {
-                controller.deletePhotoByAdmin(
-                  arguments.id.toString(),
-                  arguments.albumId.toString(),
-                );
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingDeletePhoto.value,
+                  text: 'Hapus Foto',
+                  backgroundColor: dangerColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    controller.deletePhotoByAdmin(
+                      arguments.id.toString(),
+                      arguments.albumId.toString(),
+                    );
+                  },
+                )),
           ],
         ),
       ),

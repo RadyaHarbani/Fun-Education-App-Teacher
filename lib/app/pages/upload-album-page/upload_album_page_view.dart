@@ -52,14 +52,15 @@ class UploadAlbumPageView extends GetView<UploadAlbumPageController> {
                 SizedBox(height: height * 0.03),
                 UploadAlbumPageComponentThree(),
                 SizedBox(height: height * 0.05),
-                CommonButton(
-                  text: 'Buat Album',
-                  backgroundColor: blackColor,
-                  textColor: whiteColor,
-                  onPressed: () {
-                    controller.storeAlbumByAdmin();
-                  },
-                ),
+                Obx(() => CommonButton(
+                      isLoading: controller.isLoadingUploadAlbum.value,
+                      text: 'Buat Album',
+                      backgroundColor: blackColor,
+                      textColor: whiteColor,
+                      onPressed: () {
+                        controller.storeAlbumByAdmin();
+                      },
+                    )),
               ],
             ),
           ),

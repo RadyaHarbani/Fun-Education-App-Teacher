@@ -39,39 +39,52 @@ class CommonButton extends StatelessWidget {
           color: backgroundColor,
         ),
         alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            isLoading == true
-                ? SizedBox(
-                    child: LoadingAnimationWidget.staggeredDotsWave(
-                      color: Colors.white,
-                      size: height * 0.035,
-                    ),
-                  )
-                : isLoading == null
-                    ? AutoSizeText.rich(
-                        TextSpan(
-                          text: text,
-                          style: tsBodySmallSemibold(textColor),
-                        ),
-                      )
-                    : AutoSizeText.rich(
+        child: isLoading == true
+            ? SizedBox(
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: Colors.white,
+                  size: height * 0.035,
+                ),
+              )
+            : isLoading == null
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AutoSizeText.rich(
                         TextSpan(
                           text: text,
                           style: tsBodySmallSemibold(textColor),
                         ),
                       ),
-            if (icon != null) ...[
-              SizedBox(width: 10),
-              Icon(
-                icon,
-                color: textColor,
-                size: 18,
-              ),
-            ],
-          ],
-        ),
+                      if (icon != null) ...[
+                        SizedBox(width: 10),
+                        Icon(
+                          icon,
+                          color: textColor,
+                          size: 18,
+                        ),
+                      ],
+                    ],
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AutoSizeText.rich(
+                        TextSpan(
+                          text: text,
+                          style: tsBodySmallSemibold(textColor),
+                        ),
+                      ),
+                      if (icon != null) ...[
+                        SizedBox(width: 10),
+                        Icon(
+                          icon,
+                          color: textColor,
+                          size: 18,
+                        ),
+                      ],
+                    ],
+                  ),
       ),
     );
   }

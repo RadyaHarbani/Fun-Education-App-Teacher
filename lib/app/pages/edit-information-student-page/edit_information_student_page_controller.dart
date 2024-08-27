@@ -29,6 +29,7 @@ class EditInformationStudentPageController extends GetxController {
   RxString userId = ''.obs;
   var isObsecure = true.obs;
   var selectedShift = ''.obs;
+  RxBool isLoadingEditInformationStudent = false.obs;
 
   @override
   void onInit() {
@@ -58,7 +59,9 @@ class EditInformationStudentPageController extends GetxController {
 
   Future updateUserByAdmin() async {
     try {
+      isLoadingEditInformationStudent(true);
       await _userService.putUpdateUserByAdmin(
+        passwordController.text.isNotEmpty ? true : false,
         userId.value,
         fullNameController.text,
         nickNameController.text,
@@ -66,7 +69,7 @@ class EditInformationStudentPageController extends GetxController {
         placeOfBirthController.text,
         addressController.text,
         selectedShift.value,
-        genderController.text,
+        // genderController.text,
       );
 
       await detailListStudentPageController.showByUserId(userId.value);
@@ -80,6 +83,7 @@ class EditInformationStudentPageController extends GetxController {
           .showAllUserByIncomingShift(Get.arguments['shift']);
 
       Get.back();
+      isLoadingEditInformationStudent(false);
       update();
       Get.snackbar(
         'Berhasil',
@@ -88,6 +92,7 @@ class EditInformationStudentPageController extends GetxController {
         colorText: whiteColor,
       );
     } catch (e) {
+      isLoadingEditInformationStudent(false);
       print(e);
       Get.snackbar(
         'Gagal',

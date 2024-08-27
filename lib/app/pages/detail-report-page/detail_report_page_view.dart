@@ -77,14 +77,16 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
                       },
                     ),
                     SizedBox(height: height * 0.01),
-                    CommonButton(
-                      text: 'Hapus Laporan',
-                      backgroundColor: dangerColor,
-                      textColor: whiteColor,
-                      onPressed: () {
-                        controller.deleteDailyReportByAdmin();
-                      },
-                    ),
+                    Obx(() => CommonButton(
+                          isLoading:
+                              controller.isLoadingDeleteDailyReport.value,
+                          text: 'Hapus Laporan',
+                          backgroundColor: dangerColor,
+                          textColor: whiteColor,
+                          onPressed: () {
+                            controller.deleteDailyReportByAdmin();
+                          },
+                        )),
                   ],
                 ),
               ),

@@ -119,18 +119,19 @@ class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Catat Pengeluaran',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              onPressed: () {
-                // controller.savingSubmissionModel.value.status ==
-                //         'Pending Accept'
-                //     ? controller.storeOutcomingTransactionWithUpdateStatusSubmission()
-                //     : controller.storeTransactionByAdmin('outcome');
-                controller.storeTransactionByAdmin('outcome');
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingAddTransaction.value,
+                  text: 'Catat Pengeluaran',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    // controller.savingSubmissionModel.value.status ==
+                    //         'Pending Accept'
+                    //     ? controller.storeOutcomingTransactionWithUpdateStatusSubmission()
+                    //     : controller.storeTransactionByAdmin('outcome');
+                    controller.storeTransactionByAdmin('outcome');
+                  },
+                )),
           ],
         ),
       ),

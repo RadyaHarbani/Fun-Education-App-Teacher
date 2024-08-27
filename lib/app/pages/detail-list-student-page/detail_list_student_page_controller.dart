@@ -30,6 +30,10 @@ class DetailListStudentPageController extends GetxController
   var selectedReportPoint = 'weekly'.obs;
   var selectedTaskPoints = 'weekly'.obs;
   RxString userId = ''.obs;
+  RxBool isLoadingUpdateLearningFlow = false.obs;
+  RxBool isLoadingDeleteUser = false.obs;
+  RxBool isLoadingShowStatisticDailyReport = false.obs;
+  RxBool isLoadingShowStatisticTask = false.obs;
 
   UserService userService = UserService();
   ShowCurrentUserResponse? showCurrentUserResponse;
@@ -100,6 +104,7 @@ class DetailListStudentPageController extends GetxController
 
   Future updateLearningFlowByAdmin() async {
     try {
+      isLoadingUpdateLearningFlow(true);
       await learningFlowService.putUpdateLearningFlowByAdmin(
         learningFlowModel.value.id!,
         userId.value,
@@ -107,6 +112,7 @@ class DetailListStudentPageController extends GetxController
       );
       await showLearningFlowByUserId();
       Get.back();
+      isLoadingUpdateLearningFlow(false);
       Get.snackbar(
         'Berhasil',
         'Data alur belajar berhasil diubah',
@@ -114,6 +120,7 @@ class DetailListStudentPageController extends GetxController
         colorText: whiteColor,
       );
     } catch (e) {
+      isLoadingUpdateLearningFlow(false);
       print(e);
       Get.snackbar(
         'Gagal',
@@ -126,6 +133,7 @@ class DetailListStudentPageController extends GetxController
 
   Future deleteUserByAdmin() async {
     try {
+      isLoadingDeleteUser(true);
       await userService.deleteUserByAdmin(userId.value);
       await listStudentPageController
           .showAllUserByIncomingShift(detailInformationUser.value.shift);
@@ -138,7 +146,9 @@ class DetailListStudentPageController extends GetxController
         backgroundColor: successColor,
         colorText: whiteColor,
       );
+      isLoadingDeleteUser(false);
     } catch (e) {
+      isLoadingDeleteUser(false);
       print(e);
       Get.snackbar(
         'Gagal',
@@ -151,6 +161,7 @@ class DetailListStudentPageController extends GetxController
 
   Future showStatisticDailyReportByUserId() async {
     try {
+      isLoadingShowStatisticDailyReport(true);
       bottomTitles.clear();
       bottomTitlesMonthly.clear();
       final response =
@@ -173,20 +184,20 @@ class DetailListStudentPageController extends GetxController
 
       bottomTitles.value =
           List<String?>.generate(spots.length, (index) => null);
-          bottomTitlesMonthly.value =
+      bottomTitlesMonthly.value =
           List<String?>.generate(spots.length, (index) => null);
-
 
       for (var title in statisticDailyReportResponse!.bottomTitle) {
         bottomTitles[title.bottomTitleCase!] =
             convertToIndonesianDayAbbreviation(title.date!);
-        bottomTitlesMonthly[title.bottomTitleCase!] = DateFormat('dd-MM')
-            .format(title.date!);
+        bottomTitlesMonthly[title.bottomTitleCase!] =
+            DateFormat('dd-MM').format(title.date!);
       }
 
       maxX.value = spots.length - 1.0;
 
       update();
+      isLoadingShowStatisticDailyReport(false);
     } catch (e) {
       print(e);
     }
@@ -194,6 +205,7 @@ class DetailListStudentPageController extends GetxController
 
   Future showStatisticTaskByUserId() async {
     try {
+      isLoadingShowStatisticTask(true);
       bottomTitlesTask.clear();
       bottomTitlesMonthlyTask.clear();
       final response = await statisticService.getShowStatisticTaskByUserId(
@@ -213,17 +225,20 @@ class DetailListStudentPageController extends GetxController
 
       bottomTitlesTask.value =
           List<String?>.generate(spotsTask.length, (index) => null);
-      bottomTitlesMonthlyTask.value = List<String?>.generate(spotsTask.length, (index) => null);
+      bottomTitlesMonthlyTask.value =
+          List<String?>.generate(spotsTask.length, (index) => null);
 
       for (var title in statisticTaskResponse!.bottomTitle) {
         bottomTitlesTask[title.bottomTitleCase!] =
             convertToIndonesianDayAbbreviation(title.date!);
-        bottomTitlesMonthlyTask[title.bottomTitleCase!] = DateFormat('dd-MM').format(title.date!);
+        bottomTitlesMonthlyTask[title.bottomTitleCase!] =
+            DateFormat('dd-MM').format(title.date!);
       }
 
       maxXTask.value = spotsTask.length - 1.0;
 
       update();
+      isLoadingShowStatisticTask(false);
     } catch (e) {
       print(e);
     }

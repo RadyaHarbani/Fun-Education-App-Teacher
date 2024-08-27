@@ -79,15 +79,16 @@ class ProfileDrawerView extends StatelessWidget {
               ],
             ),
             Spacer(),
-            CommonButton(
-              text: 'Logout',
-              icon: Icons.logout,
-              backgroundColor: dangerColor,
-              textColor: whiteColor,
-              onPressed: () {
-                controller.logout();
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingLogout.value,
+                  text: 'Logout',
+                  icon: Icons.logout,
+                  backgroundColor: dangerColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    controller.logout();
+                  },
+                )),
           ],
         ),
       ),

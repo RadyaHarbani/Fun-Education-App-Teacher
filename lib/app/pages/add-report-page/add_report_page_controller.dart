@@ -35,6 +35,7 @@ class AddReportPageController extends GetxController {
     'Dikte',
     'Keterampilan'
   ];
+  RxBool isLoadingAddReport = false.obs;
 
   @override
   void onInit() {
@@ -85,6 +86,7 @@ class AddReportPageController extends GetxController {
 
   Future<void> storeDailyReportByAdmin() async {
     try {
+      isLoadingAddReport(true);
       Map<String, String> activities = {
         for (int i = 0; i < points.length; i++)
           'activity_${i + 1}': points[i].value,
@@ -112,22 +114,23 @@ class AddReportPageController extends GetxController {
             Get.arguments['incomingShift'],
             Get.arguments['selectedDate'],
           );
+          isLoadingAddReport(false);
         } else {
+          isLoadingAddReport(false);
           print(
               "Failed to submit report for ${student.id}: ${response.statusCode}");
         }
       }
       Get.back();
-
+      update();
       Get.snackbar(
         'Upload Successful',
         'Laporan berhasil ditambahkan',
         backgroundColor: successColor,
         colorText: whiteColor,
       );
-
-      update();
     } catch (e) {
+      isLoadingAddReport(false);
       print('Upload failed: $e');
       Get.snackbar(
         'Upload Failed',

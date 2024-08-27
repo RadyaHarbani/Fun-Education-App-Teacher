@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddTaskPageController extends GetxController {
+  RxBool isLoadingAddTask = false.obs;
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
   TaskService taskService = TaskService();
@@ -19,7 +20,6 @@ class AddTaskPageController extends GetxController {
   var imageFileList = <XFile>[].obs;
   var selectedDateTime = DateTime.now().obs;
   var incomingShift = ''.obs;
-  RxBool isLoadingPostTask = false.obs;
 
   @override
   void onInit() {
@@ -71,7 +71,7 @@ class AddTaskPageController extends GetxController {
 
   Future<void> storeTaskByAdmin() async {
     try {
-      isLoadingPostTask(true);
+      isLoadingAddTask(true);
       final formattedDate =
           DateFormat('yyyy-MM-dd').format(selectedDateTime.value);
       final response = await taskService.postStoreTaskByAdmin(
@@ -110,8 +110,9 @@ class AddTaskPageController extends GetxController {
         colorText: whiteColor,
       );
       update();
+      isLoadingAddTask(false);
     } catch (e) {
-      isLoadingPostTask(false);
+      isLoadingAddTask(false);
       Get.snackbar(
         'Upload Failed',
         'Album gagal ditambahkan',

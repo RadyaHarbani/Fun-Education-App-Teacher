@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_hadir_permission.dart';
@@ -20,7 +21,6 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
 
-    // Create a DateTime object for today without time information
     final DateTime today = DateTime.now();
     final DateTime onlyDateToday = DateTime(today.year, today.month, today.day);
 
@@ -123,24 +123,49 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
               final selectedDate = controller.selectedDateTime.value;
               final DateTime onlyDateSelected = DateTime(
                   selectedDate.year, selectedDate.month, selectedDate.day);
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  onlyDateSelected != onlyDateToday &&
-                          controller.showUserUndoneModel.isNotEmpty
-                      ? ListUndoneReport()
-                      : SizedBox.shrink(),
-                  controller.showUserPermissionHadir.isNotEmpty
-                      ? ListHadirPermission()
-                      : SizedBox.shrink(),
-                  controller.showUserPermissionIzin.isNotEmpty
-                      ? ListIzinPermission()
-                      : SizedBox.shrink(),
-                  controller.showUserPermissionSakit.isNotEmpty
-                      ? ListSakitPermission()
-                      : SizedBox.shrink(),
-                ],
-              );
+              if (controller.showUserPermissionHadir.isEmpty &&
+                  controller.showUserPermissionIzin.isEmpty &&
+                  controller.showUserPermissionSakit.isEmpty &&
+                  onlyDateSelected == onlyDateToday) {
+                return Column(
+                  children: [
+                    SizedBox(height: height * 0.1),
+                    SvgPicture.asset('assets/images/empty_list.svg'),
+                    SizedBox(height: height * 0.01),
+                    AutoSizeText.rich(
+                      TextSpan(
+                        text: 'Tidak ada laporan hari ini\n',
+                        style: tsBodyMediumSemibold(blackColor),
+                        children: [
+                          TextSpan(
+                            text: 'Silahkan buat laporan hari ini',
+                            style: tsBodySmallRegular(blackColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    onlyDateSelected != onlyDateToday &&
+                            controller.showUserUndoneModel.isNotEmpty
+                        ? ListUndoneReport()
+                        : SizedBox.shrink(),
+                    controller.showUserPermissionHadir.isNotEmpty
+                        ? ListHadirPermission()
+                        : SizedBox.shrink(),
+                    controller.showUserPermissionIzin.isNotEmpty
+                        ? ListIzinPermission()
+                        : SizedBox.shrink(),
+                    controller.showUserPermissionSakit.isNotEmpty
+                        ? ListSakitPermission()
+                        : SizedBox.shrink(),
+                  ],
+                );
+              }
             }),
           ),
         ),

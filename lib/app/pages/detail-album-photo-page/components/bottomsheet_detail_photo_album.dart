@@ -6,7 +6,8 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class BottomsheetDetailPhotoAlbum extends GetView<DetailAlbumPhotoPageController> {
+class BottomsheetDetailPhotoAlbum
+    extends GetView<DetailAlbumPhotoPageController> {
   const BottomsheetDetailPhotoAlbum({super.key, this.arguments});
 
   final arguments;
@@ -96,27 +97,28 @@ class BottomsheetDetailPhotoAlbum extends GetView<DetailAlbumPhotoPageController
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Download Gambar',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              icon: Icons.file_download_rounded,
-              onPressed: () {
-                controller.savePhotoToGallery(arguments.image);
-                Navigator.pop(context);
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingSavePhoto.value,
+                  text: 'Download Gambar',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  icon: Icons.file_download_rounded,
+                  onPressed: () {
+                    controller.savePhotoToGallery(arguments.image);
+                  },
+                )),
             SizedBox(height: height * 0.005),
-            CommonButton(
-              text: 'Hapus Foto',
-              backgroundColor: dangerColor,
-              textColor: whiteColor,
-              onPressed: () {
-                controller.deletePhotoByAdmin(
-                  arguments.id.toString(),
-                );
-              },
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingDeletePhoto.value,
+                  text: 'Hapus Foto',
+                  backgroundColor: dangerColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    controller.deletePhotoByAdmin(
+                      arguments.id.toString(),
+                    );
+                  },
+                )),
           ],
         ),
       ),

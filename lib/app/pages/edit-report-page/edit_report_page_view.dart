@@ -67,14 +67,15 @@ class EditReportPageView extends GetView<EditReportPageController> {
                   )),
               EditReportPageComponentFive(),
               SizedBox(height: height * 0.06),
-              CommonButton(
-                text: 'Simpan Perubahan',
-                backgroundColor: blackColor,
-                textColor: whiteColor,
-                onPressed: () {
-                  controller.updateDailyReportByAdmin();
-                },
-              ),
+              Obx(() => CommonButton(
+                    isLoading: controller.isLoadingEditReport.value,
+                    text: 'Simpan Perubahan',
+                    backgroundColor: blackColor,
+                    textColor: whiteColor,
+                    onPressed: () {
+                      controller.updateDailyReportByAdmin();
+                    },
+                  )),
             ],
           ),
         ),

@@ -9,6 +9,7 @@ class DetailMarkPageController extends GetxController {
   final DetailTaskPageController detailTaskPageController =
       Get.put(DetailTaskPageController());
   TextEditingController markController = TextEditingController();
+  RxBool isLoadingUpdateGrade = false.obs;
 
   @override
   void onInit() {
@@ -34,6 +35,7 @@ class DetailMarkPageController extends GetxController {
 
   Future sendGradeByAdmin(String taskUserId) async {
     try {
+      isLoadingUpdateGrade(true);
       final response = await markService.putSendGradeByAdmin(
           taskUserId, int.parse(markController.text));
       print(response.data);
@@ -42,7 +44,9 @@ class DetailMarkPageController extends GetxController {
           .markShowByTaskId(showByUserIdDetail.value.tugasId.toString());
       Get.back();
       update();
+      isLoadingUpdateGrade(false);
     } catch (e) {
+      isLoadingUpdateGrade(false);
       print(e);
     }
   }

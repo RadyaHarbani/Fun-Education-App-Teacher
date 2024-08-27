@@ -33,6 +33,7 @@ class EditReportPageController extends GetxController {
     'Dikte',
     'Keterampilan'
   ];
+  RxBool isLoadingEditReport = false.obs;
 
   @override
   void onInit() {
@@ -56,6 +57,7 @@ class EditReportPageController extends GetxController {
 
   Future updateDailyReportByAdmin() async {
     try {
+      isLoadingEditReport(true);
       Map<String, String> activities = {
         for (int i = 0; i < points!.length; i++)
           'activity_${i + 1}': points![i].value,
@@ -92,17 +94,18 @@ class EditReportPageController extends GetxController {
         userId.value,
         userDate.value,
       );
-     
+
       update();
       Get.back();
+      isLoadingEditReport(false);
       Get.snackbar(
         'Edit Successful',
         'Laporan berhasil disimpan',
         backgroundColor: successColor,
         colorText: whiteColor,
       );
-      update();
     } catch (e) {
+      isLoadingEditReport(false);
       print('Upload failed: $e');
       Get.snackbar(
         'Edit Failed',

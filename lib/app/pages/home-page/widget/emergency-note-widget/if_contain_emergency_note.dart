@@ -52,7 +52,7 @@ class IfContainEmergencyNote extends StatelessWidget {
                           vertical: height * 0.008,
                         ),
                         child: Icon(
-                          Icons.access_time_filled,
+                          Icons.info_rounded,
                           color: whiteColor,
                           size: 24,
                         ),
@@ -60,7 +60,7 @@ class IfContainEmergencyNote extends StatelessWidget {
                     ),
                     SizedBox(width: width * 0.03),
                     AutoSizeText(
-                      'Catatan Darurat',
+                      'Informasi Penting',
                       group: AutoSizeGroup(),
                       maxLines: 1,
                       style: tsBodySmallRegular(blackColor),

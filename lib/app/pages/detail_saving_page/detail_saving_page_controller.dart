@@ -34,6 +34,7 @@ class DetailSavingPageController extends GetxController {
   TextEditingController descriptionOutgoingController = TextEditingController();
 
   RxString userId = ''.obs;
+  RxBool isLoadingAddTransaction = false.obs;
 
   @override
   void onInit() {
@@ -121,6 +122,7 @@ class DetailSavingPageController extends GetxController {
     String category,
   ) async {
     try {
+      isLoadingAddTransaction(true);
       String? isDescriptionIncome =
           descriptionIncomingController.text.isNotEmpty
               ? descriptionIncomingController.text
@@ -145,6 +147,7 @@ class DetailSavingPageController extends GetxController {
       showTotalSavingsByUserId(userId.value);
       update();
       Get.back();
+      isLoadingAddTransaction(false);
       Get.snackbar(
         'Berhasil',
         'Transaksi Berhasil Dicatat',
@@ -157,6 +160,7 @@ class DetailSavingPageController extends GetxController {
       amoutOutgoingController.clear();
       descriptionOutgoingController.clear();
     } catch (e) {
+      isLoadingAddTransaction(false);
       print(e);
       Get.snackbar(
         'Gagal',

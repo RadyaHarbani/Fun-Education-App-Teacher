@@ -51,7 +51,7 @@ class BottomsheetEditEmergencyNote extends GetView<HomePageController> {
                   group: AutoSizeGroup(),
                   maxLines: 2,
                   TextSpan(
-                    text: 'Catatan Darurat\n',
+                    text: 'Informasi Penting\n',
                     style: tsBodyMediumSemibold(blackColor).copyWith(
                       height: 1.3,
                     ),
@@ -75,14 +75,15 @@ class BottomsheetEditEmergencyNote extends GetView<HomePageController> {
               ),
             ),
             SizedBox(height: height * 0.03),
-            CommonButton(
-              text: 'Simpan Perubahan',
-              backgroundColor: blackColor,
-              textColor: whiteColor,
-              onPressed: () => controller.updateEmergencyNoteByAdmin(
-                controller.showLatestEmergencyNoteModel.value.id!,
-              ),
-            ),
+            Obx(() => CommonButton(
+                  isLoading: controller.isLoadingEditBottomsheet.value,
+                  text: 'Simpan Perubahan',
+                  backgroundColor: blackColor,
+                  textColor: whiteColor,
+                  onPressed: () => controller.updateEmergencyNoteByAdmin(
+                    controller.showLatestEmergencyNoteModel.value.id!,
+                  ),
+                )),
           ],
         ),
       ),
