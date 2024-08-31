@@ -1,7 +1,9 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fun_education_app_teacher/app/api/emergency-note/models/show_latest_emergency_note_model.dart';
-import 'package:fun_education_app_teacher/app/api/emergency-note/models/show_latest_emergency_note_response.dart';
+import 'package:fun_education_app_teacher/app/api/emergency-note/models/latest-emergency-note/show_latest_emergency_note_model.dart';
+import 'package:fun_education_app_teacher/app/api/emergency-note/models/latest-emergency-note/show_latest_emergency_note_response.dart';
 import 'package:fun_education_app_teacher/app/api/emergency-note/service/emergency_note_service.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-all-incoming-shift/show_all_incoming_shift_model.dart';
 import 'package:fun_education_app_teacher/app/api/incoming-shift/models/show-all-incoming-shift/show_all_incoming_shift_response.dart';
@@ -21,6 +23,8 @@ class HomePageController extends GetxController {
   late TextEditingController addEmergencyNoteController;
   late TextEditingController editEmergencyNoteController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  var selectedFiles = <PlatformFile>[].obs;
 
   UserService userService = UserService();
   ShowCurrentUserResponse? showCurrentUserResponse;
@@ -44,7 +48,23 @@ class HomePageController extends GetxController {
     showAllIncomingShift();
     showCurrentUserTeacher();
     showLatestEmergencyNote();
-    initNotification();
+  }
+
+  void pickFile() async {
+    selectedFiles.clear();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+      allowMultiple: true,
+    );
+
+    if (result != null) {
+      selectedFiles.addAll(result.files);
+    }
+  }
+
+  void removeSelectedFile(int index) {
+    selectedFiles.removeAt(index);
   }
 
   Future showCurrentUserTeacher() async {
@@ -76,13 +96,42 @@ class HomePageController extends GetxController {
   Future storeEmergencyNoteByAdmin() async {
     try {
       isLoadingAddBottomsheet(true);
-      await emergencyNoteService
+
+      final response = await emergencyNoteService
           .postStoreEmergencyNoteByAdmin(addEmergencyNoteController.text);
-      showLatestEmergencyNote();
+
+      final String idEmergencyNote = response.data['data']['id'].toString();
+
+      List<File> files =
+          selectedFiles.map((xfile) => File(xfile.path!)).toList();
+      if (selectedFiles.isNotEmpty) {
+        for (var file in files) {
+          final response =
+              await emergencyNoteService.postStoreFileEmergencyNoteByAdmin(
+            idEmergencyNote,
+            file.path.split('/').last,
+            file,
+          );
+          print('Upload successful: ${response.data}');
+        }
+      }
+      await showLatestEmergencyNote();
       addEmergencyNoteController.clear();
-      update();
+      selectedFiles.clear();
+
       Get.back();
       isLoadingAddBottomsheet(false);
+    } catch (e) {
+      print(e);
+      isLoadingAddBottomsheet(false);
+    }
+  }
+
+  Future deleteFileEmergencyNoteByAdmin(String id) async {
+    try {
+      await emergencyNoteService.deleteFileEmergencyNoteByAdmin(id);
+      await showLatestEmergencyNote();
+      update();
     } catch (e) {
       print(e);
     }
@@ -91,15 +140,33 @@ class HomePageController extends GetxController {
   Future updateEmergencyNoteByAdmin(String id) async {
     try {
       isLoadingEditBottomsheet(true);
-      await emergencyNoteService.putUpdateEmergencyNoteByAdmin(
+      final response = await emergencyNoteService.putUpdateEmergencyNoteByAdmin(
           editEmergencyNoteController.text, id);
-      showLatestEmergencyNote();
-      editEmergencyNoteController.clear();
+
+      final String idEmergencyNote = response.data['data']['id'].toString();
+
+      List<File> files =
+          selectedFiles.map((xfile) => File(xfile.path!)).toList();
+      if (selectedFiles.isNotEmpty) {
+        for (var file in files) {
+          final response =
+              await emergencyNoteService.postStoreFileEmergencyNoteByAdmin(
+            idEmergencyNote,
+            file.path.split('/').last,
+            file,
+          );
+          print('Upload successful: ${response.data}');
+        }
+      }
+      await showLatestEmergencyNote();
+      addEmergencyNoteController.clear();
+      selectedFiles.clear();
       update();
       Get.back();
       isLoadingEditBottomsheet(false);
     } catch (e) {
       print(e);
+      isLoadingEditBottomsheet(false);
     }
   }
 
@@ -128,11 +195,5 @@ class HomePageController extends GetxController {
 
   void openDrawer() {
     scaffoldKey.currentState?.openDrawer();
-  }
-
-  Future<void> initNotification() async {
-    await FirebaseMessaging.instance.requestPermission();
-    final token = await FirebaseMessaging.instance.getToken();
-    print('Token Firebase: $token');
   }
 }

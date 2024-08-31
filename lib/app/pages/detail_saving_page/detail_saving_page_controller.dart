@@ -16,6 +16,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class DetailSavingPageController extends GetxController {
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
+  final GlobalKey<FormState> formKeyIncoming = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyOutgoing = GlobalKey<FormState>();
   TotalSavingsService totalSavingsService = TotalSavingsService();
   TotalSavingsResponse? totalSavingsResponse;
   Rx<TotalSavingsModel> totalSavingsModel = TotalSavingsModel().obs;
@@ -35,6 +37,7 @@ class DetailSavingPageController extends GetxController {
 
   RxString userId = ''.obs;
   RxBool isLoadingAddTransaction = false.obs;
+  var totalSavings = 0.obs;
 
   @override
   void onInit() {
@@ -48,6 +51,7 @@ class DetailSavingPageController extends GetxController {
       final response = await totalSavingsService.getShowSavingsByUserId(userId);
       totalSavingsResponse = TotalSavingsResponse.fromJson(response.data);
       totalSavingsModel.value = totalSavingsResponse!.data;
+      totalSavings.value = totalSavingsModel.value.savingInt!;
       showSavingSubmissionByUserId(userId);
       showTransactionByUserId(userId);
     } catch (e) {
@@ -87,8 +91,7 @@ class DetailSavingPageController extends GetxController {
         savingSubmissionModel.value.category!,
         status,
       );
-      showSavingSubmissionByUserId(userId.value);
-      showTransactionByUserId(userId.value);
+
       showTotalSavingsByUserId(userId.value);
       update();
 
@@ -143,7 +146,6 @@ class DetailSavingPageController extends GetxController {
         category,
         category == 'income' ? isDescriptionIncome : isDescriptionOutgoing,
       );
-      showTransactionByUserId(userId.value);
       showTotalSavingsByUserId(userId.value);
       update();
       Get.back();
@@ -180,7 +182,6 @@ class DetailSavingPageController extends GetxController {
         'outcome',
         descriptionOutgoingController.text,
       );
-      showTransactionByUserId(userId.value);
       showTotalSavingsByUserId(userId.value);
       update();
       Get.back();

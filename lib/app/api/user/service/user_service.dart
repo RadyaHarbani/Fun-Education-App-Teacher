@@ -61,7 +61,7 @@ class UserService {
     String birth,
     String address,
     String shift,
-    // String gender,
+    String gender,
   ) async {
     try {
       final data = {
@@ -71,7 +71,7 @@ class UserService {
         'birth': birth,
         'address': address,
         'shift': shift,
-        // 'gender': gender,
+        'gender': gender,
       };
       final response = await _dioInstance.putRequest(
         isAuthorize: true,

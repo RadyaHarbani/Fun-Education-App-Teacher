@@ -45,22 +45,26 @@ class HomePageView extends GetView<HomePageController> {
         ),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: height * 0.03,
-              bottom: height * 0.03,
-              left: width * 0.05,
-              right: width * 0.05,
-            ),
-            child: Column(
-              children: [
-                Obx(
-                  () => controller.showLatestEmergencyNoteModel.value.catatan !=
-                          null
+          child: Obx(
+            () => Padding(
+              padding: EdgeInsets.only(
+                top: controller.showLatestEmergencyNoteModel.value.catatan !=
+                        null
+                    ? height * 0.01
+                    : height * 0.03,
+                bottom: height * 0.03,
+                left: width * 0.05,
+                right: width * 0.05,
+              ),
+              child: Column(
+                children: [
+                  controller.showLatestEmergencyNoteModel.value.catatan != null
                       ? IfContainEmergencyNote(
                           emergencyNote: controller
                               .showLatestEmergencyNoteModel.value.catatan
                               .toString(),
+                          informationFile: controller
+                              .showLatestEmergencyNoteModel.value.file!,
                           onTapEdit: () {
                             showModalBottomSheet(
                               context: context,
@@ -87,12 +91,12 @@ class HomePageView extends GetView<HomePageController> {
                             );
                           },
                         ),
-                ),
-                SizedBox(height: height * 0.03),
-                HomePageComponentOne(),
-                SizedBox(height: height * 0.03),
-                HomePageComponentTwo(),
-              ],
+                  SizedBox(height: height * 0.03),
+                  HomePageComponentOne(),
+                  SizedBox(height: height * 0.03),
+                  HomePageComponentTwo(),
+                ],
+              ),
             ),
           ),
         ),

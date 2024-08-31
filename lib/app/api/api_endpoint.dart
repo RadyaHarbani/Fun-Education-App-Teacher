@@ -3,6 +3,7 @@ class ApiEndPoint {
   static String baseUrlAuth = '$baseUrl/users';
   static String baseUrlShiftMasuk = '$baseUrl/shift-masuk';
   static String baseUrlCatatanDarurat = '$baseUrl/catatan-darurat';
+  static String baseUrlCatatanDaruratFile = '$baseUrl/catatan-darurat-file';
   static String baseUrlLaporanHarian = '$baseUrl/laporan-harian';
   static String baseUrlTabungan = '$baseUrl/tabungan';
   static String baseUrlTransaksi = '$baseUrl/transaksi';
@@ -39,8 +40,12 @@ class ApiEndPoint {
   //Catatan Darurat
   static String showLatestCatatanDarurat = '$baseUrlCatatanDarurat/show';
   static String storeEmergencyNoteByAdmin = '$baseUrlCatatanDarurat/store';
+  static String storeFileEmergencyNoteByAdmin =
+      '$baseUrlCatatanDaruratFile/store';
   static String updateEmergencyNoteByAdmin = '$baseUrlCatatanDarurat/update/';
   static String deleteEmergencyNoteByAdmin = '$baseUrlCatatanDarurat/delete/';
+  static String deleteFileEmergencyNoteByAdmin =
+      '$baseUrlCatatanDaruratFile/delete/';
 
   //Laporan Harian
   static String showCurrentDailyReport = '$baseUrlLaporanHarian/show-current';

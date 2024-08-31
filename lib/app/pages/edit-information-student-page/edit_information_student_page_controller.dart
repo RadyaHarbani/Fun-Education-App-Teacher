@@ -69,7 +69,7 @@ class EditInformationStudentPageController extends GetxController {
         placeOfBirthController.text,
         addressController.text,
         selectedShift.value,
-        // genderController.text,
+        genderController.text,
       );
 
       await detailListStudentPageController.showByUserId(userId.value);
