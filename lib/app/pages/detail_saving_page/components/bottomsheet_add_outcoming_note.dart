@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.55 + MediaQuery.of(context).viewInsets.bottom,
+      height: height * 0.6 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -64,7 +65,11 @@ class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
                 ),
               ],
             ),
-            SizedBox(height: height * 0.04),
+            SizedBox(height: height * 0.02),
+            CommonWarning(
+                backColor: warningColor,
+                text: 'Nominal tidak boleh melebihi tabungan'),
+            SizedBox(height: height * 0.03),
             Expanded(
               child: Form(
                 key: controller.formKeyOutgoing,
@@ -85,10 +90,11 @@ class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
                           hintText: 'Masukkan Nominal',
                           keyboardType: TextInputType.number,
                           fieldController: controller.amoutOutgoingController,
-                          validator:  (value) {
+                          validator: (value) {
                             if (value!.isEmpty) {
                               return 'Nominal tidak boleh kosong';
-                            } else if (int.parse(value) > controller.totalSavings.value) {
+                            } else if (int.parse(value) >
+                                controller.totalSavings.value) {
                               return 'Nominal tidak boleh melebihi tabungan';
                             }
                             return null;
@@ -109,7 +115,8 @@ class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
                             children: [
                               TextSpan(
                                   text: '*opsional',
-                                  style: tsBodySmallRegular(dangerColor).copyWith(
+                                  style:
+                                      tsBodySmallRegular(dangerColor).copyWith(
                                     height: 1.3,
                                   )),
                             ],

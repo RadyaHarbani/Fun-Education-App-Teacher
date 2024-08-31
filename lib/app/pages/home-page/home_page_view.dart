@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/components/bottomsheet-component/bottomsheet_add_emergency_note.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/components/bottomsheet-component/bottomsheet_edit_emergency_note.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/widget/emergency-note-widget/if_contain_emergency_note.dart';
@@ -75,9 +77,26 @@ class HomePageView extends GetView<HomePageController> {
                             );
                           },
                           onTapDelete: () {
-                            controller.deleteEmergencyNoteByAdmin(
-                              controller.showLatestEmergencyNoteModel.value.id!,
-                            );
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return CommonAlertDialog(
+                                      title: 'Konfirmasi',
+                                      content:
+                                          'Apakah kamu yakin untuk menghapus seluruh informasi?',
+                                      cancelButtonText: 'Tidak',
+                                      confirmButtonText: 'Iya',
+                                      onConfirm: () async {
+                                        Get.back();
+                                        await controller
+                                            .deleteEmergencyNoteByAdmin(
+                                          controller
+                                              .showLatestEmergencyNoteModel
+                                              .value
+                                              .id!,
+                                        );
+                                      });
+                                });
                           },
                         )
                       : IfEmptyEmergencyNote(

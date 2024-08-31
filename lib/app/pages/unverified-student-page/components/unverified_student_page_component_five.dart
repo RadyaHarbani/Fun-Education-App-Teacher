@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/pages/unverified-student-page/unverified_student_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/unverified-student-page/widgets/unverified_student_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -62,11 +63,25 @@ class UnverifiedStudentPageComponentFive
                         fullname:
                             '${controller.listUnverifiedStudentFive[index].fullName}',
                         onTapClose: () {
-                          controller.updateVerifyUserByAdmin(
-                            controller.listUnverifiedStudentFive[index].id
-                                .toString(),
-                            false,
-                          );
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CommonAlertDialog(
+                                    title: 'Konfirmasi',
+                                    content:
+                                        'Apakah kamu yakin untuk menolak akun?',
+                                    cancelButtonText: 'Tidak',
+                                    confirmButtonText: 'Iya',
+                                    onConfirm: () async {
+                                      Get.back();
+                                      await controller.updateVerifyUserByAdmin(
+                                        controller
+                                            .listUnverifiedStudentFive[index].id
+                                            .toString(),
+                                        false,
+                                      );
+                                    });
+                              });
                         },
                         onTapCheck: () {
                           controller.updateVerifyUserByAdmin(

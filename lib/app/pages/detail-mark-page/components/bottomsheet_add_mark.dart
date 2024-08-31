@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-mark-page/detail_mark_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class BottomsheetAddMark extends GetView<DetailMarkPageController> {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.35 + MediaQuery.of(context).viewInsets.bottom,
+      height: height * 0.4 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,
@@ -64,13 +65,28 @@ class BottomsheetAddMark extends GetView<DetailMarkPageController> {
                 ),
               ],
             ),
+            SizedBox(height: height * 0.01),
+            CommonWarning(
+                backColor: warningColor,
+                text: 'Beri Nilai Dengan Jangkauan 0-100'),
             SizedBox(height: height * 0.03),
             Expanded(
-              child: CommonTextField(
-                fieldController: controller.markController,
-                keyboardType: TextInputType.number,
-                obscureText: false,
-                hintText: '100',
+              child: Form(
+                key: controller.formKeyMark,
+                child: CommonTextField(
+                  fieldController: controller.markController,
+                  keyboardType: TextInputType.number,
+                  obscureText: false,
+                  hintText: '100',
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Nilai tidak boleh kosong';
+                    } else if (int.parse(value) > 100) {
+                      return 'Nilai tidak boleh melebihi jangkauan';
+                    }
+                    return null;
+                  },
+                ),
               ),
             ),
             Obx(() => CommonButton(

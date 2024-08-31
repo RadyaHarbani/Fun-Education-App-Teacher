@@ -48,7 +48,7 @@ class HomePageComponentOne extends StatelessWidget {
             child: Row(
               children: [
                 AutoSizeText(
-                  'Pengajuan Siswa',
+                  'Peninjauan Akun',
                   group: AutoSizeGroup(),
                   maxLines: 1,
                   style: tsBodySmallMedium(whiteColor),

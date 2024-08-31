@@ -107,7 +107,8 @@ class BottomsheetAddIncomingNote extends GetView<DetailSavingPageController> {
                             children: [
                               TextSpan(
                                   text: '*opsional',
-                                  style: tsBodySmallRegular(dangerColor).copyWith(
+                                  style:
+                                      tsBodySmallRegular(dangerColor).copyWith(
                                     height: 1.3,
                                   )),
                             ],
@@ -129,7 +130,7 @@ class BottomsheetAddIncomingNote extends GetView<DetailSavingPageController> {
             ),
             SizedBox(height: height * 0.03),
             Obx(() => CommonButton(
-              isLoading: controller.isLoadingAddTransaction.value,
+                  isLoading: controller.isLoadingAddTransaction.value,
                   text: 'Catat Pemasukan',
                   backgroundColor: blackColor,
                   textColor: whiteColor,

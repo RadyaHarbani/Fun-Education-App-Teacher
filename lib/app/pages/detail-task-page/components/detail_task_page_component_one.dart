@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/widgets/task_widget/detail_task_item.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
@@ -39,8 +40,22 @@ class DetailTaskPageComponentOne extends GetView<DetailTaskPageController> {
                   }
                 },
                 function2: () {
-                  controller.deleteTaskByAdmin(
-                      controller.showByTaskIdDetail.value.id!);
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CommonAlertDialog(
+                        title: 'Konfirmasi',
+                        content: 'Apakah anda yakin ingin menghapus tugas?',
+                        cancelButtonText: 'Tidak',
+                        confirmButtonText: 'Iya',
+                        onConfirm: () {
+                          Get.back();
+                          controller.deleteTaskByAdmin(
+                              controller.showByTaskIdDetail.value.id!);
+                        },
+                      );
+                    },
+                  );
                 },
               )),
           SizedBox(height: height * 0.02),

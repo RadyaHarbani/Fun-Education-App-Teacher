@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/items/information-page/information_page_component_one.dart';
@@ -28,7 +29,22 @@ class DetailListStudentPageComponentOne
               textColor: whiteColor,
               icon: Icons.delete_rounded,
               onPressed: () {
-                controller.deleteUserByAdmin();
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return CommonAlertDialog(
+                      title: 'Konfirmasi',
+                      content:
+                          'Apakah anda yakin ingin menghapus seluruh data anak?',
+                      cancelButtonText: 'Tidak',
+                      confirmButtonText: 'Iya',
+                      onConfirm: () {
+                        Get.back();
+                        controller.deleteUserByAdmin();
+                      },
+                    );
+                  },
+                );
               },
             )),
       ],
