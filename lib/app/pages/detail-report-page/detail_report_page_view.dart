@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_four.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/components/detail_report_page_component_one.dart';
@@ -84,7 +85,22 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
                           backgroundColor: dangerColor,
                           textColor: whiteColor,
                           onPressed: () {
-                            controller.deleteDailyReportByAdmin();
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return CommonAlertDialog(
+                                  title: 'Konfirmasi',
+                                  content:
+                                      'Apakah anda yakin untuk mengahapus laporan',
+                                  cancelButtonText: 'Tidak',
+                                  confirmButtonText: 'Iya',
+                                  onConfirm: () {
+                                    Get.back();
+                                    controller.deleteDailyReportByAdmin();
+                                  },
+                                );
+                              },
+                            );
                           },
                         )),
                   ],

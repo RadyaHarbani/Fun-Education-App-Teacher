@@ -8,13 +8,14 @@ import 'package:get/get.dart';
 class DetailMarkPageController extends GetxController {
   final DetailTaskPageController detailTaskPageController =
       Get.put(DetailTaskPageController());
+  final GlobalKey<FormState> formKeyMark = GlobalKey<FormState>();
   TextEditingController markController = TextEditingController();
   RxBool isLoadingUpdateGrade = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    markController.text = '0';
+    markController.text = '75';
     markShowByUserId(Get.arguments);
   }
 
@@ -34,20 +35,24 @@ class DetailMarkPageController extends GetxController {
   }
 
   Future sendGradeByAdmin(String taskUserId) async {
-    try {
-      isLoadingUpdateGrade(true);
-      final response = await markService.putSendGradeByAdmin(
-          taskUserId, int.parse(markController.text));
-      print(response.data);
-      await markShowByUserId(taskUserId);
-      await detailTaskPageController
-          .markShowByTaskId(showByUserIdDetail.value.tugasId.toString());
-      Get.back();
-      update();
-      isLoadingUpdateGrade(false);
-    } catch (e) {
-      isLoadingUpdateGrade(false);
-      print(e);
+    if (formKeyMark.currentState!.validate()) {
+      try {
+        isLoadingUpdateGrade(true);
+        final response = await markService.putSendGradeByAdmin(
+          taskUserId,
+          int.parse(markController.text),
+        );
+        print(response.data);
+        await markShowByUserId(taskUserId);
+        await detailTaskPageController
+            .markShowByTaskId(showByUserIdDetail.value.tugasId.toString());
+        Get.back();
+        update();
+        isLoadingUpdateGrade(false);
+      } catch (e) {
+        isLoadingUpdateGrade(false);
+        print(e);
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-unverified-student-page/detail_unverified_student_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-unverified-student-page/widgets/information_container_item.dart';
@@ -135,7 +136,21 @@ class DetailUnverifiedStudentPageView
                           backgroundColor: dangerColor,
                           textColor: whiteColor,
                           onPressed: () {
-                            controller.updateVerifyUserByAdmin(false);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return CommonAlertDialog(
+                                      title: 'Konfirmasi',
+                                      content:
+                                          'Apakah kamu yakin untuk menolak akun dan menghapus informasi akun?',
+                                      cancelButtonText: 'Tidak',
+                                      confirmButtonText: 'Iya',
+                                      onConfirm: () async {
+                                        Get.back();
+                                        await controller
+                                            .updateVerifyUserByAdmin(false);
+                                      });
+                                });
                           },
                         ),
                       ],

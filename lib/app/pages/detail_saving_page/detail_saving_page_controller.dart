@@ -124,52 +124,56 @@ class DetailSavingPageController extends GetxController {
   Future storeTransactionByAdmin(
     String category,
   ) async {
-    try {
-      isLoadingAddTransaction(true);
-      String? isDescriptionIncome =
-          descriptionIncomingController.text.isNotEmpty
-              ? descriptionIncomingController.text
-              : null;
-      String? isDescriptionOutgoing =
-          descriptionOutgoingController.text.isNotEmpty
-              ? descriptionOutgoingController.text
-              : null;
+    if (category == 'income'
+        ? formKeyIncoming.currentState!.validate()
+        : formKeyOutgoing.currentState!.validate()) {
+      try {
+        isLoadingAddTransaction(true);
+        String? isDescriptionIncome =
+            descriptionIncomingController.text.isNotEmpty
+                ? descriptionIncomingController.text
+                : null;
+        String? isDescriptionOutgoing =
+            descriptionOutgoingController.text.isNotEmpty
+                ? descriptionOutgoingController.text
+                : null;
 
-      await transactionService.postStoreTrasactionByAdmin(
-        category == 'income'
-            ? isDescriptionIncome != null
-            : isDescriptionOutgoing != null,
-        userId.value,
-        category == 'income'
-            ? amountIncomingController.text
-            : amoutOutgoingController.text,
-        category,
-        category == 'income' ? isDescriptionIncome : isDescriptionOutgoing,
-      );
-      showTotalSavingsByUserId(userId.value);
-      update();
-      Get.back();
-      isLoadingAddTransaction(false);
-      Get.snackbar(
-        'Berhasil',
-        'Transaksi Berhasil Dicatat',
-        backgroundColor: successColor,
-        colorText: whiteColor,
-      );
+        await transactionService.postStoreTrasactionByAdmin(
+          category == 'income'
+              ? isDescriptionIncome != null
+              : isDescriptionOutgoing != null,
+          userId.value,
+          category == 'income'
+              ? amountIncomingController.text
+              : amoutOutgoingController.text,
+          category,
+          category == 'income' ? isDescriptionIncome : isDescriptionOutgoing,
+        );
+        showTotalSavingsByUserId(userId.value);
+        update();
+        Get.back();
+        isLoadingAddTransaction(false);
+        Get.snackbar(
+          'Berhasil',
+          'Transaksi Berhasil Dicatat',
+          backgroundColor: successColor,
+          colorText: whiteColor,
+        );
 
-      amountIncomingController.clear();
-      descriptionIncomingController.clear();
-      amoutOutgoingController.clear();
-      descriptionOutgoingController.clear();
-    } catch (e) {
-      isLoadingAddTransaction(false);
-      print(e);
-      Get.snackbar(
-        'Gagal',
-        'Transaksi Gagal Dicatat',
-        backgroundColor: successColor,
-        colorText: whiteColor,
-      );
+        amountIncomingController.clear();
+        descriptionIncomingController.clear();
+        amoutOutgoingController.clear();
+        descriptionOutgoingController.clear();
+      } catch (e) {
+        isLoadingAddTransaction(false);
+        print(e);
+        Get.snackbar(
+          'Gagal',
+          'Transaksi Gagal Dicatat',
+          backgroundColor: successColor,
+          colorText: whiteColor,
+        );
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -114,8 +115,22 @@ class BottomsheetDetailPhotoAlbum
                   backgroundColor: dangerColor,
                   textColor: whiteColor,
                   onPressed: () {
-                    controller.deletePhotoByAdmin(
-                      arguments.id.toString(),
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CommonAlertDialog(
+                          title: 'Konfirmasi',
+                          content: 'Apakah anda yakin ingin menghapus foto?',
+                          cancelButtonText: 'Tidak',
+                          confirmButtonText: 'Iya',
+                          onConfirm: () {
+                            Get.back();
+                            controller.deletePhotoByAdmin(
+                              arguments.id.toString(),
+                            );
+                          },
+                        );
+                      },
                     );
                   },
                 )),
