@@ -34,12 +34,12 @@ class EditInformationStudentPageComponentOne
           hintText: "Nama Panggilan",
           fieldController: controller.nickNameController,
         ),
-        // SizedBox(height: height * 0.01),
-        // CommonTextField(
-        //   obscureText: false,
-        //   hintText: "Jenis Kelamin",
-        //   fieldController: controller.genderController,
-        // ),
+        SizedBox(height: height * 0.01),
+        CommonTextField(
+          obscureText: false,
+          hintText: "Jenis Kelamin",
+          fieldController: controller.genderController,
+        ),
         SizedBox(height: height * 0.01),
         CommonTextField(
           obscureText: false,

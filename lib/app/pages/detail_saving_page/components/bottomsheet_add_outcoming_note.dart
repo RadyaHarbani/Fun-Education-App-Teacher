@@ -66,56 +66,67 @@ class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
             ),
             SizedBox(height: height * 0.04),
             Expanded(
-              child: Column(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AutoSizeText(
-                        group: AutoSizeGroup(),
-                        maxLines: 1,
-                        'Jumlah Nominal',
-                        style: tsBodySmallSemibold(blackColor),
-                      ),
-                      SizedBox(height: height * 0.01),
-                      CommonTextField(
-                        obscureText: false,
-                        hintText: 'Masukkan Nominal',
-                        keyboardType: TextInputType.number,
-                        fieldController: controller.amoutOutgoingController,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: height * 0.02),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AutoSizeText.rich(
-                        group: AutoSizeGroup(),
-                        maxLines: 2,
-                        TextSpan(
-                          text: 'Keterangan\n',
+              child: Form(
+                key: controller.formKeyOutgoing,
+                child: Column(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          group: AutoSizeGroup(),
+                          maxLines: 1,
+                          'Jumlah Nominal',
                           style: tsBodySmallSemibold(blackColor),
-                          children: [
-                            TextSpan(
-                                text: '*opsional',
-                                style: tsBodySmallRegular(dangerColor).copyWith(
-                                  height: 1.3,
-                                )),
-                          ],
                         ),
-                      ),
-                      SizedBox(height: height * 0.01),
-                      CommonTextField(
-                        obscureText: false,
-                        hintText: 'Tambahkan Keterangan',
-                        keyboardType: TextInputType.text,
-                        fieldController:
-                            controller.descriptionOutgoingController,
-                      ),
-                    ],
-                  ),
-                ],
+                        SizedBox(height: height * 0.01),
+                        CommonTextField(
+                          obscureText: false,
+                          hintText: 'Masukkan Nominal',
+                          keyboardType: TextInputType.number,
+                          fieldController: controller.amoutOutgoingController,
+                          validator:  (value) {
+                            if (value!.isEmpty) {
+                              return 'Nominal tidak boleh kosong';
+                            } else if (int.parse(value) > controller.totalSavings.value) {
+                              return 'Nominal tidak boleh melebihi tabungan';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: height * 0.02),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText.rich(
+                          group: AutoSizeGroup(),
+                          maxLines: 2,
+                          TextSpan(
+                            text: 'Keterangan\n',
+                            style: tsBodySmallSemibold(blackColor),
+                            children: [
+                              TextSpan(
+                                  text: '*opsional',
+                                  style: tsBodySmallRegular(dangerColor).copyWith(
+                                    height: 1.3,
+                                  )),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: height * 0.01),
+                        CommonTextField(
+                          obscureText: false,
+                          hintText: 'Tambahkan Keterangan',
+                          keyboardType: TextInputType.text,
+                          fieldController:
+                              controller.descriptionOutgoingController,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: height * 0.03),
