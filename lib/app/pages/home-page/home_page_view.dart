@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/components/bottomsheet-component/bottomsheet_add_emergency_note.dart';

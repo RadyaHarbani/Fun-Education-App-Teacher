@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fun_education_app_teacher/app/api/auth/service/authentication_service.dart';
@@ -7,11 +8,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPageController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyEmailReset = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController emailResetController = TextEditingController();
   late AuthenticationService authenticationService;
   RxBool isObsecure = true.obs;
   RxBool isLoadingLogin = false.obs;
+  RxBool isLoadingEmailReset = false.obs;
+  var saveEmail = ''.obs;
 
   @override
   void onInit() {
@@ -34,12 +39,6 @@ class LoginPageController extends GetxController {
         prefs.setString('teachersToken', response.data['token']);
 
         Get.snackbar("Login Success", "Welcome Back!");
-        // ScaffoldMessenger.of(Get.context!).showSnackBar(
-        //   SnackBar(
-        //     content: Text('Login Success'),
-        //     duration: Duration(seconds: 2),
-        //   ),
-        // );
         Get.offAllNamed(Routes.NAVBAR_MAIN, arguments: 0);
       } catch (e) {
         isLoadingLogin(true);
@@ -47,6 +46,26 @@ class LoginPageController extends GetxController {
         print(e);
       } finally {
         isLoadingLogin(false);
+      }
+    }
+  }
+
+  Future<void> checkEmailExist() async {
+    if (formKeyEmailReset.currentState!.validate()) {
+      try {
+        isLoadingEmailReset(true);
+        await authenticationService.checkEmailExist(
+          emailResetController.text,
+        );
+        saveEmail.value = emailResetController.text;
+        await authenticationService.postSendOtp(saveEmail.value);
+        Get.toNamed(Routes.OTP_VERIFICATION_PAGE, arguments: saveEmail.value);
+        isLoadingEmailReset(false);
+        Get.snackbar("Success", "Email Exist");
+      } catch (e) {
+        isLoadingEmailReset(false);
+        Get.snackbar("Error", "Something went wrong");
+        print(e);
       }
     }
   }
