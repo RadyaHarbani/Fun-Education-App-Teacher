@@ -26,6 +26,8 @@ import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_pag
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/graduated-student-page/graduated_student_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/graduated-student-page/graduated_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/home_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/home_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/home-saving-page/home_saving_page_binding.dart';
@@ -207,6 +209,11 @@ class AppPages {
       name: _Paths.DETAIL_UNVERIFIED_STUDENT_PAGE,
       page: () => DetailUnverifiedStudentPageView(),
       binding: DetailUnverifiedStudentPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.GRADUATED_STUDENT_PAGE,
+      page: () => GraduatedStudentPageView(),
+      binding: GraduatedStudentPageBinding(),
     ),
   ];
 }

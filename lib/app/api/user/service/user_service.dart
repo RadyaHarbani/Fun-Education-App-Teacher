@@ -67,7 +67,7 @@ class UserService {
       final data = {
         'full_name': fullName,
         'nickname': nickName,
-        if (isPassword== true) 'password': password,
+        if (isPassword == true) 'password': password,
         'birth': birth,
         'address': address,
         'shift': shift,
@@ -123,6 +123,25 @@ class UserService {
           data: {
             'is_verified': verify,
           });
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> getSearchUser(
+    String search,
+    String isVerified,
+  ) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        endpoint: '${ApiEndPoint.showAllUserByIncomingShift}',
+        queryParameters: {
+          'is_verified': isVerified,
+          'is_graduated': isVerified,
+          'search': search,
+        },
+      );
       return response;
     } catch (e) {
       throw Exception(e);
