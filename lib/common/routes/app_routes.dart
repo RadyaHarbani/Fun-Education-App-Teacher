@@ -5,6 +5,8 @@ abstract class Routes {
   static const NAVBAR_MAIN = _Paths.NAVBAR_MAIN;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
+  static const OTP_VERIFICATION_PAGE = _Paths.OTP_VERIFICATION_PAGE;
+  static const RESET_PASSWORD_PAGE = _Paths.RESET_PASSWORD_PAGE;
   static const DETAIL_CLASS_PAGE = _Paths.DETAIL_CLASS_PAGE;
   static const HOME_PAGE = _Paths.HOME_PAGE;
   static const ADD_TASK_PAGE = _Paths.ADD_TASK_PAGE;
@@ -37,6 +39,8 @@ abstract class _Paths {
   static const NAVBAR_MAIN = '/navbar-main';
   static const SPLASH_SCREEN = '/splash-screen';
   static const LOGIN_PAGE = '/login-page';
+  static const OTP_VERIFICATION_PAGE = '/otp-verification-page';
+  static const RESET_PASSWORD_PAGE = '/reset-password-page';
   static const DETAIL_CLASS_PAGE = '/detail-class-page';
   static const HOME_PAGE = '/home-page';
   static const ADD_TASK_PAGE = '/add-task-page';

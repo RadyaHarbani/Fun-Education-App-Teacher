@@ -38,8 +38,12 @@ import 'package:fun_education_app_teacher/app/pages/login-page/login_page_bindin
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_view.dart';
+import 'package:fun_education_app_teacher/app/pages/otp-verification-page/otp_verification_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/otp-verification-page/otp_verification_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/report-history-page/report_history_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/report-history-page/report_history_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/reset-password-page/reset_password_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/reset-password-page/reset_password_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/splash-screen/splash_screen_view.dart';
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/transaction_history_page_binding.dart';
@@ -78,6 +82,16 @@ class AppPages {
       name: _Paths.LOGIN_PAGE,
       page: () => LoginPageView(),
       binding: LoginPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP_VERIFICATION_PAGE,
+      page: () => OtpVerificationPageView(),
+      binding: OtpVerificationPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESET_PASSWORD_PAGE,
+      page: () => ResetPasswordPageView(),
+      binding: ResetPasswordPageBinding(),
     ),
     GetPage(
       name: _Paths.DETAIL_CLASS_PAGE,

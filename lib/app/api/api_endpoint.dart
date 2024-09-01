@@ -1,6 +1,7 @@
 class ApiEndPoint {
   static String baseUrl = 'https://fun-education-api.rplrus.com/api';
   static String baseUrlAuth = '$baseUrl/users';
+  static String baseUrlOtp = '$baseUrl/otp';
   static String baseUrlShiftMasuk = '$baseUrl/shift-masuk';
   static String baseUrlCatatanDarurat = '$baseUrl/catatan-darurat';
   static String baseUrlCatatanDaruratFile = '$baseUrl/catatan-darurat-file';
@@ -21,6 +22,10 @@ class ApiEndPoint {
   static String login = '$baseUrlAuth/login';
   static String register = '$baseUrlAuth/register';
   static String logout = '$baseUrlAuth/logout';
+  static String checkEmailExist = '$baseUrlAuth/check-email';
+  static String sendOtp = '$baseUrlOtp/store';
+  static String verifyOtp = '$baseUrlOtp/check';
+  static String resetPassword = '$baseUrlAuth/reset-password';
 
   //Shift Masuk
   static String showCurrentShiftMasuk = '$baseUrlShiftMasuk/show-current';

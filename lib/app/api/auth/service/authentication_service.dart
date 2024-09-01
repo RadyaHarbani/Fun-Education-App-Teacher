@@ -24,6 +24,70 @@ class AuthenticationService {
     }
   }
 
+  Future<Response> checkEmailExist(String email) async {
+    try {
+      final response = await _dioInstance.postRequest(
+        endpoint: ApiEndPoint.checkEmailExist,
+        data: {
+          'email': email,
+          'is_exist': 'true',
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> postSendOtp(String email) async {
+    try {
+      await _dioInstance.postRequest(
+        endpoint: ApiEndPoint.sendOtp,
+        data: {
+          'email': email,
+        },
+      );
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> postVerifyOtp(String email, String otp) async {
+    try {
+      final response = await _dioInstance.postRequest(
+        endpoint: ApiEndPoint.verifyOtp,
+        data: {
+          'email': email,
+          'otp': otp,
+          'reset_password': true,
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> putResetPassword(
+    String email,
+    String tokenResetPassword,
+    String password,
+  ) async {
+    try {
+      final response = await _dioInstance.putRequest(
+        endpoint: ApiEndPoint.resetPassword,
+        data: {
+          'email': email,
+          'token_reset_password': tokenResetPassword,
+          'password': password,
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<Response> logout() async {
     try {
       final response = await _dioInstance.deleteRequest(

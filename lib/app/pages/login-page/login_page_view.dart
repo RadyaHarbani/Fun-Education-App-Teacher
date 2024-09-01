@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
+import 'package:fun_education_app_teacher/app/pages/login-page/components/bottomsheet_add_email_reset_password.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
@@ -72,7 +73,8 @@ class LoginPageView extends GetView<LoginPageController> {
                   SizedBox(height: height * 0.06),
                   CommonWarning(
                     backColor: warningColor,
-                    text: 'Isi dengan kata sandi yang telah diberikan oleh guru',
+                    text:
+                        'Isi dengan kata sandi yang telah diberikan oleh guru',
                   ),
                   SizedBox(height: height * 0.03),
                   Column(
@@ -124,7 +126,26 @@ class LoginPageView extends GetView<LoginPageController> {
                       ),
                     ],
                   ),
-                  SizedBox(height: height * 0.03),
+                  Container(
+                    width: width,
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: whiteColor,
+                          builder: (context) =>
+                              BottomsheetAddEmailResetPassword(),
+                        );
+                      },
+                      child: AutoSizeText(
+                        'Lupa Kata Sandi?',
+                        style: tsBodySmallRegular(blackColor),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: height * 0.02),
                   Obx(() => CommonButton(
                         isLoading: controller.isLoadingLogin.value,
                         text: 'Masuk',
