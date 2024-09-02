@@ -54,6 +54,7 @@ class UserService {
 
   Future<Response> putUpdateUserByAdmin(
     bool isPassword,
+    bool isGraduated,
     String userId,
     String fullName,
     String nickName,
@@ -62,16 +63,18 @@ class UserService {
     String address,
     String shift,
     String gender,
+    bool graduated,
   ) async {
     try {
       final data = {
-        'full_name': fullName,
-        'nickname': nickName,
-        if (isPassword == true) 'password': password,
-        'birth': birth,
-        'address': address,
-        'shift': shift,
-        'gender': gender,
+        if (isGraduated == false) 'full_name': fullName,
+        if (isGraduated == false) 'nickname': nickName,
+        if (isPassword == true && isGraduated == false) 'password': password,
+        if (isGraduated == false) 'birth': birth,
+        if (isGraduated == false) 'address': address,
+        if (isGraduated == false) 'shift': shift,
+        if (isGraduated == false) 'gender': gender,
+        if (isGraduated == true) 'is_graduated': graduated,
       };
       final response = await _dioInstance.putRequest(
         isAuthorize: true,

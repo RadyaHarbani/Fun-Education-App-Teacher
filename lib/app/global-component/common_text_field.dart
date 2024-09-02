@@ -9,6 +9,7 @@ class CommonTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final IconButton? suffixIcon;
   final Function? validator;
+  final Function? onSubmitted;
   final Function? onChanged;
 
   CommonTextField({
@@ -20,6 +21,7 @@ class CommonTextField extends StatelessWidget {
     this.keyboardType,
     this.suffixIcon,
     this.validator,
+    this.onSubmitted,
     this.onChanged,
   });
 
@@ -33,7 +35,8 @@ class CommonTextField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText,
       style: tsBodySmallRegular(blackColor),
-      onChanged: onChanged as String? Function(String?)?,
+      onFieldSubmitted: onSubmitted as void Function(String)?,
+      onChanged: onChanged as void Function(String)?,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
           vertical: height * 0.02,

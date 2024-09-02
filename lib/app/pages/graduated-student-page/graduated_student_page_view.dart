@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
 import 'package:fun_education_app_teacher/app/pages/graduated-student-page/components/graduated_student_page_component_five.dart';
@@ -11,6 +12,7 @@ import 'package:fun_education_app_teacher/app/pages/graduated-student-page/gradu
 import 'package:fun_education_app_teacher/app/pages/graduated-student-page/widgets/graduated_student_item.dart';
 import 'package:fun_education_app_teacher/app/pages/graduated-student-page/widgets/shift_filter_chip_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -108,24 +110,41 @@ class GraduatedStudentPageView extends GetView<GraduatedStudentPageController> {
                             : SizedBox.shrink(),
                       ),
                       hintText: 'Cari Nama Siswa...',
-                      onChanged: (query) {
-                        controller.onSearchChanged(query);
+                      onSubmitted: (query) {
+                        controller.searchQuery.value = query;
+                        controller.searchController.text = query;
+                        if (query.isEmpty) {
+                          controller.fetchAllGraduatedStudents();
+                        } else {
+                          controller.searchUserGraduate(query);
+                        }
                       },
                     )),
                 SizedBox(height: height * 0.02),
                 Obx(() {
                   if (controller.searchQuery.value.isNotEmpty &&
-                      controller.selectedShift.value.isEmpty) {
+                      controller.selectedShift.value.isEmpty &&
+                      controller.filteredGraduatedStudents.isNotEmpty) {
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: controller.filteredGraduatedStudents.length,
                       itemBuilder: (context, index) {
-                        return GraduatedStudentItem(
-                          fullname: controller
-                              .filteredGraduatedStudents[index].fullName!,
-                          image: controller
-                              .filteredGraduatedStudents[index].profilePicture!,
+                        return InkWell(
+                          onTap: () {
+                            Get.toNamed(
+                              Routes.DETAIL_GRADUATED_STUDENT_PAGE,
+                              arguments: controller
+                                  .filteredGraduatedStudents[index].id
+                                  .toString(),
+                            );
+                          },
+                          child: GraduatedStudentItem(
+                            fullname: controller
+                                .filteredGraduatedStudents[index].fullName!,
+                            image: controller.filteredGraduatedStudents[index]
+                                .profilePicture!,
+                          ),
                         );
                       },
                     );
@@ -164,15 +183,44 @@ class GraduatedStudentPageView extends GetView<GraduatedStudentPageController> {
                           itemCount:
                               controller.filteredGraduatedStudents.length,
                           itemBuilder: (context, index) {
-                            return GraduatedStudentItem(
-                              fullname: controller
-                                  .filteredGraduatedStudents[index].fullName!,
-                              image: controller.filteredGraduatedStudents[index]
-                                  .profilePicture!,
+                            return InkWell(
+                              onTap: () {
+                                Get.toNamed(
+                                  Routes.DETAIL_GRADUATED_STUDENT_PAGE,
+                                  arguments: controller
+                                      .filteredGraduatedStudents[index].id
+                                      .toString(),
+                                );
+                              },
+                              child: GraduatedStudentItem(
+                                fullname: controller
+                                    .filteredGraduatedStudents[index].fullName!,
+                                image: controller
+                                    .filteredGraduatedStudents[index]
+                                    .profilePicture!,
+                              ),
                             );
                           },
                         ),
                       ],
+                    );
+                  } else if (controller.filteredGraduatedStudents.isEmpty &&
+                      controller.searchQuery.value.isNotEmpty &&
+                      controller.selectedShift.value.isEmpty) {
+                    return Center(
+                      child: Column(
+                        children: [
+                          SizedBox(height: height * 0.1),
+                          SvgPicture.asset(
+                            'assets/images/empty_search.svg',
+                          ),
+                          SizedBox(height: height * 0.03),
+                          AutoSizeText(
+                            'Data Tidak Ditemukan',
+                            style: tsBodySmallSemibold(blackColor),
+                          ),
+                        ],
+                      ),
                     );
                   } else {
                     return Column(

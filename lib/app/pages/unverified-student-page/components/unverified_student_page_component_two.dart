@@ -25,8 +25,8 @@ class UnverifiedStudentPageComponentTwo
                   children: [
                     Container(
                       margin: EdgeInsets.only(right: width * 0.03),
-                      width: width * 0.015,
-                      height: height * 0.04,
+                      width: width * 0.012,
+                      height: height * 0.03,
                       decoration: BoxDecoration(
                         color: primaryColor,
                         borderRadius: BorderRadius.circular(4),
@@ -37,7 +37,7 @@ class UnverifiedStudentPageComponentTwo
                         textAlign: TextAlign.start,
                         TextSpan(
                           text: 'Shift Jam 10.00 - 11.30',
-                          style: tsBodyMediumSemibold(blackColor),
+                          style: tsBodyMediumRegular(blackColor),
                         ),
                         maxLines: 2,
                       ),
@@ -96,7 +96,7 @@ class UnverifiedStudentPageComponentTwo
                 ),
               ],
             )
-          : SizedBox(width: 0, height: 0),
+          : SizedBox.shrink(),
     );
   }
 }

@@ -26,9 +26,11 @@ class EditInformationStudentPageController extends GetxController {
   TextEditingController placeOfBirthController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  RxString learningFlow = ''.obs;
   RxString userId = ''.obs;
   var isObsecure = true.obs;
   var selectedShift = ''.obs;
+  var isGraduated = false.obs;
   RxBool isLoadingEditInformationStudent = false.obs;
 
   @override
@@ -41,27 +43,15 @@ class EditInformationStudentPageController extends GetxController {
     addressController.text = Get.arguments['address'];
     selectedShift.value = Get.arguments['shift'];
     userId.value = Get.arguments['userId'];
-    // showPasswordUserByAdmin(userId.value);
+    learningFlow.value = Get.arguments['learningFlow'];
   }
-
-  // Future showPasswordUserByAdmin(String userId) async {
-  //   try {
-  //     final response = await _userService.getShowPasswordByUserId(userId);
-  //     showCurrentUserResponsePassword =
-  //         ShowCurrentUserResponsePassword.fromJson(response.data);
-  //     showCurrentUserModelPassword.value =
-  //         showCurrentUserResponsePassword!.data;
-  //     passwordController.text = showCurrentUserModelPassword.value.password!;
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
 
   Future updateUserByAdmin() async {
     try {
       isLoadingEditInformationStudent(true);
       await _userService.putUpdateUserByAdmin(
         passwordController.text.isNotEmpty ? true : false,
+        learningFlow.value == 'C' ? true : false,
         userId.value,
         fullNameController.text,
         nickNameController.text,
@@ -70,6 +60,7 @@ class EditInformationStudentPageController extends GetxController {
         addressController.text,
         selectedShift.value,
         genderController.text,
+        isGraduated.value,
       );
 
       await detailListStudentPageController.showByUserId(userId.value);

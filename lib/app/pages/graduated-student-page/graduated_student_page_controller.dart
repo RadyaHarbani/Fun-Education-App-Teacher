@@ -23,8 +23,6 @@ class GraduatedStudentPageController extends GetxController {
   var selectedShift = ''.obs;
   var searchQuery = ''.obs;
 
-  Timer? _debounce; // Tambahkan ini
-
   final List<String> shifts = [
     '08.00 - 10.00',
     '10.00 - 11.30',
@@ -37,25 +35,6 @@ class GraduatedStudentPageController extends GetxController {
   void onInit() {
     super.onInit();
     fetchAllGraduatedStudents();
-  }
-
-  @override
-  void onClose() {
-    _debounce?.cancel();
-    super.onClose();
-  }
-
-  void onSearchChanged(String query) {
-    if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      searchQuery.value = query;
-      searchController.text = query;
-      if (query.isEmpty) {
-        fetchAllGraduatedStudents();
-      } else {
-        searchUserGraduate(query);
-      }
-    });
   }
 
   Future<void> searchUserGraduate(String query) async {
@@ -97,8 +76,6 @@ class GraduatedStudentPageController extends GetxController {
   }
 
   void filterGraduatedStudentsByShift() {
-    print("Filtering for shift: ${selectedShift.value}");
-
     searchController.text = '';
     searchQuery.value = '';
 

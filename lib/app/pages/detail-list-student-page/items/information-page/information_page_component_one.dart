@@ -114,6 +114,7 @@ class InformationPageComponentOne
                     'birth': controller.detailInformationUser.value.birth,
                     'address': controller.detailInformationUser.value.address,
                     'shift': controller.detailInformationUser.value.shift,
+                    'learningFlow': controller.learningFlowModel.value.tahap,
                   },
                 );
               },

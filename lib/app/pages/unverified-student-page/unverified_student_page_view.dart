@@ -1,4 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
 import 'package:fun_education_app_teacher/app/pages/unverified-student-page/components/unverified_student_page_component_five.dart';
 import 'package:fun_education_app_teacher/app/pages/unverified-student-page/components/unverified_student_page_component_four.dart';
@@ -6,7 +10,9 @@ import 'package:fun_education_app_teacher/app/pages/unverified-student-page/comp
 import 'package:fun_education_app_teacher/app/pages/unverified-student-page/components/unverified_student_page_component_three.dart';
 import 'package:fun_education_app_teacher/app/pages/unverified-student-page/components/unverified_student_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/unverified-student-page/unverified_student_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/unverified-student-page/widgets/unverified_student_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
+import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -72,16 +78,122 @@ class UnverifiedStudentPageView
                       'Cek detail siswa untuk melihat informasi secara keseluruhan',
                 ),
                 SizedBox(height: height * 0.02),
-                UnverifiedStudentPageComponentOne(),
+                Obx(() => CommonTextField(
+                      obscureText: false,
+                      prefixIcon: Icon(
+                        Icons.search_rounded,
+                      ),
+                      fieldController: controller.searchController,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          controller.searchController.text = '';
+                          controller.searchQuery.value = '';
+                        },
+                        icon: controller.searchQuery.value.isNotEmpty
+                            ? Icon(
+                                Icons.close_rounded,
+                                size: 20,
+                              )
+                            : SizedBox.shrink(),
+                      ),
+                      hintText: 'Cari Nama Siswa...',
+                      onSubmitted: (query) {
+                        controller.searchQuery.value = query;
+                        controller.searchController.text = query;
+                        controller.searchUserUnverified(query);
+                      },
+                    )),
                 SizedBox(height: height * 0.02),
-                UnverifiedStudentPageComponentTwo(),
-                SizedBox(height: height * 0.02),
-                UnverifiedStudentPageComponentThree(),
-                SizedBox(height: height * 0.02),
-                UnverifiedStudentPageComponentFour(),
-                SizedBox(height: height * 0.02),
-                UnverifiedStudentPageComponentFive(),
-                SizedBox(height: height * 0.02),
+                Obx(() {
+                  if (controller.filteredUnverifiedStudent.isNotEmpty &&
+                      controller.searchQuery.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: controller.filteredUnverifiedStudent.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Get.toNamed(
+                              Routes.DETAIL_UNVERIFIED_STUDENT_PAGE,
+                              arguments: controller
+                                  .filteredUnverifiedStudent[index].id
+                                  .toString(),
+                            );
+                          },
+                          child: UnverifiedStudentItem(
+                            fullname:
+                                '${controller.filteredUnverifiedStudent[index].fullName}',
+                            onTapClose: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return CommonAlertDialog(
+                                        title: 'Konfirmasi',
+                                        content:
+                                            'Apakah kamu yakin untuk menolak akun?',
+                                        cancelButtonText: 'Tidak',
+                                        confirmButtonText: 'Iya',
+                                        onConfirm: () async {
+                                          Get.back();
+                                          await controller
+                                              .updateVerifyUserByAdmin(
+                                            controller
+                                                .filteredUnverifiedStudent[
+                                                    index]
+                                                .id
+                                                .toString(),
+                                            false,
+                                          );
+                                        });
+                                  });
+                            },
+                            onTapCheck: () {
+                              controller.updateVerifyUserByAdmin(
+                                controller.filteredUnverifiedStudent[index].id
+                                    .toString(),
+                                true,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  } else if (controller.filteredUnverifiedStudent.isEmpty &&
+                      controller.searchQuery.isNotEmpty) {
+                    return Center(
+                      child: Column(
+                        children: [
+                          SizedBox(height: height * 0.1),
+                          SvgPicture.asset(
+                            'assets/images/empty_search.svg',
+                          ),
+                          SizedBox(height: height * 0.03),
+                          AutoSizeText(
+                            'Data Tidak Ditemukan',
+                            style: tsBodySmallSemibold(blackColor),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        UnverifiedStudentPageComponentOne(),
+                        SizedBox(height: height * 0.02),
+                        UnverifiedStudentPageComponentTwo(),
+                        SizedBox(height: height * 0.02),
+                        UnverifiedStudentPageComponentThree(),
+                        SizedBox(height: height * 0.02),
+                        UnverifiedStudentPageComponentFour(),
+                        SizedBox(height: height * 0.02),
+                        UnverifiedStudentPageComponentFive(),
+                        SizedBox(height: height * 0.02),
+                      ],
+                    );
+                  }
+                })
               ],
             ),
           ),

@@ -32,7 +32,9 @@ abstract class Routes {
   static const UNVERIFIED_STUDENT_PAGE = _Paths.UNVERIFIED_STUDENT_PAGE;
   static const DETAIL_UNVERIFIED_STUDENT_PAGE =
       _Paths.DETAIL_UNVERIFIED_STUDENT_PAGE;
-      static const GRADUATED_STUDENT_PAGE = _Paths.GRADUATED_STUDENT_PAGE;
+  static const GRADUATED_STUDENT_PAGE = _Paths.GRADUATED_STUDENT_PAGE;
+  static const DETAIL_GRADUATED_STUDENT_PAGE =
+      _Paths.DETAIL_GRADUATED_STUDENT_PAGE;
 }
 
 abstract class _Paths {
@@ -66,5 +68,6 @@ abstract class _Paths {
   static const UNVERIFIED_STUDENT_PAGE = '/unverified-student-page';
   static const DETAIL_UNVERIFIED_STUDENT_PAGE =
       '/detail-unverified-student-page';
-      static const GRADUATED_STUDENT_PAGE = '/graduated-student-page';
+  static const GRADUATED_STUDENT_PAGE = '/graduated-student-page';
+  static const DETAIL_GRADUATED_STUDENT_PAGE = '/detail-graduated-student-page';
 }
