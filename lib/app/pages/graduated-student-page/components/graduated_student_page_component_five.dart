@@ -52,7 +52,7 @@ class GraduatedStudentPageComponentFive
                     return InkWell(
                       onTap: () {
                         Get.toNamed(
-                          Routes.DETAIL_UNVERIFIED_STUDENT_PAGE,
+                          Routes.DETAIL_GRADUATED_STUDENT_PAGE,
                           arguments: controller
                               .listGraduatedStudentFive[index].id
                               .toString(),
@@ -69,7 +69,7 @@ class GraduatedStudentPageComponentFive
                 ),
               ],
             )
-          : SizedBox(width: 0, height: 0),
+          :  SizedBox.shrink(),
     );
   }
 }

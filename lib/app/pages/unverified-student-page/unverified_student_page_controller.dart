@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-all-user-by-incoming-shift/show_all_user_by_incoming_shift_response.dart';
 import 'package:fun_education_app_teacher/app/api/user/models/show-current-user/show_current_user_model.dart';
 import 'package:fun_education_app_teacher/app/api/user/service/user_service.dart';
@@ -20,6 +21,11 @@ class UnverifiedStudentPageController extends GetxController {
   RxList<ShowCurrentUserModel> listUnverifiedStudentFive =
       <ShowCurrentUserModel>[].obs;
 
+  RxList<ShowCurrentUserModel> filteredUnverifiedStudent =
+      <ShowCurrentUserModel>[].obs;
+  TextEditingController searchController = TextEditingController();
+  var searchQuery = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -28,6 +34,22 @@ class UnverifiedStudentPageController extends GetxController {
     showAllUserByIncomingShiftThree('11.30 - 13.00');
     showAllUserByIncomingShiftFour('13.00 - 14.00');
     showAllUserByIncomingShiftFive('14.00 - 15.00');
+  }
+
+  Future<void> searchUserUnverified(String query) async {
+    try {
+      filteredUnverifiedStudent.clear();
+      final response = await userService.getSearchUser(
+        query,
+        'false',
+      );
+      showAllUserByIncomingShiftResponse =
+          ShowAllUserByIncomingShiftResponse.fromJson(response.data);
+      filteredUnverifiedStudent.value =
+          showAllUserByIncomingShiftResponse!.data;
+    } catch (e) {
+      print("Error fetching students for shift $query: $e");
+    }
   }
 
   Future showAllUserByIncomingShiftOne(String shift) async {
@@ -142,6 +164,8 @@ class UnverifiedStudentPageController extends GetxController {
           colorText: whiteColor,
         );
       }
+      searchController.clear();
+      searchQuery.value = '';
     } catch (e) {
       print(e);
       Get.snackbar(

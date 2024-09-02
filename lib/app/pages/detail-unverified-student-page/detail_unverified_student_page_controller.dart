@@ -32,24 +32,11 @@ class DetailUnverifiedStudentPageController extends GetxController {
       final response = await userService.getShowByUserId(userId);
       showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
       detailInformationUser.value = showCurrentUserResponse!.data;
-      // await showPasswordUserByAdmin(userId);
       update();
     } catch (e) {
       print(e);
     }
   }
-
-  // Future showPasswordUserByAdmin(String userId) async {
-  //   try {
-  //     final response = await userService.getShowPasswordByUserId(userId);
-  //     showCurrentUserResponsePassword =
-  //         ShowCurrentUserResponsePassword.fromJson(response.data);
-  //     informationPasswordUser.value = showCurrentUserResponsePassword!.data;
-  //     update();
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
 
   Future updateVerifyUserByAdmin(bool verify) async {
     try {
@@ -67,6 +54,8 @@ class DetailUnverifiedStudentPageController extends GetxController {
           .showAllUserByIncomingShiftFour('13.00 - 14.00');
       await unverifiedStudentPageController
           .showAllUserByIncomingShiftFive('14.00 - 15.00');
+      unverifiedStudentPageController.searchController.clear();
+      unverifiedStudentPageController.searchQuery.value = '';
       Get.back();
       update();
       verify == true

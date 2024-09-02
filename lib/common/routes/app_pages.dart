@@ -6,6 +6,8 @@ import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/deta
 import 'package:fun_education_app_teacher/app/pages/detail-album-photo-page/detail_album_photo_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-graduated-student-page/detail_graduated_student_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/detail-graduated-student-page/detail_graduated_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-list-student-page/detail_list_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-mark-page/detail_mark_page_binding.dart';
@@ -214,6 +216,11 @@ class AppPages {
       name: _Paths.GRADUATED_STUDENT_PAGE,
       page: () => GraduatedStudentPageView(),
       binding: GraduatedStudentPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_GRADUATED_STUDENT_PAGE,
+      page: () => DetailGraduatedStudentPageView(),
+      binding: DetailGraduatedStudentPageBinding(),
     ),
   ];
 }
