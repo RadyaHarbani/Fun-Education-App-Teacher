@@ -7,6 +7,7 @@ import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawe
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileDrawerView extends StatelessWidget {
   final ProfileDrawerController controller = Get.put(ProfileDrawerController());
@@ -122,29 +123,45 @@ class ProfileDrawerView extends StatelessWidget {
               maxLines: 1,
             ),
             SizedBox(height: height * 0.01),
-            Container(
-              decoration: BoxDecoration(
-                color: greenColor.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.03,
-                  vertical: height * 0.02,
+            InkWell(
+              onTap: () {
+                controller.downloadExcel();
+              },
+              child: Container(
+                width: width,
+                decoration: BoxDecoration(
+                  color: greenColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/icons/icExcel.svg',
-                    ),
-                    SizedBox(width: width * 0.03),
-                    AutoSizeText(
-                      'Export Data Siswa',
-                      style: tsBodySmallSemibold(greenColor),
-                      maxLines: 1,
-                    ),
-                  ],
-                ),
+                child: Obx(() => controller.isDownloading.value == true
+                    ? Container(
+                        height: height * 0.06,
+                        child: Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: Colors.white,
+                            size: height * 0.03,
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: width * 0.03,
+                          vertical: height * 0.02,
+                        ),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/icons/icExcel.svg',
+                            ),
+                            SizedBox(width: width * 0.03),
+                            AutoSizeText(
+                              'Export Data Siswa',
+                              style: tsBodySmallSemibold(greenColor),
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+                      )),
               ),
             ),
             Spacer(),

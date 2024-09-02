@@ -129,34 +129,16 @@ class BottomsheetEditEmergencyNote extends GetView<HomePageController> {
                                           height: height * 0.035,
                                         ),
                                         SizedBox(width: width * 0.025),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: width * 0.6,
-                                              child: AutoSizeText(
-                                                '${controller.showLatestEmergencyNoteModel.value.file![index].name}',
-                                                group: AutoSizeGroup(),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: tsBodySmallSemibold(
-                                                    blackColor),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: width * 0.6,
-                                              child: AutoSizeText(
-                                                ' ${controller.showLatestEmergencyNoteModel.value.file![index].file!}',
-                                                group: AutoSizeGroup(),
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                style: tsLabelLargeRegular(
-                                                  blackColor,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                        Container(
+                                          width: width * 0.6,
+                                          child: AutoSizeText(
+                                            '${controller.showLatestEmergencyNoteModel.value.file![index].name}',
+                                            group: AutoSizeGroup(),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style:
+                                                tsBodySmallRegular(blackColor),
+                                          ),
                                         ),
                                       ],
                                     ),
