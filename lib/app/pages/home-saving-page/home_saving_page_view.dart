@@ -5,6 +5,7 @@ import 'package:fun_education_app_teacher/app/pages/home-saving-page/home_saving
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeSavingPageView extends GetView<HomeSavingPageController> {
   const HomeSavingPageView({super.key});
@@ -32,7 +33,33 @@ class HomeSavingPageView extends GetView<HomeSavingPageController> {
                 style: tsTitleSmallSemibold(blackColor),
               ),
               SizedBox(height: height * 0.03),
-              Obx(() => GridView.builder(
+              Obx(() {
+                if (controller.isLoadingHomeSaving.value) {
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 1,
+                    ),
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -55,7 +82,9 @@ class HomeSavingPageView extends GetView<HomeSavingPageController> {
                         },
                       );
                     },
-                  )),
+                  );
+                }
+              }),
             ],
           ),
         ),

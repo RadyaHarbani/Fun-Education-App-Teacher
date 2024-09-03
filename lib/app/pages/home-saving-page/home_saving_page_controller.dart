@@ -8,6 +8,7 @@ class HomeSavingPageController extends GetxController {
   ShowAllIncomingShiftResponse? showAllIncomingShiftResponse;
   RxList<ShowAllIncomingShiftModel> showAllIncomingShiftModel =
       <ShowAllIncomingShiftModel>[].obs;
+      RxBool isLoadingHomeSaving = false.obs;
 
   @override
   void onInit() {
@@ -17,12 +18,15 @@ class HomeSavingPageController extends GetxController {
 
   Future showAllIncomingShift() async {
     try {
+      isLoadingHomeSaving(true);
       final response = await incomingShiftService.getShowAllIncomingShift();
       showAllIncomingShiftResponse =
           ShowAllIncomingShiftResponse.fromJson(response.data);
       showAllIncomingShiftModel.value = showAllIncomingShiftResponse!.data;
+      isLoadingHomeSaving(false);
       update();
     } catch (e) {
+      isLoadingHomeSaving(false);
       print(e);
     }
   }

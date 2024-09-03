@@ -15,6 +15,7 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 class UnverifiedStudentPageView
     extends GetView<UnverifiedStudentPageController> {
@@ -48,11 +49,7 @@ class UnverifiedStudentPageView
       body: SmartRefresher(
         controller: controller.refreshController,
         onRefresh: () async {
-          await controller.showAllUserByIncomingShiftOne('08.00 - 10.00');
-          await controller.showAllUserByIncomingShiftTwo('10.00 - 11.30');
-          await controller.showAllUserByIncomingShiftThree('11.30 - 13.00');
-          await controller.showAllUserByIncomingShiftFour('13.00 - 14.00');
-          await controller.showAllUserByIncomingShiftFive('14.00 - 15.00');
+          await controller.fetchAllUnverifiedStudents();
           controller.refreshController.refreshCompleted();
         },
         header: WaterDropHeader(
@@ -88,6 +85,7 @@ class UnverifiedStudentPageView
                         onPressed: () {
                           controller.searchController.text = '';
                           controller.searchQuery.value = '';
+                          controller.filteredUnverifiedStudent.clear();
                         },
                         icon: controller.searchQuery.value.isNotEmpty
                             ? Icon(
@@ -100,7 +98,11 @@ class UnverifiedStudentPageView
                       onSubmitted: (query) {
                         controller.searchQuery.value = query;
                         controller.searchController.text = query;
-                        controller.searchUserUnverified(query);
+                        if (query.isNotEmpty) {
+                          controller.searchUserUnverified(query);
+                        } else {
+                          controller.fetchAllUnverifiedStudents();
+                        }
                       },
                     )),
                 SizedBox(height: height * 0.02),
@@ -160,7 +162,9 @@ class UnverifiedStudentPageView
                       },
                     );
                   } else if (controller.filteredUnverifiedStudent.isEmpty &&
-                      controller.searchQuery.isNotEmpty) {
+                      controller.searchQuery.value.isNotEmpty &&
+                      !controller.isLoadingFilterData.value &&
+                      controller.searchController.text.isNotEmpty) {
                     return Center(
                       child: Column(
                         children: [
@@ -175,6 +179,47 @@ class UnverifiedStudentPageView
                           ),
                         ],
                       ),
+                    );
+                  } else if (controller.isLoadingFetchAllData.value ||
+                      controller.isLoadingFilterData.value) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: width * 0.5,
+                            height: height * 0.045,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: height * 0.02),
+                        ListView.builder(
+                          itemCount: 10,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: height * 0.01),
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  height: height * 0.08,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     );
                   } else {
                     return Column(

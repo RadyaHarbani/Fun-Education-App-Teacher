@@ -6,18 +6,21 @@ import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_cla
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'dart:collection';
 import 'package:table_calendar/table_calendar.dart';
 
 class ReportHistoryPageController extends GetxController {
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
+  RefreshController refreshController = RefreshController();
   RxInt userGrade = 0.obs;
   RxString userId = ''.obs;
   RxString userName = ''.obs;
   RxString userNote = ''.obs;
   RxString incomingShift = ''.obs;
   RxString userPermission = ''.obs;
+  RxBool isLoadingReportHistory = false.obs;
 
   DailyReportService dailyReportService = DailyReportService();
   ShowByUserIdResponse? showByUserIdResponse;
@@ -36,8 +39,8 @@ class ReportHistoryPageController extends GetxController {
     userId.value = Get.arguments['userId'];
     userName.value = Get.arguments['userName'];
     incomingShift.value = Get.arguments['incomingShift'];
-    showAvailableDateByUserId(userId.value);
     showByUserId(userId.value, selectedDay.value.toString());
+    showAvailableDateByUserId(userId.value);
   }
 
   Future<void> showAvailableDateByUserId(String userId) async {
@@ -80,6 +83,7 @@ class ReportHistoryPageController extends GetxController {
 
   Future showByUserId(String userId, String date) async {
     try {
+      isLoadingReportHistory(true);
       showGradeModel.clear();
       userGrade.value = 0;
       userNote.value = '';
@@ -91,8 +95,10 @@ class ReportHistoryPageController extends GetxController {
       userGrade.value = showByUserIdResponse!.totalPoint;
       userNote.value = showByUserIdResponse!.note ?? '';
       userPermission.value = showByUserIdResponse!.permission;
+      isLoadingReportHistory(false);
       update();
     } catch (e) {
+      isLoadingReportHistory(false);
       print(e);
     }
   }

@@ -8,6 +8,7 @@ import 'package:fun_education_app_teacher/app/pages/home-page/components/home_pa
 import 'package:fun_education_app_teacher/app/pages/home-page/components/home_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/home_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/widget/emergency-note-widget/if_empty_emergency_note.dart';
+import 'package:fun_education_app_teacher/app/pages/home-page/widget/emergency-note-widget/if_loading_emergency_note.dart';
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_view.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
@@ -32,9 +33,7 @@ class HomePageView extends GetView<HomePageController> {
       body: SmartRefresher(
         controller: controller.refreshController,
         onRefresh: () async {
-          controller.showLatestEmergencyNote();
-          controller.showCurrentUserTeacher();
-          controller.showAllIncomingShift();
+          await controller.showAllIncomingShift();
           controller.refreshController.refreshCompleted();
         },
         header: WaterDropHeader(
@@ -59,56 +58,62 @@ class HomePageView extends GetView<HomePageController> {
               ),
               child: Column(
                 children: [
-                  controller.showLatestEmergencyNoteModel.value.catatan != null
-                      ? IfContainEmergencyNote(
-                          emergencyNote: controller
-                              .showLatestEmergencyNoteModel.value.catatan
-                              .toString(),
-                          informationFile: controller
-                              .showLatestEmergencyNoteModel.value.file!,
-                          onTapEdit: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: whiteColor,
-                              builder: (context) =>
-                                  BottomsheetEditEmergencyNote(),
-                            );
-                          },
-                          onTapDelete: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return CommonAlertDialog(
-                                      title: 'Konfirmasi',
-                                      content:
-                                          'Apakah kamu yakin untuk menghapus seluruh informasi?',
-                                      cancelButtonText: 'Tidak',
-                                      confirmButtonText: 'Iya',
-                                      onConfirm: () async {
-                                        Get.back();
-                                        await controller
-                                            .deleteEmergencyNoteByAdmin(
-                                          controller
-                                              .showLatestEmergencyNoteModel
-                                              .value
-                                              .id!,
-                                        );
+                  Obx(
+                    () =>
+                        controller.showLatestEmergencyNoteModel.value.catatan !=
+                                null
+                            ? IfContainEmergencyNote(
+                                emergencyNote: controller
+                                    .showLatestEmergencyNoteModel.value.catatan
+                                    .toString(),
+                                informationFile: controller
+                                    .showLatestEmergencyNoteModel.value.file!,
+                                onTapEdit: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    backgroundColor: whiteColor,
+                                    builder: (context) =>
+                                        BottomsheetEditEmergencyNote(),
+                                  );
+                                },
+                                onTapDelete: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return CommonAlertDialog(
+                                            title: 'Konfirmasi',
+                                            content:
+                                                'Apakah kamu yakin untuk menghapus seluruh informasi?',
+                                            cancelButtonText: 'Tidak',
+                                            confirmButtonText: 'Iya',
+                                            onConfirm: () async {
+                                              Get.back();
+                                              await controller
+                                                  .deleteEmergencyNoteByAdmin(
+                                                controller
+                                                    .showLatestEmergencyNoteModel
+                                                    .value
+                                                    .id!,
+                                              );
+                                            });
                                       });
-                                });
-                          },
-                        )
-                      : IfEmptyEmergencyNote(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: whiteColor,
-                              builder: (context) =>
-                                  BottomsheetAddEmergencyNote(),
-                            );
-                          },
-                        ),
+                                },
+                              )
+                            : controller.isLoadingShowAllIncomingShift.value
+                                ? IfLoadingEmergencyNote()
+                                : IfEmptyEmergencyNote(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        backgroundColor: whiteColor,
+                                        builder: (context) =>
+                                            BottomsheetAddEmergencyNote(),
+                                      );
+                                    },
+                                  ),
+                  ),
                   SizedBox(height: height * 0.03),
                   HomePageComponentOne(),
                   SizedBox(height: height * 0.03),

@@ -11,6 +11,7 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailClassComponentThree extends GetView<DetailClassPageController> {
   const DetailClassComponentThree({super.key});
@@ -120,51 +121,73 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Obx(() {
-              final selectedDate = controller.selectedDateTime.value;
-              final DateTime onlyDateSelected = DateTime(
-                  selectedDate.year, selectedDate.month, selectedDate.day);
-              if (controller.showUserPermissionHadir.isEmpty &&
-                  controller.showUserPermissionIzin.isEmpty &&
-                  controller.showUserPermissionSakit.isEmpty &&
-                  onlyDateSelected == onlyDateToday) {
-                return Column(
-                  children: [
-                    SizedBox(height: height * 0.1),
-                    SvgPicture.asset('assets/images/empty_list.svg'),
-                    SizedBox(height: height * 0.01),
-                    AutoSizeText.rich(
-                      TextSpan(
-                        text: 'Tidak ada laporan hari ini\n',
-                        style: tsBodyMediumSemibold(blackColor),
-                        children: [
-                          TextSpan(
-                            text: 'Silahkan buat laporan hari ini',
-                            style: tsBodySmallRegular(blackColor),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              } else {
+              if (controller.isLoadingDetailClass.value) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    onlyDateSelected != onlyDateToday &&
-                            controller.showUserUndoneModel.isNotEmpty
-                        ? ListUndoneReport()
-                        : SizedBox.shrink(),
-                    controller.showUserPermissionHadir.isNotEmpty
-                        ? ListHadirPermission()
-                        : SizedBox.shrink(),
-                    controller.showUserPermissionIzin.isNotEmpty
-                        ? ListIzinPermission()
-                        : SizedBox.shrink(),
-                    controller.showUserPermissionSakit.isNotEmpty
-                        ? ListSakitPermission()
-                        : SizedBox.shrink(),
-                  ],
+                  children: List.generate(10, (index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: height * 0.01),
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          height: height * 0.1,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
                 );
+              } else {
+                final selectedDate = controller.selectedDateTime.value;
+                final DateTime onlyDateSelected = DateTime(
+                    selectedDate.year, selectedDate.month, selectedDate.day);
+                if (controller.showUserPermissionHadir.isEmpty &&
+                    controller.showUserPermissionIzin.isEmpty &&
+                    controller.showUserPermissionSakit.isEmpty &&
+                    onlyDateSelected == onlyDateToday) {
+                  return Column(
+                    children: [
+                      SizedBox(height: height * 0.1),
+                      SvgPicture.asset('assets/images/empty_list.svg'),
+                      SizedBox(height: height * 0.01),
+                      AutoSizeText.rich(
+                        TextSpan(
+                          text: 'Tidak ada laporan hari ini\n',
+                          style: tsBodyMediumSemibold(blackColor),
+                          children: [
+                            TextSpan(
+                              text: 'Silahkan buat laporan hari ini',
+                              style: tsBodySmallRegular(blackColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      onlyDateSelected != onlyDateToday &&
+                              controller.showUserUndoneModel.isNotEmpty
+                          ? ListUndoneReport()
+                          : SizedBox.shrink(),
+                      controller.showUserPermissionHadir.isNotEmpty
+                          ? ListHadirPermission()
+                          : SizedBox.shrink(),
+                      controller.showUserPermissionIzin.isNotEmpty
+                          ? ListIzinPermission()
+                          : SizedBox.shrink(),
+                      controller.showUserPermissionSakit.isNotEmpty
+                          ? ListSakitPermission()
+                          : SizedBox.shrink(),
+                    ],
+                  );
+                }
               }
             }),
           ),

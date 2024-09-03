@@ -10,9 +10,10 @@ import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailMarkPageView extends GetView<DetailMarkPageController> {
-  // const DetailMarkPageView({super.key});
   final DetailTaskPageController detailTaskPageController =
       Get.put(DetailTaskPageController());
 
@@ -41,92 +42,131 @@ class DetailMarkPageView extends GetView<DetailMarkPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: width * 0.05,
-            vertical: height * 0.01,
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await controller.markShowByUserId(Get.arguments);
+          controller.refreshController.refreshCompleted();
+        },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Obx(() => DetailMarkItem(
-                    type:
-                        '${detailTaskPageController.showByTaskIdDetail.value.category!}',
-                    title:
-                        '${detailTaskPageController.showByTaskIdDetail.value.title!}',
-                    description:
-                        '${detailTaskPageController.showByTaskIdDetail.value.description!}',
-                    madeIn:
-                        '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(detailTaskPageController.showByTaskIdDetail.value.createdAt!)}',
-                    deadline:
-                        '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(detailTaskPageController.showByTaskIdDetail.value.deadline!)}',
-                    status: '${controller.showByUserIdDetail.value.status}',
-                  )),
-              SizedBox(height: height * 0.02),
-              DetailMarkPageComponentOne(),
-              SizedBox(height: height * 0.02),
-              DetailMarkPageComponentTwo(),
-              SizedBox(height: height * 0.05),
-              Obx(
-                () => controller.showByUserIdDetail.value.status == 'Diperiksa'
-                    ? CommonButton(
-                        text: 'Beri Nilai',
-                        backgroundColor: blackColor,
-                        textColor: whiteColor,
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            isScrollControlled: true,
-                            backgroundColor: whiteColor,
-                            builder: (context) => BottomsheetAddMark(),
-                          );
-                        },
+          waterDropColor: primaryColor,
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: width * 0.05,
+              vertical: height * 0.01,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Obx(() => controller.isLoadingDetailMark.value
+                    ? Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          height: height * 0.6,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
                       )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AutoSizeText(
-                            'Tugas ini diberi nilai :',
+                    : DetailMarkItem(
+                        type:
+                            '${detailTaskPageController.showByTaskIdDetail.value.category!}',
+                        title:
+                            '${detailTaskPageController.showByTaskIdDetail.value.title!}',
+                        description:
+                            '${detailTaskPageController.showByTaskIdDetail.value.description!}',
+                        madeIn:
+                            '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(detailTaskPageController.showByTaskIdDetail.value.createdAt!)}',
+                        deadline:
+                            '${DateFormat('EEEE,\ndd MMMM', 'id_ID').format(detailTaskPageController.showByTaskIdDetail.value.deadline!)}',
+                        status: '${controller.showByUserIdDetail.value.status}',
+                      )),
+                SizedBox(height: height * 0.02),
+                DetailMarkPageComponentOne(),
+                SizedBox(height: height * 0.02),
+                DetailMarkPageComponentTwo(),
+                SizedBox(height: height * 0.05),
+                Obx(() {
+                  if (controller.isLoadingDetailMark.value) {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        height: height * 0.07,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    );
+                  } else if (controller.showByUserIdDetail.value.status ==
+                      'Diperiksa') {
+                    return CommonButton(
+                      text: 'Beri Nilai',
+                      backgroundColor: blackColor,
+                      textColor: whiteColor,
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          backgroundColor: whiteColor,
+                          builder: (context) => BottomsheetAddMark(),
+                        );
+                      },
+                    );
+                  } else {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          'Tugas ini diberi nilai :',
+                          group: AutoSizeGroup(),
+                          maxLines: 1,
+                          style: tsBodySmallRegular(blackColor),
+                        ),
+                        SizedBox(height: height * 0.015),
+                        Container(
+                          width: width,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: width * 0.05,
+                            vertical: height * 0.02,
+                          ),
+                          decoration: BoxDecoration(
+                            color: controller.showByUserIdDetail.value.grade ==
+                                    null
+                                ? blackColor
+                                : controller.showByUserIdDetail.value.grade! <=
+                                        50
+                                    ? dangerColor
+                                    : controller.showByUserIdDetail.value
+                                                .grade! <=
+                                            70
+                                        ? warningColor
+                                        : successColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: AutoSizeText(
+                            '${controller.showByUserIdDetail.value.grade ?? 0}/100',
                             group: AutoSizeGroup(),
                             maxLines: 1,
-                            style: tsBodySmallRegular(blackColor),
+                            style: tsBodySmallSemibold(whiteColor),
                           ),
-                          SizedBox(height: height * 0.015),
-                          Container(
-                            width: width,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: width * 0.05,
-                              vertical: height * 0.02,
-                            ),
-                            decoration: BoxDecoration(
-                              color:
-                                  controller.showByUserIdDetail.value.grade ==
-                                          null
-                                      ? blackColor
-                                      : controller.showByUserIdDetail.value
-                                                  .grade! <=
-                                              50
-                                          ? dangerColor
-                                          : controller.showByUserIdDetail.value
-                                                      .grade! <=
-                                                  70
-                                              ? warningColor
-                                              : successColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: AutoSizeText(
-                              '${controller.showByUserIdDetail.value.grade ?? 0}/100',
-                              group: AutoSizeGroup(),
-                              maxLines: 1,
-                              style: tsBodySmallSemibold(whiteColor),
-                            ),
-                          ),
-                        ],
-                      ),
-              ),
-              SizedBox(height: height * 0.02),
-            ],
+                        ),
+                      ],
+                    );
+                  }
+                }),
+                SizedBox(height: height * 0.02),
+              ],
+            ),
           ),
         ),
       ),

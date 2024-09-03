@@ -17,6 +17,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class HomePageController extends GetxController {
   RxBool isLoadingAddBottomsheet = false.obs;
   RxBool isLoadingEditBottomsheet = false.obs;
+  RxBool isLoadingShowAllIncomingShift = false.obs;
 
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -46,8 +47,6 @@ class HomePageController extends GetxController {
     addEmergencyNoteController = TextEditingController();
     editEmergencyNoteController = TextEditingController();
     showAllIncomingShift();
-    showCurrentUserTeacher();
-    showLatestEmergencyNote();
   }
 
   void pickFile() async {
@@ -183,12 +182,18 @@ class HomePageController extends GetxController {
 
   Future showAllIncomingShift() async {
     try {
+      isLoadingShowAllIncomingShift(true);
+      showLatestEmergencyNoteModel.value = ShowLatestEmergencyNoteModel();
       final response = await incomingShiftService.getShowAllIncomingShift();
       showAllIncomingShiftResponse =
           ShowAllIncomingShiftResponse.fromJson(response.data);
       showAllIncomingShiftModel.value = showAllIncomingShiftResponse!.data;
+      await showCurrentUserTeacher();
+      await showLatestEmergencyNote();
       update();
+      isLoadingShowAllIncomingShift(false);
     } catch (e) {
+      isLoadingShowAllIncomingShift(false);
       print(e);
     }
   }

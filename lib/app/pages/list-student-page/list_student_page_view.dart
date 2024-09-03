@@ -5,6 +5,7 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ListStudentPageView extends GetView<ListStudentPageController> {
   const ListStudentPageView({super.key});
@@ -53,7 +54,30 @@ class ListStudentPageView extends GetView<ListStudentPageController> {
               horizontal: width * 0.05,
               vertical: height * 0.02,
             ),
-            child: Obx(() => ListView.builder(
+            child: Obx(() {
+              if (controller.isLoadingListStudent.value) {
+                return Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.only(bottom: height * 0.01),
+                        width: width,
+                        height: height * 0.09,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: controller.showCurrentUserModel.length,
@@ -74,7 +98,9 @@ class ListStudentPageView extends GetView<ListStudentPageController> {
                       ),
                     );
                   },
-                )),
+                );
+              }
+            }),
           ),
         ),
       ),

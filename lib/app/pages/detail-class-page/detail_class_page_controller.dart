@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/api/daily-report/models/show-user-done-undone/show_user_done_undone_model.dart';
@@ -30,6 +29,7 @@ class DetailClassPageController extends GetxController
   TabController? tabControllerHomework;
   var selectedPeriod = 'Mingguan'.obs;
   var selectedDateTime = DateTime.now().obs;
+  RxBool isLoadingDetailClass = false.obs;
 
   IncomingShiftService incomingShiftService = IncomingShiftService();
   ShowByIdIncomingShiftResponse? showByIdIncomingShiftResponse;
@@ -69,10 +69,6 @@ class DetailClassPageController extends GetxController
   RxList<LeaderboardModel> leaderboardWeeklyModel = <LeaderboardModel>[].obs;
   RxList<LeaderboardModel> leaderboardMonthlyModel = <LeaderboardModel>[].obs;
 
-  void selectPeriod(String option) {
-    selectedPeriod.value = option;
-  }
-
   @override
   void onInit() {
     super.onInit();
@@ -90,36 +86,75 @@ class DetailClassPageController extends GetxController
 
   Future showByIdIncomingShift(String id) async {
     try {
+      isLoadingDetailClass(true);
       final response = await incomingShiftService.getShowByIdIncomingShift(id);
       showByIdIncomingShiftResponse =
           ShowByIdIncomingShiftResponse.fromJson(response.data);
       showAllIncomingShiftModel.value = showByIdIncomingShiftResponse!.data;
-      showAllUserByIncomingShift(showAllIncomingShiftModel.value.shiftMasuk!);
-      showStatusCount(showAllIncomingShiftModel.value.shiftMasuk!);
-      showByNewStatus(showAllIncomingShiftModel.value.shiftMasuk!);
-      showByCloseStatus(showAllIncomingShiftModel.value.shiftMasuk!);
-      showByArchiveStatus(showAllIncomingShiftModel.value.shiftMasuk!);
-      showUserDone(
-        'true',
-        showAllIncomingShiftModel.value.shiftMasuk!,
-        selectedDateTime.value,
-      );
-      showUserUndone(
-        'false',
-        showAllIncomingShiftModel.value.shiftMasuk!,
-        selectedDateTime.value,
-      );
-      showLeaderboardWeeklyByIncomingShift(
-        'weekly',
-        showAllIncomingShiftModel.value.shiftMasuk!,
-      );
-      showLeaderboardMonthlyByIncomingShift(
-        'monthly',
-        showAllIncomingShiftModel.value.shiftMasuk!,
-      );
-      update();
+      await _loadDataForSelectedShift();
     } catch (e) {
       print(e);
+    } finally {
+      isLoadingDetailClass(false);
+    }
+  }
+
+  Future _loadDataForSelectedShift() async {
+    String shift = showAllIncomingShiftModel.value.shiftMasuk!;
+    DateTime date = selectedDateTime.value;
+
+    await Future.wait([
+      showAllUserByIncomingShift(shift),
+      showStatusCount(shift),
+      showByNewStatus(shift),
+      showByCloseStatus(shift),
+      showByArchiveStatus(shift),
+      showUserDone('true', shift, date),
+      showUserUndone('false', shift, date),
+      showLeaderboardWeeklyByIncomingShift('weekly', shift),
+      showLeaderboardMonthlyByIncomingShift('monthly', shift),
+    ]);
+  }
+
+  void selectDateTime(BuildContext context) async {
+    final value = await showBoardDateTimePicker(
+      context: context,
+      pickerType: DateTimePickerType.date,
+      initialDate: selectedDateTime.value,
+      minimumDate: DateTime(1900),
+      options: BoardDateTimeOptions(
+        languages: BoardPickerLanguages(
+          today: 'Hari ini',
+          tomorrow: 'Besok',
+          now: 'Sekarang',
+          locale: 'id',
+        ),
+        startDayOfWeek: DateTime.monday,
+        pickerFormat: PickerFormat.dmy,
+        activeColor: primaryColor,
+        backgroundDecoration: BoxDecoration(
+          color: whiteColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        boardTitle: 'Pilih Tanggal',
+        boardTitleTextStyle: tsBodyMediumSemibold(blackColor),
+      ),
+    );
+
+    if (value != null) {
+      if (value.isAfter(DateTime.now())) {
+        Get.snackbar(
+          'Tanggal tidak valid',
+          'Tanggal yang dipilih tidak boleh melebihi hari ini.',
+          backgroundColor: dangerColor,
+          colorText: whiteColor,
+        );
+      } else {
+        selectedDateTime.value = value;
+        isLoadingDetailClass(true);
+        await _loadDataForSelectedShift();
+        isLoadingDetailClass(false);
+      }
     }
   }
 
@@ -210,10 +245,6 @@ class DetailClassPageController extends GetxController
 
   Future showUserDone(String isDone, String shift, DateTime date) async {
     try {
-      showUserDoneModel.clear();
-      showUserPermissionHadir.clear();
-      showUserPermissionIzin.clear();
-      showUserPermissionSakit.clear();
       final response =
           await dailyReportService.getShowUserDoneUndone(isDone, shift, date);
       showUserDoneUndoneResponse =
@@ -276,55 +307,6 @@ class DetailClassPageController extends GetxController
       update();
     } catch (e) {
       print(e);
-    }
-  }
-
-  void selectDateTime(BuildContext context) async {
-    final value = await showBoardDateTimePicker(
-      context: context,
-      pickerType: DateTimePickerType.date,
-      initialDate: selectedDateTime.value,
-      minimumDate: DateTime(1900),
-      options: BoardDateTimeOptions(
-        languages: BoardPickerLanguages(
-          today: 'Hari ini',
-          tomorrow: 'Besok',
-          now: 'Sekarang',
-          locale: 'id',
-        ),
-        startDayOfWeek: DateTime.monday,
-        pickerFormat: PickerFormat.dmy,
-        activeColor: primaryColor,
-        backgroundDecoration: BoxDecoration(
-          color: whiteColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        boardTitle: 'Pilih Tanggal',
-        boardTitleTextStyle: tsBodyMediumSemibold(blackColor),
-      ),
-    );
-    if (value != null) {
-      if (value.isAfter(DateTime.now())) {
-        Get.snackbar(
-          'Tanggal tidak valid',
-          'Tanggal yang dipilih tidak boleh melebihi hari ini.',
-          backgroundColor: dangerColor,
-          colorText: whiteColor,
-        );
-      } else {
-        selectedDateTime.value = value;
-        showUserDone(
-          'true',
-          showAllIncomingShiftModel.value.shiftMasuk!,
-          selectedDateTime.value,
-        );
-        showUserUndone(
-          'false',
-          showAllIncomingShiftModel.value.shiftMasuk!,
-          selectedDateTime.value,
-        );
-        print(value);
-      }
     }
   }
 }

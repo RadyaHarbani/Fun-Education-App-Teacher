@@ -11,6 +11,8 @@ class GraduatedStudentPageController extends GetxController {
   UserService userService = UserService();
   ShowAllUserByIncomingShiftResponse? showAllUserByIncomingShiftResponse;
   TextEditingController searchController = TextEditingController();
+  RxBool isLoadingFetchAllData = false.obs;
+  RxBool isLoadingFilterData = false.obs;
 
   var listGraduatedStudentOne = <ShowCurrentUserModel>[].obs;
   var listGraduatedStudentTwo = <ShowCurrentUserModel>[].obs;
@@ -19,6 +21,7 @@ class GraduatedStudentPageController extends GetxController {
   var listGraduatedStudentFive = <ShowCurrentUserModel>[].obs;
   var allGraduatedStudents = <ShowCurrentUserModel>[].obs;
   var filteredGraduatedStudents = <ShowCurrentUserModel>[].obs;
+  var filteredGraduatedStudentsByShift = <ShowCurrentUserModel>[].obs;
 
   var selectedShift = ''.obs;
   var searchQuery = ''.obs;
@@ -39,6 +42,8 @@ class GraduatedStudentPageController extends GetxController {
 
   Future<void> searchUserGraduate(String query) async {
     try {
+      isLoadingFilterData(true);
+
       selectedShift.value = '';
       final response = await userService.getSearchUser(
         query,
@@ -48,14 +53,17 @@ class GraduatedStudentPageController extends GetxController {
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       filteredGraduatedStudents.value =
           showAllUserByIncomingShiftResponse!.data;
+      isLoadingFilterData(false);
     } catch (e) {
+      isLoadingFilterData(false);
       print("Error fetching students for shift $query: $e");
     }
   }
 
   Future<void> fetchAllGraduatedStudents() async {
-    filteredGraduatedStudents.clear();
     try {
+      isLoadingFetchAllData(true);
+      filteredGraduatedStudentsByShift.clear();
       await showAllUserByIncomingShiftOne('08.00 - 10.00');
       await showAllUserByIncomingShiftTwo('10.00 - 11.30');
       await showAllUserByIncomingShiftThree('11.30 - 13.00');
@@ -70,7 +78,9 @@ class GraduatedStudentPageController extends GetxController {
       allGraduatedStudents.addAll(listGraduatedStudentFive);
 
       filterGraduatedStudentsByShift();
+      isLoadingFetchAllData(false);
     } catch (e) {
+      isLoadingFetchAllData(false);
       print("Error fetching students: $e");
     }
   }
@@ -80,9 +90,9 @@ class GraduatedStudentPageController extends GetxController {
     searchQuery.value = '';
 
     if (selectedShift.value.isEmpty) {
-      filteredGraduatedStudents.value = allGraduatedStudents;
+      filteredGraduatedStudentsByShift.value = allGraduatedStudents;
     } else {
-      filteredGraduatedStudents.value = allGraduatedStudents
+      filteredGraduatedStudentsByShift.value = allGraduatedStudents
           .where((student) => student.shift == selectedShift.value)
           .toList();
     }

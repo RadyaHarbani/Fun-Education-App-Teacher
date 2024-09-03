@@ -36,6 +36,7 @@ class AddReportPageController extends GetxController {
     'Keterampilan'
   ];
   RxBool isLoadingAddReport = false.obs;
+  RxBool isLoadingUserUndone = false.obs;
 
   @override
   void onInit() {
@@ -52,13 +53,16 @@ class AddReportPageController extends GetxController {
 
   Future showUserDoneUndone(String isDone, String shift, DateTime date) async {
     try {
+      isLoadingUserUndone(true);
       final response =
           await dailyReportService.getShowUserDoneUndone(isDone, shift, date);
       showUserDoneUndoneResponse =
           ShowUserDoneUndoneResponse.fromJson(response.data);
       showUserUndoneModel.value = showUserDoneUndoneResponse!.data;
+      isLoadingUserUndone(false);
       update();
     } catch (e) {
+      isLoadingUserUndone(false);
       print(e);
     }
   }

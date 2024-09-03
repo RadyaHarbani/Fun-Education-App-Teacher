@@ -7,8 +7,11 @@ import 'package:fun_education_app_teacher/app/pages/transaction-history-page/wid
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TransactionHistoryPageController extends GetxController {
+  RefreshController refreshController =
+      RefreshController();
   TransactionService transactionService = TransactionService();
   TransactionResponse? transactionResponse;
   RxList<TransactionModel> transactionModel = <TransactionModel>[].obs;

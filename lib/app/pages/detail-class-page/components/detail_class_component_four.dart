@@ -6,6 +6,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/rank
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/widget/rank-widget/rank_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailClassComponentFour extends GetView<DetailClassPageController> {
   const DetailClassComponentFour({super.key});
@@ -15,6 +16,7 @@ class DetailClassComponentFour extends GetView<DetailClassPageController> {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
+
     return Column(
       children: [
         Row(
@@ -81,7 +83,30 @@ class DetailClassComponentFour extends GetView<DetailClassPageController> {
             padding: EdgeInsets.only(
               bottom: height * 0.02,
             ),
-            child: Obx(() => ListView.builder(
+            child: Obx(() {
+              if (controller.isLoadingDetailClass.value) {
+                return ListView.builder(
+                  itemCount: 10,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: height * 0.01),
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          height: height * 0.07,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              } else {
+                return ListView.builder(
                   itemCount: controller.selectedPeriod.value == 'Mingguan'
                       ? controller.leaderboardWeeklyModel.length
                       : controller.leaderboardMonthlyModel.length,
@@ -120,7 +145,9 @@ class DetailClassComponentFour extends GetView<DetailClassPageController> {
                                 '${controller.leaderboardMonthlyModel[index].point}',
                           );
                   },
-                )),
+                );
+              }
+            }),
           ),
         ),
       ],

@@ -25,20 +25,36 @@ class UnverifiedStudentPageController extends GetxController {
       <ShowCurrentUserModel>[].obs;
   TextEditingController searchController = TextEditingController();
   var searchQuery = ''.obs;
+  RxBool isLoadingFetchAllData = false.obs;
+  RxBool isLoadingFilterData = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    showAllUserByIncomingShiftOne('08.00 - 10.00');
-    showAllUserByIncomingShiftTwo('10.00 - 11.30');
-    showAllUserByIncomingShiftThree('11.30 - 13.00');
-    showAllUserByIncomingShiftFour('13.00 - 14.00');
-    showAllUserByIncomingShiftFive('14.00 - 15.00');
+    fetchAllUnverifiedStudents();
+  }
+
+  Future<void> fetchAllUnverifiedStudents() async {
+    try {
+      isLoadingFetchAllData(true);
+      searchController.clear();
+      searchQuery.value = '';
+      await showAllUserByIncomingShiftOne('08.00 - 10.00');
+      await showAllUserByIncomingShiftTwo('10.00 - 11.30');
+      await showAllUserByIncomingShiftThree('11.30 - 13.00');
+      await showAllUserByIncomingShiftFour('13.00 - 14.00');
+      await showAllUserByIncomingShiftFive('14.00 - 15.00');
+      isLoadingFetchAllData(false);
+    } catch (e) {
+      isLoadingFetchAllData(false);
+      print(e);
+    }
   }
 
   Future<void> searchUserUnverified(String query) async {
     try {
-      filteredUnverifiedStudent.clear();
+      isLoadingFilterData(true);
+
       final response = await userService.getSearchUser(
         query,
         'false',
@@ -47,7 +63,9 @@ class UnverifiedStudentPageController extends GetxController {
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       filteredUnverifiedStudent.value =
           showAllUserByIncomingShiftResponse!.data;
+      isLoadingFilterData(false);
     } catch (e) {
+      isLoadingFilterData(false);
       print("Error fetching students for shift $query: $e");
     }
   }
