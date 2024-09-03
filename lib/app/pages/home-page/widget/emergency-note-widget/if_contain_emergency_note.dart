@@ -33,7 +33,7 @@ class IfContainEmergencyNote extends GetView<HomePageController> {
         CommonWarning(
           backColor: warningColor,
           text:
-              'Informasi akan selalu direfresh setiap harinya, setelah jam 00:00 WIB',
+              '"Edit Informasi" untuk mengubah atau menambahkan surat pemberitahuan',
         ),
         SizedBox(height: height * 0.02),
         AutoSizeText.rich(
