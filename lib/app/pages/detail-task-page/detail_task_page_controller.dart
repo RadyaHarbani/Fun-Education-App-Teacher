@@ -8,14 +8,18 @@ import 'package:fun_education_app_teacher/app/api/task/service/task_service.dart
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailTaskPageController extends GetxController
     with SingleGetTickerProviderMixin {
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
+  RefreshController refreshController = RefreshController();
   TabController? tabControllerAll;
   RxBool isLoadingDeleteTask = false.obs;
   RxBool isLoadingUpdateStatusTask = false.obs;
+  RxBool isLoadingDetailTask = false.obs;
 
   TaskService taskService = TaskService();
   ShowByStatusSingleResponse? showByStatusSingleResponse;
@@ -32,7 +36,6 @@ class DetailTaskPageController extends GetxController
     super.onInit();
     tabControllerAll = TabController(length: 2, vsync: this);
     showByTaskId(Get.arguments);
-    markShowByTaskId(Get.arguments);
   }
 
   @override
@@ -43,12 +46,16 @@ class DetailTaskPageController extends GetxController
 
   Future showByTaskId(String taskId) async {
     try {
+      isLoadingDetailTask(true);
       final response = await taskService.getShowByTaskId(taskId);
       showByStatusSingleResponse =
           ShowByStatusSingleResponse.fromJson(response.data);
       showByTaskIdDetail.value = showByStatusSingleResponse!.data;
+      await markShowByTaskId(Get.arguments);
+      isLoadingDetailTask(false);
       update();
     } catch (e) {
+      isLoadingDetailTask(false);
       print(e);
     }
   }

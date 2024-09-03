@@ -4,13 +4,16 @@ import 'package:fun_education_app_teacher/app/api/mark/models/show-by-user-id/sh
 import 'package:fun_education_app_teacher/app/api/mark/service/mark_service.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_controller.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailMarkPageController extends GetxController {
   final DetailTaskPageController detailTaskPageController =
       Get.put(DetailTaskPageController());
+      RefreshController refreshController = RefreshController();
   final GlobalKey<FormState> formKeyMark = GlobalKey<FormState>();
   TextEditingController markController = TextEditingController();
   RxBool isLoadingUpdateGrade = false.obs;
+  RxBool isLoadingDetailMark = false.obs;
 
   @override
   void onInit() {
@@ -25,11 +28,14 @@ class DetailMarkPageController extends GetxController {
 
   Future markShowByUserId(String userId) async {
     try {
+      isLoadingDetailMark(true);
       final response = await markService.getMarkShowByUserId(userId);
       showByUserIdResponse = ShowByUserIdResponse.fromJson(response.data);
       showByUserIdDetail.value = showByUserIdResponse!.data;
+      isLoadingDetailMark(false);
       update();
     } catch (e) {
+      isLoadingDetailMark(false);
       print(e);
     }
   }

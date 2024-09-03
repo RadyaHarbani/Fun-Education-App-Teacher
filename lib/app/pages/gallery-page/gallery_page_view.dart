@@ -23,7 +23,7 @@ class GalleryPageView extends GetView<GalleryPageController> {
           controller: controller.refreshController,
           onRefresh: () async {
             await controller.showAllPhotos();
-            await controller.showAllAlbums();
+            
             controller.refreshController.refreshCompleted();
           },
           header: WaterDropHeader(

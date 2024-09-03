@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AddReportPageComponentFive extends GetView<AddReportPageController> {
   const AddReportPageComponentFive({super.key});
@@ -22,7 +23,28 @@ class AddReportPageComponentFive extends GetView<AddReportPageController> {
           style: tsBodyLargeRegular(blackColor),
         ),
         SizedBox(height: height * 0.02),
-        Obx(() => Wrap(
+        Obx(() {
+          if (controller.isLoadingUserUndone.value) {
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: Wrap(
+                spacing: width * 0.025,
+                runSpacing: height * 0.01,
+                children: List.generate(6, (index) {
+                  return Container(
+                    width: width * 0.435,
+                    height: height * 0.05,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  );
+                }),
+              ),
+            );
+          } else {
+            return Wrap(
               spacing: width * 0.025,
               children: List.generate(
                 controller.showUserUndoneModel.length,
@@ -67,7 +89,9 @@ class AddReportPageComponentFive extends GetView<AddReportPageController> {
                   );
                 },
               ),
-            ))
+            );
+          }
+        })
       ],
     );
   }

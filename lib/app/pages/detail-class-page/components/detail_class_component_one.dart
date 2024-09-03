@@ -7,6 +7,7 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:overlap_stack/overlap_stack.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailClassComponentOne extends GetView<DetailClassPageController> {
   const DetailClassComponentOne({super.key});
@@ -16,24 +17,56 @@ class DetailClassComponentOne extends GetView<DetailClassPageController> {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Obx(() => AutoSizeText.rich(
-              group: AutoSizeGroup(),
-              maxLines: 2,
-              TextSpan(
-                text: 'Shift Masuk\n',
-                style: tsBodySmallRegular(blackColor),
+        Obx(() => controller.isLoadingDetailClass.value
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextSpan(
-                    text:
-                        '${controller.showAllIncomingShiftModel.value.shiftMasuk}',
-                    style: tsTitleSmallSemibold(blackColor),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: width * 0.3,
+                      height: height * 0.025,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: height * 0.005),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      width: width * 0.4,
+                      height: height * 0.025,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                   ),
                 ],
-              ),
-            )),
+              )
+            : AutoSizeText.rich(
+                group: AutoSizeGroup(),
+                maxLines: 2,
+                TextSpan(
+                  text: 'Shift Masuk\n',
+                  style: tsBodySmallRegular(blackColor),
+                  children: [
+                    TextSpan(
+                      text:
+                          '${controller.showAllIncomingShiftModel.value.shiftMasuk}',
+                      style: tsTitleSmallSemibold(blackColor),
+                    ),
+                  ],
+                ),
+              )),
         InkWell(
           onTap: () {
             Get.toNamed(
@@ -47,7 +80,25 @@ class DetailClassComponentOne extends GetView<DetailClassPageController> {
               Container(
                 height: height * 0.0435,
                 width: width * 0.35,
-                child: Obx(() => OverlapStack.builder(
+                child: Obx(() {
+                  if (controller.isLoadingDetailClass.value) {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: OverlapStack.builder(
+                        leadIndex: 7,
+                        itemLimit: 5,
+                        itemCount: 5,
+                        align: OverlapStackAlign.start,
+                        itemBuilder: (context, i) {
+                          return CircleAvatar(
+                            backgroundColor: Colors.grey[300],
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return OverlapStack.builder(
                       leadIndex: 7,
                       itemLimit: min(controller.showCurrentUserModel.length, 5),
                       itemCount: controller.showCurrentUserModel.length,
@@ -71,7 +122,9 @@ class DetailClassComponentOne extends GetView<DetailClassPageController> {
                           ),
                         );
                       },
-                    )),
+                    );
+                  }
+                }),
               ),
               SizedBox(width: width * 0.015),
               Icon(

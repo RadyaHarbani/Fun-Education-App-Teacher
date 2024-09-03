@@ -14,7 +14,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class GalleryPageController extends GetxController {
   RefreshController refreshController = RefreshController();
   RxBool isLoadingAllPhotos = false.obs;
-  RxBool isLoadingAllAlbums = false.obs;
   RxBool isLoadingSavePhoto = false.obs;
   RxBool isLoadingDeletePhoto = false.obs;
 
@@ -30,7 +29,6 @@ class GalleryPageController extends GetxController {
   void onInit() {
     super.onInit();
     showAllPhotos();
-    showAllAlbums();
   }
 
   Future showAllPhotos() async {
@@ -40,28 +38,24 @@ class GalleryPageController extends GetxController {
       showAllPhotosResponse = ShowAllPhotosResponse.fromJson(response.data);
       showAllPhotosModel.value = showAllPhotosResponse!.data;
       print(showAllPhotosModel);
+      await showAllAlbums();
+      isLoadingAllPhotos(false);
       update();
     } catch (e) {
-      isLoadingAllPhotos(true);
-      print(e);
-    } finally {
       isLoadingAllPhotos(false);
+      print(e);
     }
   }
 
   Future showAllAlbums() async {
     try {
-      isLoadingAllAlbums(true);
       final response = await albumsService.getShowAllAlbumPhoto();
       showAllAlbumsResponse = ShowAllAlbumsResponse.fromJson(response.data);
       showAllAlbumsModel.value = showAllAlbumsResponse!.data;
       print(showAllAlbumsModel);
       update();
     } catch (e) {
-      isLoadingAllAlbums(true);
       print(e);
-    } finally {
-      isLoadingAllAlbums(false);
     }
   }
 

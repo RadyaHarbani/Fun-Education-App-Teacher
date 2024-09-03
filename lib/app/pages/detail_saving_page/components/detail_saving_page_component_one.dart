@@ -30,7 +30,8 @@ class DetailSavingPageComponentOne extends GetView<DetailSavingPageController> {
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 TextSpan(
-                  text: 'Rp. ${controller.totalSavingsModel.value.saving}\n',
+                  text:
+                      'Rp. ${controller.totalSavingsModel.value.saving ?? 0}\n',
                   style: tsHeadingLargeSemibold(whiteColor),
                   children: [
                     TextSpan(
@@ -52,7 +53,7 @@ class DetailSavingPageComponentOne extends GetView<DetailSavingPageController> {
                       child: LastHistoryTransactionItem(
                         transactionType: 'Pemasukan Terakhir',
                         transactionAmount:
-                            '${controller.totalSavingsModel.value.lastIncome}',
+                            '${controller.totalSavingsModel.value.lastIncome ?? 0}',
                       ),
                     ),
                     SizedBox(width: width * 0.02),
@@ -60,7 +61,7 @@ class DetailSavingPageComponentOne extends GetView<DetailSavingPageController> {
                       child: LastHistoryTransactionItem(
                         transactionType: 'Pengeluaran Terakhir',
                         transactionAmount:
-                            '${controller.totalSavingsModel.value.lastOutcome}',
+                            '${controller.totalSavingsModel.value.lastOutcome ?? 0}',
                       ),
                     ),
                   ],

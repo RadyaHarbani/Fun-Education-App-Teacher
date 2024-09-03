@@ -10,6 +10,9 @@ import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_re
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailReportPageView extends GetView<DetailReportPageController> {
   const DetailReportPageView({super.key});
@@ -39,8 +42,88 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
-      body: Obx(() => controller.userPermission.value == 'Hadir'
-          ? SingleChildScrollView(
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await controller.showByUserId(
+            controller.userId.value,
+            DateFormat('yyyy-MM-dd').format(controller.userDate),
+          );
+          controller.refreshController.refreshCompleted();
+        },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
+          ),
+          waterDropColor: primaryColor,
+        ),
+        child: Obx(() {
+          if (controller.isLoadingDetailReport.value) {
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.05,
+                    vertical: height * 0.02,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: width * 0.7,
+                        height: height * 0.05,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      SizedBox(height: height * 0.02),
+                      Container(
+                        width: width,
+                        height: height * 0.06,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                      SizedBox(height: height * 0.02),
+                      Container(
+                        width: width,
+                        height: height * 0.08,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      SizedBox(height: height * 0.02),
+                      Container(
+                        width: width,
+                        height: height * 0.6,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      SizedBox(height: height * 0.02),
+                      Container(
+                        width: width,
+                        height: height * 0.06,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          } else if (controller.userPermission.value == 'Hadir') {
+            return SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -78,38 +161,40 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
                       },
                     ),
                     SizedBox(height: height * 0.01),
-                    Obx(() => CommonButton(
-                          isLoading:
-                              controller.isLoadingDeleteDailyReport.value,
-                          text: 'Hapus Laporan',
-                          backgroundColor: dangerColor,
-                          textColor: whiteColor,
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return CommonAlertDialog(
-                                  title: 'Konfirmasi',
-                                  content:
-                                      'Apakah anda yakin untuk mengahapus laporan',
-                                  cancelButtonText: 'Tidak',
-                                  confirmButtonText: 'Iya',
-                                  onConfirm: () {
-                                    Get.back();
-                                    controller.deleteDailyReportByAdmin();
-                                  },
-                                );
+                    CommonButton(
+                      text: 'Hapus Laporan',
+                      backgroundColor: dangerColor,
+                      textColor: whiteColor,
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return CommonAlertDialog(
+                              title: 'Konfirmasi',
+                              content:
+                                  'Apakah anda yakin untuk mengahapus laporan',
+                              cancelButtonText: 'Tidak',
+                              confirmButtonText: 'Iya',
+                              onConfirm: () {
+                                Get.back();
+                                controller.deleteDailyReportByAdmin();
                               },
                             );
                           },
-                        )),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
-            )
-          : DetailReportPageComponentPermission(
+            );
+          } else {
+            return DetailReportPageComponentPermission(
               permission: controller.userPermission.value,
-            )),
+            );
+          }
+        }),
+      ),
     );
   }
 }

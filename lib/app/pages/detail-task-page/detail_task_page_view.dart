@@ -4,6 +4,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-task-page/components/
 import 'package:fun_education_app_teacher/app/pages/detail-task-page/detail_task_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailTaskPageView extends GetView<DetailTaskPageController> {
   const DetailTaskPageView({super.key});
@@ -33,62 +34,76 @@ class DetailTaskPageView extends GetView<DetailTaskPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: width * 0.05,
-          vertical: height * 0.01,
+      body: SmartRefresher(
+        controller: controller.refreshController,
+        onRefresh: () async {
+          await controller.showByTaskId(Get.arguments);
+          controller.refreshController.refreshCompleted();
+        },
+        header: WaterDropHeader(
+          complete: Text(
+            'Refresh Completed',
+            style: tsBodySmallRegular(blackColor),
+          ),
+          waterDropColor: primaryColor,
         ),
-        child: Column(
-          children: [
-            Container(
-              height: height * 0.06,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: greyColor.withOpacity(0.05),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.01,
-                  vertical: height * 0.005,
-                ),
-                child: TabBar(
-                  controller: controller.tabControllerAll,
-                  labelStyle: tsBodySmallSemibold(blackColor),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: Colors.transparent,
-                  indicator: BoxDecoration(
-                    color: whiteColor,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.05,
+            vertical: height * 0.01,
+          ),
+          child: Column(
+            children: [
+              Container(
+                height: height * 0.06,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
                   ),
-                  labelColor: blackColor,
-                  unselectedLabelColor: greyColor,
-                  tabs: [
-                    Tab(
-                      text: 'Tugas',
+                  color: greyColor.withOpacity(0.05),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.01,
+                    vertical: height * 0.005,
+                  ),
+                  child: TabBar(
+                    controller: controller.tabControllerAll,
+                    labelStyle: tsBodySmallSemibold(blackColor),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    dividerColor: Colors.transparent,
+                    indicator: BoxDecoration(
+                      color: whiteColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    Tab(
-                      text: 'Nilai',
-                    ),
+                    labelColor: blackColor,
+                    unselectedLabelColor: greyColor,
+                    tabs: [
+                      Tab(
+                        text: 'Tugas',
+                      ),
+                      Tab(
+                        text: 'Nilai',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.025,
+              ),
+              Expanded(
+                child: TabBarView(
+                  controller: controller.tabControllerAll,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    DetailTaskPageComponentOne(),
+                    DetailTaskPageComponentTwo(),
                   ],
                 ),
-              ),
-            ),
-            SizedBox(
-              height: height * 0.025,
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: controller.tabControllerAll,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  DetailTaskPageComponentOne(),
-                  DetailTaskPageComponentTwo(),
-                ],
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

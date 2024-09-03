@@ -34,6 +34,7 @@ class DetailListStudentPageController extends GetxController
   RxBool isLoadingDeleteUser = false.obs;
   RxBool isLoadingShowStatisticDailyReport = false.obs;
   RxBool isLoadingShowStatisticTask = false.obs;
+  RxBool isLoadingDetailListStudent = false.obs;
 
   UserService userService = UserService();
   ShowCurrentUserResponse? showCurrentUserResponse;
@@ -74,6 +75,7 @@ class DetailListStudentPageController extends GetxController
 
   Future showByUserId(String userId) async {
     try {
+      isLoadingDetailListStudent(true);
       final response = await userService.getShowByUserId(userId);
       showCurrentUserResponse = ShowCurrentUserResponse.fromJson(response.data);
       detailInformationUser.value = showCurrentUserResponse!.data;
@@ -81,8 +83,10 @@ class DetailListStudentPageController extends GetxController
       await showStatisticDailyReportByUserId();
       await showStatisticTaskByUserId();
       print(detailInformationUser);
+      isLoadingDetailListStudent(false);
       update();
     } catch (e) {
+      isLoadingDetailListStudent(false);
       print(e);
     }
   }

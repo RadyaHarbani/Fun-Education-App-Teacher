@@ -16,7 +16,7 @@ class BottomsheetAddOutcomingNote extends GetView<DetailSavingPageController> {
     final double width = mediaQuery.width;
     final double height = mediaQuery.height;
     return SizedBox(
-      height: height * 0.6 + MediaQuery.of(context).viewInsets.bottom,
+      height: height * 0.65 + MediaQuery.of(context).viewInsets.bottom,
       child: Padding(
         padding: EdgeInsets.only(
           top: height * 0.02,

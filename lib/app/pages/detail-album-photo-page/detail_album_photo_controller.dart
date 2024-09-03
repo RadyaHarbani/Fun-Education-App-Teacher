@@ -21,6 +21,7 @@ class DetailAlbumPhotoPageController extends GetxController {
   Rx<ShowAllAlbumsModel> showAllAlbumsModel = ShowAllAlbumsModel().obs;
   RxBool isLoadingSavePhoto = false.obs;
   RxBool isLoadingDeletePhoto = false.obs;
+  RxBool isLoadingShowByIdAlbum = false.obs;
 
   @override
   void onInit() {
@@ -30,6 +31,7 @@ class DetailAlbumPhotoPageController extends GetxController {
 
   Future showByIdAlbum(String albumId) async {
     try {
+      isLoadingShowByIdAlbum(true);
       final response = await albumsService.getShowByIdAlbum(albumId);
       showByIdAlbumResponse = ShowByIdAlbumResponse.fromJson(response.data);
       showAllAlbumsModel.value = showByIdAlbumResponse!.data;
@@ -42,9 +44,10 @@ class DetailAlbumPhotoPageController extends GetxController {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setStringList('photoIds', photoIds);
       prefs.setString('albumId', albumId);
-
+      isLoadingShowByIdAlbum(false);
       update();
     } catch (e) {
+      isLoadingShowByIdAlbum(false);
       print(e);
     }
   }

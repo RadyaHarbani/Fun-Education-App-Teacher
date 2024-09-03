@@ -6,10 +6,12 @@ import 'package:fun_education_app_teacher/app/pages/report-history-page/report_h
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DetailReportPageController extends GetxController {
   final DetailClassPageController detailClassPageController =
       Get.put(DetailClassPageController());
+  RefreshController refreshController = RefreshController();
 
   RxString userFullName = ''.obs;
   DateTime userDate = DateTime.now();
@@ -22,6 +24,7 @@ class DetailReportPageController extends GetxController {
   ShowByUserIdResponse? showByUserIdResponse;
   RxList<ShowGradeModel> showGradeModel = <ShowGradeModel>[].obs;
   RxBool isLoadingDeleteDailyReport = false.obs;
+  RxBool isLoadingDetailReport = false.obs;
 
   @override
   void onInit() {
@@ -40,6 +43,8 @@ class DetailReportPageController extends GetxController {
 
   Future showByUserId(String userId, String date) async {
     try {
+      isLoadingDetailReport(true);
+
       final response =
           await dailyReportService.getShowDailyReportByUserId(userId, date);
       showByUserIdResponse = ShowByUserIdResponse.fromJson(response.data);
@@ -47,8 +52,10 @@ class DetailReportPageController extends GetxController {
       userGrade.value = showByUserIdResponse!.totalPoint;
       userNote.value = showByUserIdResponse!.note ?? '';
       userPermission.value = showByUserIdResponse!.permission;
+      isLoadingDetailReport(false);
       update();
     } catch (e) {
+      isLoadingDeleteDailyReport(false);
       print(e);
     }
   }

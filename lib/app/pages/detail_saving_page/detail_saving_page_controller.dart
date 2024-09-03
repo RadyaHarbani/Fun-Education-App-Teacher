@@ -37,6 +37,7 @@ class DetailSavingPageController extends GetxController {
 
   RxString userId = ''.obs;
   RxBool isLoadingAddTransaction = false.obs;
+  RxBool isLoadingDetailSaving = false.obs;
   var totalSavings = 0.obs;
 
   @override
@@ -48,13 +49,16 @@ class DetailSavingPageController extends GetxController {
 
   Future showTotalSavingsByUserId(String userId) async {
     try {
+      isLoadingDetailSaving(true);
       final response = await totalSavingsService.getShowSavingsByUserId(userId);
       totalSavingsResponse = TotalSavingsResponse.fromJson(response.data);
       totalSavingsModel.value = totalSavingsResponse!.data;
       totalSavings.value = totalSavingsModel.value.savingInt!;
       showSavingSubmissionByUserId(userId);
       showTransactionByUserId(userId);
+      isLoadingDetailSaving(false);
     } catch (e) {
+      isLoadingDetailSaving(false);
       throw Exception(e);
     }
   }

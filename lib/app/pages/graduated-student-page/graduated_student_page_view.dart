@@ -15,6 +15,7 @@ import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 class GraduatedStudentPageView extends GetView<GraduatedStudentPageController> {
   const GraduatedStudentPageView({super.key});
@@ -101,6 +102,7 @@ class GraduatedStudentPageView extends GetView<GraduatedStudentPageController> {
                         onPressed: () {
                           controller.searchController.text = '';
                           controller.searchQuery.value = '';
+                          controller.filteredGraduatedStudents.clear();
                         },
                         icon: controller.searchQuery.value.isNotEmpty
                             ? Icon(
@@ -180,23 +182,25 @@ class GraduatedStudentPageView extends GetView<GraduatedStudentPageController> {
                         ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount:
-                              controller.filteredGraduatedStudents.length,
+                          itemCount: controller
+                              .filteredGraduatedStudentsByShift.length,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
                                 Get.toNamed(
                                   Routes.DETAIL_GRADUATED_STUDENT_PAGE,
                                   arguments: controller
-                                      .filteredGraduatedStudents[index].id
+                                      .filteredGraduatedStudentsByShift[index]
+                                      .id
                                       .toString(),
                                 );
                               },
                               child: GraduatedStudentItem(
                                 fullname: controller
-                                    .filteredGraduatedStudents[index].fullName!,
+                                    .filteredGraduatedStudentsByShift[index]
+                                    .fullName!,
                                 image: controller
-                                    .filteredGraduatedStudents[index]
+                                    .filteredGraduatedStudentsByShift[index]
                                     .profilePicture!,
                               ),
                             );
@@ -206,7 +210,8 @@ class GraduatedStudentPageView extends GetView<GraduatedStudentPageController> {
                     );
                   } else if (controller.filteredGraduatedStudents.isEmpty &&
                       controller.searchQuery.value.isNotEmpty &&
-                      controller.selectedShift.value.isEmpty) {
+                      !controller.isLoadingFilterData.value &&
+                      controller.searchController.text.isNotEmpty) {
                     return Center(
                       child: Column(
                         children: [
@@ -221,6 +226,47 @@ class GraduatedStudentPageView extends GetView<GraduatedStudentPageController> {
                           ),
                         ],
                       ),
+                    );
+                  } else if (controller.isLoadingFetchAllData.value ||
+                      controller.isLoadingFilterData.value) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: width * 0.5,
+                            height: height * 0.045,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: height * 0.02),
+                        ListView.builder(
+                          itemCount: 10,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: height * 0.01),
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  height: height * 0.08,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     );
                   } else {
                     return Column(

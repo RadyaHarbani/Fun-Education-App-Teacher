@@ -5,6 +5,7 @@ import 'package:fun_education_app_teacher/app/pages/detail-task-page/widgets/tas
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DetailTaskPageComponentOne extends GetView<DetailTaskPageController> {
   const DetailTaskPageComponentOne({super.key});
@@ -13,11 +14,26 @@ class DetailTaskPageComponentOne extends GetView<DetailTaskPageController> {
   Widget build(BuildContext context) {
     final Size mediaQuery = MediaQuery.of(context).size;
     final double height = mediaQuery.height;
+
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
         children: [
-          Obx(() => DetailTaskItem(
+          Obx(() {
+            if (controller.isLoadingDetailTask.value) {
+              return Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                child: Container(
+                  height: height * 0.6,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              );
+            } else {
+              return DetailTaskItem(
                 type: '${controller.showByTaskIdDetail.value.category}',
                 title: '${controller.showByTaskIdDetail.value.title}',
                 description:
@@ -57,7 +73,9 @@ class DetailTaskPageComponentOne extends GetView<DetailTaskPageController> {
                     },
                   );
                 },
-              )),
+              );
+            }
+          }),
           SizedBox(height: height * 0.02),
         ],
       ),

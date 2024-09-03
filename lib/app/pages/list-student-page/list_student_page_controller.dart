@@ -10,6 +10,7 @@ class ListStudentPageController extends GetxController {
   ShowAllUserByIncomingShiftResponse? showAllUserByIncomingShiftResponse;
   RxList<ShowCurrentUserModel> showCurrentUserModel =
       <ShowCurrentUserModel>[].obs;
+  RxBool isLoadingListStudent = false.obs;
 
   @override
   void onInit() {
@@ -19,13 +20,19 @@ class ListStudentPageController extends GetxController {
 
   Future showAllUserByIncomingShift(String shift) async {
     try {
+      isLoadingListStudent(true);
       final response = await userService.getShowAllUsersByIncomingShift(
-          shift, 'true', 'false',);
+        shift,
+        'true',
+        'false',
+      );
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       showCurrentUserModel.value = showAllUserByIncomingShiftResponse!.data;
+      isLoadingListStudent(false);
       update();
     } catch (e) {
+      isLoadingListStudent(false);
       print(e);
     }
   }

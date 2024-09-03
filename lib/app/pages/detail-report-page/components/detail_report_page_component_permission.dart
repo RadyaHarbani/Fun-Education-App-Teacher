@@ -83,7 +83,7 @@ class DetailReportPageComponentPermission
                   SizedBox(height: height * 0.01),
                   AutoSizeText.rich(
                     TextSpan(
-                      text: 'Tidak Ada Aaporan\n',
+                      text: 'Tidak Ada Laporan\n',
                       style: tsBodyMediumSemibold(blackColor),
                       children: [
                         TextSpan(

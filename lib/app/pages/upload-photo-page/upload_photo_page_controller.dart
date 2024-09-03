@@ -22,6 +22,7 @@ class UploadPhotoPageController extends GetxController {
   var imageFileList = <XFile>[].obs;
   RxString albumId = ''.obs;
   RxBool isLoadingUploadPhoto = false.obs;
+  RxBool isLoadingFetchAlbum = false.obs;
 
   PhotosService photosService = PhotosService();
   ShowAllPhotosResponse? showAllPhotosResponse;
@@ -49,6 +50,7 @@ class UploadPhotoPageController extends GetxController {
   }
 
   Future<void> storePhotoByAdmin() async {
+    
     String title = photoTitleController.text.trim();
     String description = photoDescriptionController.text.trim();
     String? selectedAlbumValue =
@@ -129,11 +131,14 @@ class UploadPhotoPageController extends GetxController {
 
   Future showAllAlbums() async {
     try {
+      isLoadingFetchAlbum(true);
       final response = await albumsService.getShowAllAlbumPhoto();
       showAllAlbumsResponse = ShowAllAlbumsResponse.fromJson(response.data);
       showAllAlbumsModel.value = showAllAlbumsResponse!.data;
+      isLoadingFetchAlbum(false);
       update();
     } catch (e) {
+      isLoadingFetchAlbum(false);
       print(e);
     }
   }

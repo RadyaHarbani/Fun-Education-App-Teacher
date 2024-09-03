@@ -26,6 +26,8 @@ import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/event-calendar-page/event_calendar_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/event-calendar-page/event_calendar_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/graduated-student-page/graduated_student_page_binding.dart';
@@ -74,6 +76,7 @@ class AppPages {
         NavbarMainBinding(),
         HomePageBinding(),
         HomeSavingPageBinding(),
+        // EventCalendarPageBinding(),
         GalleryPageBinding(),
       ],
     ),
@@ -221,6 +224,11 @@ class AppPages {
       name: _Paths.DETAIL_GRADUATED_STUDENT_PAGE,
       page: () => DetailGraduatedStudentPageView(),
       binding: DetailGraduatedStudentPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.EVENT_CALENDAR_PAGE,
+      page: () => EventCalendarPageView(),
+      binding: EventCalendarPageBinding(),
     ),
   ];
 }

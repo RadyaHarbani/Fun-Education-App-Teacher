@@ -4,6 +4,7 @@ import 'package:fun_education_app_teacher/app/pages/gallery-page/gallery_page_co
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class GalleryPageComponentOne extends GetView<GalleryPageController> {
   const GalleryPageComponentOne({super.key});
@@ -23,73 +24,109 @@ class GalleryPageComponentOne extends GetView<GalleryPageController> {
           style: tsBodyMediumSemibold(blackColor),
         ),
         SizedBox(height: height * 0.02),
-        Obx(
-          () => GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: width * 0.02,
-              mainAxisSpacing: height * 0.01,
-              childAspectRatio: 1.25,
-            ),
-            itemCount: controller.showAllAlbumsModel.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  Get.toNamed(
-                    Routes.DETAIL_ALBUM_PHOTO_PAGE,
-                    arguments:
-                        controller.showAllAlbumsModel[index].id!.toString(),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: whiteColor,
-                    borderRadius: BorderRadius.circular(15),
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        '${controller.showAllAlbumsModel[index].cover}',
-                      ),
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.3),
-                        BlendMode.darken,
-                      ),
+        Obx(() {
+          if (controller.isLoadingAllPhotos.value) {
+            return GridView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: width * 0.02,
+                mainAxisSpacing: height * 0.01,
+                childAspectRatio: 1.25,
+              ),
+              itemCount: 2,
+              itemBuilder: (context, index) {
+                return Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: width * 0.035,
-                      vertical: height * 0.02,
+                );
+              },
+            );
+          } else if (controller.showAllAlbumsModel.isEmpty) {
+            return Center(
+              child: AutoSizeText(
+                'Tidak ada album',
+                group: AutoSizeGroup(),
+                maxLines: 1,
+                style: tsBodyMediumRegular(blackColor),
+              ),
+            );
+
+          } else {
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: width * 0.02,
+                mainAxisSpacing: height * 0.01,
+                childAspectRatio: 1.25,
+              ),
+              itemCount: controller.showAllAlbumsModel.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(
+                      Routes.DETAIL_ALBUM_PHOTO_PAGE,
+                      arguments:
+                          controller.showAllAlbumsModel[index].id!.toString(),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: whiteColor,
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          '${controller.showAllAlbumsModel[index].cover}',
+                        ),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.3),
+                          BlendMode.darken,
+                        ),
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        AutoSizeText(
-                          group: AutoSizeGroup(),
-                          maxLines: 2,
-                          '${controller.showAllAlbumsModel[index].name}',
-                          style: tsBodySmallSemibold(whiteColor).copyWith(
-                            height: 1.25,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: width * 0.035,
+                        vertical: height * 0.02,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          AutoSizeText(
+                            group: AutoSizeGroup(),
+                            maxLines: 2,
+                            '${controller.showAllAlbumsModel[index].name}',
+                            style: tsBodySmallSemibold(whiteColor).copyWith(
+                              height: 1.25,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: height * 0.01),
-                        AutoSizeText(
-                          group: AutoSizeGroup(),
-                          maxLines: 1,
-                          '${controller.showAllAlbumsModel[index].galleryCount} Foto',
-                          style: tsBodySmallRegular(whiteColor),
-                        ),
-                      ],
+                          SizedBox(height: height * 0.01),
+                          AutoSizeText(
+                            group: AutoSizeGroup(),
+                            maxLines: 1,
+                            '${controller.showAllAlbumsModel[index].galleryCount} Foto',
+                            style: tsBodySmallRegular(whiteColor),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          ),
-        ),
+                );
+              },
+            );
+          }
+        }),
       ],
     );
   }

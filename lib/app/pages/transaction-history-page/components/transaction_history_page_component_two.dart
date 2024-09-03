@@ -7,7 +7,9 @@ import 'package:fun_education_app_teacher/app/pages/transaction-history-page/tra
 import 'package:fun_education_app_teacher/app/pages/transaction-history-page/widgets/total_transaction_history_item.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TransactionHistoryPageComponentTwo
     extends GetView<TransactionHistoryPageController> {
@@ -87,7 +89,31 @@ class TransactionHistoryPageComponentTwo
               style: tsBodyMediumRegular(blackColor),
             )),
         SizedBox(height: height * 0.02),
-        Obx(() => Row(
+        Obx(() {
+          if (controller.isLoadingShowHistoryTransaction.value) {
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TotalTransactionHistoryItem(
+                      transactionType: 'Total Pemasukan',
+                      transactionAmount: '0',
+                    ),
+                  ),
+                  SizedBox(width: width * 0.02),
+                  Expanded(
+                    child: TotalTransactionHistoryItem(
+                      transactionType: 'Total Pengeluaran',
+                      transactionAmount: '0',
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return Row(
               children: [
                 Expanded(
                   child: TotalTransactionHistoryItem(
@@ -103,9 +129,33 @@ class TransactionHistoryPageComponentTwo
                   ),
                 ),
               ],
-            )),
+            );
+          }
+        }),
         SizedBox(height: height * 0.02),
-        Obx(() => ListView.builder(
+        Obx(() {
+          if (controller.isLoadingShowHistoryTransaction.value) {
+            return Shimmer.fromColors(
+              baseColor: Colors.grey[300]!,
+              highlightColor: Colors.grey[100]!,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(bottom: height * 0.01),
+                    height: height * 0.15,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  );
+                },
+              ),
+            );
+          } else {
+            return ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: controller.transactionModel.length,
@@ -121,7 +171,9 @@ class TransactionHistoryPageComponentTwo
                       '${controller.transactionModel[index].desc ?? 'Tidak Ada Deskripsi'}',
                 );
               },
-            )),
+            );
+          }
+        }),
       ],
     );
   }

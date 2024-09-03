@@ -30,6 +30,14 @@ class NavbarMainView extends GetView<NavbarMainController> {
               ),
               label: 'Tabungan',
             ),
+            // BottomNavigationBarItem(
+            //   icon: SvgPicture.asset('assets/icons/icEventCalendar.svg'),
+            //   activeIcon: SvgPicture.asset(
+            //     'assets/icons/icEventCalendar.svg',
+            //     color: primaryColor,
+            //   ),
+            //   label: 'Kalender',
+            // ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset('assets/icons/icGallery.svg'),
               activeIcon: SvgPicture.asset(

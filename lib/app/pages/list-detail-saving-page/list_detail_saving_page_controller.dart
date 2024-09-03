@@ -11,6 +11,7 @@ class ListDetailSavingPageController extends GetxController {
   RxList<ShowCurrentUserModel> showCurrentUserModel =
       <ShowCurrentUserModel>[].obs;
   RxString incomingShift = ''.obs;
+  RxBool isLoadingListDetailSaving = false.obs;
 
   @override
   void onInit() {
@@ -21,13 +22,16 @@ class ListDetailSavingPageController extends GetxController {
 
   Future showAllUserByIncomingShift(String shift) async {
     try {
-      final response =
-          await userService.getShowAllUsersByIncomingShift(shift, 'true', 'false');
+      isLoadingListDetailSaving(true);
+      final response = await userService.getShowAllUsersByIncomingShift(
+          shift, 'true', 'false');
       showAllUserByIncomingShiftResponse =
           ShowAllUserByIncomingShiftResponse.fromJson(response.data);
       showCurrentUserModel.value = showAllUserByIncomingShiftResponse!.data;
+      isLoadingListDetailSaving(false);
       update();
     } catch (e) {
+      isLoadingListDetailSaving(false);
       print(e);
     }
   }
