@@ -161,29 +161,31 @@ class DetailReportPageView extends GetView<DetailReportPageController> {
                       },
                     ),
                     SizedBox(height: height * 0.01),
-                    CommonButton(
-                      text: 'Hapus Laporan',
-                      backgroundColor: dangerColor,
-                      textColor: whiteColor,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return CommonAlertDialog(
-                              title: 'Konfirmasi',
-                              content:
-                                  'Apakah anda yakin untuk mengahapus laporan',
-                              cancelButtonText: 'Tidak',
-                              confirmButtonText: 'Iya',
-                              onConfirm: () {
-                                Get.back();
-                                controller.deleteDailyReportByAdmin();
+                    Obx(() => CommonButton(
+                          text: 'Hapus Laporan',
+                          backgroundColor: dangerColor,
+                          isLoading:
+                              controller.isLoadingDeleteDailyReport.value,
+                          textColor: whiteColor,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return CommonAlertDialog(
+                                  title: 'Konfirmasi',
+                                  content:
+                                      'Apakah anda yakin untuk mengahapus laporan',
+                                  cancelButtonText: 'Tidak',
+                                  confirmButtonText: 'Iya',
+                                  onConfirm: () {
+                                    Get.back();
+                                    controller.deleteDailyReportByAdmin();
+                                  },
+                                );
                               },
                             );
                           },
-                        );
-                      },
-                    ),
+                        )),
                   ],
                 ),
               ),

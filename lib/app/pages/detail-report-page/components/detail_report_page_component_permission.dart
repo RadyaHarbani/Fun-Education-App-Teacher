@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fun_education_app_teacher/app/global-component/common_alert_dialog.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-report-page/detail_report_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
@@ -121,8 +122,7 @@ class DetailReportPageComponentPermission
                     group: AutoSizeGroup(),
                     controller.userNote.value.isEmpty
                         ? 'Tidak ada catatan'
-                        :
-                    '${controller.userNote.value}',
+                        : '${controller.userNote.value}',
                     style: tsBodySmallRegular(blackColor),
                   )),
             ),
@@ -147,14 +147,29 @@ class DetailReportPageComponentPermission
               },
             ),
             SizedBox(height: height * 0.01),
-            CommonButton(
-              text: 'Hapus Laporan',
-              backgroundColor: dangerColor,
-              textColor: whiteColor,
-              onPressed: () {
-                controller.deleteDailyReportByAdmin();
-              },
-            ),
+            Obx(() => CommonButton(
+                  text: 'Hapus Laporan',
+                  isLoading: controller.isLoadingDeleteDailyReport.value,
+                  backgroundColor: dangerColor,
+                  textColor: whiteColor,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CommonAlertDialog(
+                          title: 'Konfirmasi',
+                          content: 'Apakah anda yakin untuk mengahapus laporan',
+                          cancelButtonText: 'Tidak',
+                          confirmButtonText: 'Iya',
+                          onConfirm: () {
+                            Get.back();
+                            controller.deleteDailyReportByAdmin();
+                          },
+                        );
+                      },
+                    );
+                  },
+                )),
           ],
         ),
       ),
