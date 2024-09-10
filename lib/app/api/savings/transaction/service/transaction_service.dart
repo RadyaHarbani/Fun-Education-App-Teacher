@@ -54,15 +54,17 @@ class TransactionService {
     }
   }
 
-  Future<Response> getShowTransactionByUserIdAndMonth(
+  Future<Response> getShowTransactionByUserIdAndMonthAndYear(
     String userId,
     String month,
+    String year,
   ) async {
     try {
       final response = await _dioInstance.getRequest(
           endpoint: '${ApiEndPoint.showTransactionByUserId}$userId',
           queryParameters: {
             'month': month,
+            'year': year,
           });
       return response;
     } catch (e) {

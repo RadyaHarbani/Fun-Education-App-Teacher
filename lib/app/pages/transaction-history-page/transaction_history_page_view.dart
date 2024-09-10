@@ -37,7 +37,7 @@ class TransactionHistoryPageView
       body: SmartRefresher(
         controller: controller.refreshController,
         onRefresh: () async {
-          await controller.showTransactionByUserIdAndMonth();
+          await controller.showTransactionByUserIdAndMonthAndYear();
           controller.refreshController.refreshCompleted();
         },
         header: WaterDropHeader(
