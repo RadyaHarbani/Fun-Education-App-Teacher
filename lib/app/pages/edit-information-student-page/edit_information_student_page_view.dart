@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/components/edit_information_student_page_component_one.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/components/edit_information_student_page_component_three.dart';
-import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/components/edit_information_student_page_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/edit_information_student_page_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
@@ -50,8 +49,8 @@ class EditInformationStudentPageView
               children: [
                 EditInformationStudentPageComponentOne(),
                 SizedBox(height: height * 0.03),
-                EditInformationStudentPageComponentTwo(),
-                SizedBox(height: height * 0.03),
+                // EditInformationStudentPageComponentTwo(),
+                // SizedBox(height: height * 0.03),
                 EditInformationStudentPageComponentThree(),
                 SizedBox(height: height * 0.03),
                 Column(

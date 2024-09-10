@@ -24,7 +24,7 @@ class EditReportPageComponentFive extends GetView<EditReportPageController> {
             children: [
               TextSpan(
                 text: '*opsional',
-                style: tsBodySmallRegular(dangerColor),
+                style: tsBodySmallRegular(greyColor),
               ),
             ],
           ),

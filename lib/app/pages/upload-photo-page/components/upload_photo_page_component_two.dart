@@ -30,7 +30,7 @@ class UploadPhotoPageComponentTwo extends GetView<UploadPhotoPageController> {
                 children: [
                   TextSpan(
                     text: '*minimal 1 Foto',
-                    style: tsBodySmallRegular(dangerColor),
+                    style: tsBodySmallRegular(greyColor),
                   ),
                 ],
               ),

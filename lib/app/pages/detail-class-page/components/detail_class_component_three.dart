@@ -2,19 +2,21 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_warning.dart';
+import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/add-report-page/components/bottomsheet_select_student_report.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/detail_class_page_controller.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_hadir_permission.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_izin_permission.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_sakit_permission.dart';
 import 'package:fun_education_app_teacher/app/pages/detail-class-page/items/report-page/list_undone_report.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
-import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
 class DetailClassComponentThree extends GetView<DetailClassPageController> {
-  const DetailClassComponentThree({super.key});
+  final AddReportPageController addReportPageController =
+      AddReportPageController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
                   group: AutoSizeGroup(),
                   maxLines: 2,
                   TextSpan(
-                    text: 'Laporan Hari Ini\n',
+                    text: 'Laporan Harian\n',
                     style: tsBodyLargeSemibold(blackColor),
                     children: [
                       TextSpan(
@@ -69,14 +71,25 @@ class DetailClassComponentThree extends GetView<DetailClassPageController> {
                 ),
                 SizedBox(width: width * 0.01),
                 InkWell(
-                  onTap: () {
-                    Get.toNamed(
-                      Routes.ADD_REPORT_PAGE,
-                      arguments: {
-                        'incomingShift': controller
-                            .showAllIncomingShiftModel.value.shiftMasuk,
-                        'selectedDate': controller.selectedDateTime.value,
-                      },
+                  onTap: () async {
+                    // Get.toNamed(
+                    //   Routes.ADD_REPORT_PAGE,
+                    //   arguments: {
+                    //     'incomingShift': controller
+                    //         .showAllIncomingShiftModel.value.shiftMasuk,
+                    //     'selectedDate': controller.selectedDateTime.value,
+                    //   },
+                    // );
+                    await addReportPageController.showUserDoneUndone(
+                      'false',
+                      controller.showAllIncomingShiftModel.value.shiftMasuk!,
+                      controller.selectedDateTime.value,
+                    );
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: whiteColor,
+                      builder: (context) => BottomsheetSelectStudentReport(),
                     );
                   },
                   child: Container(

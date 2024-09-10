@@ -91,7 +91,7 @@ class BottomsheetAddEmergencyNote extends GetView<HomePageController> {
                       children: [
                         TextSpan(
                           text: '*opsional (pdf)',
-                          style: tsBodySmallRegular(dangerColor),
+                          style: tsBodySmallRegular(greyColor),
                         ),
                       ],
                     ),

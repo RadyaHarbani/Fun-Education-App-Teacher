@@ -123,8 +123,8 @@ class DetailUnverifiedStudentPageView
                         CommonButton(
                           isLoading: controller.isLoadingAcceptVerify.value,
                           text: 'Terima Pengajuan',
-                          backgroundColor: greyColor.withOpacity(0.1),
-                          textColor: blackColor,
+                          backgroundColor: blackColor,
+                          textColor: whiteColor,
                           onPressed: () {
                             controller.updateVerifyUserByAdmin(true);
                           },
@@ -133,7 +133,7 @@ class DetailUnverifiedStudentPageView
                         CommonButton(
                           isLoading: controller.isLoadingRejectVerify.value,
                           text: 'Tolak Pengajuan',
-                          backgroundColor: dangerColor,
+                          backgroundColor: dangerColor.withOpacity(0.9),
                           textColor: whiteColor,
                           onPressed: () {
                             showDialog(

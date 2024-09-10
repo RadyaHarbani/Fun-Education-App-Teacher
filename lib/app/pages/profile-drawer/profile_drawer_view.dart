@@ -1,13 +1,12 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/pages/home-page/home_page_controller.dart';
+import 'package:fun_education_app_teacher/app/pages/profile-drawer/components/profile_drawer_component_one.dart';
+import 'package:fun_education_app_teacher/app/pages/profile-drawer/components/profile_drawer_component_three.dart';
+import 'package:fun_education_app_teacher/app/pages/profile-drawer/components/profile_drawer_component_two.dart';
 import 'package:fun_education_app_teacher/app/pages/profile-drawer/profile_drawer_controller.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
-import 'package:fun_education_app_teacher/common/routes/app_pages.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProfileDrawerView extends StatelessWidget {
   final ProfileDrawerController controller = Get.put(ProfileDrawerController());
@@ -53,117 +52,11 @@ class ProfileDrawerView extends StatelessWidget {
               ),
             ),
             SizedBox(height: height * 0.03),
-            Row(
-              children: [
-                Container(
-                  height: height * 0.06,
-                  width: width * 0.135,
-                  decoration: BoxDecoration(
-                    color: greyColor,
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            '${homePageController.showCurrentUserModel.value.profilePicture}'),
-                        fit: BoxFit.cover),
-                  ),
-                ),
-                SizedBox(width: width * 0.03),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${homePageController.showCurrentUserModel.value.fullName}',
-                      style: tsBodyMediumSemibold(blackColor),
-                    ),
-                    Text(
-                      'Guru',
-                      style: tsBodySmallRegular(blackColor),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            ProfileDrawerComponentOne(),
             SizedBox(height: height * 0.03),
-            AutoSizeText(
-              'Kelulusan',
-              style: tsBodyMediumRegular(blackColor),
-              maxLines: 1,
-            ),
-            SizedBox(height: height * 0.015),
-            InkWell(
-              onTap: () {
-                Get.toNamed(Routes.GRADUATED_STUDENT_PAGE);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.list_rounded, color: blackColor),
-                      SizedBox(width: width * 0.03),
-                      AutoSizeText(
-                        'Daftar Kelulusan',
-                        style: tsBodySmallSemibold(blackColor),
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                  Icon(
-                    Icons.arrow_forward_ios,
-                    color: blackColor,
-                    size: 15,
-                  ),
-                ],
-              ),
-            ),
+            ProfileDrawerComponentTwo(),
             SizedBox(height: height * 0.03),
-            AutoSizeText(
-              'Data Siswa',
-              style: tsBodyMediumRegular(blackColor),
-              maxLines: 1,
-            ),
-            SizedBox(height: height * 0.01),
-            InkWell(
-              onTap: () {
-                controller.downloadExcel();
-              },
-              child: Container(
-                width: width,
-                decoration: BoxDecoration(
-                  color: greenColor.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Obx(() => controller.isDownloading.value == true
-                    ? Container(
-                        height: height * 0.06,
-                        child: Center(
-                          child: LoadingAnimationWidget.staggeredDotsWave(
-                            color: Colors.white,
-                            size: height * 0.03,
-                          ),
-                        ),
-                      )
-                    : Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: width * 0.03,
-                          vertical: height * 0.02,
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/icons/icExcel.svg',
-                            ),
-                            SizedBox(width: width * 0.03),
-                            AutoSizeText(
-                              'Export Data Siswa',
-                              style: tsBodySmallSemibold(greenColor),
-                              maxLines: 1,
-                            ),
-                          ],
-                        ),
-                      )),
-              ),
-            ),
+            ProfileDrawerComponentThree(),
             Spacer(),
             Obx(() => CommonButton(
                   isLoading: controller.isLoadingLogout.value,

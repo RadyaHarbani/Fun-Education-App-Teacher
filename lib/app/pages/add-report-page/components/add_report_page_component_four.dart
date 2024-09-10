@@ -24,7 +24,7 @@ class AddReportPageComponentFour extends GetView<AddReportPageController> {
             children: [
               TextSpan(
                 text: '*opsional',
-                style: tsBodySmallRegular(dangerColor),
+                style: tsBodySmallRegular(greyColor),
               ),
             ],
           ),

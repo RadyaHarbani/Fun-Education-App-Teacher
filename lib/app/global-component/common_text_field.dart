@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 
 class CommonTextField extends StatelessWidget {
@@ -11,9 +13,10 @@ class CommonTextField extends StatelessWidget {
   final Function? validator;
   final Function? onSubmitted;
   final Function? onChanged;
+  final List<TextInputFormatter>? inputFormatter;
 
   CommonTextField({
-    super.key,
+    Key? key,
     this.fieldController,
     required this.obscureText,
     this.prefixIcon,
@@ -23,7 +26,8 @@ class CommonTextField extends StatelessWidget {
     this.validator,
     this.onSubmitted,
     this.onChanged,
-  });
+    this.inputFormatter,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +73,7 @@ class CommonTextField extends StatelessWidget {
       ),
       cursorColor: blackColor,
       validator: validator as String? Function(String?)?,
+      inputFormatters: inputFormatter,
     );
   }
 }

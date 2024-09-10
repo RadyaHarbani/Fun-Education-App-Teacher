@@ -18,6 +18,42 @@ class TransactionService {
     }
   }
 
+  Future<Response> getShowAvailableMonthsByUserId(
+    String userId,
+    String year,
+  ) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        queryParameters: {
+          'user_id': userId,
+          'year': year,
+        },
+        endpoint: ApiEndPoint.showTransactionByUserIdAvailableMonth,
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> getShowAvailableYearsByUserId(String userId) async {
+    try {
+      final response = await _dioInstance.getRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        queryParameters: {
+          'user_id': userId,
+        },
+        endpoint: ApiEndPoint.showTransactionByUserIdAvailableYear,
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<Response> getShowTransactionByUserIdAndMonth(
     String userId,
     String month,

@@ -1,3 +1,5 @@
+import 'package:fun_education_app_teacher/app/pages/add-management-school-information-page/add_management_school_information_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/add-management-school-information-page/add_management_school_information_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/add-report-page/add_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/add-task-page/add_task_page_binding.dart';
@@ -22,6 +24,8 @@ import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_sa
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/edit_information_student_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-information-student-page/edit_information_student_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-management-school-information-page/edit_management_school_information_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/edit-management-school-information-page/edit_management_school_information_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-report-page/edit_report_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/edit-task-page/edit_task_page_binding.dart';
@@ -42,6 +46,10 @@ import 'package:fun_education_app_teacher/app/pages/list-student-page/list_stude
 import 'package:fun_education_app_teacher/app/pages/list-student-page/list_student_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/login-page/login_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/management-incoming-shift-page/management_incoming_shift_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/management-incoming-shift-page/management_incoming_shift_page_view.dart';
+import 'package:fun_education_app_teacher/app/pages/management-school-information-page/management_school_information_page_binding.dart';
+import 'package:fun_education_app_teacher/app/pages/management-school-information-page/management_school_information_page_view.dart';
 import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_binding.dart';
 import 'package:fun_education_app_teacher/app/pages/navbar-main/navbar_main_view.dart';
 import 'package:fun_education_app_teacher/app/pages/otp-verification-page/otp_verification_page_binding.dart';
@@ -229,6 +237,26 @@ class AppPages {
       name: _Paths.EVENT_CALENDAR_PAGE,
       page: () => EventCalendarPageView(),
       binding: EventCalendarPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.MANAGEMENT_INCOMING_SHIFT_PAGE,
+      page: () => ManagementIncomingShiftPageView(),
+      binding: ManagementIncomingShiftPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.MANAGEMENT_SCHOOL_INFORMATION_PAGE,
+      page: () => ManagementSchoolInformationPageView(),
+      binding: ManagementSchoolInformationPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_MANAGEMENT_SCHOOL_INFORMATION_PAGE,
+      page: () => AddManagementSchoolInformationPageView(),
+      binding: AddManagementSchoolInformationPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_MANAGEMENT_SCHOOL_INFORMATION_PAGE,
+      page: () => EditManagementSchoolInformationPageView(),
+      binding: EditManagementSchoolInformationPageBinding(),
     ),
   ];
 }

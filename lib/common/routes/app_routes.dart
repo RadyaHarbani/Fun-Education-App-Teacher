@@ -36,6 +36,14 @@ abstract class Routes {
   static const DETAIL_GRADUATED_STUDENT_PAGE =
       _Paths.DETAIL_GRADUATED_STUDENT_PAGE;
   static const EVENT_CALENDAR_PAGE = _Paths.EVENT_CALENDAR_PAGE;
+  static const MANAGEMENT_INCOMING_SHIFT_PAGE =
+      _Paths.MANAGEMENT_INCOMING_SHIFT_PAGE;
+  static const MANAGEMENT_SCHOOL_INFORMATION_PAGE =
+      _Paths.MANAGEMENT_SCHOOL_INFORMATION_PAGE;
+  static const ADD_MANAGEMENT_SCHOOL_INFORMATION_PAGE =
+      _Paths.ADD_MANAGEMENT_SCHOOL_INFORMATION_PAGE;
+  static const EDIT_MANAGEMENT_SCHOOL_INFORMATION_PAGE =
+      _Paths.EDIT_MANAGEMENT_SCHOOL_INFORMATION_PAGE;
 }
 
 abstract class _Paths {
@@ -72,4 +80,12 @@ abstract class _Paths {
   static const GRADUATED_STUDENT_PAGE = '/graduated-student-page';
   static const DETAIL_GRADUATED_STUDENT_PAGE = '/detail-graduated-student-page';
   static const EVENT_CALENDAR_PAGE = '/event-calendar-page';
+  static const MANAGEMENT_INCOMING_SHIFT_PAGE =
+      '/management-incoming-shift-page';
+  static const MANAGEMENT_SCHOOL_INFORMATION_PAGE =
+      '/management-school-information-page';
+  static const ADD_MANAGEMENT_SCHOOL_INFORMATION_PAGE =
+      '/add-management-school-information-page';
+  static const EDIT_MANAGEMENT_SCHOOL_INFORMATION_PAGE =
+      '/edit-management-school-information-page';
 }

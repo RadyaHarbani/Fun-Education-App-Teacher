@@ -21,18 +21,18 @@ class GraduatedStudentPageController extends GetxController {
   var listGraduatedStudentFive = <ShowCurrentUserModel>[].obs;
   var allGraduatedStudents = <ShowCurrentUserModel>[].obs;
   var filteredGraduatedStudents = <ShowCurrentUserModel>[].obs;
-  var filteredGraduatedStudentsByShift = <ShowCurrentUserModel>[].obs;
+  // var filteredGraduatedStudentsByShift = <ShowCurrentUserModel>[].obs;
 
-  var selectedShift = ''.obs;
+  // var selectedShift = ''.obs;
   var searchQuery = ''.obs;
 
-  final List<String> shifts = [
-    '08.00 - 10.00',
-    '10.00 - 11.30',
-    '11.30 - 13.00',
-    '13.00 - 14.00',
-    '14.00 - 15.00',
-  ];
+  // final List<String> shifts = [
+  //   '08.00 - 10.00',
+  //   '10.00 - 11.30',
+  //   '11.30 - 13.00',
+  //   '13.00 - 14.00',
+  //   '14.00 - 15.00',
+  // ];
 
   @override
   void onInit() {
@@ -44,7 +44,7 @@ class GraduatedStudentPageController extends GetxController {
     try {
       isLoadingFilterData(true);
 
-      selectedShift.value = '';
+      // selectedShift.value = '';
       final response = await userService.getSearchUser(
         query,
         'true',
@@ -63,7 +63,7 @@ class GraduatedStudentPageController extends GetxController {
   Future<void> fetchAllGraduatedStudents() async {
     try {
       isLoadingFetchAllData(true);
-      filteredGraduatedStudentsByShift.clear();
+      // filteredGraduatedStudentsByShift.clear();
       await showAllUserByIncomingShiftOne('08.00 - 10.00');
       await showAllUserByIncomingShiftTwo('10.00 - 11.30');
       await showAllUserByIncomingShiftThree('11.30 - 13.00');
@@ -77,7 +77,7 @@ class GraduatedStudentPageController extends GetxController {
       allGraduatedStudents.addAll(listGraduatedStudentFour);
       allGraduatedStudents.addAll(listGraduatedStudentFive);
 
-      filterGraduatedStudentsByShift();
+      // filterGraduatedStudentsByShift();
       isLoadingFetchAllData(false);
     } catch (e) {
       isLoadingFetchAllData(false);
@@ -85,18 +85,18 @@ class GraduatedStudentPageController extends GetxController {
     }
   }
 
-  void filterGraduatedStudentsByShift() {
-    searchController.text = '';
-    searchQuery.value = '';
+  // void filterGraduatedStudentsByShift() {
+  //   searchController.text = '';
+  //   searchQuery.value = '';
 
-    if (selectedShift.value.isEmpty) {
-      filteredGraduatedStudentsByShift.value = allGraduatedStudents;
-    } else {
-      filteredGraduatedStudentsByShift.value = allGraduatedStudents
-          .where((student) => student.shift == selectedShift.value)
-          .toList();
-    }
-  }
+  //   if (selectedShift.value.isEmpty) {
+  //     filteredGraduatedStudentsByShift.value = allGraduatedStudents;
+  //   } else {
+  //     filteredGraduatedStudentsByShift.value = allGraduatedStudents
+  //         .where((student) => student.shift == selectedShift.value)
+  //         .toList();
+  //   }
+  // }
 
   Future<void> showAllUserByIncomingShiftOne(String shift) async {
     try {
