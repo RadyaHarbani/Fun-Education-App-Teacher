@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:fun_education_app_teacher/app/api/savings/transaction/models/show_available_month_response.dart';
+import 'package:fun_education_app_teacher/app/api/savings/transaction/models/show_available_year_response.dart';
 import 'package:fun_education_app_teacher/app/api/savings/transaction/models/transaction_model.dart';
 import 'package:fun_education_app_teacher/app/api/savings/transaction/models/transaction_response.dart';
 import 'package:fun_education_app_teacher/app/api/savings/transaction/service/transaction_service.dart';
@@ -10,18 +12,36 @@ import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class TransactionHistoryPageController extends GetxController {
-  RefreshController refreshController =
-      RefreshController();
+  RefreshController refreshController = RefreshController();
   TransactionService transactionService = TransactionService();
+  ShowAvailableMonthResponse? showAvailableMonthResponse;
+  ShowAvailableYearResponse? showAvailableYearResponse;
   TransactionResponse? transactionResponse;
   RxList<TransactionModel> transactionModel = <TransactionModel>[].obs;
   var selectedPeriod = 'Mingguan'.obs;
   var selectedMonth =
       '${DateFormat('MMMM', 'id_ID').format(DateTime.now())}'.obs;
+  var selectedYear =
+      '${DateFormat('yyyy', 'id_ID').format(DateTime.now())}'.obs;
   RxString userId = ''.obs;
   RxString totalIncome = '0'.obs;
   RxString totalOutcome = '0'.obs;
   RxBool isLoadingShowHistoryTransaction = false.obs;
+
+  final List<String> allMonths = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember'
+    ];
 
   final List<BarChartGroupData> mingguanData = [
     TransactionValueChart.makeGroupDataTransaction(0, 200000, 500000),
@@ -103,16 +123,44 @@ class TransactionHistoryPageController extends GetxController {
   void onInit() {
     super.onInit();
     userId.value = Get.arguments;
-    showTransactionByUserIdAndMonth();
+    showTransactionByUserIdAndMonthAndYear();
+    showAvailableMonthsByUserId();
+    showAvailableYearsByUserId();
   }
 
-  Future showTransactionByUserIdAndMonth() async {
+  Future showAvailableMonthsByUserId() async {
+    try {
+      final response = await transactionService.getShowAvailableMonthsByUserId(
+        userId.value,
+        selectedYear.value,
+      );
+      showAvailableMonthResponse =
+          ShowAvailableMonthResponse.fromJson(response.data);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future showAvailableYearsByUserId() async {
+    try {
+      final response = await transactionService.getShowAvailableYearsByUserId(
+        userId.value,
+      );
+      showAvailableYearResponse =
+          ShowAvailableYearResponse.fromJson(response.data);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future showTransactionByUserIdAndMonthAndYear() async {
     try {
       isLoadingShowHistoryTransaction(true);
       final response =
-          await transactionService.getShowTransactionByUserIdAndMonth(
+          await transactionService.getShowTransactionByUserIdAndMonthAndYear(
         userId.value,
         selectedMonth.value,
+        '2024',
       );
       transactionResponse = TransactionResponse.fromJson(response.data);
       transactionModel.value = transactionResponse!.data;

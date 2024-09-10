@@ -82,7 +82,7 @@ class TransactionHistoryPageComponentTwo
         ),
         SizedBox(height: height * 0.02),
         Obx(() => AutoSizeText(
-              '${controller.selectedMonth.value} 2024',
+              '${controller.selectedMonth.value} ${controller.selectedYear.value}',
               group: AutoSizeGroup(),
               maxLines: 1,
               style: tsBodyMediumRegular(blackColor),
