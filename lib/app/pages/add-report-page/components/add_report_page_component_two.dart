@@ -17,7 +17,7 @@ class AddReportPageComponentTwo extends GetView<AddReportPageController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AutoSizeText(
-          'Perizinan :',
+          'Kehadiran :',
           group: AutoSizeGroup(),
           maxLines: 1,
           style: tsBodyLargeRegular(blackColor),

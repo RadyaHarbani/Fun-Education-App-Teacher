@@ -27,7 +27,7 @@ class DetailMarkPageComponentTwo extends GetView<DetailMarkPageController> {
               ),
               TextSpan(
                 text: '*opsional',
-                style: tsBodySmallRegular(dangerColor),
+                style: tsBodySmallRegular(greyColor),
               ),
             ],
           ),

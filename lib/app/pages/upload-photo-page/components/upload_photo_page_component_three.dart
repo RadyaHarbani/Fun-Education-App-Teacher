@@ -25,7 +25,7 @@ class UploadPhotoPageComponentThree extends GetView<UploadPhotoPageController> {
             children: [
               TextSpan(
                 text: '*opsional',
-                style: tsBodySmallRegular(dangerColor),
+                style: tsBodySmallRegular(greyColor),
               ),
             ],
           ),

@@ -28,7 +28,6 @@ class IncomingShiftService {
   }
 
   Future<Response> postStoreIncomingShiftByAdmin(
-    String id,
     String shiftTime,
   ) async {
     try {
@@ -37,9 +36,40 @@ class IncomingShiftService {
         tokenType: 'teacher',
         endpoint: ApiEndPoint.storeIncomingShiftByAdmin,
         data: {
-          'user_id': id,
           'shift_masuk': shiftTime,
         },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> putUpdateIncomingShiftByAdmin(
+    String idIncomingShift,
+    String shiftTime,
+  ) async {
+    try {
+      final response = await _dioInstance.putRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: '${ApiEndPoint.updateIncomingShiftByAdmin}$idIncomingShift',
+        data: {
+          'shift_masuk': shiftTime,
+        },
+      );
+      return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> deleteIncomingShiftByAdmin(String id) async {
+    try {
+      final response = await _dioInstance.deleteRequest(
+        isAuthorize: true,
+        tokenType: 'teacher',
+        endpoint: '${ApiEndPoint.deleteIncomingShiftByAdmin}$id',
       );
       return response;
     } catch (e) {

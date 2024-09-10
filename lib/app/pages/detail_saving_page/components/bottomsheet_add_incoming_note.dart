@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_button.dart';
 import 'package:fun_education_app_teacher/app/global-component/common_text_field.dart';
 import 'package:fun_education_app_teacher/app/pages/detail_saving_page/detail_saving_page_controller.dart';
+import 'package:fun_education_app_teacher/common/helper/format_rupiah.dart';
 import 'package:fun_education_app_teacher/common/helper/themes.dart';
 import 'package:get/get.dart';
 
@@ -91,6 +93,10 @@ class BottomsheetAddIncomingNote extends GetView<DetailSavingPageController> {
                             }
                             return null;
                           },
+                          inputFormatter: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            FormatRupiah(),
+                          ],
                         ),
                       ],
                     ),
@@ -107,8 +113,7 @@ class BottomsheetAddIncomingNote extends GetView<DetailSavingPageController> {
                             children: [
                               TextSpan(
                                   text: '*opsional',
-                                  style:
-                                      tsBodySmallRegular(dangerColor).copyWith(
+                                  style: tsBodySmallRegular(greyColor).copyWith(
                                     height: 1.3,
                                   )),
                             ],

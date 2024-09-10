@@ -3,6 +3,9 @@ class ApiEndPoint {
   static String baseUrlAuth = '$baseUrl/users';
   static String baseUrlOtp = '$baseUrl/otp';
   static String baseUrlShiftMasuk = '$baseUrl/shift-masuk';
+  static String baseUrlSchoolInformation = '$baseUrl/school-information';
+  static String baseUrlSchoolInformationDesc =
+      '$baseUrl/school-information-desc';
   static String baseUrlCatatanDarurat = '$baseUrl/catatan-darurat';
   static String baseUrlCatatanDaruratFile = '$baseUrl/catatan-darurat-file';
   static String baseUrlLaporanHarian = '$baseUrl/laporan-harian';
@@ -30,8 +33,27 @@ class ApiEndPoint {
   //Shift Masuk
   static String showCurrentShiftMasuk = '$baseUrlShiftMasuk/show-current';
   static String storeIncomingShiftByAdmin = '$baseUrlShiftMasuk/store';
+  static String updateIncomingShiftByAdmin = '$baseUrlShiftMasuk/update/';
+  static String deleteIncomingShiftByAdmin = '$baseUrlShiftMasuk/delete/';
   static String showAllIncomingShift = '$baseUrlShiftMasuk/index';
   static String showByIdIncomingShift = '$baseUrlShiftMasuk/show/';
+
+  //School Information
+  static String showAllSchoolInformation = '$baseUrlSchoolInformation/index';
+  static String postSchoolInformationTitle =
+      '$baseUrlSchoolInformation/store';
+  static String updateSchoolInformationTitle =
+      '$baseUrlSchoolInformation/update/';
+  static String deleteSchoolInformationTitle =
+      '$baseUrlSchoolInformation/delete/';
+
+  //School Information Desc
+  static String postSchoolInformationDesc =
+      '$baseUrlSchoolInformationDesc/store';
+  static String updateSchoolInformationDesc =
+      '$baseUrlSchoolInformationDesc/update/';
+  static String deleteSchoolInformationDesc =
+      '$baseUrlSchoolInformationDesc/delete/';
 
   //User
   static String showCurrentUser = '$baseUrlAuth/show-current';
@@ -74,6 +96,10 @@ class ApiEndPoint {
   static String showCurrentTransaksi = '$baseUrlTransaksi/show-current';
   static String showTransactionByUserId = '$baseUrlTransaksi/show-by-user/';
   static String storeTransactionByAdmin = '$baseUrlTransaksi/store';
+  static String showTransactionByUserIdAvailableMonth =
+      '$baseUrlTransaksi/show-available-month';
+  static String showTransactionByUserIdAvailableYear =
+      '$baseUrlTransaksi/show-available-year';
 
   //Alur Belajar
   static String showCurrentAlurBelajar = '$baseUrlAlurBelajar/show-current';

@@ -30,7 +30,7 @@ class UploadAlbumPageComponentThree extends GetView<UploadAlbumPageController> {
                 children: [
                   TextSpan(
                     text: '*minimal 1 Foto',
-                    style: tsBodySmallRegular(dangerColor),
+                    style: tsBodySmallRegular(greyColor),
                   ),
                 ],
               ),
@@ -53,7 +53,8 @@ class UploadAlbumPageComponentThree extends GetView<UploadAlbumPageController> {
               return InkWell(
                 onTap: () {
                   Get.to(() => CommonDetailImagePage(
-                        imagePath: controller.imageFileList[index].path, isNetwork: false,
+                        imagePath: controller.imageFileList[index].path,
+                        isNetwork: false,
                       ));
                 },
                 child: CommonGridImageItem(
